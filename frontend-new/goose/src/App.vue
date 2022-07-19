@@ -27,11 +27,13 @@
     <li><a class="dropdown-item" href="#">Something else here</a></li>
   </ul>
 </div>
+<loginview></loginview>
+
 </template>
 
 <script>
 import NavBar from '@/components/NavBar'
-
+import loginview from './components/loginview.vue'
 export default {
   name: "HelloWorld",
   
@@ -41,6 +43,7 @@ export default {
 
   components:{
     NavBar,
-  }
+    loginview,
+}
 };
 </script>
