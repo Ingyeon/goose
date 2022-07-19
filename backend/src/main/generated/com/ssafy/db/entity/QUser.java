@@ -6,12 +6,16 @@ import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.querydsl.core.types.Path;
 
 
 /**
  * QUser is a Querydsl query type for User
  */
+
 @Generated("com.querydsl.codegen.EntitySerializer")
 public class QUser extends EntityPathBase<User> {
 
@@ -47,4 +51,3 @@ public class QUser extends EntityPathBase<User> {
     }
 
 }
-
