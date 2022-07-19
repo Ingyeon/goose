@@ -3,13 +3,11 @@
   <NavBar/>
   <router-view />
 </div>
-<loginview></loginview>
 
 </template>
 
 <script>
 import NavBar from '@/components/NavBar'
-import loginview from './components/loginview.vue'
 export default {
   name: "App",
   
@@ -19,7 +17,6 @@ export default {
 
   components:{
     NavBar,
-    loginview,
 }
 };
 </script>

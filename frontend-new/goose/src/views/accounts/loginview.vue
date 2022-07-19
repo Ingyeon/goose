@@ -1,4 +1,5 @@
 <template>
+<h1>로그인</h1>
 <form>
   <div class="mb-3">
     <label for="IdInput" class="form-label">Id</label>
