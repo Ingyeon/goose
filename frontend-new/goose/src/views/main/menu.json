@@ -1,0 +1,16 @@
+{
+  "home" : {
+    "name" : "홈",       
+    "hidden" : false,
+    "path" : "/",
+    "icon" : "",
+    "children" : []
+  },
+  "test" : {
+    "name" : "test",
+    "hidden" : false,
+    "path" : "/test",
+    "icon" : "",
+    "children" : []
+  }
+}
