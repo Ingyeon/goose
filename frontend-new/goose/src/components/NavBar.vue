@@ -24,22 +24,22 @@
 </template>
 
 <script>
-import { useRouter } from 'vue-router'
+// import { useRouter } from 'vue-router'
 
 export default {
-    setup() {
-      const router = useRouter()
-      const homeClick = function (){
-        console.log("hi")
-        router.push({
-          name: 'Home',
-          params: {
-            // key: value
-          }
-        })
-      }
-      return { homeClick }
-    },
+    // setup() {
+    //   const router = useRouter()
+    //   const homeClick = function (){
+    //     console.log("hi")
+    //     router.push({
+    //       name: 'Home',
+    //       params: {
+    //         // key: value
+    //       }
+    //     })
+    //   }
+    //   return { homeClick }
+    // },
 }
 </script>
 
