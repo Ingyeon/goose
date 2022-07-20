@@ -2,44 +2,52 @@
   <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
     <router-link to="/" class="navbar-brand">Goose</router-link>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <router-link to="/login" class="nav-link active" aria-current="page" href="#">로그인</router-link>
+    <!-- 로그인 안되있을 경우 -->
+    <ul v-if="!isLoggedIn" class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <router-link to="/login" class="nav-link active" aria-current="page" href="#">로그인</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link to="/" class="nav-link" href="#">회원가입</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/" class="nav-link" href="#">회원가입</router-link>
-          </li>
-          <li class="nav-item">
-          <router-link to="/test" class="nav-link" href="#">테스트</router-link>
+        <router-link to="/test" class="nav-link" href="#">테스트</router-link>
+      </li>
+    </ul>
+    <!-- 로그인 안되있을 경우 끝 -->
+    <!-- 로그인 되있을 경우 -->
+    <ul v-if="isLoggedIn" class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <router-link to="/" class="nav-link active" aria-current="page" href="#">스터디 참여하기</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link to="/" class="nav-link" href="#">스터디 만들기</router-link>
         </li>
-
-      </ul>
-    </div>
+      <li class="nav-item">
+        <router-link to="/test" class="nav-link" href="#">마이 페이지</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link to="/test" class="nav-link" href="#">로그 아웃</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link to="/test" class="nav-link" href="#">테스트</router-link>
+      </li>
+    </ul>
+    <!-- 로그인 되있을 경우 끝 -->
   </div>
 </nav>
 </template>
 
 <script>
 // import { useRouter } from 'vue-router'
-
+import { useStore } from "vuex"
+import { computed } from "vue"
 export default {
-    // setup() {
-    //   const router = useRouter()
-    //   const homeClick = function (){
-    //     console.log("hi")
-    //     router.push({
-    //       name: 'Home',
-    //       params: {
-    //         // key: value
-    //       }
-    //     })
-    //   }
-    //   return { homeClick }
-    // },
+    setup() {
+      const store = useStore()
+      const isLoggedIn = computed(()=> store.getters.isLoggedIn)
+      return { isLoggedIn,}
+    },
 }
 </script>
 
