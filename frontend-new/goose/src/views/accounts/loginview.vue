@@ -22,7 +22,7 @@ import {reactive} from 'vue'
 // import {useStore} from 'vuex'
 
 export default {
-    name: 'loginview',
+    name: 'loginView',
     
     setup(){
     // const store = useStore()
