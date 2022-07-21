@@ -7,17 +7,38 @@ export default {
         // token 인증 방식
         token: localStorage.getItem('token') || '',  
         authError: null, // 오류 발생 시
+        
     },
     getters: {
         isLoggedIn: state => !!state.token,
         authError: state => state.authError,
-        authHeader: state => ({ Authorization: `Token ${state.token}`})
+        authHeader: state => ({ Authorization: `Token ${state.token}`}),
+        currentUser: state => state.currentUser,
+
     },
     mutations: {
         SET_TOKEN: (state, token) => state.token = token,
         SET_AUTH_ERROR: (state, error) => state.authError = error
     },
     actions: {
+        login({commit, dispatch}){
+            axios({
+                url: rest.auth_login(),
+                method: 'post',
+            })
+            .then(res => {
+                console.log("then")
+                const token = res.data.key
+                dispatch('saveToken', token)
+            
+                router.push({name: 'Home'})
+            })
+            .catch(err => {
+                console.log("catch")
+                console.error(err.response.data)
+                commit('SET_AUTH_ERROR', err.response.data)
+            })
+        },
         saveToken({  commit  }, token) {
             commit('SET_TOKEN', token)
             localStorage.setItem('token', token)
@@ -26,25 +47,7 @@ export default {
             commit('SET_TOKEN', '')
             localStorage.setItem('token','')
         },
-
-        login({commit, dispatch}, credentials){
-            axios({
-                url: rest.auth_login,
-                method: 'post',
-                data: credentials
-            })
-            .then(res => {
-                const token = res.data.key
-                dispatch('saveToken', token)
-                dispatch('fetchCurrentUser')
-            
-            router.push({name: 'Home'})
-            })
-            .catch(err => {
-                console.error(err.response.data)
-                commit('SET_AUTH_ERROR', err.response.data)
-            })
-        }
+          
         // savetoken 액션 제작 하기
         
         // signup({  commit, dispatch}, credentials){

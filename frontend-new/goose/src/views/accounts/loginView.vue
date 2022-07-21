@@ -9,24 +9,25 @@
     <label for="passwordInput" class="form-label">Password</label>
     <input type="password" class="form-control" id="passwordInput" v-model="state.form.password">
   </div>
-  <button type="submit" class="btn btn-primary">로그인</button>
-    <button type="submit" class="btn btn-secondary">회원가입</button>
+  <button type="submit" @click.prevent="clickLogin" class="btn btn-primary">로그인</button>
+  <router-link to="/signup" class="btn btn-secondary">회원가입</router-link>
 </form>
 
 <!-- 확인용 -->
 {{state.form}}
+{{token}}
 </template>
 
 <script>
-import {reactive} from 'vue'
-// import {useStore} from 'vuex'
+import {reactive,computed} from 'vue'
+import {useStore} from 'vuex'
 
 export default {
     name: 'loginView',
     
     setup(){
-    // const store = useStore()
-    // const loginForm = ref(null)
+    const store = useStore()
+    const token = computed(() => store.getters.isLoggedIn)
 
     const state = reactive({
         form:{
@@ -35,30 +36,24 @@ export default {
         }
     })
     // store 및 서버 설정 끝나면 아래 코드 지우고 주석 코드로 대체
-    const clickLogin = function(event){
-        event.preventDefault()
-        alert(JSON.stringify(state.form))
+    // const clickLogin = function(event){
+    //     event.preventDefault()
+    //     alert(JSON.stringify(state.form))
 
-    }
-    // 원래 사용할 코드는 아래 주석으로 기재 
-    // const clickLogin = function(){
-    //     loginForm.value.validate(valid) => {
-    //         if (valid){
-    //             // dispatch 함수명 바뀔 경우 아래줄 수정
-    //             store.dispatch('requestLogin',{id: state.form.id, password: state.form.password})
-    //             .then(function (result){
-    //                 alert('accessToken: ' + result.data.accessToken)
-    //             })
-    //             .catch(function(err){
-    //                 alert(err)
-    //             })
-    //         }
-    //         else {
-    //             alert ('로그인 실패!')
-    //         }
-    //     }
     // }
-    return {state,clickLogin}
+
+    const clickLogin = function(){
+                // dispatch 함수명 바뀔 경우 아래줄 수정
+                console.log(state.form.id, state.form.password)
+                store.dispatch('login',{id: state.form.id, password: state.form.password})
+                .then(function (result){
+                    alert('accessToken: ' + result.data.Token)
+                })
+                .catch(function(err){
+                    alert(err)
+                })
+            }
+    return {state,clickLogin,store,token}
     }
 }
 </script>
