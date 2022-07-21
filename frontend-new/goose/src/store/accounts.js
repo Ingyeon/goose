@@ -7,30 +7,35 @@ export default {
         // token 인증 방식
         token: localStorage.getItem('token') || '',  
         authError: null, // 오류 발생 시
+        loginUser: {},
+        
         
     },
     getters: {
         isLoggedIn: state => !!state.token,
         authError: state => state.authError,
         authHeader: state => ({ Authorization: `Token ${state.token}`}),
-        currentUser: state => state.currentUser,
+        loginUser: state => state.loginUser,
 
     },
     mutations: {
         SET_TOKEN: (state, token) => state.token = token,
+        SET_LOGIN_USER: (state, user) => state.loginUser = user,
         SET_AUTH_ERROR: (state, error) => state.authError = error
     },
     actions: {
-        login({commit, dispatch}){
+        login({commit, dispatch},credential){
             axios({
-                url: rest.auth_login(),
+                url: rest.auth_login.login(),
                 method: 'post',
+                data: credential
             })
             .then(res => {
                 console.log("then")
                 const token = res.data.key
                 dispatch('saveToken', token)
-            
+                dispatch('fetchLoginUser')
+                
                 router.push({name: 'Home'})
             })
             .catch(err => {
@@ -47,31 +52,45 @@ export default {
             commit('SET_TOKEN', '')
             localStorage.setItem('token','')
         },
-          
-        // savetoken 액션 제작 하기
-        
-        // signup({  commit, dispatch}, credentials){
-        //     axios({
-        //         url: ??,
-        //         method: 'post',
-        //         data: credentials
-        //     })
-        //     .then(res => {
-        //         const token = res.data.key
-        //         dispatch('saveToken', token)
-        //         dispatch('fetchCurrentUser')
-        //         router.push({ name: 'Home '})
-        //     })
-        //     .catch(err => {
-        //         console.error(err.response.data)
-        //         commit('SET_AUTH_ERROR', err.response.data)
-        //     })
-        // }
 
+        signup({ commit, dispatch}, credentials){
+            axios({
+                url: rest.user.user_signup(),
+                method: 'post',
+                data: credentials
+            })
+            .then(res => {
+                const token = res.data.key
+                dispatch('saveToken', token)
+                router.push({ name: 'Home '})
+            })
+            .catch(err => {
+                console.error(err.response.data)
+                commit('SET_AUTH_ERROR', err.response.data)
+            })
+        },
+        // 현재 접속중인 이용자
+        fetchLoginUser({ commit, getters, dispatch }) {
+      
+            if (getters.isLoggedIn) {
+              axios({
+                url: rest.user.user_myprofile(),   // 확인 어디서?
+                method: 'get',
+                headers: getters.authHeader,
+              })
+                .then(res => commit('SET_LOGIN_USER', res.data))
+                .catch(err => {
+                  if (err.response.status === 401) {
+                    dispatch('removeToken')
+                    router.push({ name: 'login' })
+                  }
+                })
+            }
+      
 
         // logout({  getters , dispatch}){
         //     axios({
-        //         url: ??,
+        //         url: rest.user.,
         //         method: 'post',
         //         headers: getters.authHeader,
         //     })
@@ -84,5 +103,5 @@ export default {
         //         console.error(err.response)
         //     })
         // }
-    }
+    }}
 }
