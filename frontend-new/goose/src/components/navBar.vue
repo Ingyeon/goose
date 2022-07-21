@@ -9,10 +9,11 @@
       </li>
       <li class="nav-item">
         <router-link to="/signup" class="nav-link active" aria-current="page" href="#">회원가입</router-link>
-        </li>
-        <li class="nav-item">
+      </li>
+      <li class="nav-item">
         <router-link to="/test" class="nav-link" href="#">테스트</router-link>
       </li>
+        
     </ul>
     <!-- 로그인 안되있을 경우 끝 -->
     <!-- 로그인 되있을 경우 -->
@@ -20,9 +21,6 @@
       <li class="nav-item">
         <router-link to="/" class="nav-link active" aria-current="page" href="#">스터디 참여하기</router-link>
       </li>
-      <li class="nav-item">
-        <router-link to="/" class="nav-link" href="#">스터디 만들기</router-link>
-        </li>
       <li class="nav-item">
         <router-link to="/test" class="nav-link" href="#">마이 페이지</router-link>
       </li>
