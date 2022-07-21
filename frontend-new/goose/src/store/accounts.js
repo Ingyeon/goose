@@ -1,5 +1,6 @@
-// import router from '@/router'
-// import axios from 'axios'
+import router from '@/router'
+import axios from 'axios'
+import rest from '@/api/rest'
 
 export default {
     state: {
@@ -26,26 +27,25 @@ export default {
             localStorage.setItem('token','')
         },
 
-        // api url 주소 받아올 js 파일 생성 필요
-
-        // login({commit, dispatch}, credentials){
-        //     axios({
-        //         url: ??
-        //         method: 'post',
-        //         data: credentials
-        //     })
-        //     .then(res => {
-        //         const token = res.data.key
-        //         dispatch('saveToken', token)
-        //         dispatch('fetchCurrentUser')
+        login({commit, dispatch}, credentials){
+            axios({
+                url: rest.auth_login,
+                method: 'post',
+                data: credentials
+            })
+            .then(res => {
+                const token = res.data.key
+                dispatch('saveToken', token)
+                dispatch('fetchCurrentUser')
             
-        //     router.push({name: 'Home'})
-        //     })
-        //     .catch(err => {
-        //         console.error(err.response.data)
-        //         commit('SET_AUTH_ERROR', err.response.data)
-        //     })
-        // }
+            router.push({name: 'Home'})
+            })
+            .catch(err => {
+                console.error(err.response.data)
+                commit('SET_AUTH_ERROR', err.response.data)
+            })
+        }
+        // savetoken 액션 제작 하기
         
         // signup({  commit, dispatch}, credentials){
         //     axios({

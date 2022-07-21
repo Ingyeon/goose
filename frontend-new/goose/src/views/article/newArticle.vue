@@ -21,12 +21,6 @@
     <option value="개인공부">개인공부</option>
     <option value="기타">기타</option>
 </select>
-    <label class="form-label">분류</label>
-    <select class="form-select" v-model="state.form.classification">
-  <option selected>선택</option>
-  <option value="모집중">모집중</option>
-  <option value="모집완료">모집완료</option>
-</select>
   <div class="mb-3">
     <label for="titleInput" class="form-label">제목</label>
     <input type="text" class="form-control" id="titleInput" v-model="state.form.title">
@@ -57,12 +51,10 @@ export default {
     const state = reactive({
         form:{
             // 임의 필드명, 추후 템플릿과 같이 수정
-            recruit: null,
-            chooseStudy: null,
-            classification: null,
+            recruitment: null,
+            category: null,
             title: '',
-            textarea: '',
-
+            content: '',
         }
     })
     // 클릭 이벤트에 db로 폼 보내기 + 게시판 라우터 이동 구현 필요

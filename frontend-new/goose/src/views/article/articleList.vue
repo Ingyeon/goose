@@ -32,7 +32,7 @@
     next-text="Next"
     last-text="Last"
     ></b-pagination>
-  <router-link :to="{ name: 'newArticle'}" class="btn btn-primary">글 작성</router-link>
+  <router-link to="/newarticle" class="btn btn-primary">글 작성</router-link>
 </template>
 
 <script>
