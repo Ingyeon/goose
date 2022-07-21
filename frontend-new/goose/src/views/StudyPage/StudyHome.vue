@@ -34,9 +34,9 @@
 </template>
 
 <script>
-import Board from '@/components/StudyPage/Board.vue'
+import Board from '@/components/StudyPage/board.vue'
 import Callender from '@/components/StudyPage/Callender'
-import StudyUpdate from '@/components/StudyPage/StudyUpdate.vue'
+import StudyUpdate from '@/components/StudyPage/studyUpdate.vue'
 import { useStore } from "vuex"
 import { computed } from "vue"
 
