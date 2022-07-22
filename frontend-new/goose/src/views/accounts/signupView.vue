@@ -1,57 +1,79 @@
 <template>
     <div class="container mt-5">
-        <form @submit.prevent="submitForm">
+        <form @submit.prevent="signupForm">
             <div class="inputBox">
                 <label for="inputname" class="form-label">이름</label>
-                <input type="text" id="inputname" class="form-control" placeholder="이름" v-model="status.username">
+                <input type="text" id="inputname" class="form-control" placeholder="이름" v-model="state.name">
             </div>
             <div class="inputBox">
                 <label for="inputId" class="form-label">ID</label>
-                <input type="text" id="inputId" class="form-control" placeholder="ID를 입력해주세요" v-model="status.id">
+                <input type="text" id="inputId" class="form-control" placeholder="ID를 입력해주세요" v-model="state.id">
             </div>
             <div class="inputBox">
                 <label for="inputPassword" class="form-label">Password</label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="비밀번호를 입력해주세요" aria-describedby="passwordHelpBlock" v-model="status.password1">
+                <input type="password" id="inputPassword" class="form-control" placeholder="비밀번호를 입력해주세요" aria-describedby="passwordHelpBlock" v-model="state.password1">
                 <div id="passwordHelpBlock" class="form-text">
                     Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
                 </div>
-                <input type="password" id="inputPassword" class="form-control" placeholder="비밀번호 확인" v-model="status.password2">
+                <input type="password" id="inputPassword" class="form-control" placeholder="비밀번호 확인" v-model="state.password2">
             </div>
              <div class="inputBox">
                 <label for="inputEmail" class="form-label">Email</label>
-                <input type="email" class="form-control" id="inputEmail">
+                <input type="email" class="form-control" id="inputEmail" v-model="state.email">
+            </div>
+            <div class="inputBox">
+                <label for="inputInterest" class="form-label">Interest</label>
+                <input type="text" id="inputInterest" class="form-control" placeholder="취미를 입력해주세요" v-model="state.interest">
             </div>
             <div class="inputBox">
               <input type="submit" value="Submit">
-              <input type="button" value="Back" @click="moveToLogIn">
+              <router-link to="/login" class="btn input-box-btn">Back</router-link>
             </div>
         </form>  
     </div>
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { reactive,computed } from 'vue'
+import { useStore } from 'vuex'
+import router from '@/router'
 
 export default {
+    name: 'signupView',
+
      setup() {
-        const status = reactive({
-            username: '',
+        const store = useStore()
+        const state = reactive({
+            name: '',
             id : '',
             password1: '',
             password2: '',
             email: '',
+            interest: '',
         })
-        const submitForm = () => {
-            //submit
-        }
         
-        const moveToLogin = () => {
-            //moveToLogin
+        const signupForm = function(){
+            // dispatch 함수명 바뀔 경우 아래줄 수정
+            console.log(state.id, state.password1, state.name, state.interest, state.email  )
+            store.dispatch('signup',{name: state.name, id: state.id, password: state.password1, email:state.email, interest: state.interest})
+            .then(function (result){
+                // alert('accessToken: ' + result.data.Token)
+                router.push({name :'Login'})
+            })
+            .catch(function(err){
+                alert(err)
+            })
+        // const moveToLogin = () => {
+        //     //moveToLogin
+        //     this.$router.replace({name:Login})
+        // }
         }
         return {
-            status,
+            state,
+            store,
+            signupForm,
         }
-    },
+    }
 }
 </script>
 
@@ -66,26 +88,11 @@ export default {
     justify-content: space-evenly;
     }
 
-    /* .inputBox input {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    outline: none;
-    padding: 10px 20px;
-    border-radius: 35px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    font-size: 16px;
-    color: #666;
-    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
-    } */
-
     .inputBox input::placeholder {
     color: #666
     }
 
-    .inputBox input[type="button"] {
+    .input-box-btn {
     background: #fff;
     color: #666;
     cursor: pointer;
