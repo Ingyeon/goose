@@ -55,10 +55,10 @@ export default {
         const signupForm = function(){
             // dispatch 함수명 바뀔 경우 아래줄 수정
             console.log(state.id, state.password1, state.name, state.interest, state.email  )
-            store.dispatch('signup',{name: state.name, id: state.id, password: state.password1, email:state.email, interest: state.interest})
+            store.dispatch('signup',{'name': state.name, 'id': state.id, 'password': state.password1, 'email':state.email, 'interest': state.interest, 'photo':''})
             .then(function (result){
                 // alert('accessToken: ' + result.data.Token)
-                router.push({name :'Login'})
+                // router.push({name :'Login'})
             })
             .catch(function(err){
                 alert(err)

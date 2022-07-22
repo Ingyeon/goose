@@ -31,10 +31,9 @@ export default {
                 data: credential
             })
             .then(res => {
-                console.log("then")
-                const token = res.data.key
+                const token = res.data.accessToken
                 dispatch('saveToken', token)
-                dispatch('fetchLoginUser')
+                // dispatch('fetchLoginUser')
                 
                 router.push({name: 'Home'})
             })
@@ -60,12 +59,15 @@ export default {
                 data: credentials
             })
             .then(res => {
-                const token = res.data.key
-                dispatch('saveToken', token)
+                // const token = res.data.accessToken
+                // dispatch('saveToken', token)
                 router.push({ name: 'Home '})
             })
             .catch(err => {
-                console.error(err.response.data)
+                // console.log(url)
+                console.log('catch')
+                console.log(err)
+                // console.error(err.response.data)
                 commit('SET_AUTH_ERROR', err.response.data)
             })
         },

@@ -43,16 +43,17 @@ export default {
     // }
 
     const clickLogin = function(){
-                // dispatch 함수명 바뀔 경우 아래줄 수정
-                console.log(state.form.id, state.form.password)
-                store.dispatch('login',{id: state.form.id, password: state.form.password})
-                .then(function (result){
-                    alert('accessToken: ' + result.data.Token)
-                })
-                .catch(function(err){
-                    alert(err)
-                })
-            }
+        // dispatch 함수명 바뀔 경우 아래줄 수정
+        console.log(state.form.id, state.form.password)
+        store.dispatch('login',{id: state.form.id, password: state.form.password})
+        .then(function (result){
+          console.log(result)
+            // alert('accessToken: ' + result.data.Token)
+        })
+        .catch(function(err){
+            alert(err)
+        })
+      }
     return {state,clickLogin,store,token}
     }
 }

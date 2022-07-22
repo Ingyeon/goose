@@ -3,7 +3,7 @@ const HOST = 'http://localhost:8083/api/v1/'
 const Article = 'articles/'
 const Auth = 'auth/login'
 const Study = 'study/'
-const User = 'users/'
+const User = 'users'
 
 export default{
     auth_login:{
