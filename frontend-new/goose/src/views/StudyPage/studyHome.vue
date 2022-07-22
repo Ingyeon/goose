@@ -4,56 +4,57 @@
   <div>
     <div class="container d-flex">
       <div class="m-3">스터디 이름 : {{ studyName }}</div>
-      <div class="m-3">인원 : {{ NOP }} </div>
+      <div class="m-3">인원 : {{ member }}/ {{ maxMember }} </div>
     </div>
-    <div>가입 요청 확인</div>
-    <div>스터디 소개글 : {{ notice }}</div>
+    <div>스터디 소개글 : collume 추가되면 추가할 예정{{ }}</div>
   </div>
 </div>
 <div class="container d-flex">
-  <div>스터디 주소 : {{ webURI }}</div>
-  <router-link :to="{ path: '/login' +''}" class="navbar-brand">입장하기</router-link>
+  <div>스터디 주소 : {{ camURL }}</div>
+  <router-link :to="{ path: '/' +''}" class="navbar-brand">입장하기</router-link>
 </div>
 <div>
-  <button @click.prevent="">전체보기</button>
-  <Board />
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#boardModal">전체보기</button>
+  <board />
 </div>
 <div>
-  <button @click.prevent="">전체보기</button>
-  <Callender />
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#callenderModal">전체보기</button>
+  <callender />
 </div>
 <div class="container d-flex">
-  <button @click.prevent="" >스터디 터트리기</button>
+  <button @click.prevent="deleteStudy" >스터디 터트리기</button>
   <button @click.prevent="" >스터디 탈퇴하기</button>
   <div>
     <button @click.prevent="" >스터디 수정</button>
-    <StudyUpdate />
-    <!-- https://bootstrap-vue.org/docs/components/modal -->
+    <studyUpdate />
   </div>
 </div>
 </template>
 
 <script>
-import Board from '@/components/StudyPage/board.vue'
-import Callender from '@/components/StudyPage/Callender'
-import StudyUpdate from '@/components/StudyPage/studyUpdate.vue'
+import board from '@/components/StudyPage/board.vue'
+import callender from '@/components/StudyPage/callender'
+import studyUpdate from '@/components/StudyPage/studyUpdate.vue'
 import { useStore } from "vuex"
 import { computed } from "vue"
 
 export default {
   components:{
-      Board,  // 항목을 몇개만 보여주는건 Board에서 props를 이용하여 처리할 예정(전체보기와 구분)
-      // 그전에 b-table 관련해서 찾아보자
-      Callender,StudyUpdate,
+      board,callender,studyUpdate,
   },
 
   setup() {
     const store = useStore()
     const studyName = computed(() => store.getters.studyName )
-    const NOP = computed(() => store.getters.numOfPeople)
-    const notice = computed(() => store.getters.notice)
-    const webURI = computed(() => store.getters.webURI)
-    return { studyName,NOP,notice,webURI }
+    const member = computed(() => store.getters.member)
+    const maxMember = computed(() => store.getters.maxMember)
+    // const notice = computed(() => store.getters.notice)
+    const camURL = computed(() => store.getters.camURL)
+
+    const deleteStudy = () =>{
+      store.dispatch('deleteStudy',store.getters.studyId)
+    }
+    return { studyName,member,maxMember,camURL,deleteStudy }
   }
 }
 </script>
