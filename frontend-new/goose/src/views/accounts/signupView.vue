@@ -15,7 +15,7 @@
                 <div id="passwordHelpBlock" class="form-text">
                     Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
                 </div>
-                <input type="password" id="inputPassword" class="form-control" placeholder="비밀번호 확인" v-model="state.password2">
+                <input type="password" id="inputPassword2" class="form-control" placeholder="비밀번호 확인" v-model="state.password2">
             </div>
              <div class="inputBox">
                 <label for="inputEmail" class="form-label">Email</label>
@@ -55,10 +55,11 @@ export default {
         const signupForm = function(){
             // dispatch 함수명 바뀔 경우 아래줄 수정
             console.log(state.id, state.password1, state.name, state.interest, state.email  )
-            store.dispatch('signup',{'name': state.name, 'id': state.id, 'password': state.password1, 'email':state.email, 'interest': state.interest, 'photo':''})
+            // store.dispatch('signup',{"name": state.name, 'id': state.id, 'password': state.password1, 'email':state.email, 'interest': state.interest, 'photo':'d'})
+            store.dispatch('signup',{"email":state.email,"id":state.id,"interest":state.interest,"name":state.name, "password":state.password1, "photo": "(String) 사진 사용X"    })
             .then(function (result){
                 // alert('accessToken: ' + result.data.Token)
-                // router.push({name :'Login'})
+                router.push({name :'Login'})
             })
             .catch(function(err){
                 alert(err)

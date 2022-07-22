@@ -33,7 +33,7 @@ export default {
             .then(res => {
                 const token = res.data.accessToken
                 dispatch('saveToken', token)
-                // dispatch('fetchLoginUser')
+                dispatch('fetchLoginUser')
                 
                 router.push({name: 'Home'})
             })
@@ -53,15 +53,18 @@ export default {
         },
 
         signup({ commit, dispatch}, credentials){
+            console.log("엑시오스 하기 전")
+            console.log(credentials)
             axios({
                 url: rest.user.user_signup(),
                 method: 'post',
                 data: credentials
             })
             .then(res => {
+                console.log("then")
                 // const token = res.data.accessToken
                 // dispatch('saveToken', token)
-                router.push({ name: 'Home '})
+                // router.push({ name: 'Home '})
             })
             .catch(err => {
                 // console.log(url)
