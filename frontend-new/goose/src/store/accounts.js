@@ -9,13 +9,12 @@ export default {
         authError: null, // 오류 발생 시
         loginUser: {},
         
-        
     },
     getters: {
-        isLoggedIn: state => !!state.token,
-        authError: state => state.authError,
-        authHeader: state => ({ Authorization: `Token ${state.token}`}),
-        loginUser: state => state.loginUser,
+        isLoggedIn: state => !!state.token,    // 로그인 했는지 확인
+        authError: state => state.authError,   // 인증 에러
+        authHeader: state => ({ Authorization: `Token ${state.token}`}),  // 인증 정보
+        loginUser: state => state.loginUser,  // 현재 로그인한 유저 
 
     },
     mutations: {
@@ -37,7 +36,6 @@ export default {
             .then(res => {
                 const token = res.data.accessToken
                 dispatch('saveToken', token)
-                console.log(token)
                 // dispatch('fetchLoginUser')
                 
                 router.push({name: 'Home'})

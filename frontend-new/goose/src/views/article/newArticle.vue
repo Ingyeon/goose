@@ -29,7 +29,7 @@
     <label for="textarea" class="form-label">내용</label>
     <textarea type="textarea" class="form-control" id="textarea" v-model="state.form.textarea"></textarea>
   </div>
-  <button type="submit" class="btn btn-primary">작성</button>
+  <button type="submit" @click.prevent="clickSet" class="btn btn-primary">작성</button>
     
 </form>
 </div>
@@ -40,30 +40,35 @@
 
 <script>
 import {reactive} from 'vue'
-// import {useStore} from 'vuex'
+import {useStore} from 'vuex'
 
 export default {
     name: 'newArticle',
     
     setup(){
-    // const store = useStore()
+    const store = useStore()
 
     const state = reactive({
         form:{
-            // 임의 필드명, 추후 템플릿과 같이 수정
             recruitment: null,
             category: null,
             title: '',
             content: '',
+            state: '모집중',
         }
     })
-    // 클릭 이벤트에 db로 폼 보내기 + 게시판 라우터 이동 구현 필요
-    const clickSet = function(event){
-        event.preventDefault()
-        alert(JSON.stringify(state.form))
 
+    const clickSet = function(){
+      store.dispatch('createArticle',{
+        category:state.form.category, 
+        recruitment: state.form.category,
+        state: state.form.state,
+        title: state.form.title,
+        content: state.form.content,
+        })
     }
-    return {state,clickSet}
+    
+    return {state,clickSet,store}
     }
 }
 </script>

@@ -8,7 +8,9 @@
 import commentForm from "./commentForm.vue";
 
 export default{
-    components: {commentForm}
-
+    components: {commentForm},
+    setup(){
+        
+    }
 }
 </script>

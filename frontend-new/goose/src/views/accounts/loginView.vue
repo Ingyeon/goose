@@ -35,12 +35,6 @@ export default {
             password: '',
         }
     })
-    // store 및 서버 설정 끝나면 아래 코드 지우고 주석 코드로 대체
-    // const clickLogin = function(event){
-    //     event.preventDefault()
-    //     alert(JSON.stringify(state.form))
-
-    // }
 
     const clickLogin = function(){
         // dispatch 함수명 바뀔 경우 아래줄 수정

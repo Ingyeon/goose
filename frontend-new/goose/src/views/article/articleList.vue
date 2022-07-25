@@ -37,8 +37,8 @@
 
 <script>
 import { ref, reactive} from 'vue'
-// import { onMounted } from 'vue'
-// import {useStore} from 'vuex'
+import { onMounted } from 'vue'
+import {useStore} from 'vuex'
 
 export default {
     setup(){
@@ -47,26 +47,33 @@ export default {
         const Rows = ref(10)
         const PerPage = ref(100)
 
-        // const store = useStore()
+        const store = useStore()
+        const articles = store.getters.articles
 
         // 게시판
         const state = reactive({
-            article_list: [],
+            article_list: [
+            ],
             headers: ['글번호','상태','분류','제목','작성자','등록일','조회수']
         })
 
-        // 게시판 db의 필드값 확인 후 아래 코드에서 수정 후 사용할 예정
-        // const makeLists = function(){
-        //     for(let articleItem of store.articles) {
-        //         state.article_list.push({
-        //             글번호: articleItem.??,
-        //         })
-        //     }
-        // }
-        // onMounted(() => {
-        // makeLists()})
+        const makeLists = function(){
+            for(let articleItem of articles) {
+                state.article_list.push({
+                    '글번호': articleItem.id,
+                    '상태': articleItem.state,
+                    '분류': articleItem.category,
+                    '제목': articleItem.title,
+                    '작성자': articleItem.user_pk, // user_pk값으로 작성자 이름 가져오는 작업 필요
+                    '등록일': articleItem.date,
+                    '조회수': articleItem.hit // 임의값 넣음, 추후 조회수 관련 로직 작성 필요
+                })
+            }
+        }
+        onMounted(() => {
+        makeLists()})
     
-    return {currentPage,Rows,PerPage,state}
+    return {currentPage,Rows,PerPage,state,makeLists,onMounted}
 
 
     }
