@@ -1,12 +1,17 @@
 import { createWebHistory, createRouter } from 'vue-router';
 import Home from '@/views/home/home.vue'
-import Login from '@/views/accounts/loginView.vue'
 import test from '@/views/home/test.vue'
+
+//accounts
+import Login from '@/views/accounts/loginView.vue'
 import Signup from '@/views/accounts/signupView.vue'
+import UserDelete from '@/views/accounts/userDelete.vue'
+//Article
 import ArticleList from '@/views/article/articleList.vue'
-import CreateStudy from '@/views/StudyPage/createStudy'
 import NewArticle from '@/views/article/newArticle.vue'
 import ArticleDetail from '@/views/article/articleDetail.vue'
+//Study
+import CreateStudy from '@/views/StudyPage/createStudy'
 
 const routes = [
   {
@@ -27,6 +32,11 @@ const routes = [
     path: '/signup',
     name: 'Signup',
     component: Signup
+  },
+    {
+    path: '/:id/delete',
+    name: 'UserDelete',
+    component: UserDelete
   },
   {path: '/articles',
    name: ArticleList,
