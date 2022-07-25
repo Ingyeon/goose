@@ -29,8 +29,6 @@ public class StudyArticleReplyServiceImpl implements StudyArticleReplyService{
 		articleReply.setArticle_pk(articleReplyRegisterInfo.getArticle_pk());
 		articleReply.setStudy_pk(articleReplyRegisterInfo.getStudy_pk());
 		articleReply.setRe_content(articleReplyRegisterInfo.getRe_content());
-
-		System.out.println(1);
 		
 		return studyArticleReplyRepository.save(articleReply);
 	}

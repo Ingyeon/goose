@@ -26,10 +26,11 @@ public class StudyArticleServiceImpl implements StudyArticleService {
 	StudyArticleRepository studyArticleRepository;
 
 	@Override
-	public StudyArticle createArticle(User user, StudyArticleRegistPostReq articleRegisterInfo) {
+	public StudyArticle createArticle(User user,StudyArticleRegistPostReq articleRegisterInfo) {
 		StudyArticle studyArticle = new StudyArticle();
 		studyArticle.setUser_pk(user.getId());
 		studyArticle.setName(user.getName());
+//		studyArticle.setFileId(fileId);
 		
 		studyArticle.setCategory(articleRegisterInfo.getCategory());
 		studyArticle.setStudy_pk(articleRegisterInfo.getStudy_pk());

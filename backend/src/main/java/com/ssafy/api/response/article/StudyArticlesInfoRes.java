@@ -31,6 +31,8 @@ public class StudyArticlesInfoRes {
 	Long user_pk;
 	@ApiModelProperty(name="작성자")
 	String name;
+	@ApiModelProperty(name="파일 ID")
+	long fileId;
 	@ApiModelProperty(name="사진")
 	String image;
 	

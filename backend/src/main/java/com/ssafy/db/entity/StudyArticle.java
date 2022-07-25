@@ -25,6 +25,9 @@ public class StudyArticle extends BaseEntity{
 	long user_pk;
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	long study_pk;
+
+	long fileId;
+	
 	String category;
 	String title;
 	String content;
