@@ -16,6 +16,9 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Study_Member extends BaseEntity{
 //	@OnDelete(action = OnDeleteAction.CASCADE)
 
