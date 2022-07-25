@@ -38,7 +38,7 @@
   <textarea v-model="state.credential.image" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
   <label for="floatingTextarea">대표 사진 url</label>
 </div>
-  <button @click.prevent="createStudy" type="submit" class="btn btn-primary">Submit</button>
+  <button @click.prevent="createStudy(state.credential)" type="submit" class="btn btn-primary">Submit</button>
 </form>
 
 {{ state.credential }}
@@ -67,7 +67,7 @@ export default {
         })
         const createStudy = ()=>{
             console.log(state.credential.category)
-            // store.dispatch('createStudy',state.credential)
+            store.dispatch('createStudy',state.credential)
             // store.dispatch('createStudy',{
             //     "category": state.credential.category,
             //     // "id": "",
@@ -81,19 +81,6 @@ export default {
             //     "url_page": state.credential.url_page,
             //     // "userId": "",
             // })
-            store.dispatch('createStudy',{
-              "category": "알고리즘",
-              "id": "create에선 삭제",
-              "image": "이미지주소값",
-              "maxmember": 5,
-              "member": 1,
-              "open": 0,
-              "password": 1234,
-              "title": "JAVA알고리즘스터디",
-              "url_conf": "회의주소",
-              "url_page": "페이지주소",
-              "userId": "create에선 삭제"
-            })
         }
         return { createStudy, state}
     }

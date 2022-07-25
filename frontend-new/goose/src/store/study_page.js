@@ -101,42 +101,19 @@ export default {
     },
     
     createStudy({getters},credential){
-      console.log(credential)
-      console.log(rest.study.study_create())
-      console.log("??")
-      console.log(getters.getToken)
       axios({
         url: rest.study.study_create(),
         method: 'post',
-        headers: { Authorization: `Token ${getters.getToken}`},
-        data: {
-          "category": "알고리즘",
-          // "id": "create에선 삭제",
-          "image": "",
-          "maxmember": 5,
-          "member": 1,
-          "open": 0,
-          "password": "",
-          "title": "JAVA알고리즘스터디3",
-          "url_conf": "test2",
-          "url_page": "test",
-          // "userId": "create에선 삭제"
-        },
+        headers: getters.authHeader,
+        data: credential
       })  
-      
-      // axios({
-      //   uri: rest.study.study_create(),
-      //   method: 'post',
-      //   // data: credential
-      // })
-      .then(() =>{
-        console.log("스터디생성")
-        // router.push({ name: 'Home '})
+      .then((res) =>{
+        console.log(res)
+        router.push({ name: 'Home '})
       })
       .catch(err => {
         console.log('catch')
         console.log(err)
-        // console.error(err.response.data)
     })
     },
 

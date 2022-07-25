@@ -13,9 +13,9 @@ export default {
     getters: {
         isLoggedIn: state => !!state.token,    // 로그인 했는지 확인
         authError: state => state.authError,   // 인증 에러
-        authHeader: state => ({ Authorization: `Token ${state.token}`}),  // 인증 정보
+        authHeader: state => ({ Authorization: state.token}),  // 인증 정보
         loginUser: state => state.loginUser,  // 현재 로그인한 유저 
-
+        
     },
     mutations: {
         SET_TOKEN: (state, token) => state.token = token,
