@@ -13,9 +13,6 @@
   <router-link to="/signup" class="btn btn-secondary">회원가입</router-link>
 </form>
 
-<!-- 확인용 -->
-{{state.form}}
-{{token}}
 </template>
 
 <script>

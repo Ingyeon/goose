@@ -6,6 +6,8 @@ export default {
     state: {
         articles: [],   // 전체 게시물 조회 시 사용
         article: {},   // 개별 게시물의 CRUD에 사용
+        replies: [], // 해당 게시물의 전체 댓글 조회 시 사용
+        reply: {}, //개별 댓글의 CRUD
     },
     getters: {
         articles: state => state.articles,
