@@ -33,7 +33,8 @@ export default {
             .then(res => {
                 const token = res.data.accessToken
                 dispatch('saveToken', token)
-                dispatch('fetchLoginUser')
+                console.log(token)
+                // dispatch('fetchLoginUser')
                 
                 router.push({name: 'Home'})
             })
