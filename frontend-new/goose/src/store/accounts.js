@@ -21,12 +21,16 @@ export default {
     mutations: {
         SET_TOKEN: (state, token) => state.token = token,
         SET_LOGIN_USER: (state, user) => state.loginUser = user,
-        SET_AUTH_ERROR: (state, error) => state.authError = error
+        SET_AUTH_ERROR: (state, error) => state.authError = error,
+        LOGOUT: (state,user) => { 
+            localStorage.removeItem('user')
+            location.reload();
+        }
     },
     actions: {
         login({commit, dispatch},credential){
             axios({
-                url: rest.auth_login.login(),
+                url: rest.accounts.login(),
                 method: 'post',
                 data: credential
             })
@@ -63,6 +67,7 @@ export default {
             })
             .then(res => {
                 console.log("then")
+                console.log('signup')
                 // const token = res.data.accessToken
                 // dispatch('saveToken', token)
                 // router.push({ name: 'Home '})
@@ -92,7 +97,7 @@ export default {
                   }
                 })
             }
-      
+        },
 
         // logout({  getters , dispatch}){
         //     axios({
@@ -109,5 +114,8 @@ export default {
         //         console.error(err.response)
         //     })
         // }
-    }}
+        logout({commit, dispatch}) {
+            dispatch('removeToken');
+        }
+    }
 }
