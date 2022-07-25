@@ -1,7 +1,6 @@
 import axios from "axios"
 import rest from '@/api/rest'
 import router from "@/router"
-import accounts from './accounts'
 
 export default {
     state: {
@@ -36,7 +35,7 @@ export default {
                 url: rest.article.article_create(),
                 method: 'post',
                 data: form_data,
-                // headers: accounts.getters.authHeader 인증 정보 필요시
+                headers: getters.authHeader,
             })
             .then(res => {
                 console.log('성공')

@@ -21,6 +21,9 @@
       <li class="nav-item">
         <router-link to="/" class="nav-link active" aria-current="page" href="#">스터디 참여하기</router-link>
       </li>
+            <li class="nav-item">
+        <router-link to="/articles" class="nav-link active" aria-current="page" href="#">게시판</router-link>
+      </li>
       <li class="nav-item">
         <router-link to="/createStudy" class="nav-link active" aria-current="page" href="#">스터디 만들기</router-link>
       </li>
