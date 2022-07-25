@@ -7,12 +7,11 @@ import lombok.Setter;
 
 /**
  * 게시글 댓글 수정 API ([PATCH] /api/v1/articlesReply/{id}) 요청에 필요한 리퀘스트 바디 정의.
- * 게시글 댓글 수정 API ([PATCH] /api/v1/studyArticlesReply/{id}) 요청에 필요한 리퀘스트 바디 정의.
  */
 @Getter
 @Setter
 @ApiModel("ArticleReplyUpdatePatchRequest")
 public class ArticleReplyUpdatePatchReq {
-	@ApiModelProperty(name="댓글 내용", example="(String) 댓글 내용")
+	@ApiModelProperty(name="댓글 내용", example="articleReply_content")
 	String re_content;
 }

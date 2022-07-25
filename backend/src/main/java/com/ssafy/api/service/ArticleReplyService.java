@@ -9,17 +9,16 @@ import org.springframework.data.jpa.domain.Specification;
 import com.ssafy.api.request.articleReply.ArticleReplyRegisterPostReq;
 import com.ssafy.api.request.articleReply.ArticleReplyUpdatePatchReq;
 import com.ssafy.db.entity.ArticleReply;
-import com.ssafy.db.entity.User;
 
 /**
  *	모집 게시판 댓글 비즈니스 로직 처리를 위한 서비스 인터페이스 정의.
  */
 public interface ArticleReplyService {
-	ArticleReply createArticleReply(User user, ArticleReplyRegisterPostReq articleReplyRegisterInfo);
+	ArticleReply createArticleReply(ArticleReplyRegisterPostReq articleReplyRegisterInfo);
 
 	void deleteArticleReplyById(Long id);
 
-	ArticleReply updateArticleReply(Long id, User user, ArticleReplyUpdatePatchReq updateInfo);
+	ArticleReply updateArticleReply(Long id, ArticleReplyUpdatePatchReq updateInfo);
 
 	List<ArticleReply> getArticleReply(Specification<ArticleReply> spec);
 

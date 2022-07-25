@@ -1,5 +1,7 @@
 package com.ssafy.api.response.article;
 
+import java.util.Optional;
+
 import com.ssafy.db.entity.Article;
 
 
@@ -42,7 +44,7 @@ public class ArticlesRes {
 		res.setState(articles.getState());
 		res.setRecruitment(articles.getRecruitment());
 		res.setHit(articles.getHit());
-		res.setName(articles.getName());
+		
 
 		res.setUser_pk(articles.getUser_pk());
 		return res;

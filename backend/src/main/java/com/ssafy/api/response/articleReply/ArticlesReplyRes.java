@@ -35,7 +35,6 @@ public class ArticlesReplyRes {
 		res.setId(articlesReply.getId());
 		res.setUser_pk(articlesReply.getUser_pk());
 		res.setDate(articlesReply.getDate());
-		res.setName(articlesReply.getName());
 		res.setRe_content(articlesReply.getRe_content());
 		return res;
 	}

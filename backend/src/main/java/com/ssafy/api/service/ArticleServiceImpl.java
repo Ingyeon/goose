@@ -11,10 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.api.request.article.ArticleRegisterPostReq;
 import com.ssafy.api.request.article.ArticleUpdatePatchReq;
-import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.db.entity.Article;
-import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.ArticleRepository;
+import com.ssafy.db.repository.ArticleRepositorySupport;
 
 /**
  *	모집 게시판 비즈니스 로직 처리를 위한 서비스 구현 정의.
@@ -23,18 +22,20 @@ import com.ssafy.db.repository.ArticleRepository;
 public class ArticleServiceImpl implements ArticleService {
 	@Autowired
 	ArticleRepository articleRepository;
+	
+	@Autowired
+	ArticleRepositorySupport articleRepositorySupport;
 
 	@Override
-	public Article createArticle(User user, ArticleRegisterPostReq articleRegisterInfo) {
+	public Article createArticle(ArticleRegisterPostReq articleRegisterInfo) {
 		Article article = new Article();
 		article.setCategory(articleRegisterInfo.getCategory());
-		article.setUser_pk(user.getId());
+		article.setUser_pk(articleRegisterInfo.getUser_pk());
 		article.setStudy_pk(articleRegisterInfo.getStudy_pk());
 		article.setContent(articleRegisterInfo.getContent());
 		article.setTitle(articleRegisterInfo.getTitle());
 		article.setState(articleRegisterInfo.getState());
 		article.setRecruitment(articleRegisterInfo.getRecruitment());
-		article.setName(user.getName());
 		
 		return articleRepository.save(article);
 	}
@@ -43,6 +44,18 @@ public class ArticleServiceImpl implements ArticleService {
 	public Article getArticlesById(Long id) {
 		Article article = articleRepository.getOne(id);
 		return article;
+	}
+	
+	@Override
+	public List<Article> getArticles() {
+		List<Article> articles = articleRepository.findAll();
+		return articles;
+	}
+	
+	@Override
+	public List<Article> getArticles(Specification<Article> spec) {
+		List<Article> articles = articleRepository.findAll(spec);
+		return articles;
 	}
 	
 	@Override
@@ -57,14 +70,13 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public Article updateArticle(Long id, User user, ArticleUpdatePatchReq articleUpdateInfo) {
+	public Article updateArticle(Long id, ArticleUpdatePatchReq articleUpdateInfo) {
 		Article article = articleRepository.getOne(id);
 		article.setCategory(articleUpdateInfo.getCategory());
 		article.setContent(articleUpdateInfo.getContent());
 		article.setTitle(articleUpdateInfo.getTitle());
 		article.setState(articleUpdateInfo.getState());
 		article.setRecruitment(articleUpdateInfo.getRecruitment());
-		article.setName(user.getName());
 		return articleRepository.save(article);
 	}
 

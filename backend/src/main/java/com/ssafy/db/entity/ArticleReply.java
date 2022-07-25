@@ -4,8 +4,6 @@ import javax.persistence.Entity;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,9 +17,7 @@ import lombok.Setter;
 @DynamicInsert
 @DynamicUpdate
 public class ArticleReply extends BaseEntity{
-	@OnDelete(action = OnDeleteAction.CASCADE)
 	long article_pk;
-	@OnDelete(action = OnDeleteAction.CASCADE)
 	long user_pk;
 	String date;
 	String re_content;

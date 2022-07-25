@@ -79,7 +79,7 @@ public class UserController {
 		return ResponseEntity.status(200).body(UserInfoRes.of(user));
 	}
 	
-	@PatchMapping()
+	@PatchMapping("{userId}")
 	@ApiOperation(value = "회원 정보 수정", notes = "<strong>회원정보</strong>를 수정 한다.") 
     @ApiResponses({
         @ApiResponse(code = 200, message = "성공"),
@@ -88,27 +88,23 @@ public class UserController {
         @ApiResponse(code = 500, message = "서버 오류")
     })
 	public ResponseEntity<? extends BaseResponseBody> updateUser(
-			@RequestBody @ApiParam(value="회원 수정 정보", required = true) UserUpdatePatchReq updateInfo, @ApiIgnore Authentication authentication) {
+			@RequestBody @ApiParam(value="회원 수정 정보", required = true) UserUpdatePatchReq updateInfo, String userId) {
 		
 		//임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
-		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
-		String userId = userDetails.getUsername();
 		User user = userService.updateUser(updateInfo, userId);
 		
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
 	
-	@DeleteMapping()
+	@DeleteMapping("{userId}")
 	@ApiOperation(value = "회원 탈퇴", notes = "<strong>아이디</strong>를 통해 회원탈퇴 한다.") 
     @ApiResponses({
         @ApiResponse(code = 204, message = "성공"),
     })
 	public ResponseEntity<? extends BaseResponseBody> deleteUser(
-			@ApiIgnore Authentication authentication) {
+			@RequestBody @ApiParam(value="회원 아이디", required = true) String userId) {
 		
 		//임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
-		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
-		String userId = userDetails.getUsername();
 		userService.deleteUserByUserId(userId);
 		
 		return ResponseEntity.status(204).body(BaseResponseBody.of(204, "Success"));

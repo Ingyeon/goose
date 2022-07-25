@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -21,10 +20,8 @@ import com.ssafy.api.request.articleReply.ArticleReplyRegisterPostReq;
 import com.ssafy.api.request.articleReply.ArticleReplyUpdatePatchReq;
 import com.ssafy.api.service.ArticleReplyService;
 import com.ssafy.api.service.UserService;
-import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.ArticleReply;
-import com.ssafy.db.entity.User;
 import com.ssafy.db.specification.ArticleReplySpecification;
 
 import io.swagger.annotations.Api;
@@ -32,7 +29,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * 게시글 댓글 관련 API 요청 처리를 위한 컨트롤러 정의.
@@ -46,7 +42,7 @@ public class ArticleReplyController {
 	ArticleReplyService articleReplyService;
 	@Autowired
 	UserService userService;
-
+	
 	@PostMapping()
 	@ApiOperation(value = "게시글 댓글 작성", notes = "<strong>???</strong>를 통해 게시글 댓글을 작성한다.") 
     @ApiResponses({
@@ -56,11 +52,9 @@ public class ArticleReplyController {
         @ApiResponse(code = 500, message = "서버 오류")
     })
 	public ResponseEntity<? extends BaseResponseBody> registerReply(
-			@RequestBody @ApiParam(value="게시글 댓글 작성 정보", required = true) ArticleReplyRegisterPostReq registerInfo, @ApiIgnore Authentication authentication) {
-		SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
-		String userId = userDetails.getUsername();
-		User user = userService.getUserByUserId(userId);
-		articleReplyService.createArticleReply(user, registerInfo);
+			@RequestBody @ApiParam(value="게시글 댓글 작성 정보", required = true) ArticleReplyRegisterPostReq registerInfo) {
+		
+		articleReplyService.createArticleReply(registerInfo);
 		
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
@@ -90,8 +84,18 @@ public class ArticleReplyController {
 			spec = spec.and(ArticleReplySpecification.equalId(id));
 		}
 
+		
+//		List<Article> articles= articleService.getArticles();
 		Page<ArticleReply> articleReplys = articleReplyService.getArticleReply(spec, pageRequest);
-	
+//		List<ArticleReply> articleReplys = articleReplyService.getArticleReply(spec);
+		
+		
+//		List<ArticlesReplyRes> articlesReplyRes = new ArrayList<ArticlesReplyRes>();
+		
+		for (ArticleReply articleReply : articleReplys) {
+			articleReply.setName(userService.findName(articleReply.getUser_pk()));
+		}
+
 		return ResponseEntity.status(200).body(articleReplys);
 	}
 	
@@ -104,11 +108,9 @@ public class ArticleReplyController {
         @ApiResponse(code = 500, message = "서버 오류")
     })
 	public ResponseEntity<? extends BaseResponseBody> updateArticle(
-			@RequestBody @ApiParam(value="댓글 수정 정보", required = true) ArticleReplyUpdatePatchReq updateInfo, Long id, @ApiIgnore Authentication authentication) {
-		SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
-		String userId = userDetails.getUsername();
-		User user = userService.getUserByUserId(userId);
-		articleReplyService.updateArticleReply(id, user, updateInfo);
+			@RequestBody @ApiParam(value="댓글 수정 정보", required = true) ArticleReplyUpdatePatchReq updateInfo, Long id) {
+		
+		articleReplyService.updateArticleReply(id, updateInfo);
 		
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
@@ -119,8 +121,8 @@ public class ArticleReplyController {
         @ApiResponse(code = 204, message = "성공"),
     })
 	public ResponseEntity<? extends BaseResponseBody> deleteArticleReply(
-			@RequestBody @ApiParam(value="댓글 id", required = true) Long id, @ApiIgnore Authentication authentication) {
-		SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
+			@RequestBody @ApiParam(value="댓글 id", required = true) Long id) {
+		
 		articleReplyService.deleteArticleReplyById(id);
 		
 		return ResponseEntity.status(204).body(BaseResponseBody.of(204, "Success"));

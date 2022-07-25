@@ -1,25 +1,43 @@
 package com.ssafy.api.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ssafy.api.request.study.StudyApplyReq;
 import com.ssafy.api.request.study.StudyCreatePostReq;
+import com.ssafy.api.request.study.StudyMemberSaveReq;
+import com.ssafy.api.response.study.StudyApplyListRes;
 import com.ssafy.db.entity.Study;
+import com.ssafy.db.entity.Study_Apply;
 import com.ssafy.db.entity.Study_Member;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.StudyRepository;
+import com.ssafy.db.repository.StudyRepositorySupport;
 import com.ssafy.db.repository.Study_MemberRepository;
+import com.ssafy.db.repository.study_applyRepository;
 
 @Service("studyservice")
 public class StudyServiceImpl implements StudyService{
 	
 	@Autowired
 	StudyRepository studyRepository;
-		
+	
+	@Autowired
+	StudyRepositorySupport studyRepositorySupport;
+	
 	@Autowired
 	Study_MemberRepository studyMemberRepository;
+	
+	@Autowired
+	study_applyRepository studyApplyRepository;
+	
+	
 
+	
 	@Override
 	public Study createStudy(StudyCreatePostReq studyCreatePostReq) {
 		
@@ -70,6 +88,69 @@ public class StudyServiceImpl implements StudyService{
 		return study;
 	}
 
+	@Override
+	public int joinStudy(long study_pk, long user_id) {
+		
+	 	Study study = new Study();
+	 	study.setId(study_pk);
+	 	
+	 	User user = new User();
+	 	user.setId(user_id);
+	 	Study_Apply studyApply = new Study_Apply();
+	 	studyApply.setStudy_pk(study);;
+	 	studyApply.setUser_pk(user);
+	 	
+	 	int joincount = studyApplyRepository.studyJoinChechk(study_pk, user_id);
+	 	int membercount = studyApplyRepository.studyMemberChechk(study_pk, user_id);
+
+	 	if(joincount == 0) {
+	 		studyApplyRepository.save(studyApply);
+	 		return 1; //성공
+	 	}
+	 	else if (membercount >= 1) {
+	 		return 2;	//이미 멤버여서 실패
+	 	}
+	 	else {
+	 		return 0;	//이미신청해서 실패 
+	 	}
+		
+	}
+
+	@Override
+	public List<StudyApplyListRes> studyJoinList(long study_pk) {
+		
+		List<StudyApplyListRes> joinList = studyApplyRepository.findAllByStudyPk(study_pk);
+		return joinList;
+	}
+
+	@Override
+	public Study_Member insertMember(StudyMemberSaveReq studyMemberSaveReq) {
+		Study_Member studyMember = new Study_Member(); 
+//		User user = new User();
+//		Study study = new Study();
+//		
+//		user.setId(studyMemberSaveReq.getUser_pk());
+//		study.setId(studyMemberSaveReq.getStudy_pk());
+//		
+//		studyMember.setUser_pk(user);
+//		studyMember.setStudy_pk(study);
+//		
+		studyMemberRepository.save(studyMemberSaveReq.toEntity());
+	
+		return studyMember;
+	}
+
+	@Override
+	public void joindelete(long id) {
+		Study_Apply studyApply = new Study_Apply();
+		studyApply.setId(id);
+		studyApplyRepository.delete(studyApply);
+		
+	}
+
+
+
+	
 	
 	
 }

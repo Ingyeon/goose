@@ -24,7 +24,6 @@ public class Study extends BaseEntity{
 	String url_conf;
 	String password;
 	
-	
 	public void updateStudy(StudyCreatePostReq studyUpdateInfo) {
 		this.title = studyUpdateInfo.getTitle();
 		this.member = studyUpdateInfo.getMember();
