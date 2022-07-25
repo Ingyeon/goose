@@ -28,10 +28,11 @@ export default {
         }
         
         const moveToHome = () => {
-            //moveToLogin
+            router.push({name : 'Home'})
         }
         return {
             status,
+            moveToHome
         }
     },
 }

@@ -11,7 +11,7 @@
         <router-link to="/signup" class="nav-link active" aria-current="page" href="#">회원가입</router-link>
       </li>
       <li class="nav-item">
-        <router-link to="/test" class="nav-link" href="#">테스트</router-link>
+        <router-link to="/test" class="nav-link active" href="#">테스트</router-link>
       </li>
         
     </ul>
