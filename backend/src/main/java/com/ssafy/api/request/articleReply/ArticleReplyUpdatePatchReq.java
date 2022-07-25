@@ -12,6 +12,6 @@ import lombok.Setter;
 @Setter
 @ApiModel("ArticleReplyUpdatePatchRequest")
 public class ArticleReplyUpdatePatchReq {
-	@ApiModelProperty(name="댓글 내용", example="articleReply_content")
+	@ApiModelProperty(name="댓글 내용", example="(String) 댓글 내용")
 	String re_content;
 }

@@ -37,8 +37,13 @@
 
 <script>
 import { ref, reactive} from 'vue'
+<<<<<<< HEAD
 import { onMounted } from 'vue'
 import {useStore} from 'vuex'
+=======
+// import { onMounted } from 'vue'
+// import {useStore} from 'vuex'
+>>>>>>> 2e09ea8d (feat: 스터디 게시판 + 댓글)
 
 export default {
     setup(){
@@ -47,6 +52,7 @@ export default {
         const Rows = ref(10)
         const PerPage = ref(100)
 
+<<<<<<< HEAD
         const store = useStore()
         const articles = store.getters.articles
 
@@ -74,6 +80,28 @@ export default {
         makeLists()})
     
     return {currentPage,Rows,PerPage,state,makeLists,onMounted}
+=======
+        // const store = useStore()
+
+        // 게시판
+        const state = reactive({
+            article_list: [],
+            headers: ['글번호','상태','분류','제목','작성자','등록일','조회수']
+        })
+
+        // 게시판 db의 필드값 확인 후 아래 코드에서 수정 후 사용할 예정
+        // const makeLists = function(){
+        //     for(let articleItem of store.articles) {
+        //         state.article_list.push({
+        //             글번호: articleItem.??,
+        //         })
+        //     }
+        // }
+        // onMounted(() => {
+        // makeLists()})
+    
+    return {currentPage,Rows,PerPage,state}
+>>>>>>> 2e09ea8d (feat: 스터디 게시판 + 댓글)
 
 
     }

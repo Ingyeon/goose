@@ -1,6 +1,7 @@
 package com.ssafy.api.response.article;
 
 import com.ssafy.db.entity.Article;
+import com.ssafy.db.entity.StudyArticle;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -33,6 +34,8 @@ public class ArticlesInfoRes {
 	Long user_pk;
 	@ApiModelProperty(name="작성자")
 	String name;
+	@ApiModelProperty(name="사진")
+	String image;
 	
 	public static ArticlesInfoRes of(Article articles) {
 		ArticlesInfoRes res = new ArticlesInfoRes();
@@ -43,10 +46,11 @@ public class ArticlesInfoRes {
 		res.setState(articles.getState());
 		res.setRecruitment(articles.getRecruitment());
 		res.setHit(articles.getHit());
+		res.setImage(articles.getImage());
+		res.setName(articles.getName());
 		
 		res.setUser_pk(articles.getUser_pk());
 		return res;
 	}
-
-
+	
 }

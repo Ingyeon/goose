@@ -99,6 +99,7 @@ export default {
       dispatch('saveCamURL',obj.url_conf)
       dispatch('safeStudyURL',obj.url_page)
     },
+<<<<<<< HEAD
     
     createStudy({getters},credential){
       axios({
@@ -116,6 +117,8 @@ export default {
         console.log(err)
     })
     },
+=======
+>>>>>>> 2e09ea8d (feat: 스터디 게시판 + 댓글)
 
     deleteStudy({dispatch,getters},studyId){
       axios({

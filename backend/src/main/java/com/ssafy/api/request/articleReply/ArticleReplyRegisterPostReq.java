@@ -13,10 +13,8 @@ import lombok.Setter;
 @ApiModel("ArticleReplyRegisterPostRequest")
 public class ArticleReplyRegisterPostReq {
 
-	@ApiModelProperty(name="유저 PK", example="user_pk")
-	long user_pk;
-	@ApiModelProperty(name="게시글 PK", example="article_pk")
+	@ApiModelProperty(name="게시글 PK", example="(Long) 게시글 PK")
 	long article_pk;
-	@ApiModelProperty(name="댓글 내용", example="articleReply_content")
+	@ApiModelProperty(name="댓글 내용", example="(String) 댓글 내용")
 	String re_content;
 }

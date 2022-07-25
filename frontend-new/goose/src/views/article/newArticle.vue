@@ -3,6 +3,7 @@
 <div>
 <form>
         <label class="form-label">인원 선택</label>
+<<<<<<< HEAD
     <select class="form-select" v-model="state.form.recruitment">
   <option selected>인원</option>
   <option value=1>1</option>
@@ -24,6 +25,19 @@
 
     <label class="form-label">분류 선택</label>
     <select class="form-select" v-model="state.form.category">
+=======
+    <select class="form-select" v-model="state.form.recruit">
+  <option selected>인원</option>
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+</select>
+    <label class="form-label">스터디 선택</label>
+    <select class="form-select" v-model="state.form.chooseStudy">
+>>>>>>> 2e09ea8d (feat: 스터디 게시판 + 댓글)
   <option selected>선택</option>
   <option value="면접">면접</option>
   <option value="토익">토익</option>
@@ -37,9 +51,15 @@
   </div>
   <div class="mb-3">
     <label for="textarea" class="form-label">내용</label>
+<<<<<<< HEAD
     <textarea type="textarea" class="form-control" id="textarea" v-model="state.form.content"></textarea>
   </div>
   <button type="submit" @click.prevent="clickSet" class="btn btn-primary">작성</button>
+=======
+    <textarea type="textarea" class="form-control" id="textarea" v-model="state.form.textarea"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">작성</button>
+>>>>>>> 2e09ea8d (feat: 스터디 게시판 + 댓글)
     
 </form>
 </div>
@@ -50,12 +70,17 @@
 
 <script>
 import {reactive} from 'vue'
+<<<<<<< HEAD
 import {useStore} from 'vuex'
+=======
+// import {useStore} from 'vuex'
+>>>>>>> 2e09ea8d (feat: 스터디 게시판 + 댓글)
 
 export default {
     name: 'newArticle',
     
     setup(){
+<<<<<<< HEAD
     const store = useStore()
     const state = reactive({
         form:{
@@ -85,6 +110,26 @@ export default {
     // }
     
     return {state,clickSet,store}
+=======
+    // const store = useStore()
+
+    const state = reactive({
+        form:{
+            // 임의 필드명, 추후 템플릿과 같이 수정
+            recruitment: null,
+            category: null,
+            title: '',
+            content: '',
+        }
+    })
+    // 클릭 이벤트에 db로 폼 보내기 + 게시판 라우터 이동 구현 필요
+    const clickSet = function(event){
+        event.preventDefault()
+        alert(JSON.stringify(state.form))
+
+    }
+    return {state,clickSet}
+>>>>>>> 2e09ea8d (feat: 스터디 게시판 + 댓글)
     }
 }
 </script>

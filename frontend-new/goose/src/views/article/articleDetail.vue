@@ -1,11 +1,18 @@
+<<<<<<< HEAD
 <!-- <template>
 
     <h3>{{form.title}}</h3>
+=======
+<template>
+
+    <h3>{{article.title}}</h3>
+>>>>>>> 2e09ea8d (feat: 스터디 게시판 + 댓글)
     <CommentForm/>
 </template>
 
 <script>
 import commentForm from "./commentForm.vue";
+<<<<<<< HEAD
 import {reactive} from 'vue'
 import {useStore} from 'vuex'
 
@@ -29,3 +36,11 @@ export default{
     }
 }
 </script> -->
+=======
+
+export default{
+    components: {commentForm}
+
+}
+</script>
+>>>>>>> 2e09ea8d (feat: 스터디 게시판 + 댓글)

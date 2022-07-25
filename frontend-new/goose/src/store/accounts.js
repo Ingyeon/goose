@@ -9,6 +9,7 @@ export default {
         authError: null, // 오류 발생 시
         loginUser: {},
         
+<<<<<<< HEAD
     },
     getters: {
         isLoggedIn: state => !!state.token,    // 로그인 했는지 확인
@@ -16,27 +17,49 @@ export default {
         authHeader: state => ({ Authorization: state.token}),  // 인증 정보
         loginUser: state => state.loginUser,  // 현재 로그인한 유저 
         
+=======
+        
+    },
+    getters: {
+        isLoggedIn: state => !!state.token,
+        authError: state => state.authError,
+        authHeader: state => ({ Authorization: `Token ${state.token}`}),
+        loginUser: state => state.loginUser,
+
+>>>>>>> 2e09ea8d (feat: 스터디 게시판 + 댓글)
     },
     mutations: {
         SET_TOKEN: (state, token) => state.token = token,
         SET_LOGIN_USER: (state, user) => state.loginUser = user,
+<<<<<<< HEAD
         SET_AUTH_ERROR: (state, error) => state.authError = error,
         LOGOUT: (state,user) => { 
             localStorage.removeItem('user')
             location.reload();
         }
+=======
+        SET_AUTH_ERROR: (state, error) => state.authError = error
+>>>>>>> 2e09ea8d (feat: 스터디 게시판 + 댓글)
     },
     actions: {
         login({commit, dispatch},credential){
             axios({
+<<<<<<< HEAD
                 url: rest.accounts.login(),
+=======
+                url: rest.auth_login.login(),
+>>>>>>> 2e09ea8d (feat: 스터디 게시판 + 댓글)
                 method: 'post',
                 data: credential
             })
             .then(res => {
                 const token = res.data.accessToken
                 dispatch('saveToken', token)
+<<<<<<< HEAD
                 // dispatch('fetchLoginUser')
+=======
+                dispatch('fetchLoginUser')
+>>>>>>> 2e09ea8d (feat: 스터디 게시판 + 댓글)
                 
                 router.push({name: 'Home'})
             })
@@ -65,7 +88,10 @@ export default {
             })
             .then(res => {
                 console.log("then")
+<<<<<<< HEAD
                 console.log('signup')
+=======
+>>>>>>> 2e09ea8d (feat: 스터디 게시판 + 댓글)
                 // const token = res.data.accessToken
                 // dispatch('saveToken', token)
                 // router.push({ name: 'Home '})
@@ -95,7 +121,11 @@ export default {
                   }
                 })
             }
+<<<<<<< HEAD
         },
+=======
+      
+>>>>>>> 2e09ea8d (feat: 스터디 게시판 + 댓글)
 
         // logout({  getters , dispatch}){
         //     axios({
@@ -112,8 +142,13 @@ export default {
         //         console.error(err.response)
         //     })
         // }
+<<<<<<< HEAD
         logout({commit, dispatch}) {
             dispatch('removeToken');
         }
     }
 }
+=======
+    }}
+}
+>>>>>>> 2e09ea8d (feat: 스터디 게시판 + 댓글)
