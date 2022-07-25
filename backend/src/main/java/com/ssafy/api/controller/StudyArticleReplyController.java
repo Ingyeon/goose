@@ -1,7 +1,5 @@
 package com.ssafy.api.controller;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,15 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.api.request.articleReply.ArticleReplyRegisterPostReq;
 import com.ssafy.api.request.articleReply.ArticleReplyUpdatePatchReq;
-import com.ssafy.api.service.ArticleReplyService;
+import com.ssafy.api.request.articleReply.StudyArticleReplyRegisterPostReq;
+import com.ssafy.api.service.StudyArticleReplyService;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
-import com.ssafy.db.entity.ArticleReply;
+import com.ssafy.db.entity.StudyArticleReply;
 import com.ssafy.db.entity.User;
-import com.ssafy.db.specification.ArticleReplySpecification;
+import com.ssafy.db.specification.StudyArticleReplySpecification;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,18 +33,18 @@ import io.swagger.annotations.ApiResponses;
 import springfox.documentation.annotations.ApiIgnore;
 
 /**
- * 게시글 댓글 관련 API 요청 처리를 위한 컨트롤러 정의.
+ * 스터디 게시판 댓글 관련 API 요청 처리를 위한 컨트롤러 정의.
  */
-@Api(value = "게시글 댓글 API", tags = {"ArticleReply"})
+@Api(value = "스터디 게시판 댓글 API", tags = {"StudyArticleReply"})
 @RestController
-@RequestMapping("/api/v1/articlesReply")
-public class ArticleReplyController {
-	
+@RequestMapping("/api/v1/studyArticlesReply")
+public class StudyArticleReplyController {
+
 	@Autowired
-	ArticleReplyService articleReplyService;
+	StudyArticleReplyService studyArticleReplyService;
 	@Autowired
 	UserService userService;
-
+	
 	@PostMapping()
 	@ApiOperation(value = "게시글 댓글 작성", notes = "<strong>???</strong>를 통해 게시글 댓글을 작성한다.") 
     @ApiResponses({
@@ -56,11 +54,11 @@ public class ArticleReplyController {
         @ApiResponse(code = 500, message = "서버 오류")
     })
 	public ResponseEntity<? extends BaseResponseBody> registerReply(
-			@RequestBody @ApiParam(value="게시글 댓글 작성 정보", required = true) ArticleReplyRegisterPostReq registerInfo, @ApiIgnore Authentication authentication) {
+			@RequestBody @ApiParam(value="게시글 댓글 작성 정보", required = true) StudyArticleReplyRegisterPostReq registerInfo, @ApiIgnore Authentication authentication) {
 		SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
 		String userId = userDetails.getUsername();
 		User user = userService.getUserByUserId(userId);
-		articleReplyService.createArticleReply(user, registerInfo);
+		studyArticleReplyService.createArticleReply(user, registerInfo);
 		
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
@@ -74,23 +72,23 @@ public class ArticleReplyController {
         @ApiResponse(code = 404, message = "사용자 없음"),
         @ApiResponse(code = 500, message = "서버 오류")
     })
-	public ResponseEntity<Page<ArticleReply>> getArticles(
+	public ResponseEntity<Page<StudyArticleReply>> getArticles(
 			@RequestParam(required = true) int page,
 			@RequestParam(required = false) Long articlePk,
             @RequestParam(required = false) Long id) {
 		
 		PageRequest pageRequest = PageRequest.of(page-1, 5);
 		
-		Specification<ArticleReply> spec = (root, query, criteriaBuilder) -> null;
+		Specification<StudyArticleReply> spec = (root, query, criteriaBuilder) -> null;
 		
 		if (articlePk != null) {
-			spec = spec.and(ArticleReplySpecification.equalArticlePk(articlePk));
+			spec = spec.and(StudyArticleReplySpecification.equalArticlePk(articlePk));
 		}
 		if (id != null) {
-			spec = spec.and(ArticleReplySpecification.equalId(id));
+			spec = spec.and(StudyArticleReplySpecification.equalId(id));
 		}
 
-		Page<ArticleReply> articleReplys = articleReplyService.getArticleReply(spec, pageRequest);
+		Page<StudyArticleReply> articleReplys = studyArticleReplyService.getArticleReply(spec, pageRequest);
 	
 		return ResponseEntity.status(200).body(articleReplys);
 	}
@@ -108,7 +106,7 @@ public class ArticleReplyController {
 		SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
 		String userId = userDetails.getUsername();
 		User user = userService.getUserByUserId(userId);
-		articleReplyService.updateArticleReply(id, user, updateInfo);
+		studyArticleReplyService.updateArticleReply(id, user, updateInfo);
 		
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
@@ -121,9 +119,8 @@ public class ArticleReplyController {
 	public ResponseEntity<? extends BaseResponseBody> deleteArticleReply(
 			@RequestBody @ApiParam(value="댓글 id", required = true) Long id, @ApiIgnore Authentication authentication) {
 		SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
-		articleReplyService.deleteArticleReplyById(id);
+		studyArticleReplyService.deleteArticleReplyById(id);
 		
 		return ResponseEntity.status(204).body(BaseResponseBody.of(204, "Success"));
 	}
-	
 }

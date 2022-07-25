@@ -9,7 +9,6 @@ import com.ssafy.db.entity.Study;
 import com.ssafy.db.entity.Study_Member;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.StudyRepository;
-import com.ssafy.db.repository.StudyRepositorySupport;
 import com.ssafy.db.repository.Study_MemberRepository;
 
 @Service("studyservice")
@@ -17,10 +16,7 @@ public class StudyServiceImpl implements StudyService{
 	
 	@Autowired
 	StudyRepository studyRepository;
-	
-	@Autowired
-	StudyRepositorySupport studyRepositorySupport;
-	
+		
 	@Autowired
 	Study_MemberRepository studyMemberRepository;
 

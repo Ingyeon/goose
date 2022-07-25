@@ -13,8 +13,6 @@ import lombok.Setter;
 @ApiModel("ArticleRegisterPostRequest")
 public class ArticleRegisterPostReq {
 
-	@ApiModelProperty(name="유저 PK", example="(Long) 유저 PK")
-	long user_pk;
 	@ApiModelProperty(name="스터디 PK", example="(Long) 스터디 PK")
 	long study_pk;
 	@ApiModelProperty(name="스터디 모집상태", example="(String) 스터디 모집상태")
