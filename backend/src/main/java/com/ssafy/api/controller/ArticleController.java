@@ -37,7 +37,7 @@ import io.swagger.annotations.ApiResponses;
 import springfox.documentation.annotations.ApiIgnore;
 
 /**
- * 게시글 관련 API 요청 처리를 위한 컨트롤러 정의.
+ * 게시판 관련 API 요청 처리를 위한 컨트롤러 정의.
  */
 @Api(value = "게시글 API", tags = {"Article"})
 @RestController
