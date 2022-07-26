@@ -27,6 +27,11 @@
       <li class="nav-item">
         <router-link to="/createStudy" class="nav-link active" aria-current="page" href="#">스터디 만들기</router-link>
       </li>
+      <div>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createStudyModal">스터디 만들기2</button>
+        <createStudy />
+      </div>
+
 
       <li class="nav-item">
         <router-link to="/test" class="nav-link" href="#">마이 페이지</router-link>
@@ -48,7 +53,14 @@
 // import { useRouter } from 'vue-router'
 import { useStore } from "vuex"
 import { computed } from "vue"
+import createStudy from "@/components/StudyPage/studyCreate.vue"
+
+
 export default {
+    components: {
+      createStudy,
+    },
+
     setup() {
       const store = useStore()
       const isLoggedIn = computed(()=> store.getters.isLoggedIn)

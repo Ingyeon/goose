@@ -5,7 +5,7 @@ import rest from '@/api/rest'
 export default {
     state: {
         // token 인증 방식
-        token: localStorage.getItem('token') || '',  
+        token: localStorage.getItem('token') || '.',  
         authError: null, // 오류 발생 시
         loginUser: {},
         

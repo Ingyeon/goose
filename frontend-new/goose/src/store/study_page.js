@@ -5,6 +5,7 @@ import router from "@/router"
 export default {
   state:{
     studyTotal : [],
+    studyJoinList : [{"apply_date": "26072022", "id":0, "name": "유저이름", "study_pk":0, "user_id":0} ],
     selectedStudy : {
       "category": "",
       "date": "",
@@ -17,7 +18,7 @@ export default {
       "title": "9조 스터디 구스",
       "urlConf": "https://edu.ssafy.com/", //캠 주소
       "urlPage":"", // 스터디 홈 주소
-      "notice":"저희 스터디로 말씀드릴것 같으면 SSAFY 2학기 공통프로젝트를 맞아 Spring과 Vue를 활용하여 화상 웹서비스를 제공하는 프로젝트를 만드는 스터디입니다.",
+      "notice":"스터디 자기소개 부분인데 칼럼이 없음",
       "studyBoard":[{studyboard1:"기본값1"},{studyboard2:"기본값2"}],
     },
     defaultStudy : {
@@ -39,6 +40,7 @@ export default {
   },
 
   getters:{
+    // 주로 스터디 조회 관련
     defaultStudy : state => state.defaultStudy,
     studyId : state => state.selectedStudy.id,
     studyTotal : state => state.studyTotal,
@@ -49,9 +51,13 @@ export default {
     camURL: state => state.selectedStudy.urlConf,
     studyURL: state => state.selectStudy.urlPage,
     studyBoard : state => state.selectedStudy.studyBoard,
+    // 스터디 참가 신청 관련
+    studyJoinList: state => state.studyJoinList,
+    isJoinList: state => !!state.saveJoinList
   },
 
   mutations:{
+    // 스터디 조회시 주로 작동
     SET_ID: (state, id) => state.selectStudy.id = id,
     SET_STUDY: (state, studyName) => state.selectedStudy.title = studyName,
     SET_MAX_MEMBER: (state, num) => state.selectedStudy.maxmember = num,
@@ -61,13 +67,14 @@ export default {
 
     SET_STUDY_BOARD: (state, studyBoard) => state.selectedStudy.studyBoard = studyBoard,
     SET_NOTICE: (state, notice) => state.selectedStudy.notice = notice,
+    // 스터디 참가 신청 관련
+    SET_JOIN_LIST: (state,joinArray) => state.studyJoinList = joinArray
   },
 
   actions:{
     saveId({commit}, id) {
       commit('SET_ID',id)
     },
-
     saveStudy({ commit }, studyName) {
       commit('SET_STUDY',studyName)
     },
@@ -91,8 +98,13 @@ export default {
       commit('SET_STUDY_BOARD',studyBoard)
     },
 
+    saveJoinList({commit}, joinArray) {
+      commit('SET_JOIN_LIST',joinArray)
+    },
+
     // 한번에 처리
     selectStudy({dispatch}, obj){
+      dispatch('saveId',obj.id)
       dispatch('saveStudy',obj.title)
       dispatch('saveMaxMember',obj.maxmember)
       dispatch('saveMember',obj.member)
@@ -132,6 +144,33 @@ export default {
         alert("스터디 삭제에 실패했습니다.")
       })
       router.push({ name:'Home' })
+    },
+
+    joinList({getters,dispatch},){
+      axios({
+        uri: rest.study.study_join_list(getters.studyId),
+        method: 'get',
+      })
+      .then(res => {
+        dispatch('saveJoinList',res)
+      })
+      .catch(err => {
+        console.log("catch")
+        console.log(err)
+      })
+    },
+    
+    joinAgree({getters},credential){
+      axios({
+        uri: rest.study.study_join_agree(),
+        method: 'post',
+        headers: getters.authHeader,
+        data: credential
+      })
+      .then(res =>{
+        console.log(res)
+      })
     }
+
   },
 }

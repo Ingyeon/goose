@@ -5,7 +5,7 @@ const ArticleReply = 'articlesReply/'
 const Auth = 'auth/login'
 const Study = 'study/'
 const User = 'users'
-
+const Member = 'member/'
 
 
 export default{
@@ -27,7 +27,11 @@ export default{
         study_create: () => HOST + Study + 'create',
         study_remove: id => HOST + Study + 'remove/' + `${id}`,
         study_search: id => HOST + Study + 'search/' + `${id}`,
-        study_update: () => HOST + Study + 'update'
+        study_update: () => HOST + Study + 'update',
+        study_join: (study_pk) => HOST + Study + Member + 'joinstudy/'+ `${study_pk}`,
+        study_join_list: (study_pk) => HOST + Study + Member + 'joinlist/'+ `${study_pk}`,
+        study_join_agree: () => HOST + Study + Member + 'joinagree',
+        study_join_delete: (id) => HOST + Study + Member + 'joindelete/'+ `${id}`,
     },
     user: {
         user_signup: () => HOST + User,

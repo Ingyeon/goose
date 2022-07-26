@@ -9,6 +9,10 @@
     <div>스터디 소개글 : collume 추가되면 추가할 예정{{ }}</div>
   </div>
 </div>
+<div>
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#studyJoinListModal">참가 신청 리스트</button>
+  <studyJoinList />
+</div>
 <div class="container d-flex">
   <div>스터디 주소 : {{ camURL }}</div>
   <router-link :to="{ path: '/' +''}" class="navbar-brand">입장하기</router-link>
@@ -25,7 +29,7 @@
   <button @click.prevent="deleteStudy" >스터디 터트리기</button>
   <button @click.prevent="" >스터디 탈퇴하기</button>
   <div>
-    <button @click.prevent="" >스터디 수정</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateStudyModal">스터디 수정</button>
     <studyUpdate />
   </div>
 </div>
@@ -35,12 +39,13 @@
 import board from '@/components/StudyPage/board.vue'
 import callender from '@/components/StudyPage/callender'
 import studyUpdate from '@/components/StudyPage/studyUpdate.vue'
+import studyJoinList from '@/components/StudyPage/studyJoinList.vue'
 import { useStore } from "vuex"
 import { computed } from "vue"
 
 export default {
   components:{
-      board,callender,studyUpdate,
+      board,callender,studyUpdate,studyJoinList,
   },
 
   setup() {
