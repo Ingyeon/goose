@@ -21,7 +21,7 @@ export default {
         SET_TOKEN: (state, token) => state.token = token,
         SET_LOGIN_USER: (state, user) => state.loginUser = user,
         SET_AUTH_ERROR: (state, error) => state.authError = error,
-        LOGOUT: (state,user) => { 
+        LOGOUT: () => { 
             localStorage.removeItem('user')
             location.reload();
         }
@@ -83,7 +83,7 @@ export default {
       
             if (getters.isLoggedIn) {
               axios({
-                url: rest.user.user_myprofile(),   // 확인 어디서?
+                url: rest.user.user_myprofile(), 
                 method: 'get',
                 headers: getters.authHeader,
               })

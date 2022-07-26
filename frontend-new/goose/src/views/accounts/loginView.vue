@@ -45,7 +45,6 @@ export default {
         store.dispatch('login',{id: state.form.id, password: state.form.password})
         .then(function (result){
           console.log(result)
-            // alert('accessToken: ' + result.data.Token)
         })
         .catch(function(err){
             alert(err)

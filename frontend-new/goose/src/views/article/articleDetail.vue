@@ -1,16 +1,16 @@
 <!-- <template>
 
     <h3>{{form.title}}</h3>
-    <CommentForm/>
+
 </template>
 
 <script>
-import commentForm from "./commentForm.vue";
+
 import {reactive} from 'vue'
 import {useStore} from 'vuex'
 
 export default{
-    components: {commentForm},
+
     setup(){
         const store = useStore()
         const state = reactive({

@@ -71,14 +71,16 @@ export default {
     // 작동 안하는 이유(코드:500)에 대한 예상 원인
     // => 외래키값 지정을 안해줘서 (게시글을 쓸 때 자신의 스터디를 표시해줘야 함)
     // 결론: study_pk 및 user_pk를 가져와야함  -> 백엔드 작업 완료된 후 게시판 작업 하기
-
     const clickSet = function(){   // 게시글 생성
+      store.dispatch('fetchLoginUser')
       store.dispatch('createArticle',{
         category:state.form.category, 
-        recruitment: state.form.recruitment,
+        recruitment: Number(state.form.recruitment),
         state: state.form.state,
         title: state.form.title,
         content: state.form.content,
+        study_pk: store.getters.defaultStudy.pk,
+        user_pk: store.getters.loginUser,
         })
     }
     // const study_info = function(){ // 내가 운영하는 스터디를 state.study에 넣는 함수
