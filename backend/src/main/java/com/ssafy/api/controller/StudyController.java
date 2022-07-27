@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.api.request.study.StudyCreatePostReq;
 import com.ssafy.api.request.study.StudyMemberSaveReq;
 import com.ssafy.api.response.study.StudyApplyListRes;
+import com.ssafy.api.response.study.StudyMemberList;
 import com.ssafy.api.service.StudyService;
 import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
@@ -198,6 +199,51 @@ public class StudyController {
 		logger.debug("스터디 가입신청 거절 성공");
 				
 		return ResponseEntity.status(204).body(200 + "Success");
+	}
+	
+	
+	@GetMapping("/member/studylistA3")
+	@ApiOperation(value = "권한있는 가입된 스터디 목록(token) '참여하기 게시판용 ' ", notes = "권한있는 가입된 스터디 목록 '참여하기 게시판용' ")
+	@ApiResponses({ @ApiResponse(code = 200, message = "성공"), 
+					@ApiResponse(code = 401, message = "인증 실패"),
+					@ApiResponse(code = 404, message = "스터디 없음"), 
+					@ApiResponse(code = 500, message = "서버 오류")})
+	public ResponseEntity<List<String>> getStudyListA3(@ApiIgnore Authentication authentication ){
+		SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();  
+		long user_id = userDetails.getUserId();
+		
+		List<String> studyListA = studyService.studyListA3(user_id);
+		
+		return new ResponseEntity<List<String>>(studyListA, HttpStatus.OK);
+	}
+	
+	
+	@GetMapping("/member/mystudylist")
+	@ApiOperation(value = "가입된 스터디 목록(token) ", notes = "가입된 스터디 목록 ")
+	@ApiResponses({ @ApiResponse(code = 200, message = "성공"), 
+					@ApiResponse(code = 401, message = "인증 실패"),
+					@ApiResponse(code = 404, message = "스터디 없음"), 
+					@ApiResponse(code = 500, message = "서버 오류")})
+	public ResponseEntity<List<String>> getStudyList(@ApiIgnore Authentication authentication ){
+		SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();  
+		long user_id = userDetails.getUserId();
+		
+		List<String> studyListA = studyService.studyList(user_id);
+		
+		return new ResponseEntity<List<String>>(studyListA, HttpStatus.OK);
+	}
+	
+	@GetMapping("/member/studymemberlsit/{study_pk}")
+	@ApiOperation(value = "스터디 멤버 리스트", notes = "스터디 멤버 리스트")
+	@ApiResponses({ @ApiResponse(code = 200, message = "성공"), 
+					@ApiResponse(code = 401, message = "인증 실패"),
+					@ApiResponse(code = 404, message = "스터디 없음"), 
+					@ApiResponse(code = 500, message = "서버 오류")})
+	public ResponseEntity<List<StudyMemberList>> studyMemberLsit(@PathVariable long study_pk){
+		List<StudyMemberList> joinlist = studyService.studyMemberLsit(study_pk);
+		
+		return new ResponseEntity<List<StudyMemberList>>(joinlist, HttpStatus.OK);
+		
 	}
 	
 }

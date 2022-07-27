@@ -11,6 +11,7 @@ import com.ssafy.api.request.study.StudyApplyReq;
 import com.ssafy.api.request.study.StudyCreatePostReq;
 import com.ssafy.api.request.study.StudyMemberSaveReq;
 import com.ssafy.api.response.study.StudyApplyListRes;
+import com.ssafy.api.response.study.StudyMemberList;
 import com.ssafy.db.entity.Study;
 import com.ssafy.db.entity.Study_Apply;
 import com.ssafy.db.entity.Study_Member;
@@ -118,7 +119,6 @@ public class StudyServiceImpl implements StudyService{
 
 	@Override
 	public List<StudyApplyListRes> studyJoinList(long study_pk) {
-		
 		List<StudyApplyListRes> joinList = studyApplyRepository.findAllByStudyPk(study_pk);
 		return joinList;
 	}
@@ -134,7 +134,7 @@ public class StudyServiceImpl implements StudyService{
 //		
 //		studyMember.setUser_pk(user);
 //		studyMember.setStudy_pk(study);
-//		
+
 		studyMemberRepository.save(studyMemberSaveReq.toEntity());
 	
 		return studyMember;
@@ -145,8 +145,27 @@ public class StudyServiceImpl implements StudyService{
 		Study_Apply studyApply = new Study_Apply();
 		studyApply.setId(id);
 		studyApplyRepository.delete(studyApply);
-		
 	}
+
+
+	@Override
+	public List<String> studyListA3(long user_id) {
+		List<String> studyListA = studyMemberRepository.studyListA3(user_id);
+		return studyListA;
+	}
+
+	@Override
+	public List<String> studyList(long user_id) {
+		List<String> studyList = studyMemberRepository.studyList(user_id);
+		return studyList;
+	}
+
+	@Override
+	public List<StudyMemberList> studyMemberLsit(long study_pk) {
+		List<StudyMemberList> joinList = studyMemberRepository.findAllMember(study_pk);
+		return joinList;
+	}
+
 
 
 
