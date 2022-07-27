@@ -81,6 +81,7 @@ export default {
         content: state.form.content,
         study_pk: store.getters.defaultStudy.pk,
         user_pk: store.getters.loginUser,
+        // 문제: loginUser의 필드값이 이상함
         })
     }
     // const study_info = function(){ // 내가 운영하는 스터디를 state.study에 넣는 함수
