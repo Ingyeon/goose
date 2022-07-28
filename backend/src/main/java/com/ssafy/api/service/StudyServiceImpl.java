@@ -12,6 +12,7 @@ import com.ssafy.api.request.study.StudyCreatePostReq;
 import com.ssafy.api.request.study.StudyMemberSaveReq;
 import com.ssafy.api.response.study.StudyApplyListRes;
 import com.ssafy.api.response.study.StudyMemberList;
+import com.ssafy.api.response.study.StudyMyList;
 import com.ssafy.db.entity.Study;
 import com.ssafy.db.entity.Study_Apply;
 import com.ssafy.db.entity.Study_Member;
@@ -149,14 +150,14 @@ public class StudyServiceImpl implements StudyService{
 
 
 	@Override
-	public List<String> studyListA3(long user_id) {
-		List<String> studyListA = studyMemberRepository.studyListA3(user_id);
+	public List<StudyMyList> studyListA3(long user_id) {
+		List<StudyMyList> studyListA = studyMemberRepository.studyListA3(user_id);
 		return studyListA;
 	}
 
 	@Override
-	public List<String> studyList(long user_id) {
-		List<String> studyList = studyMemberRepository.studyList(user_id);
+	public List<StudyMyList> studyList(long user_id) {
+		List<StudyMyList> studyList = studyMemberRepository.studyList(user_id);
 		return studyList;
 	}
 

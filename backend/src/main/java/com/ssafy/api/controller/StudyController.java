@@ -26,6 +26,7 @@ import com.ssafy.api.request.study.StudyCreatePostReq;
 import com.ssafy.api.request.study.StudyMemberSaveReq;
 import com.ssafy.api.response.study.StudyApplyListRes;
 import com.ssafy.api.response.study.StudyMemberList;
+import com.ssafy.api.response.study.StudyMyList;
 import com.ssafy.api.service.StudyService;
 import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
@@ -208,13 +209,13 @@ public class StudyController {
 					@ApiResponse(code = 401, message = "인증 실패"),
 					@ApiResponse(code = 404, message = "스터디 없음"), 
 					@ApiResponse(code = 500, message = "서버 오류")})
-	public ResponseEntity<List<String>> getStudyListA3(@ApiIgnore Authentication authentication ){
+	public ResponseEntity<List<StudyMyList>> getStudyListA3(@ApiIgnore Authentication authentication ){
 		SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();  
 		long user_id = userDetails.getUserId();
 		
-		List<String> studyListA = studyService.studyListA3(user_id);
+		List<StudyMyList> studyListA = studyService.studyListA3(user_id);
 		
-		return new ResponseEntity<List<String>>(studyListA, HttpStatus.OK);
+		return new ResponseEntity<List<StudyMyList>>(studyListA, HttpStatus.OK);
 	}
 	
 	
@@ -224,13 +225,13 @@ public class StudyController {
 					@ApiResponse(code = 401, message = "인증 실패"),
 					@ApiResponse(code = 404, message = "스터디 없음"), 
 					@ApiResponse(code = 500, message = "서버 오류")})
-	public ResponseEntity<List<String>> getStudyList(@ApiIgnore Authentication authentication ){
-		SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();  
+	public ResponseEntity<List<StudyMyList>> getStudyList(@ApiIgnore Authentication authentication ){
+		SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
 		long user_id = userDetails.getUserId();
 		
-		List<String> studyListA = studyService.studyList(user_id);
+		List<StudyMyList> studyListA = studyService.studyList(user_id);
 		
-		return new ResponseEntity<List<String>>(studyListA, HttpStatus.OK);
+		return new ResponseEntity<List<StudyMyList>>(studyListA, HttpStatus.OK);
 	}
 	
 	@GetMapping("/member/studymemberlsit/{study_pk}")
