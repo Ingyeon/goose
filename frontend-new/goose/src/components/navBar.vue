@@ -43,6 +43,9 @@
       <li class="nav-item">
         <router-link to="/test" class="nav-link" href="#">테스트</router-link>
       </li>
+            <li class="nav-item">
+        <router-link to="/conf" class="nav-link" href="#">화상</router-link>
+      </li>
     </ul>
     <!-- 로그인 되있을 경우 끝 -->
   </div>

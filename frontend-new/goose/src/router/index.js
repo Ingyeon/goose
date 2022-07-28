@@ -13,11 +13,18 @@ import ArticleDetail from '@/views/article/articleDetail.vue'
 //Study
 import CreateStudy from '@/views/StudyPage/createStudy'
 
+import Conf from '@/views/conf/conf'
+
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home,
+  },
+  {
+    path: '/conf',
+    name: 'Conf',
+    component: Conf,
   },
   {
     path: '/login',

@@ -22,4 +22,6 @@ public class UserUpdatePatchReq {
 	String photo;
 	@ApiModelProperty(name="유저 Interest", example="(String) 관심")
 	String interest;
+	@ApiModelProperty(name="유저 Info", example="(String) 정보")
+	String info;
 }
