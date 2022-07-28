@@ -34,7 +34,7 @@ export default{
         study_join_delete: (id) => HOST + Study + Member + 'joindelete/'+ `${id}`,
     },
     user: {
-        user_signup: () => HOST + User,
+        user: () => HOST + User,
         user_rud: userId => HOST + User + `/${userId}`,
         user_myprofile: () => HOST + User + '/me'
     }

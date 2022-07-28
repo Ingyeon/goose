@@ -59,7 +59,7 @@ export default {
             console.log("엑시오스 하기 전")
             console.log(credentials)
             axios({
-                url: rest.user.user_signup(),
+                url: rest.user.user(),
                 method: 'post',
                 data: credentials
             })
@@ -129,18 +129,18 @@ export default {
                 console.log('then1')
                 if (result.isConfirmed) {
                     axios({
-                        url : rest.user.user_rud(getters.loginUser.userId),
+                        url : rest.user.user(),
                         method: 'delete',
                         headers: getters.authHeader,
                         // data: userId
                     })
-                    .then(() => {
+                    .then(dispatch('removeToken'))
                         console.log('then2')
                         Swal.fire(
                             '그동안 Goose를 이용해주셔서 감사합니다'
                         )  
                     router.push({name:'Home'})
-                })}
+                }
             })
     }
     }
