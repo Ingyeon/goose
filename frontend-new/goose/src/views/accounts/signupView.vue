@@ -37,7 +37,6 @@
             </div>
         </form>  
     </div>
-{{ state.form }}
 </template>
 
 <script>
@@ -60,7 +59,14 @@ export default {
                 interest: null,
             },
             idValidFlag: true,
+            passwordValidFlag: true,
+            passwordCheckFlag: true,
+            emailValidFlag : true
+
      })
+        const signupForm = function(){
+        // dispatch 함수명 바뀔 경우 아래줄 수정
+
             // dispatch 함수명 바뀔 경우 아래줄 수정
             if (state.form.name == null || state.form.id == null || state.form.password1 == null || state.form.password2 == null || state.form.email == null || state.form.interest == null) {
                 alert('필수값 누락')
@@ -133,7 +139,8 @@ export default {
             passwordCheckValid,
             emailValid,
         }
-    }
+
+}
 }
 </script>
 

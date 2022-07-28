@@ -41,6 +41,9 @@
         <a href="#" @click="clickLogout">로그아웃</a>
       </li>
       <li class="nav-item">
+        <router-link to="/:id/delete" class="nav-link" href="#">회원탈퇴</router-link>
+      </li>
+      <li class="nav-item">
         <router-link to="/test" class="nav-link" href="#">테스트</router-link>
       </li>
     </ul>

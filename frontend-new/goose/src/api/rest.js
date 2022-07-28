@@ -4,7 +4,7 @@ const Article = 'articles/'
 const ArticleReply = 'articlesReply/'
 const Auth = 'auth/login'
 const Study = 'study/'
-const User = 'users/'
+const User = 'users'
 const Member = 'member/'
 
 
@@ -35,8 +35,8 @@ export default{
     },
     user: {
         user_signup: () => HOST + User,
-        user_rud: userId => HOST + User + `${userId}`,
-        user_myprofile: () => HOST + User + 'me'
+        user_rud: userId => HOST + User + `/${userId}`,
+        user_myprofile: () => HOST + User + '/me'
     }
     
 
