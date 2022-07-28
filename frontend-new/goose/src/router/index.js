@@ -34,7 +34,7 @@ const routes = [
     component: Signup
   },
     {
-    path: '/:id/delete',
+    path: '/delete/:userId',
     name: 'UserDelete',
     component: UserDelete
   },

@@ -24,10 +24,12 @@ export default {
         LOGOUT: (state,user) => { 
             localStorage.removeItem('user')
             location.reload();
-        }
+        },
+        // DELETE_USER: (state, user) => 
+        // state.loginUser.delete(state.authHeader)
     },
     actions: {
-        login({commit, dispatch},credential){
+        login({commit, dispatch,getters},credential){
             axios({
                 url: rest.accounts.login(),
                 method: 'post',
@@ -36,12 +38,15 @@ export default {
             .then(res => {
                 const token = res.data.accessToken
                 dispatch('saveToken', token)
-                // dispatch('fetchLoginUser')
-                
+                // console.log('then')
+                dispatch('fetchLoginUser')
+                console.log(getters.loginUser)
+                // console.log(loginUser)
+                console.log('로그인됬음')
                 router.push({name: 'Home'})
             })
             .catch(err => {
-                console.log("catch")
+                console.log("catch1")
                 console.error(err.response.data)
                 commit('SET_AUTH_ERROR', err.response.data)
             })
@@ -80,16 +85,24 @@ export default {
         },
         // 현재 접속중인 이용자
         fetchLoginUser({ commit, getters, dispatch }) {
+            console.log('작동')
       
             if (getters.isLoggedIn) {
+                console.log('hi')
               axios({
                 url: rest.user.user_myprofile(),   // 확인 어디서?
                 method: 'get',
                 headers: getters.authHeader,
               })
-                .then(res => commit('SET_LOGIN_USER', res.data))
+                .then(res => {
+                    console.log('ㅇ',res.data)
+                    commit('SET_LOGIN_USER', res.data)
+                    // console.log(loginUser)
+                }) 
                 .catch(err => {
+                    console.log(err)
                   if (err.response.status === 401) {
+                    console.log('catch3')
                     dispatch('removeToken')
                     router.push({ name: 'login' })
                   }
@@ -114,6 +127,30 @@ export default {
         // }
         logout({commit, dispatch}) {
             dispatch('removeToken');
+        },
+
+        user_delete({commit, getters, dispatch}, userId) {
+            const Swal = require('sweetalert2')
+            Swal.fire(
+                '정말 탈퇴하실건가요??'
+            )
+            .then((result) => {
+                console.log('then1')
+                if (result.isConfirmed) {
+                    axios({
+                        url : rest.user.user_rud(userId),
+                        method: 'delete',
+                        headers: getters.authHeader,
+                        // data: userId
+                    })
+                    .then(dispatch('removeToken'))
+                        console.log('then2')
+                        Swal.fire(
+                            '그동안 Goose를 이용해주셔서 감사합니다'
+                        )  
+                    router.push({name:'home'})
+                }
+            })
         }
     }
 }
