@@ -43,28 +43,33 @@ import {useStore} from 'vuex'
 export default {
     setup(){
         // 추후 게시판 연결 후 ref값 변경 - 페이지네이션 관련 코드
-        const currentPage = ref(1)
-        const Rows = ref(10)
-        const PerPage = ref(100)
+        const currentPage = 1
+        const Rows = 10
+        const PerPage = 5
 
         const store = useStore()
-        const articles = store.getters.articles
-
         // 게시판
         const state = reactive({
             article_list: [
             ],
-            headers: ['글번호','상태','분류','제목','작성자','등록일','조회수']
+            headers: ['글번호','상태','분류','제목','작성자','등록일','조회수'],
+            articles: []
         })
 
+        const articles_set = function(){
+          store.dispatch('fetchArticles',1)  // 1은 임시
+          state.articles = store.getters.articles
+        }
+
         const makeLists = function(){
-            for(let articleItem of articles) {
+            for(let articleItem of state.articles) {
+                store.dispatch('fetchUserInfo',articleItem.user_pk)
                 state.article_list.push({
                     '글번호': articleItem.id,
                     '상태': articleItem.state,
                     '분류': articleItem.category,
                     '제목': articleItem.title,
-                    '작성자': articleItem.user_pk, // user_pk값으로 작성자 이름 가져오는 작업 필요
+                    '작성자': store.getters.targetUser.name, // user_pk값으로 작성자 이름 가져오는 작업 필요
                     '등록일': articleItem.date,
                     '조회수': articleItem.hit, // 남는 필드값 넣음, 조회수 관련 필드?
                     'id': articleItem.id
@@ -77,10 +82,11 @@ export default {
           })
         }
         onMounted(() => {
+          articles_set(),
         makeLists()})
         
     
-    return {currentPage,Rows,PerPage,state,makeLists,onMounted,rowClick}
+    return {currentPage,Rows,PerPage,state,makeLists,onMounted,rowClick,articles_set}
 
 
     }

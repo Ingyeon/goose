@@ -11,28 +11,26 @@
 </template>
 
 <script>
+import {reactive} from 'vue'
+import {useStore} from 'vuex'
 
-import {  mapGetters,mapActions } from 'vuex'
-
-
-// vue3에서는 vuex의 패턴들을 쪼개서 관리 하지 않으면 불러오기 까다로워짐 -> vue2 방식으로 처리 
 export default {
-    name: 'replyForm',
+    name: 'newArticle',
+    
+    setup(){
+        const store = useStore()
+        const state = reactive({
+            form: {
+                re_content: ''
+            },
+            article: store.getters.article
+        })
 
-    data(){
-        return {
-            re_content: ''
-        }},
-    computed: {
-        ...mapGetters(['article'])   // article_pk를 가져오기 위해 불러옴
-    },
-    methods: {
-        ...mapActions(['createReply']),
-        onSubmit(){
-            this.createReply({ article_pk: this.article.pk, re_content: this.re_content})
-            this.re_content = ''
+        const onSubmit = function(){
+            store.dispatch('createReply',{article_pk: state.article.id, re_content: state.form.re_content})
+            state.form.re_content = ''
         }
-    }
-    }
+
+    return {onSubmit,store,state}}}
 
 </script>

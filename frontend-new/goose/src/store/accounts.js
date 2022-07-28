@@ -8,19 +8,22 @@ export default {
         token: localStorage.getItem('token') || '',  
         authError: null, // 오류 발생 시
         loginUser: {},
+        targetUser: {},
         
     },
     getters: {
         isLoggedIn: state => !!state.token,    // 로그인 했는지 확인
         authError: state => state.authError,   // 인증 에러
         authHeader: state => ({ Authorization: state.token}),  // 인증 정보
-        loginUser: state => state.loginUser,  // 현재 로그인한 유저 
+        loginUser: state => state.loginUser,  // 현재 로그인한 유저
+        targetUser: state => state.targetUser, // 다른 유저 정보 
         
     },
     mutations: {
         SET_TOKEN: (state, token) => state.token = token,
         SET_LOGIN_USER: (state, user) => state.loginUser = user,
         SET_AUTH_ERROR: (state, error) => state.authError = error,
+        SET_TARGET_USER: (state, user) => state.targetUser = user,
         LOGOUT: () => { 
             localStorage.removeItem('user')
             location.reload();
@@ -98,6 +101,20 @@ export default {
                   }
                 })
             }
+        },
+        // id값을 통해 해당 유저 정보 획득 (다른 유저 아이디 및 외래키를 통한 정보 접근용)
+        fetchUserInfo({  commit, getters  }, user_pk){
+            axios({
+                url: rest.user.user_check(user_pk),
+                method: 'get',
+                headers: getters.authHeader,
+            })
+            .then(res => {
+                commit('SET_TARGET_USER', res.data)
+            })
+            .catch(err => {
+                console.log( err,'오류')
+            })
         },
 
         // logout({  getters , dispatch}){

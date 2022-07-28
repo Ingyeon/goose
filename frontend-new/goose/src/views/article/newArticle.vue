@@ -17,7 +17,8 @@
     <select class="form-select" v-model="state.form.study_pk">
   <option selected>선택</option>
   <!-- 함수로 for문 돌려서 셀렉트 박스에 넣기 -->
-  <!-- <option value=#>{{  #  }}</option> --> 
+  
+  <!-- <option v-for="item in state.study_title" value="item.id">{{  item.title }}</option>  -->
 <!-- 게시글 작성자가 운영중인 스터디의 이름들을 목록에 뿌려줘야함 -->
 
 </select>
@@ -64,9 +65,13 @@ export default {
             title: '',
             content: '',
             state: '모집중',
+            study_pk: null,
         },
-        study:[]    // 현재 내가 운영중인 스터디의 정보
-
+        // 현재 내가 운영중인 스터디의 정보
+        study_title:{
+          id: null,
+          title: ''
+        }    
     })
 
     // 현재 구현해야 하는 것
@@ -75,20 +80,22 @@ export default {
 
 
 // 내가 운영하는 스터디를 state.study에 넣는 함수
-    // const study_info = function(){ 
+    // const study_info = function(){
+    //   store.dispatch('운영중인스터디',store.getters.loginUser.id)
+    // for (let study of store.getters.'운영중스터디')
+    //   state.study_title.push({id: study.id,title:study.title})
     // }
 
-// 외래키 studty_pk > study_title loginUser.study_title
     const clickSet = function(){   // 게시글 생성
       store.dispatch('fetchLoginUser')
-      store.dispatch('studyId',)
+      // store.dispatch('studyId',)
       store.dispatch('createArticle',{
         category:state.form.category, 
         recruitment: Number(state.form.recruitment),
         state: state.form.state,
         title: state.form.title,
         content: state.form.content,
-        // study_pk: store.getters.defaultStudy.id,
+        // study_pk: state.form.study_pk,
         user_pk: store.getters.loginUser.id,
         })
     }

@@ -25,10 +25,11 @@ export default {
     },
     actions: {
         // 전체 페이지 조회
-        fetchArticles({commit}){
+        fetchArticles({commit,getters},page){
             axios({
-                url: rest.article.article_list(),
+                url: rest.article.article_list(page),
                 method: 'get',
+                headers: getters.authHeader,
             })
             .then(res => 
                 commit('SET_ARTICLES',res.data)
@@ -44,7 +45,10 @@ export default {
                 method: 'get',
                 headers: getters.authHeader,
             })
-            .then(res => commit('SET_ARTICLE', res.data))
+            .then(res => {
+                res.data.hit++;  // 조회수 올리는 코드 // 작동여부
+                commit('SET_ARTICLE', res.data)})
+
             .catch(err => {
                 console.error(err.response)
                 if (err.response.status === 404){
