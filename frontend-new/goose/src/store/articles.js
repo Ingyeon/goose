@@ -1,11 +1,12 @@
 import axios from "axios"
 import rest from '@/api/rest'
 import router from "@/router"
+import _ from "lodash"
 
 export default {
     state: {
         articles: [],   // 전체 게시물 조회 시 사용
-        article: {},   // 개별 게시물의 CRUD에 사용
+        article: [],   // 개별 게시물의 CRUD에 사용
         replies: [], // 해당 게시물의 전체 댓글 조회 시 사용
         reply: {}, //개별 댓글의 CRUD
     },
@@ -15,6 +16,7 @@ export default {
         isAuthor: (state,getters) => {return state.article.user_pk == getters.loginUser},     // 게시물 작성자 권한 확인 (fetchCurrentUser 활용)
         replies: state => state.replies,
         reply: state => state.reply,
+        isArticles: 
         
     },
     mutations: {
@@ -31,11 +33,14 @@ export default {
                 method: 'get',
                 headers: getters.authHeader,
             })
-            .then(res => 
-                commit('SET_ARTICLES',res.data)
+            .then(res => {
+                commit('SET_ARTICLES',res.data.content
+                )
+            
+            })
+                
             .catch(err => 
                 {console.log(err)})
-            )
 
         },
         // 단일 페이지 조회

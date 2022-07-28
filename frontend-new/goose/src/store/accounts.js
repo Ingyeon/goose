@@ -83,16 +83,14 @@ export default {
         },
         // 현재 접속중인 이용자
         fetchLoginUser({ commit, getters, dispatch }) {
-            console.log('작동')
             if (getters.isLoggedIn) {
               axios({
                 url: rest.user.user_myprofile(), 
                 method: 'get',
                 headers: getters.authHeader,
               })
-                .then(res => {
+                .then(res =>
                     commit('SET_LOGIN_USER', res.data)
-                console.log(getters.loginUser)}
                 )
                 .catch(err => {
                   if (err.response.status === 401) {

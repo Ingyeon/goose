@@ -18,7 +18,7 @@
   <option selected>선택</option>
   <!-- 함수로 for문 돌려서 셀렉트 박스에 넣기 -->
   
-  <!-- <option v-for="item in state.study_title" value="item.id">{{  item.title }}</option>  -->
+  <option v-for="item in state.my_study"  :value="item.id">{{  item.title }}</option> 
 <!-- 게시글 작성자가 운영중인 스터디의 이름들을 목록에 뿌려줘야함 -->
 
 </select>
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import {reactive} from 'vue'
+import {onMounted, reactive} from 'vue'
 import {useStore} from 'vuex'
 
 export default {
@@ -68,39 +68,36 @@ export default {
             study_pk: null,
         },
         // 현재 내가 운영중인 스터디의 정보
-        study_title:{
-          id: null,
-          title: ''
-        }    
+        my_study:[]
     })
 
     // 현재 구현해야 하는 것
     // 1. 게시글 작성자의 운영 스터디를 목록으로 보여주기
     // 2. 선택한 스터디를 state.study에 할당하기
 
-
+    store.dispatch('authStudyList')
 // 내가 운영하는 스터디를 state.study에 넣는 함수
-    // const study_info = function(){
-    //   store.dispatch('운영중인스터디',store.getters.loginUser.id)
-    // for (let study of store.getters.'운영중스터디')
-    //   state.study_title.push({id: study.id,title:study.title})
-    // }
+    const study_info = function(){
+      console.log(store.getters.authStudyList)
+    for (let study of store.getters.authStudyList)
+      state.my_study.push({id: study.id,title:study.title})
+    }
 
     const clickSet = function(){   // 게시글 생성
       store.dispatch('fetchLoginUser')
-      // store.dispatch('studyId',)
       store.dispatch('createArticle',{
         category:state.form.category, 
         recruitment: Number(state.form.recruitment),
         state: state.form.state,
         title: state.form.title,
         content: state.form.content,
-        // study_pk: state.form.study_pk,
+        study_pk: state.form.study_pk,
         user_pk: store.getters.loginUser.id,
         })
     }
+    onMounted(() =>study_info())
 
-    return {state,clickSet,store}
+    return {state,clickSet,store,study_info}
     }
 }
 </script>
