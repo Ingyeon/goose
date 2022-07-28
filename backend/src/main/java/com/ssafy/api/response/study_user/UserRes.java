@@ -1,6 +1,5 @@
 package com.ssafy.api.response.study_user;
 
-import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.User;
 
 import io.swagger.annotations.ApiModel;
@@ -29,6 +28,8 @@ public class UserRes{
 	String email;
 	@ApiModelProperty(name="관심분야")
 	String interest;
+	@ApiModelProperty(name="정보")
+	String info;
 	
 	public static UserRes of(User user) {
 		UserRes res = new UserRes();
@@ -39,6 +40,7 @@ public class UserRes{
 		res.setJoinDate(user.getJoinDate());
 		res.setName(user.getName());
 		res.setPhoto(user.getPhoto());
+		res.setInfo(user.getInfo());
 		return res;
 	}
 }

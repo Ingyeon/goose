@@ -1,7 +1,5 @@
 package com.ssafy.api.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -50,6 +48,7 @@ public class UserServiceImpl implements UserService {
 		user.setEmail(updateInfo.getEmail());
 		user.setInterest(updateInfo.getInterest());
 		user.setPhoto(updateInfo.getPhoto());
+		user.setInfo(updateInfo.getInfo());
 		
 		return userRepository.save(user);
 	}
