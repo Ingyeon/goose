@@ -28,6 +28,7 @@ export default{
         study_remove: id => HOST + Study + 'remove/' + `${id}`,
         study_search: id => HOST + Study + 'search/' + `${id}`,
         study_update: () => HOST + Study + 'update',
+        my_study_list: () => HOST + Study + Member + 'mystudylist',
         study_join: (study_pk) => HOST + Study + Member + 'joinstudy/'+ `${study_pk}`,
         study_join_list: (study_pk) => HOST + Study + Member + 'joinlist/'+ `${study_pk}`,
         study_join_agree: () => HOST + Study + Member + 'joinagree',

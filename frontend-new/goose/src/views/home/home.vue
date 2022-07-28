@@ -24,14 +24,22 @@
   <div>
     <li class="active">모집중인 스터디</li>
     <li class="disabled">참여중인 스터디</li>
+    {{ myStudyList }}
   </div>
 </template>
 
 <script>
 import Notice from '@/components/mainpage/notice'
+import { useStore } from "vuex"
+import { computed } from "vue"
 export default {
   components:{
     Notice,
+  },
+  setup(){
+    const store = useStore()
+    const myStudyList = computed(()=> store.getters.myStudyList)
+    return {myStudyList}
   }
 }
 </script>

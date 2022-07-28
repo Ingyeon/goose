@@ -4,7 +4,7 @@ import router from "@/router"
 
 export default {
   state:{
-    studyTotal : [],
+    myStudyList : [],
     studyJoinList : [{"apply_date": "26072022", "id":0, "name": "유저이름", "study_pk":0, "user_id":0} ],
     selectedStudy : {
       "category": "",
@@ -43,7 +43,7 @@ export default {
     // 주로 스터디 조회 관련
     defaultStudy : state => state.defaultStudy,
     studyId : state => state.selectedStudy.id,
-    studyTotal : state => state.studyTotal,
+    myStudyList : state => state.myStudyList,
     studyName: state => state.selectedStudy.title,
     maxMember: state => state.selectedStudy.maxmember,
     member: state => state.selectedStudy.member,
@@ -68,7 +68,9 @@ export default {
     SET_STUDY_BOARD: (state, studyBoard) => state.selectedStudy.studyBoard = studyBoard,
     SET_NOTICE: (state, notice) => state.selectedStudy.notice = notice,
     // 스터디 참가 신청 관련
-    SET_JOIN_LIST: (state,joinArray) => state.studyJoinList = joinArray
+    SET_JOIN_LIST: (state,joinArray) => state.studyJoinList = joinArray,
+    // 참여하고 있는 스터디 조회
+    SET_MY_STUDY_LIST: (state,studyList) => state.myStudyList = studyList
   },
 
   actions:{
@@ -100,7 +102,7 @@ export default {
       })  
       .then((res) =>{
         console.log(res)
-        router.push({ name: 'Home '})
+        router.push({name: 'Home'})
       })
       .catch(err => {
         console.log('catch')
@@ -124,6 +126,18 @@ export default {
       })
       router.push({ name:'Home' })
     },
+    myStudyList({getters,commit}){
+      axios({
+        url: rest.study.my_study_list(),
+        method: 'get',
+        headers: getters.authHeader
+      })
+      .then(res =>{
+        console.log("스터디 리스트")
+        commit('SET_MY_STUDY_LIST',res.data)
+      })
+    },
+
 
     joinList({getters,dispatch},){
       axios({

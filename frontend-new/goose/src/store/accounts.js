@@ -37,7 +37,7 @@ export default {
                 const token = res.data.accessToken
                 dispatch('saveToken', token)
                 dispatch('fetchLoginUser')
-                
+                dispatch('myStudyList')
                 router.push({name: 'Home'})
             })
             .catch(err => {
