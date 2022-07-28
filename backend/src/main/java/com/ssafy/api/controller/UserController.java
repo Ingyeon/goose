@@ -44,6 +44,9 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 	@PostMapping()
 	@ApiOperation(value = "회원 가입", notes = "<strong>아이디와 패스워드</strong>를 통해 회원가입 한다.") 
     @ApiResponses({
@@ -104,14 +107,19 @@ public class UserController {
         @ApiResponse(code = 204, message = "성공"),
     })
 	public ResponseEntity<? extends BaseResponseBody> deleteUser(
-			@ApiIgnore Authentication authentication) {
+			@RequestBody @ApiParam(value="회원 비밀번호", required = true) String password, @ApiIgnore Authentication authentication) {
 		
+		System.out.println(password);
 		//임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
 		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
-		String userId = userDetails.getUsername();
-		userService.deleteUserByUserId(userId);
+
 		
-		return ResponseEntity.status(204).body(BaseResponseBody.of(204, "Success"));
+		if(passwordEncoder.matches(password, userDetails.getPassword())) {	
+			String userId = userDetails.getUsername();
+			userService.deleteUserByUserId(userId);
+			return ResponseEntity.status(204).body(BaseResponseBody.of(204, "Success"));
+		} else return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Invalid Password"));
+		
 	}
 	
 	@GetMapping("/me")
