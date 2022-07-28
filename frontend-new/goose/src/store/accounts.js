@@ -130,10 +130,11 @@ export default {
         //         console.error(err.response)
         //     })
         // }
-//         logout({commit, dispatch}) {
-//             dispatch('removeToken');
-//             router.push({name:'Home'})
-//         },
+        logout({commit, dispatch}) {
+            dispatch('removeToken');
+            // commit('SET_MY_STUDY_LIST',{})
+            router.push({name:'Home'})
+        },
         
 //         user_delete({commit, getters, dispatch}) {
 //             const Swal = require('sweetalert2')

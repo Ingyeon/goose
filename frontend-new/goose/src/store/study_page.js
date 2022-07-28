@@ -32,8 +32,8 @@ export default {
       "open": 0,
       "password": "",
       "title": "",
-      "urlConf": "", //캠 주소
-      "urlPage":"", // 스터디 홈 주소
+      "urlConf": "", 
+      "urlPage":"",
       "notice":"",
       "studyBoard":[],
     }
