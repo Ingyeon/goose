@@ -19,8 +19,16 @@
 </div>
 
 <!-- 게시판 -->
-<b-table striped hover :items="state.article_list" @row-clicked="rowClick" :fields="state.headers" show-empty>
-</b-table>
+<div v-if="isList">
+  <b-table striped hover :items="state.article_list" @row-clicked="rowClick" :fields="state.headers" show-empty>
+  </b-table>
+</div>
+<div v-if="isList">
+리스트 있음
+</div>
+<div v-if="!isList">
+리스트 없음
+</div>
 
 <!-- 페이지네이션 -->
     <b-pagination
@@ -36,9 +44,10 @@
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { reactive,computed } from 'vue'
 import { onMounted } from 'vue'
 import {useStore} from 'vuex'
+import _ from 'lodash'
 
 export default {
     setup(){
@@ -55,11 +64,14 @@ export default {
             headers: ['글번호','상태','분류','제목','작성자','등록일','조회수'],
             articles: []
         })
+
         const articles_set = function(){
+          store.dispatch('fetchArticles',1) 
           state.articles = store.getters.articles
           console.log(1,state.articles)
         }
         articles_set()
+        
         const makeLists = function(){
           console.log(2,state.articles)
             for(let articleItem of state.articles) {
@@ -76,17 +88,21 @@ export default {
                 })
             }
         }
+
+        const isList = computed(() => !_.isEmpty(state.articles))
         const rowClick = function(item){
           this.$router.push({
             path: `/article/${item.id}`
           })
         }
 
+      
+
         onMounted(() => {
         makeLists()})
         
     
-    return {currentPage,Rows,PerPage,state,makeLists,onMounted,rowClick,articles_set}
+    return {currentPage,Rows,PerPage,state,makeLists,onMounted,rowClick,articles_set,isList}
 
 
     }

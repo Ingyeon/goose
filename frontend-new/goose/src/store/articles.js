@@ -16,8 +16,6 @@ export default {
         isAuthor: (state,getters) => {return state.article.user_pk == getters.loginUser},     // 게시물 작성자 권한 확인 (fetchCurrentUser 활용)
         replies: state => state.replies,
         reply: state => state.reply,
-        isArticles: 
-        
     },
     mutations: {
         SET_ARTICLES: (state, articles) => state.articles = articles,

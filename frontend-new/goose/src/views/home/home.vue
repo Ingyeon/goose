@@ -39,7 +39,6 @@ export default {
   setup(){
     const store = useStore()
     const myStudyList = computed(()=> store.getters.myStudyList)
-            store.dispatch('fetchArticles',1)
     return {myStudyList}
   }
 }
