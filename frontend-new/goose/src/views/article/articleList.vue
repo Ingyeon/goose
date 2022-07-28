@@ -56,7 +56,7 @@ export default {
             ],
             headers: ['글번호','상태','분류','제목','작성자','등록일','조회수']
         })
-        // id는 pk값과 동일? post 요청 때는 안넣는데 갑자기 생김 -> 조건 지정등에 id 쓰이는데 혼란스러움
+
         const makeLists = function(){
             for(let articleItem of articles) {
                 state.article_list.push({
@@ -66,7 +66,7 @@ export default {
                     '제목': articleItem.title,
                     '작성자': articleItem.user_pk, // user_pk값으로 작성자 이름 가져오는 작업 필요
                     '등록일': articleItem.date,
-                    '조회수': articleItem.hit, // 임의값 넣음, 추후 조회수 관련 로직 작성 필요
+                    '조회수': articleItem.hit, // 남는 필드값 넣음, 조회수 관련 필드?
                     'id': articleItem.id
                 })
             }

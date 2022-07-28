@@ -36,7 +36,7 @@ export default {
             .then(res => {
                 const token = res.data.accessToken
                 dispatch('saveToken', token)
-                // dispatch('fetchLoginUser')
+                dispatch('fetchLoginUser')
                 
                 router.push({name: 'Home'})
             })
@@ -80,14 +80,17 @@ export default {
         },
         // 현재 접속중인 이용자
         fetchLoginUser({ commit, getters, dispatch }) {
-      
+            console.log('작동')
             if (getters.isLoggedIn) {
               axios({
                 url: rest.user.user_myprofile(), 
                 method: 'get',
                 headers: getters.authHeader,
               })
-                .then(res => commit('SET_LOGIN_USER', res.data))
+                .then(res => {
+                    commit('SET_LOGIN_USER', res.data)
+                console.log(getters.loginUser)}
+                )
                 .catch(err => {
                   if (err.response.status === 401) {
                     dispatch('removeToken')

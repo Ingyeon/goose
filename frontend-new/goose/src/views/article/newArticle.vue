@@ -18,7 +18,7 @@
   <option selected>선택</option>
   <!-- 함수로 for문 돌려서 셀렉트 박스에 넣기 -->
   <!-- <option value=#>{{  #  }}</option> --> 
-
+<!-- 게시글 작성자가 운영중인 스터디의 이름들을 목록에 뿌려줘야함 -->
 
 </select>
 
@@ -68,25 +68,31 @@ export default {
         study:[]    // 현재 내가 운영중인 스터디의 정보
 
     })
-    // 작동 안하는 이유(코드:500)에 대한 예상 원인
-    // => 외래키값 지정을 안해줘서 (게시글을 쓸 때 자신의 스터디를 표시해줘야 함)
-    // 결론: study_pk 및 user_pk를 가져와야함  -> 백엔드 작업 완료된 후 게시판 작업 하기
+
+    // 현재 구현해야 하는 것
+    // 1. 게시글 작성자의 운영 스터디를 목록으로 보여주기
+    // 2. 선택한 스터디를 state.study에 할당하기
+
+
+// 내가 운영하는 스터디를 state.study에 넣는 함수
+    // const study_info = function(){ 
+    // }
+
+// 외래키 studty_pk > study_title loginUser.study_title
     const clickSet = function(){   // 게시글 생성
       store.dispatch('fetchLoginUser')
+      store.dispatch('studyId',)
       store.dispatch('createArticle',{
         category:state.form.category, 
         recruitment: Number(state.form.recruitment),
         state: state.form.state,
         title: state.form.title,
         content: state.form.content,
-        study_pk: store.getters.defaultStudy.pk,
-        user_pk: store.getters.loginUser,
-        // 문제: loginUser의 필드값이 이상함
+        // study_pk: store.getters.defaultStudy.id,
+        user_pk: store.getters.loginUser.id,
         })
     }
-    // const study_info = function(){ // 내가 운영하는 스터디를 state.study에 넣는 함수
-    // }
-    
+
     return {state,clickSet,store}
     }
 }

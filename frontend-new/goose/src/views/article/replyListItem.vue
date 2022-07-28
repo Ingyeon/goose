@@ -1,10 +1,10 @@
 <template>
   <ol>
     <li class="list-group-item py-1">
-        <!-- 라우터 링크 프로필 링크로 대체
-<router-link class="fw-bold" :to="{  name: '#', parmas: {id: 'user_pk'}  }, ">
-댓글 작성자 필드 어떻게 불러오는지 백엔드측에 물어봐야함
-{{ reply.user }}
+        <!-- 작성자 누르면 작성자의 프로필 주소로 이동, user_pk로 댓글 작성자 불러오는 작업 필요 -->
+<!-- <router-link class="fw-bold" :to="{  name: '#', parmas: {id: 'user_pk'}  }, ">
+
+
 </router-link> -->
     </li>
     <li class="list-group-item flex-fill" v-if="!isEditing">{{  payload.re_content  }}</li>
@@ -23,8 +23,6 @@
 </template>
 
 <script>
-//  오류 발생중
-//  원인: pk 값을 인식 못함 
 
 import { mapGetters, mapActions } from 'vuex'
 
@@ -34,7 +32,7 @@ export default {
         return {
             isEditing: false,
             payload: {
-                reply_pk: this.reply.pk,
+                id: this.reply.id,
                 re_content: this.reply.re_content
             },
         }

@@ -16,7 +16,7 @@
 
     </div>
 
-    <!-- 댓글 목록 / 게시글에 속한 댓글 어떻게 가져오는게 맞는지? -->
+<!-- 댓글의 외래키인 article_pk 이용해서 해당 댓글의 게시글과 연동 -->
     <!-- <reply-list :replies:""></reply-list> -->
 
 </template>
