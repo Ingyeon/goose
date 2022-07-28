@@ -6,6 +6,7 @@ import test from '@/views/home/test.vue'
 import Login from '@/views/accounts/loginView.vue'
 import Signup from '@/views/accounts/signupView.vue'
 import UserDelete from '@/views/accounts/userDelete.vue'
+import UserProfile from '@/views/accounts/profileView.vue'
 //Article
 import ArticleList from '@/views/article/articleList.vue'
 import NewArticle from '@/views/article/newArticle.vue'
@@ -38,6 +39,12 @@ const routes = [
     name: 'UserDelete',
     component: UserDelete
   },
+  {
+    path: '/:id/profile',
+    name: 'UserProfile',
+    component: UserProfile
+  },
+  {},
   {path: '/articles',
    name: ArticleList,
   component: ArticleList},

@@ -66,6 +66,8 @@ export default {
      })
         const signupForm = function(){
         // dispatch 함수명 바뀔 경우 아래줄 수정
+        // store.dispatch('signup',{"name": state.name, 'id': state.id, 'password': state.password1, 'email':state.email, 'interest': state.interest, 'photo':'d'})
+            // store.dispatch('signup',{"email":state.form.email,"id":state.form.id,"interest":state.form.interest,"name":state.form.name, "password":state.form.password1, "photo": "(String) 사진 사용X"    })
 
             // dispatch 함수명 바뀔 경우 아래줄 수정
             if (state.form.name == null || state.form.id == null || state.form.password1 == null || state.form.password2 == null || state.form.email == null || state.form.interest == null) {
