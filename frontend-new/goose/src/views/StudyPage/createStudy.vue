@@ -96,19 +96,7 @@ export default {
         const createStudy = ()=>{
             console.log(state.credential.category)
             store.dispatch('createStudy',state.credential)
-            // store.dispatch('createStudy',{
-            //     "category": state.credential.category,
-            //     // "id": "",
-            //     "image": state.credential.image,
-            //     "maxmember": state.credential.maxmember,
-            //     "member": 1,
-            //     "open": state.credential.open,
-            //     "password": state.credential.password,
-            //     "title": state.credential.title,
-            //     "url_conf": state.credential.url_conf,
-            //     "url_page": state.credential.url_page,
-            //     // "userId": "",
-            // })
+
         }
         return { createStudy, state}
     }

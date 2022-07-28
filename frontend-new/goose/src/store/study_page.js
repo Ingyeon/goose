@@ -72,28 +72,6 @@ export default {
   },
 
   actions:{
-    saveId({commit}, id) {
-      commit('SET_ID',id)
-    },
-    saveStudy({ commit }, studyName) {
-      commit('SET_STUDY',studyName)
-    },
-    saveMaxMember({ commit }, num) {
-      commit('SET_MAX_MEMBER',num)
-    },
-    saveMember({ commit }, num) {
-      commit('SET_MEMBER',num)
-    },
-    saveCamURL({ commit }, URL) {
-      commit('SET_CAM_URL', URL)
-    },
-    saveStudyURL({commit},URL){
-      commit('SET_STUDY_URL',URL)
-    },
-
-    saveNotice({ commit }, notice) {
-      commit('SET_NOTICE', notice)
-    },
     saveStudyBoard({commit}, studyBoard) {
       commit('SET_STUDY_BOARD',studyBoard)
     },
@@ -103,13 +81,14 @@ export default {
     },
 
     // 한번에 처리
-    selectStudy({dispatch}, obj){
-      dispatch('saveId',obj.id)
-      dispatch('saveStudy',obj.title)
-      dispatch('saveMaxMember',obj.maxmember)
-      dispatch('saveMember',obj.member)
-      dispatch('saveCamURL',obj.url_conf)
-      dispatch('safeStudyURL',obj.url_page)
+    selectStudy({commit}, obj){
+      commit('SET_ID',obj.id),
+      commit('SET_STUDY',obj.title)
+      commit('SET_MAX_MEMBER',obj.maxMember)
+      commit('SET_MEMBER',obj.member)
+      commit('SET_CAM_URL', obj.url_conf)
+      commit('SET_STUDY_URL',obj.url_page)
+      // commit('SET_NOTICE', obj.notice)
     },
     
     createStudy({getters},credential){
@@ -131,7 +110,7 @@ export default {
 
     deleteStudy({dispatch,getters},studyId){
       axios({
-        uri: rest.study.study_remove(studyId),
+        url: rest.study.study_remove(studyId),
         method: 'delete',
         params: {"id":studyId}
       })
@@ -148,7 +127,7 @@ export default {
 
     joinList({getters,dispatch},){
       axios({
-        uri: rest.study.study_join_list(getters.studyId),
+        url: rest.study.study_join_list(getters.studyId),
         method: 'get',
       })
       .then(res => {
@@ -160,17 +139,47 @@ export default {
       })
     },
     
-    joinAgree({getters},credential){
+    //스터디 가입 신청
+    joinStudy({getters},studyId){
       axios({
-        uri: rest.study.study_join_agree(),
+        url: rest.study.joinStudy(studyId),
         method: 'post',
-        headers: getters.authHeader,
-        data: credential
+        headers: getters.authHeader
       })
-      .then(res =>{
+      .then(res=>{
+        console.log("스터디 가입신청 완료")
         console.log(res)
       })
+      .catch(res=>{
+        console.log("스터디 가입 신청 실패")
+        console.log(res)
+      })
+    },
+
+    // 스터디 가입신청 승락
+    joinAgree({getters},credential){
+      console.log("승락")
+      // axios({
+      //   url: rest.study.study_join_agree(),
+      //   method: 'post',
+      //   headers: getters.authHeader,
+      //   data: credential
+      // })
+      // .then(res =>{
+      //   console.log(res)
+      // })
+    },
+
+    // 스터디 가입신청 거절
+    joinRefuse({getters},joinStudyId){
+      console.log("거절")
+      // axios({
+      //   url: rest.study.study_join_delete(joinStudyId),
+      //   method: 'delete',
+      //   headers: getters.authHeader,
+      // })
     }
+
 
   },
 }
