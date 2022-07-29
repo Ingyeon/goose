@@ -25,6 +25,8 @@ public class ArticlesInfoRes {
 	String date;
 	@ApiModelProperty(name="모집 상태")
 	String state;
+	@ApiModelProperty(name="카테고리")
+	String category;
 	@ApiModelProperty(name="모집 인원")
 	int recruitment;
 	@ApiModelProperty(name="조회수")
@@ -43,6 +45,7 @@ public class ArticlesInfoRes {
 		res.setTitle(articles.getTitle());
 		res.setContent(articles.getContent());
 		res.setDate(articles.getDate());
+		res.setCategory(articles.getCategory());
 		res.setState(articles.getState());
 		res.setRecruitment(articles.getRecruitment());
 		res.setHit(articles.getHit());
