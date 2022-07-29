@@ -97,7 +97,7 @@ public class StudyArticleController {
 		return ResponseEntity.status(200).body(articles);
 	}
 	
-	@GetMapping("{id}")
+	@GetMapping()
 	@ApiOperation(value = "게시글 상세 조회", notes = "게시글의 상세 정보를 응답한다.") 
     @ApiResponses({
         @ApiResponse(code = 200, message = "성공"),
@@ -105,7 +105,7 @@ public class StudyArticleController {
         @ApiResponse(code = 404, message = "사용자 없음"),
         @ApiResponse(code = 500, message = "서버 오류")
     })
-	public ResponseEntity<StudyArticlesInfoRes> getArticle(@RequestParam(value = "게시글 id")Long id) {
+	public ResponseEntity<StudyArticlesInfoRes> getArticle(@RequestParam(value = "id")Long id) {
 		
 		studyArticleService.updateHit(id);
 		StudyArticle articles = studyArticleService.getArticlesById(id);
@@ -115,7 +115,7 @@ public class StudyArticleController {
 		return ResponseEntity.status(200).body(articleInfoRes);
 	}
 	
-	@PatchMapping("{id}")
+	@PatchMapping()
 	@ApiOperation(value = "게시글 정보 수정", notes = "<strong>게시글 정보</strong>를 수정 한다.") 
     @ApiResponses({
         @ApiResponse(code = 200, message = "성공"),
@@ -134,13 +134,13 @@ public class StudyArticleController {
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
 	
-	@DeleteMapping("{id}")
+	@DeleteMapping()
 	@ApiOperation(value = "게시글 삭제", notes = "<strong>게시글 번호</strong>를 통해 게시글 삭제 한다.") 
     @ApiResponses({
         @ApiResponse(code = 204, message = "성공"),
     })
 	public ResponseEntity<? extends BaseResponseBody> deleteArticle(
-			@RequestBody @ApiParam(value="게시글 id", required = true) Long id, @ApiIgnore Authentication authentication) {
+			@RequestBody @ApiParam(value="id", required = true) Long id, @ApiIgnore Authentication authentication) {
 		
 		SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
 		studyArticleService.deleteArticlesById(id);

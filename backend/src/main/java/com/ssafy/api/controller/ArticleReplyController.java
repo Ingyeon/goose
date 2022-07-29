@@ -94,7 +94,7 @@ public class ArticleReplyController {
 		return ResponseEntity.status(200).body(articleReplys);
 	}
 	
-	@PatchMapping("{id}")
+	@PatchMapping()
 	@ApiOperation(value = "댓글 정보 수정", notes = "<strong>댓글 정보</strong>를 수정 한다.") 
     @ApiResponses({
         @ApiResponse(code = 200, message = "성공"),
@@ -112,13 +112,13 @@ public class ArticleReplyController {
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
 	
-	@DeleteMapping("{id}")
+	@DeleteMapping()
 	@ApiOperation(value = "게시글 댓글 삭제", notes = "<strong>댓글 번호</strong>를 통해 댓글 삭제 한다.") 
     @ApiResponses({
         @ApiResponse(code = 204, message = "성공"),
     })
 	public ResponseEntity<? extends BaseResponseBody> deleteArticleReply(
-			@RequestBody @ApiParam(value="댓글 id", required = true) Long id, @ApiIgnore Authentication authentication) {
+			@RequestBody @ApiParam(value="id", required = true) Long id, @ApiIgnore Authentication authentication) {
 		SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
 		articleReplyService.deleteArticleReplyById(id);
 		
