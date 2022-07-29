@@ -6,53 +6,17 @@ export default {
   state:{
     myStudyList : [],
     authStudyList: [],
-    studyJoinList : [{"apply_date": "26072022", "id":0, "name": "유저이름", "study_pk":0, "user_id":0} ],
-    selectedStudy : {
-      "category": "",
-      "date": "",
-      "id":'',
-      "image": "",
-      "maxmember": 6,
-      "member": 6,
-      "open": 0,
-      "password": "",
-      "title": "9조 스터디 구스",
-      "urlConf": "https://edu.ssafy.com/", //캠 주소
-      "urlPage":"", // 스터디 홈 주소
-      "notice":"스터디 자기소개 부분인데 칼럼이 없음",
-      "studyBoard":[{studyboard1:"기본값1"},{studyboard2:"기본값2"}],
-    },
-    defaultStudy : {
-      "category": "",
-      "date": "",
-      "id":'',
-      "image": "",
-      "maxmember": 0,
-      "member": 0,
-      "open": 0,
-      "password": "",
-      "title": "",
-      "urlConf": "", 
-      "urlPage":"",
-      "notice":"",
-      "studyBoard":[],
-    }
-
+    studyJoinList : [],
+    selectedStudy : {},
+    studyBoard : [],
   },
 
   getters:{
-    // 주로 스터디 조회 관련
-    defaultStudy : state => state.defaultStudy,
-    studyId : state => state.selectedStudy.id,
-    myStudyList : state => state.myStudyList,
-    authStudyList : state => state.authStudyList,  // 권한 가지는 스터디들의 목록
-    studyName: state => state.selectedStudy.title,
-    maxMember: state => state.selectedStudy.maxmember,
-    member: state => state.selectedStudy.member,
-    // notice: state => state.selectedStudy.notice,
+    selectedStudy : state => state.selectedStudy,
+    myStudyList: state => state.myStudyList,
     camURL: state => state.selectedStudy.urlConf,
     studyURL: state => state.selectStudy.urlPage,
-    studyBoard : state => state.selectedStudy.studyBoard,
+    studyBoard : state => state.studyBoard,
     // 스터디 참가 신청 관련
     studyJoinList: state => state.studyJoinList,
     isJoinList: state => !!state.saveJoinList
@@ -60,14 +24,9 @@ export default {
 
   mutations:{
     // 스터디 조회시 주로 작동
-    SET_ID: (state, id) => state.selectStudy.id = id,
-    SET_STUDY: (state, studyName) => state.selectedStudy.title = studyName,
-    SET_MAX_MEMBER: (state, num) => state.selectedStudy.maxmember = num,
-    SET_MEMBER: (state, num) => state.selectedStudy.member = num,
-    SET_CAM_URL: (state, URL) => state.selectedStudy.urlConf = URL,
-    SET_STUDY_URL: (state, URL) => state.selectStudy.studyURL = URL,
+    SET_STUDY: (state, study) => state.selectedStudy = study,
 
-    SET_STUDY_BOARD: (state, studyBoard) => state.selectedStudy.studyBoard = studyBoard,
+    SET_STUDY_BOARD: (state, studyBoard) => state.studyBoard = studyBoard,
     SET_NOTICE: (state, notice) => state.selectedStudy.notice = notice,
     // 스터디 참가 신청 관련
     SET_JOIN_LIST: (state,joinArray) => state.studyJoinList = joinArray,
@@ -86,14 +45,20 @@ export default {
     },
 
     // 한번에 처리
-    selectStudy({commit}, obj){
-      commit('SET_ID',obj.id),
-      commit('SET_STUDY',obj.title)
-      commit('SET_MAX_MEMBER',obj.maxMember)
-      commit('SET_MEMBER',obj.member)
-      commit('SET_CAM_URL', obj.url_conf)
-      commit('SET_STUDY_URL',obj.url_page)
-      // commit('SET_NOTICE', obj.notice)
+    selectStudy({commit,getters},id){
+      axios({
+        url: rest.study.study_search(id),
+        method: 'get',
+        headers: getters.authHeader
+      })
+      .then((res)=>{
+        commit('SET_STUDY', res.data)
+        router.push({ path: '/studyHome',})
+      })
+      .catch((err)=>{
+        console.log("스터디 선택 실패")
+        console.log(err)
+      })
     },
     
     createStudy({getters},credential){
@@ -120,7 +85,7 @@ export default {
         params: {"id":studyId}
       })
       .then(()=>{
-        dispatch('selectStudy',getters.defaultStudy)
+        dispatch('selectStudy',{})
       })
       .catch(err => {
         console.log(err)
@@ -137,6 +102,7 @@ export default {
       })
       .then(res =>{
         console.log("스터디 리스트")
+        console.log(res)
         commit('SET_MY_STUDY_LIST',res.data)
       })
     },

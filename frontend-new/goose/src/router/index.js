@@ -13,6 +13,7 @@ import NewArticle from '@/views/article/newArticle.vue'
 import ArticleDetail from '@/views/article/articleDetail.vue'
 //Study
 import CreateStudy from '@/views/StudyPage/createStudy'
+import StudyHome from '@/views/StudyPage/studyHome.vue'
 
 const routes = [
   {
@@ -61,7 +62,13 @@ const routes = [
 
   {path: '/article/:id',
   name: ArticleDetail,
-  component: ArticleDetail}
+  component: ArticleDetail},
+
+  {
+    path: '/studyHome',
+    name: StudyHome,
+    component: StudyHome
+  },
 ];
 
 const router = createRouter({
