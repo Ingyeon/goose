@@ -6,31 +6,29 @@ export default {
   state:{
     myStudyList : [],
     authStudyList: [],
-    studyJoinList : [{"apply_date": "26072022", "id":0, "name": "유저이름", "study_pk":0, "user_id":0} ],
+    studyJoinList : [],
     selectedStudy : {},
     studyBoard:[],
+    studyMemberList:[],
   },
 
   getters:{
-    // 주로 스터디 조회 관련
     selectedStudy: state => state.selectedStudy,
     myStudyList : state => state.myStudyList,
     authStudyList : state => state.authStudyList,  // 권한 가지는 스터디들의 목록
     studyBoard : state => state.studyBoard,
-    // 스터디 참가 신청 관련
     studyJoinList: state => state.studyJoinList,
-    isJoinList: state => !!state.saveJoinList
+    isJoinList: state => !!state.saveJoinList,
+    studyMemberList: state => state.studyMemberList
   },
 
   mutations:{
-    // 스터디 조회시 주로 작동
     SET_SELECTED_STUDY: (state, study) => state.selectedStudy = study,
     SET_STUDY_BOARD: (state, studyBoard) => state.selectedStudy.studyBoard = studyBoard,
-    // 스터디 참가 신청 관련
     SET_JOIN_LIST: (state,joinArray) => state.studyJoinList = joinArray,
-    // 참여하고 있는 스터디 조회
     SET_MY_STUDY_LIST: (state,studyList) => state.myStudyList = studyList,
     SET_AUTH_STUDY_LIST: (state, authStudyList) => state.authStudyList = authStudyList,
+    SET_STUDY_MEMBER_LIST: (state, memberList) => state.studyMemberList = memberList,
   },
 
   actions:{
@@ -42,8 +40,7 @@ export default {
       commit('SET_JOIN_LIST',joinArray)
     },
 
-    // 한번에 처리
-    selectStudy({commit,getters},id){
+    selectStudy({commit,getters,dispatch},id){
       axios({
         url: rest.study.study_search(id),
         method: 'get',
@@ -51,6 +48,7 @@ export default {
       })
       .then((res)=>{
         commit('SET_SELECTED_STUDY',res.data)
+        dispatch('saveStudyMemberList',res.data.id)
         router.push({path:'/studyHome'})
       })
       .catch((err)=>{
@@ -104,6 +102,7 @@ export default {
       })
       .then(res =>{
         console.log("스터디 리스트")
+        console.log(res.data)
         commit('SET_MY_STUDY_LIST',res.data)
       })
     },
@@ -118,6 +117,16 @@ export default {
       })
     },
 
+    saveStudyMemberList({getters,commit},id){
+      axios({
+        url: rest.study.study_member_list(id),
+        method: 'get',
+        headers: getters.authHeader
+      })
+      .then((res)=>{
+        commit('SET_STUDY_MEMBER_LIST',res.data)
+      })
+    },
 
     joinList({getters,dispatch},){
       axios({

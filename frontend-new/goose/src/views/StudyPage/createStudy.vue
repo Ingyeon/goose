@@ -77,30 +77,32 @@ import { reactive } from '@vue/reactivity'
 import { useStore } from "vuex"
 
 export default {
-    setup(){
-        const store = useStore()
-        const state = reactive({
-            credential:{
-                category: "",
+  props:{
+  },
+  setup(){
+      const store = useStore()
+      const state = reactive({
+          credential:{
+              category: "",
 
-                image : "",
-                maxmember:1,
-                member: 1,
-                open: 0,
-                password: "",
-                title : "",
-                url_conf:"",
-                url_page:"",
-            }
-        })
-        const createStudy = ()=>{
-            console.log(state.credential.category)
-            store.dispatch('createStudy',state.credential)
-            store.dispatch('authStudyList')
+              image : "",
+              maxmember:1,
+              member: 1,
+              open: 0,
+              password: "",
+              title : "",
+              url_conf:"",
+              url_page:"",
+          }
+      })
+      const createStudy = ()=>{
+          console.log(state.credential.category)
+          store.dispatch('createStudy',state.credential)
+          store.dispatch('authStudyList')
 
-        }
-        return { createStudy, state}
-    }
+      }
+      return { createStudy, state}
+  }
 }
 </script>
 

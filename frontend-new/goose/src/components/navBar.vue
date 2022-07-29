@@ -25,7 +25,7 @@
         <router-link to="/articles" class="nav-link active" aria-current="page" href="#">게시판</router-link>
       </li>
       <li class="nav-item">
-        <router-link to="/createStudy" class="nav-link active" aria-current="page" href="#">스터디 만들기</router-link>
+        <router-link to="/createStudy" :page="create" class="nav-link active" aria-current="page" href="#">스터디 만들기</router-link>
       </li>
       <!-- <div>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createStudyModal">스터디 만들기2</button>

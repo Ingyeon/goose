@@ -3,7 +3,7 @@
   <div class="modal-fullscreen modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">스터디 업데이트</h5>
+        <h5 class="modal-title" id="exampleModalLabel">스터디 만들기</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -70,16 +70,17 @@
               <textarea v-model="state.credential.image" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
               <label for="floatingTextarea">대표 사진 url</label>
             </div>
-              <button @click.prevent="createStudy(state.credential)" type="submit" class="btn btn-primary">Submit,create로 함수 적혀있음</button>
+              <button @click.prevent="createStudy(state.credential)" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
             </form>
             </div>
             {{ state.credential }}
-            <!-- 업데이트에만 존재 -->
+
+            <!-- 업데이트에만 있는 목록들 -->
+            <hr>
+            <div class="container">
               <p>인원 관리</p>
-              <div>아직 정보가 없음</div>
-
+              <memberListVue />
             </div>
-
           <!-- 모달 바디 끝 -->
       </div>
       <div class="modal-footer">
@@ -87,7 +88,7 @@
       </div>
     </div>
   </div>
-
+</div>
 
 
 
@@ -99,9 +100,15 @@
 import { reactive } from '@vue/reactivity'
 import { useStore } from "vuex"
 
+// 업데이트
+import memberListVue from '@/components/StudyPage/memberList.vue'
+
 export default {
     props: {
     },
+    components: {
+    memberListVue,
+},
     setup(){
         const store = useStore()
         const state = reactive({

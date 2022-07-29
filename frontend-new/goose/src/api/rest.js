@@ -34,6 +34,7 @@ export default{
         study_join_list: (study_pk) => HOST + Study + Member + 'joinlist/'+ `${study_pk}`,
         study_join_agree: () => HOST + Study + Member + 'joinagree',
         study_join_delete: (id) => HOST + Study + Member + 'joindelete/'+ `${id}`,
+        study_member_list: (study_pk) => HOST + Study + Member + 'studymemberlsit/'+`${study_pk}` // 오타 불편
     },
     user: {
         user_signup: () => HOST + User,
