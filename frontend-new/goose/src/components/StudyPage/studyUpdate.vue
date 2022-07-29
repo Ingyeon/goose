@@ -24,7 +24,7 @@
             <div class="d-flex">
               <p class="text-capitalize m-3">총원</p>
               <div class="m-3">
-                <select v-model="state.credential.maxMember" class="form-select" aria-label="Default select example">
+                <select v-model="state.credential.maxmember" class="form-select" aria-label="Default select example">
                   <option value="1">1명</option>
                   <option value="2">2명</option>
                   <option value="3">3명</option>
@@ -70,7 +70,7 @@
               <textarea v-model="state.credential.image" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
               <label for="floatingTextarea">대표 사진 url</label>
             </div>
-              <button @click.prevent="createStudy(state.credential)" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+              <button @click.prevent="updateStudy()" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
             </form>
             </div>
             {{ state.credential }}
@@ -99,8 +99,7 @@
 <script>
 import { reactive } from '@vue/reactivity'
 import { useStore } from "vuex"
-
-// 업데이트
+import { computed } from "vue"
 import memberListVue from '@/components/StudyPage/memberList.vue'
 
 export default {
@@ -111,13 +110,15 @@ export default {
 },
     setup(){
         const store = useStore()
+        const studyId = computed(()=>store.getters.selectedStudy.id)
+
         const state = reactive({
             credential:{
                 category: "",
-
+                id: studyId,
                 image : "",
+                member:3,
                 maxmember:1,
-                member: 1,
                 open: 0,
                 password: "",
                 title : "",
@@ -125,11 +126,10 @@ export default {
                 url_page:"",
             }
         })
-        const createStudy = ()=>{
-            console.log(state.credential.category)
-            store.dispatch('createStudy',state.credential)
+        const updateStudy = ()=>{
+            store.dispatch('updateStudy',state.credential)
         }
-        return { createStudy, state}
+        return { updateStudy, state}
     }
 }
 </script>

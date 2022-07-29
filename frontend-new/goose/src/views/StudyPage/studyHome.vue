@@ -41,7 +41,7 @@ import callender from '@/components/StudyPage/callender'
 import studyUpdate from '@/components/StudyPage/studyUpdate.vue'
 import studyJoinList from '@/components/StudyPage/studyJoinList.vue'
 import { useStore } from "vuex"
-import { computed } from "vue"
+import { computed, watch } from "vue"
 
 export default {
   name: "StudyHome",
@@ -52,11 +52,18 @@ export default {
   setup() {
     const store = useStore()
     const selectedStudy = computed(() => store.getters.selectedStudy )
-    const deleteStudy = () =>{
-      console.log("hi")
-      store.dispatch('deleteStudy',store.getters.studyId)
+    const deleteStudy = () => store.dispatch('deleteStudy',store.getters.studyId)
+    const pageUpdate = () => store.dispatch('selectStudy',store.getters.selectedStudy.id)
+    
+
+    return { selectedStudy,deleteStudy, pageUpdate }
+  },
+
+  watch: {
+    selectedStudy (){
+      console.log("빅브라더")
+      this.pageUpdate()
     }
-    return { selectedStudy,deleteStudy }
   }
 }
 </script>

@@ -74,6 +74,20 @@ export default {
     })
     },
 
+    updateStudy({getters,dispatch},credential){
+      axios({
+        url: rest.study.study_update(),
+        method: 'put',
+        headers: getters.authHeader,
+        data: credential
+      })
+      .then((res)=>{
+        console.log("업데이트 성공")
+        console.log(getters.selectedStudy.id)
+        dispatch('selectStudy',getters.selectedStudy.id)
+      })
+    },
+
     deleteStudy({commit,getters}){
       console.log(getters.selectedStudy)
       console.log(rest.study.study_remove(getters.selectedStudy.id))
