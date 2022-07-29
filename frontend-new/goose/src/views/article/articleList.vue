@@ -2,19 +2,19 @@
 <h1>스터디 참여하기</h1>
 <!-- 검색창 -->
 <div class="input-group mb-3">
-<select class="form-select-line-height">
+<select class="form-select-line-height" v-model="state.search.status">
   <option selected>상태</option>
   <option value="1">모집중</option>
   <option value="2">진행중</option>
   <option value="3">모집완료</option>
 </select>
-<select class="form-select-line-height">
+<select class="form-select-line-height" v-model="state.search.category">
   <option selected>분류</option>
   <option value="1">토익</option>
   <option value="2">면접</option>
   <option value="3">자유</option>
 </select>
-  <input type="text" class="form-control">
+  <input type="text" class="form-control" v-model="state.search.text">
     <button class="btn btn-outline-secondary" type="button">검색</button>
 </div>
 
@@ -62,7 +62,12 @@ export default {
             article_list: [
             ],
             headers: ['글번호','상태','분류','제목','작성자','등록일','조회수'],
-            articles: []
+            articles: [],
+            search: {
+              status: '',
+              category: '',
+              text: '',
+            }
         })
 
         const articles_set = function(){
