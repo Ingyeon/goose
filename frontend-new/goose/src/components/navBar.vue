@@ -27,10 +27,10 @@
       <li class="nav-item">
         <router-link to="/createStudy" class="nav-link active" aria-current="page" href="#">스터디 만들기</router-link>
       </li>
-      <div>
+      <!-- <div>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createStudyModal">스터디 만들기2</button>
         <createStudy />
-      </div>
+      </div> -->
 
 
       <li class="nav-item">
@@ -56,12 +56,12 @@
 // import { useRouter } from 'vue-router'
 import { useStore } from "vuex"
 import { computed } from "vue"
-import createStudy from "@/components/StudyPage/studyCreate.vue"
+// import createStudy from "@/components/StudyPage/studyCreate.vue"
 
 
 export default {
     components: {
-      createStudy,
+      // createStudy,
     },
 
     setup() {

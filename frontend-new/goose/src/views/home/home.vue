@@ -37,11 +37,25 @@ export default {
   components:{
     Notice,
     myStudyList
-},
+  },
   setup(){
     const store = useStore()
     const myStudyList = computed(()=> store.getters.myStudyList)
-    return {myStudyList}
+
+    const fetchMyStudyList = () =>{
+      store.dispatch('myStudyList')
+    }
+
+    return {myStudyList,fetchMyStudyList}
+  },
+
+  watch: {
+    $route: {
+      handler() {
+        this.fetchMyStudyList()
+      },
+      immediate: true
+    }
   }
 }
 </script>

@@ -6,16 +6,16 @@ export default {
   state:{
     myStudyList : [],
     authStudyList: [],
-    studyJoinList : [],
+    studyJoinList : [{"apply_date": "26072022", "id":0, "name": "유저이름", "study_pk":0, "user_id":0} ],
     selectedStudy : {},
-    studyBoard : [],
+    studyBoard:[],
   },
 
   getters:{
-    selectedStudy : state => state.selectedStudy,
-    myStudyList: state => state.myStudyList,
-    camURL: state => state.selectedStudy.urlConf,
-    studyURL: state => state.selectStudy.urlPage,
+    // 주로 스터디 조회 관련
+    selectedStudy: state => state.selectedStudy,
+    myStudyList : state => state.myStudyList,
+    authStudyList : state => state.authStudyList,  // 권한 가지는 스터디들의 목록
     studyBoard : state => state.studyBoard,
     // 스터디 참가 신청 관련
     studyJoinList: state => state.studyJoinList,
@@ -24,10 +24,8 @@ export default {
 
   mutations:{
     // 스터디 조회시 주로 작동
-    SET_STUDY: (state, study) => state.selectedStudy = study,
-
-    SET_STUDY_BOARD: (state, studyBoard) => state.studyBoard = studyBoard,
-    SET_NOTICE: (state, notice) => state.selectedStudy.notice = notice,
+    SET_SELECTED_STUDY: (state, study) => state.selectedStudy = study,
+    SET_STUDY_BOARD: (state, studyBoard) => state.selectedStudy.studyBoard = studyBoard,
     // 스터디 참가 신청 관련
     SET_JOIN_LIST: (state,joinArray) => state.studyJoinList = joinArray,
     // 참여하고 있는 스터디 조회
@@ -49,11 +47,11 @@ export default {
       axios({
         url: rest.study.study_search(id),
         method: 'get',
-        headers: getters.authHeader
+        headers: getters.authHeader,
       })
       .then((res)=>{
-        commit('SET_STUDY', res.data)
-        router.push({ path: '/studyHome',})
+        commit('SET_SELECTED_STUDY',res.data)
+        router.push({path:'/studyHome'})
       })
       .catch((err)=>{
         console.log("스터디 선택 실패")
@@ -78,14 +76,18 @@ export default {
     })
     },
 
-    deleteStudy({dispatch,getters},studyId){
+    deleteStudy({commit,getters}){
+      console.log(getters.selectedStudy)
+      console.log(rest.study.study_remove(getters.selectedStudy.id))
       axios({
-        url: rest.study.study_remove(studyId),
+        url: rest.study.study_remove(getters.selectedStudy.id),
         method: 'delete',
-        params: {"id":studyId}
+        headers: getters.authHeader
       })
       .then(()=>{
-        dispatch('selectStudy',{})
+        console.log("삭제 완료")
+        commit('SET_SELECTED_STUDY',{})
+        router.push({name: 'Home'})
       })
       .catch(err => {
         console.log(err)
@@ -102,7 +104,6 @@ export default {
       })
       .then(res =>{
         console.log("스터디 리스트")
-        console.log(res)
         commit('SET_MY_STUDY_LIST',res.data)
       })
     },
