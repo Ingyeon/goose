@@ -24,7 +24,7 @@
 
 <script>
 
-import { reactive } from "vue";
+import { onBeforeMount, reactive } from "vue";
 import {  useStore  } from 'vuex'
 import { useRoute } from 'vue-router';
 import { useRouter } from 'vue-router';
@@ -44,12 +44,12 @@ export default{
                 state: '',
                 date: '',
                 content: '',
-            }
+            },
+            componentkey: 0
         })
-
+        
         const article_info = function(){
             store.dispatch('fetchArticle',route.params.id)
-                        console.log(store.getters.article)
             state.form.id = store.getters.article.id,
             state.form.title = store.getters.article.title,
             state.form.category = store.getters.article.category,
@@ -57,7 +57,6 @@ export default{
             state.form.date = store.getters.article.date,
             state.form.content = store.getters.article.content
         }
-        article_info()
         const article_delete = function(){
             store.dispatch('deleteArticle',store.getters.article.id)
         }
@@ -65,7 +64,7 @@ export default{
         const article_edit = function(){
             router.push({name: 'article_edit'})
         }
-
+        onBeforeMount(() => article_info())
 
         return {article_info,store,state,article_delete,article_edit}
     }

@@ -34,7 +34,7 @@
       <tr v-for="row in state.article_list" :key="row">
         <td>{{ row.글번호 }}</td>
         <!-- 링크 어떻게 넣을지 고민중 -->
-        <td>{{  row.제목  }}</td>
+        <td><router-link :to="{name: 'ArticleDetail', params: {id:row.id}}">{{  row.제목  }}</router-link></td>
         <td>{{ row.작성자 }}</td>
         <td>{{ row.등록일 }}</td>
       </tr>
@@ -51,6 +51,7 @@ import { reactive,computed } from 'vue'
 import { onMounted } from 'vue'
 import {useStore} from 'vuex'
 import _ from 'lodash'
+import { useRouter } from 'vue-router'
 
 export default {
     setup(){
@@ -58,6 +59,7 @@ export default {
         const currentPage = 1
         const Rows = 10
         const PerPage = 10
+        const Router = useRouter()
 
         const store = useStore()
         // 게시판
@@ -97,19 +99,13 @@ export default {
         }
 
         const isList = computed(() => !_.isEmpty(state.articles))
-        const rowClick = function(item){
-          this.$router.push({
-            path: `/article/${item.id}`
-          })
-        }
 
-      
 
         onMounted(() => {
         makeLists()})
         
     
-    return {currentPage,Rows,PerPage,state,makeLists,onMounted,rowClick,articles_set,isList}
+    return {currentPage,Rows,PerPage,state,makeLists,onMounted,articles_set,isList}
 
 
     }

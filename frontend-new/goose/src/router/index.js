@@ -11,7 +11,7 @@ import ProfileUpdate from '@/views/accounts/profileUpdate.vue'
 //Article
 import ArticleList from '@/views/article/articleList.vue'
 import NewArticle from '@/views/article/newArticle.vue'
-import ArticleDetail from '@/views/article/articleDetail.vue'
+import ArticleDetail from '@/views/article/detailView.vue'
 import ArticleEdit from '@/views/article/articleEdit.vue'
 //Study
 import CreateStudy from '@/views/StudyPage/createStudy'
@@ -55,7 +55,7 @@ const routes = [
     component: ProfileUpdate ,
   },
   {path: '/articles',
-   name: ArticleList,
+   name: 'ArticleList',
   component: ArticleList},
 
   {path: '/articlefix/:id',
@@ -63,11 +63,11 @@ const routes = [
    component: ArticleEdit},
 
    {path: '/newarticle',
-   name: NewArticle,
+   name: 'NewArticle',
    component: NewArticle},
  
    {path: '/article/:id',
-   name: ArticleDetail,
+   name: 'ArticleDetail',
    component: ArticleDetail},
   {
   path: '/createStudy',
@@ -77,7 +77,7 @@ const routes = [
 
   {
     path: '/studyHome',
-    name: StudyHome,
+    name: 'StudyHome',
     component: StudyHome
   },
 ];

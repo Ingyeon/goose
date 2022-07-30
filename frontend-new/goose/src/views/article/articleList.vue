@@ -75,16 +75,14 @@ export default {
         
         const makeLists = function(){
             for(let articleItem of state.articles) {
-              // 아래 코드 오류 발생해서 주석처리함
-                // store.dispatch('fetchUserInfo',articleItem.user_pk)
                 state.article_list.push({
                     '글번호': articleItem.id,
                     '상태': articleItem.state,
                     '분류': articleItem.category,
                     '제목': articleItem.title,
-                    '작성자': articleItem.name, // user_pk값으로 작성자 이름 가져오는 작업 필요
+                    '작성자': articleItem.name,
                     '등록일': articleItem.date,
-                    '조회수': articleItem.hit, // 남는 필드값 넣음, 조회수 관련 필드?
+                    '조회수': articleItem.hit,
                     'id': articleItem.id
                 })
             }
