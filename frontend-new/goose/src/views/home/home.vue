@@ -23,9 +23,16 @@
   </div>
   <div>
     <li class="active">모집중인 스터디</li>
+    <div v-for="article in articleList" :key="article.id">
+    <p>{{article}}</p>
+    <button @click.prevent="joinStudy(article)" type="button" class="btn btn-primary" >가입신청</button>
+    </div>
+    
+    <!-- {{ articleList }} -->
     <li class="disabled">참여중인 스터디</li>
     <myStudyList />
   </div>
+
 </template>
 
 <script>
@@ -41,12 +48,12 @@ export default {
   setup(){
     const store = useStore()
     const myStudyList = computed(()=> store.getters.myStudyList)
-
-    const fetchMyStudyList = () =>{
-      store.dispatch('myStudyList')
+    const articleList = computed(()=> store.getters.articles)
+    const fetchMyStudyList = function(studyId){
+      store.dispatch('myStudyList',studyId)
     }
-
-    return {myStudyList,fetchMyStudyList}
+    const joinStudy = (studyId) => store.dispatch('joinStudy',studyId)
+    return {myStudyList,fetchMyStudyList,articleList,joinStudy}
   },
 
   watch: {

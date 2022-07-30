@@ -51,6 +51,9 @@ export default {
         dispatch('saveStudyMemberList',res.data.id)
         router.push({path:'/studyHome'})
       })
+      .then(()=>{
+        dispatch('joinList')
+      })
       .catch((err)=>{
         console.log("스터디 선택 실패")
         console.log(err)
@@ -115,8 +118,6 @@ export default {
         headers: getters.authHeader
       })
       .then(res =>{
-        console.log("스터디 리스트")
-        console.log(res.data)
         commit('SET_MY_STUDY_LIST',res.data)
       })
     },
@@ -143,12 +144,14 @@ export default {
     },
 
     joinList({getters,dispatch},){
+      console.log(getters.selectedStudy)
       axios({
-        url: rest.study.study_join_list(getters.studyId),
+        url: rest.study.study_join_list(getters.selectedStudy.id),
         method: 'get',
       })
       .then(res => {
-        dispatch('saveJoinList',res)
+        dispatch('saveJoinList',res.data)
+        console.log(getters.studyJoinList)
       })
       .catch(err => {
         console.log("catch")
@@ -158,8 +161,9 @@ export default {
     
     //스터디 가입 신청
     joinStudy({getters},studyId){
+      console.log("스토어 도착")
       axios({
-        url: rest.study.joinStudy(studyId),
+        url: rest.study.study_join(studyId),
         method: 'post',
         headers: getters.authHeader
       })

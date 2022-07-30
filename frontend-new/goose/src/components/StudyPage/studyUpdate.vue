@@ -117,7 +117,7 @@ export default {
                 category: "",
                 id: studyId,
                 image : "",
-                member:3,
+                member: store.getters.selectedStudy.member,
                 maxmember:1,
                 open: 0,
                 password: "",
