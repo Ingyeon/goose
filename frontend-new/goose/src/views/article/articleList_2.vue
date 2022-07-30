@@ -42,17 +42,8 @@
     </table>
 </div>
 </div>
-<!-- 페이지네이션 -->
-    <b-pagination
-    v-model="currentPage"
-    :total-rows="Rows"
-    :per-page="PerPage"
-    first-text="First"
-    prev-text="Prev"
-    next-text="Next"
-    last-text="Last"
-    ></b-pagination>
   <router-link to="/newarticle" class="btn btn-primary">글 작성</router-link>
+
 </template>
 
 <script>
