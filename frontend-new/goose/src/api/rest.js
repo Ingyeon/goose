@@ -15,7 +15,7 @@ export default{
     },
     article: {
     article_create: () => HOST + Article,
-    article_rud: id => HOST + Article + `${id}`,
+    article_rud: id => HOST + Article + `?id=${id}`,
     article_list: page => HOST + Article + 'list' + `?page=${page}`
     },
     articles_reply:{
@@ -38,7 +38,7 @@ export default{
     },
     user: {
         user_signup: () => HOST + User,
-        user_check: userId => HOST + User + `${userId}`,
+        user_check: userId => HOST + User + `{userId}?id=${userId}`,  // pk값이 아닌 로그인 할 때 그 id
         user_myprofile: () => HOST + User + 'me'
     }
     

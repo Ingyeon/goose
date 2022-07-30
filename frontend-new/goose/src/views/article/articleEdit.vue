@@ -1,8 +1,8 @@
 <template>
-<h1>스터디 참여하기</h1>
+<h1>게시글 수정</h1>
 <div>
 <form>
-        <label class="form-label">인원 선택</label>
+    <label class="form-label">인원 선택</label>
     <select class="form-select" v-model="state.form.recruitment">
   <option selected>인원</option>
   <option value=1>1</option>
@@ -43,7 +43,6 @@
   <button type="submit" @click.prevent="clickSet" class="btn btn-primary">작성</button>
     
 </form>
-<button @click="test">123</button>
 </div>
 
 <!-- 확인용 -->
@@ -53,41 +52,36 @@
 <script>
 import {onMounted, reactive} from 'vue'
 import {useStore} from 'vuex'
-import {  useRouter  } from 'vue-router'
-
+import { useRoute } from 'vue-router';
 export default {
     name: 'newArticle',
     
     setup(){
-    const Router = useRouter()
     const store = useStore()
+    const route = useRoute()
     const state = reactive({
         form:{
-            recruitment: '',
-            category: '',
-            title: '',
-            content: '',
-            state: '모집중',
-            study_pk: null,
+            recruitment: state.getters.article.recruitment,
+            category: state.getters.article.category,
+            title: state.getters.article.title,
+            content: state.getters.article.content,
+            state: state.getters.article.state,
+            study_pk: state.getters.article.study_pk,
         },
         // 현재 내가 운영중인 스터디의 정보
         my_study:[]
     })
 
-    // 현재 구현해야 하는 것
-    // 1. 게시글 작성자의 운영 스터디를 목록으로 보여주기
-    // 2. 선택한 스터디를 state.study에 할당하기
-
     store.dispatch('authStudyList')
 // 내가 운영하는 스터디를 state.study에 넣는 함수
     const study_info = function(){
+      console.log(store.getters.authStudyList)
     for (let study of store.getters.authStudyList)
       state.my_study.push({id: study.id,title:study.title})
     }
 
-    const clickSet = function(){   // 게시글 생성
-      store.dispatch('fetchLoginUser')
-      store.dispatch('createArticle',{
+    const clickSet = function(){   // 게시글 수정
+      store.dispatch('updateArticle',route.params.id,{
         category:state.form.category, 
         recruitment: Number(state.form.recruitment),
         state: state.form.state,
@@ -96,16 +90,10 @@ export default {
         study_pk: state.form.study_pk,
         user_pk: store.getters.loginUser.id,
         })
-        console.log(store.getters.article)
-        // Router.push({path:`/article/${store.getters.Article.id}`})
-
     }
-          const test = function(){
-        console.log(store.getters.article)
-      }
     onMounted(() =>study_info())
 
-    return {state,clickSet,store,study_info,test}
+    return {state,clickSet,store,study_info}
     }
 }
 </script>
