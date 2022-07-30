@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-light">
-  <div class="container-fluid">
-    <router-link to="/home" class="navbar-brand">Goose</router-link>
+    <div class="container-fluid">
+      <router-link to="/home" class="navbar-brand">Goose</router-link>
     <!-- 로그인 안되있을 경우 -->
     <ul v-if="!isLoggedIn" class="navbar-nav me-auto mb-2 mb-lg-0">
       <li class="nav-item">
@@ -22,7 +22,7 @@
         <router-link to="/" class="nav-link active" aria-current="page" href="#">스터디 참여하기</router-link>
       </li>
             <li class="nav-item">
-        <router-link to="/articles" class="nav-link active" aria-current="page" href="#">게시판</router-link>
+              <router-link to="/articles" class="nav-link active" aria-current="page" href="#">게시판</router-link>
       </li>
       <li class="nav-item">
         <router-link to="/createStudy" :page="create" class="nav-link active" aria-current="page" href="#">스터디 만들기</router-link>
@@ -49,6 +49,8 @@
     </ul>
     <!-- 로그인 되있을 경우 끝 -->
   </div>
+        {{ loginUser.id }}
+        {{ loginUser.userId }}님 안녕하세요
 </nav>
 </template>
 
@@ -67,13 +69,14 @@ export default {
     setup() {
       const store = useStore()
       const isLoggedIn = computed(()=> store.getters.isLoggedIn)
+      const loginUser = computed(()=> store.getters.loginUser)
       const clickLogout = function(){
         store.dispatch("logout")
       }
 
       return { 
         isLoggedIn,
-        clickLogout,
+        clickLogout,loginUser
       }
     },
 }

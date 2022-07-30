@@ -54,9 +54,8 @@ export default {
     const selectedStudy = computed(() => store.getters.selectedStudy )
     const deleteStudy = () => store.dispatch('deleteStudy',store.getters.studyId)
     const pageUpdate = () => store.dispatch('selectStudy',store.getters.selectedStudy.id)
-    
 
-    return { selectedStudy,deleteStudy, pageUpdate }
+    return { selectedStudy,deleteStudy, pageUpdate,}
   },
 
   watch: {

@@ -178,27 +178,32 @@ export default {
     },
 
     // 스터디 가입신청 승락
-    joinAgree({getters},credential){
+    joinAgree({getters,dispatch},credential){
       console.log("승락")
-      // axios({
-      //   url: rest.study.study_join_agree(),
-      //   method: 'post',
-      //   headers: getters.authHeader,
-      //   data: credential
-      // })
-      // .then(res =>{
-      //   console.log(res)
-      // })
+      axios({
+        url: rest.study.study_join_agree(),
+        method: 'post',
+        headers: getters.authHeader,
+        data: credential
+      })
+      .then(res =>{
+        console.log(res)
+        dispatch('joinList')
+      })
     },
 
     // 스터디 가입신청 거절
-    joinRefuse({getters},joinStudyId){
+    joinRefuse({getters,dispatch},joinStudyId){
       console.log("거절")
-      // axios({
-      //   url: rest.study.study_join_delete(joinStudyId),
-      //   method: 'delete',
-      //   headers: getters.authHeader,
-      // })
+      axios({
+        url: rest.study.study_join_delete(joinStudyId),
+        method: 'delete',
+        headers: getters.authHeader,
+      })
+      .then(res=>{
+        console.log(res)
+        dispatch('joinList')
+      })
     }
 
 
