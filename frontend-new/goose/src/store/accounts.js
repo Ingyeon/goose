@@ -136,29 +136,28 @@ export default {
             router.push({name:'Home'})
         },
         
-//         user_delete({commit, getters, dispatch}) {
-//             const Swal = require('sweetalert2')
-//             Swal.fire(
-//                 '정말 탈퇴하실건가요??'
-//             )
-//             .then((result) => {
-//                 console.log('then1')
-//                 if (result.isConfirmed) {
-//                     axios({
-//                         url : rest.user.user(),
-//                         method: 'delete',
-//                         headers: getters.authHeader,
-//                         // data: userId
-//                     })
-//                     .then(dispatch('removeToken'))
-//                         console.log('then2')
-//                         Swal.fire(
-//                             '그동안 Goose를 이용해주셔서 감사합니다'
-//                         )  
-//                     router.push({name:'Home'})
-//                 }
-//             })
-//     }
-//     }
-// }
-    }}
+        user_delete({commit, getters, dispatch}) {
+            const Swal = require('sweetalert2')
+            Swal.fire(
+                '정말 탈퇴하실건가요??'
+            )
+            .then((result) => {
+                console.log('then1')
+                if (result.isConfirmed) {
+                    axios({
+                        url : rest.user.user(),
+                        method: 'delete',
+                        headers: getters.authHeader,
+                        // data: userId
+                    })
+                    .then(dispatch('removeToken'))
+                        console.log('then2')
+                        Swal.fire(
+                            '그동안 Goose를 이용해주셔서 감사합니다'
+                        )  
+                    router.push({name:'Home'})
+                }
+            })
+    }
+    }
+}

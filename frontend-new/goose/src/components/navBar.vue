@@ -34,7 +34,7 @@
 
 
       <li class="nav-item">
-        <router-link to="/test" class="nav-link" href="#">마이 페이지</router-link>
+        <router-link to="/:id/profile" class="nav-link" href="#">마이 페이지</router-link>
       </li>
       <li class="nav-item">
         <!-- <router-link class="nav-link" @click="clickLogout" href="#">로그아웃</router-link> -->

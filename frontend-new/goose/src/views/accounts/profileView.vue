@@ -29,9 +29,15 @@
 
 <script>
 import {reactive} from 'vue'
+import router from '@/router'
 export default {
     setup() {
-        
+        const changeProfile = function() {
+            router.push({name:'ProfileUpdate'})
+        }
+        return {
+            changeProfile,
+        }
     },
 }
 </script>
