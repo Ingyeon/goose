@@ -2,7 +2,7 @@
 <div>
     <b-input-group>
     <b-input-group-text>댓글</b-input-group-text>
-    <b-form-textarea id="textarea" v-model="state.form.re_content" placeholder="댓글을 입력해주세요." required></b-form-textarea>
+    <b-form-textarea @submit.prevent="onSubmit" id="textarea" v-model="re_content" placeholder="댓글을 입력해주세요." required></b-form-textarea>
     <b-input-group-append>
         <b-button variant="outline-secondary" @click="onSubmit">작성</b-button>
     </b-input-group-append>
@@ -15,6 +15,7 @@ import {reactive} from 'vue'
 import {useStore} from 'vuex'
 
 export default {
+    name: 'newArticle',
     
     setup(){
         const store = useStore()

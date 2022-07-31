@@ -51,7 +51,6 @@ export default {
             })
             .then(res => {
                 commit('SET_ARTICLE', res.data)})
-                
 
             .catch(err => {
                 console.error(err.response)
@@ -68,7 +67,11 @@ export default {
                 headers: getters.authHeader,
             })
             .then(res => {
-                // 일단 동작 문제 없어서 비워놓음
+                // post 요청 후 반환 값으로 게시글의 id 줄 수 있나?
+                // detail 페이지로 넘어가려면 id 필요함
+                // 현재는 성공했다는 메세지만 나옴
+                // 다른 api로 id 받아오려면 전체 조회를 해야하고 한다 해도 바로 이동 불가
+                // commit('SET_ARTICLE',res.data) <- 현재는 잘못됨
             })
         },
             updateArticle({  commit, getters  }, {id,form_data} ){
@@ -144,19 +147,5 @@ export default {
             })
             .catch(err => console.error(err.response))
         },
-
-        fetchReply({  commit, getters  }, {article_pk,page}){
-            axios({
-                url:rest.articles_reply.reply_cr(),
-                method: 'get',
-                data: article_pk,page,
-                headers: getters.authHeader,
-            })
-            .then(res => {
-                console.log(1)
-                commit('SET_REPLIIES',res.data)
-            })
-            .catch(err => console.error(err.response))
-        }
     }
 }

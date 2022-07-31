@@ -1,12 +1,12 @@
 <template>
 
-    <h3>{{ article_log.title}}</h3>
+    <h3>{{ state.form.title}}</h3>
     <div>
-        <p>분류: {{ article_log.category  }}</p>
-        <p>모집 여부: {{ article_log.state  }}</p>
-        <p>작성일자: {{  article_log.date  }}</p>
+        <p>분류: {{ state.form.category  }}</p>
+        <p>모집 여부: {{ state.form.state  }}</p>
+        <p>작성일자: {{  state.form.date  }}</p>
     </div>
-    <div>{{  article_log.content  }}</div>
+    <div>{{  state.form.content  }}</div>
     <div>
         <!--스터디 페이지와 연결 // 스터디 페이지 완성 되었을 때 연결 -->
         <button>참여 신청</button>
@@ -16,7 +16,6 @@
         <button @click="article_delete">삭제</button> 
 
     </div>
-    <reply-list/>
 
 <!-- 댓글의 외래키인 article_pk 이용해서 해당 댓글의 게시글과 연동 -->
     <!-- <reply-list :replies:""></reply-list> -->
@@ -25,15 +24,13 @@
 
 <script>
 
-import { reactive,computed } from "vue";
+import { reactive, watch } from "vue";
 import {  useStore  } from 'vuex'
 import { useRoute } from 'vue-router';
 import { useRouter } from 'vue-router';
-import replyList from "./replyList.vue";
 // import replyList from "./replyList.vue";
 
 export default{
-    components: {replyList},
     setup(){
         const store = useStore()
         const route = useRoute()
@@ -69,10 +66,17 @@ export default{
         const article_edit = function(){
             router.push({name: 'article_edit'})
         }
-        const article_log = computed(() => store.getters.article)
+        article_info()
 
-        return {article_info,store,state,article_delete,article_edit,article_log}
+        return {article_info,store,state,article_delete,article_edit}
     },
+
+    watch: {
+        article_info(){
+            console.log('실행됨')
+            router.go()
+        }
+    }
     
 }
 </script>

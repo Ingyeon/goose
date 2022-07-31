@@ -76,22 +76,5 @@ export default {
 </script>
 
 <style>
-  
-  .input-Box:nth-child(3) {
-    display: flex;
-    /* justify-content: space-evenly; */
-    justify-content: end;
 
-    }
-    .input-Box button{
-    background: #ffd700;
-    color: #000000;
-    cursor: pointer;
-    width: 100px;
-    margin-bottom: 20px;
-    font-weight: 600;
-    text-align: center;
-    border-radius: 80px 40px;
-    margin-right: 30px;
-  }
 </style>

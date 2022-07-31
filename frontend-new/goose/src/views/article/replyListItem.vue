@@ -1,7 +1,11 @@
 <template>
-  <ol class="list-group list-group-horizontal mx-auto">
+  <ol>
     <li class="list-group-item py-1">
-        {{reply.name}}
+        <!-- 작성자 누르면 작성자의 프로필 주소로 이동, user_pk로 댓글 작성자 불러오는 작업 필요 -->
+<!-- <router-link class="fw-bold" :to="{  name: '#', parmas: {id: 'user_pk'}  }, ">
+
+
+</router-link> -->
     </li>
     <li class="list-group-item flex-fill" v-if="!isEditing">{{  payload.re_content  }}</li>
     <!-- 수정할 때 나오는 버튼 -->
@@ -16,35 +20,37 @@
     <button @click="deleteReply(payload)">삭제</button>
     </span>
   </ol>
-  <p>asd</p>
 </template>
 
 <script>
 
-import {reactive} from 'vue'
-import {useStore} from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
-    
-    setup(){
-        const store = useStore()
-        const state = reactive({
-            form: {
-                name:'',
-                re_content: '',
+    props: {  reply: Object  },
+    data(){
+        return {
+            isEditing: false,
+            payload: {
+                id: this.reply.id,
+                re_content: this.reply.re_content
             },
-        })
-
-        
-        // 월요일 아침에 작업 재개
-        const reply_list = function(){
-            console.log(store.getters.article.id)
-            store.dispatch('fetchReply', store.getters.article.id )
         }
-
-        reply_list()
-
-    return {store,state,reply_list}}}
-
+    },
+    computed: {
+        ...mapGetters(['fetchLoginUser']),
+    },
+    metohds: {
+        ...mapActions(['updateReply', 'deleteReply']),
+        switchEditing(){
+            this.isEditing = !this.isEditing
+        },
+        onUpdate(){
+            this.updateReply(this.payload)
+            this.isEditing = false
+        }
+    }
+}
 </script>
 
 <style>

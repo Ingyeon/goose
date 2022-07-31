@@ -1,7 +1,6 @@
 <template>
  <h4>댓글 목록</h4>
- <!-- <replyListItem v-for="reply in replies" :reply="reply" :key="reply.pk"></replyListItem> -->
- <replyListItem/>
+ <ReplyListItem v-for="reply in replies" :reply="reply" :key="reply.pk"></ReplyListItem>
  <reply-form/> 
 </template>
 

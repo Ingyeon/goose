@@ -93,7 +93,6 @@ export default {
         const rowClick = function(item){
           console.log(item)
           store.dispatch('fetchArticle',item.id)
-          // 
           router.push({
           path: `/article/${item.id}`
           })
