@@ -34,7 +34,7 @@
       <tr v-for="row in state.article_list" :key="row">
         <td>{{ row.글번호 }}</td>
         <!-- 링크 어떻게 넣을지 고민중 -->
-        <td><router-link :to="{name: 'ArticleDetail', params: {id:row.id}}">{{  row.제목  }}</router-link></td>
+        <td><button @click="onclick(row.id)">{{row.제목}}</button></td>
         <td>{{ row.작성자 }}</td>
         <td>{{ row.등록일 }}</td>
       </tr>
@@ -100,12 +100,17 @@ export default {
 
         const isList = computed(() => !_.isEmpty(state.articles))
 
+        const onclick = async function(item){
+          await store.dispatch('fetchArticle', item)
+          
+          await Router.push({name: 'ArticleDetail', params: {id:item}})
+        }
 
         onMounted(() => {
         makeLists()})
         
     
-    return {currentPage,Rows,PerPage,state,makeLists,onMounted,articles_set,isList}
+    return {currentPage,Rows,PerPage,state,makeLists,onMounted,articles_set,isList,onclick}
 
 
     }

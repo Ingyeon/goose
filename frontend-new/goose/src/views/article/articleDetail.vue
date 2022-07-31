@@ -24,7 +24,7 @@
 
 <script>
 
-import { onBeforeMount, reactive } from "vue";
+import { onBeforeMount, reactive, watch } from "vue";
 import {  useStore  } from 'vuex'
 import { useRoute } from 'vue-router';
 import { useRouter } from 'vue-router';
@@ -49,16 +49,18 @@ export default{
         })
         
         const article_info = function(){
-            store.dispatch('fetchArticle',route.params.id)
             state.form.id = store.getters.article.id,
             state.form.title = store.getters.article.title,
             state.form.category = store.getters.article.category,
             state.form.state = store.getters.article.state,
             state.form.date = store.getters.article.date,
             state.form.content = store.getters.article.content
+            console.log(state.form)
+            // 
         }
+
         const article_delete = function(){
-            store.dispatch('deleteArticle',store.getters.article.id)
+        store.dispatch('deleteArticle',store.getters.article.id)
         }
 
         const article_edit = function(){
@@ -67,6 +69,13 @@ export default{
         onBeforeMount(() => article_info())
 
         return {article_info,store,state,article_delete,article_edit}
+    },
+
+    watch: {
+        article_info(){
+            console.log('실행됨')
+            router.go()
+        }
     }
     
 }
