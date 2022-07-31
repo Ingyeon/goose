@@ -24,7 +24,7 @@
 
 <script>
 
-import { onBeforeMount, reactive, watch } from "vue";
+import { reactive, watch } from "vue";
 import {  useStore  } from 'vuex'
 import { useRoute } from 'vue-router';
 import { useRouter } from 'vue-router';
@@ -66,7 +66,7 @@ export default{
         const article_edit = function(){
             router.push({name: 'article_edit'})
         }
-        onBeforeMount(() => article_info())
+        article_info()
 
         return {article_info,store,state,article_delete,article_edit}
     },

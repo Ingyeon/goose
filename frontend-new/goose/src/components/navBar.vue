@@ -5,7 +5,7 @@
     <!-- 로그인 안되있을 경우 -->
     <ul v-if="!isLoggedIn" class="navbar-nav me-auto mb-2 mb-lg-0">
       <li class="nav-item">
-        <router-link to="/login" class="nav-link active" aria-current="page" href="#">로그인</router-link>
+        <login-modal></login-modal>
       </li>
       <li class="nav-item">
         <router-link to="/signup" class="nav-link active" aria-current="page" href="#">회원가입</router-link>
@@ -58,11 +58,13 @@
 // import { useRouter } from 'vue-router'
 import { useStore } from "vuex"
 import { computed } from "vue"
+import loginModal from "@/views/accounts/loginModal.vue"
 // import createStudy from "@/components/StudyPage/studyCreate.vue"
 
 
 export default {
     components: {
+      loginModal
       // createStudy,
     },
 

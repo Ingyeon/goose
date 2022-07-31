@@ -21,7 +21,7 @@
 <!-- 게시판 -->
 <div class="board-list">
 <div v-if="isList">
-    <table class="w3-table-all">
+    <table class="table table-hover">
       <thead>
       <tr>
         <th>No</th>
