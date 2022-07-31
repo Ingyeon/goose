@@ -36,6 +36,7 @@
     font-weight: 600;
     text-align: center;
     border-radius: 80px 40px;
+    margin-right: 30px;
   }
 </style>
 
