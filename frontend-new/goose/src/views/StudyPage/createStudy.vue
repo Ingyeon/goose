@@ -7,7 +7,7 @@
 <form>
   <!-- 공개스터디, 비공개 스터디 -->
   <div class="d-flex">
-    <p class="text-capitalize m-3">공개 여부</p>
+    <p class="text-capitalize custom-label">공개 여부</p>
     <div class="m-3">
       <select v-model="state.credential.open" class="form-select" aria-label="Default select example">
         <option value="0">공개</option>
@@ -17,7 +17,7 @@
   </div>
 <!-- 최대인원 -->
   <div class="d-flex">
-    <p class="text-capitalize m-3">총원</p>
+    <p class="text-capitalize custom-label">총원</p>
     <div class="m-3">
       <select v-model="state.credential.maxMember" class="form-select" aria-label="Default select example">
         <option value="1">1명</option>
@@ -31,33 +31,33 @@
   </div>
 
   <!-- 카테고리 -->
-  <div class="d-flex container">
-    <div>카테고리</div>
-    <select v-model="state.credential.category" class="form-select" aria-label="Default select example">
-      <option selected>분류</option>
-      <option value="1">알고리즘</option>
-      <option value="2">토익</option>
-      <option value="3">칵테일</option>
-      <option value="3">면접</option>
+    <label for="selectcategory" class="custom-label">카테고리</label>
+    <div class="form-floating custom-label">
+    <select v-model="state.credential.category" id="selectcategory" class="form-select" aria-label="Default select example">
+      <!-- <option selected>분류</option> -->
+      <option value="C">C</option>
+      <option value="C++">C++</option>
+      <option value="JAVA">JAVA</option>
+      <option value="JavaScript">JavaScript</option>
+      <option value="Python">Python</option>
     </select>
+    <label for="selectcategory" class="custom-label">카테고리</label>
   </div>
   <!-- 스터디 이름 -->
   <div>
-
-    <div class="form-floating">
-      <textarea v-model="state.credential.title" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-      <label for="floatingTextarea">스터디 이름</label>
+    <label for="studyname"  class="custom-label">스터디 이름</label>
+    <div class="form-floating input-Box">
+      <input type="text" id="studyname" class="form-control" placeholder="스터디 이름" v-model="state.credential.title">
+      <label for="studyname"  class="form-label">스터디 이름</label>
     </div>
   </div>
-<!-- <div class="form-floating">
-  <textarea v-model="" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-  <label for="floatingTextarea">스터디 소개</label>
-</div> -->
+
 
 <!-- 비공개방일시 비밀번호 -->
-<div class="form-floating">
+<label for="floatingPassword" class="custom-label">Password</label>
+<div class="form-floating input-Box">
   <input v-model="state.credential.password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
-  <label for="floatingPassword">Password</label>
+  <label for="floatingPassword" class="form-label">Password</label>
 </div>
 
 <!-- 사진 url -->
@@ -65,7 +65,9 @@
   <textarea v-model="state.credential.image" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
   <label for="floatingTextarea">대표 사진 url</label>
 </div>
-  <button @click.prevent="createStudy()" type="submit" class="btn btn-primary">Submit</button>
+  <div class="input-Box">
+    <input @click.prevent="createStudy()" type="submit" value="Submit">  
+  </div>
 </form>
 </div>
 {{ state.credential }}
