@@ -18,7 +18,7 @@
   <option selected>선택</option>
   <!-- 함수로 for문 돌려서 셀렉트 박스에 넣기 -->
   
-  <option v-for="item in study_list"  :value="item.id">{{  item.title }}</option> 
+  <option v-for="item in state.my_study"  :value="item.id">{{  item.title }}</option> 
 <!-- 게시글 작성자가 운영중인 스터디의 이름들을 목록에 뿌려줘야함 -->
 
 </select>
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import {computed, onMounted, reactive} from 'vue'
+import {onMounted, reactive} from 'vue'
 import {useStore} from 'vuex'
 import {  useRouter  } from 'vue-router'
 
@@ -96,13 +96,16 @@ export default {
         study_pk: state.form.study_pk,
         user_pk: store.getters.loginUser.id,
         })
-        Router.push({path:`/article/${store.getters.article.id}`})
+        console.log(store.getters.article)
+        // Router.push({path:`/article/${store.getters.Article.id}`})
 
     }
-    const study_list = computed(() => store.getters.authStudyList)
+          const test = function(){
+        console.log(store.getters.article)
+      }
     onMounted(() =>study_info())
 
-    return {state,clickSet,store,study_info,study_list}
+    return {state,clickSet,store,study_info,test}
     }
 }
 </script>

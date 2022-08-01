@@ -21,50 +21,49 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
-
-  <button @click.prevent="hire_study">모집중인 스터디</button>
-<study_article v-if='state.toggle==1'/>
-
-
+  <div>
+    <li class="active">모집중인 스터디</li>
+    <div v-for="article in articleList" :key="article.id">
+    <p>{{article}}</p>
+    <button @click.prevent="joinStudy(article)" type="button" class="btn btn-primary" >가입신청</button>
+    </div>
+    
     <!-- {{ articleList }} -->
-<button @click.prevent="me_study">참여중인 스터디</button>
-<myStudyList v-if="state.toggle==2" />
+    <li class="disabled">참여중인 스터디</li>
+    <myStudyList />
+  </div>
 
 </template>
 
 <script>
 import Notice from '@/components/mainpage/notice'
 import myStudyList from '@/components/mainpage/myStudyList.vue'
-import study_article from './components/study_article.vue'
 import { useStore } from "vuex"
-import { reactive } from "vue"
+import { computed } from "vue"
 export default {
   components:{
     Notice,
-    myStudyList,
-    study_article,
+    myStudyList
   },
   setup(){
     const store = useStore()
-    const state = reactive({
-      toggle: 0
-    })
-
-    const hire_study = function(){
-      if (state.toggle != 1){
-        state.toggle = 1
-      }
-      else {state.toggle = 0}
-      
+    const myStudyList = computed(()=> store.getters.myStudyList)
+    const articleList = computed(()=> store.getters.articles)
+    const fetchMyStudyList = function(studyId){
+      store.dispatch('myStudyList',studyId)
     }
+    const joinStudy = (studyId) => store.dispatch('joinStudy',studyId)
+    return {myStudyList,fetchMyStudyList,articleList,joinStudy}
+  },
 
-    const me_study = function(){
-      if (state.toggle != 2){
-        state.toggle = 2
-      }
-      else(state.toggle = 0)
+  watch: {
+    $route: {
+      handler() {
+        this.fetchMyStudyList()
+      },
+      immediate: true
     }
-  return {store,state,hire_study,me_study}},
+  }
 }
 </script>
 

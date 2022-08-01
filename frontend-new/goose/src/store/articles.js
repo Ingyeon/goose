@@ -52,8 +52,11 @@ export default {
                 commit('SET_ARTICLE', res.data)})
 
             .catch(err => {
-            router.push({name:'ArticleList'})})
-                
+                console.error(err.response)
+                if (err.response.status === 404){
+                    console.log('404 페이지 제작 필요')
+                }
+            })
         },
         createArticle({getters},form_data){
             axios({
@@ -144,6 +147,7 @@ export default {
                     articlePk:article_pk,
                     page: reply_page}})
             .then(res => {
+                console.log(1)
                 commit('SET_REPLIES',res.data)
             })
             .catch(err => console.error(err.response))
