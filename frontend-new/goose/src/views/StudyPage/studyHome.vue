@@ -119,9 +119,10 @@ import callender from "@/components/StudyPage/callender";
 import studyUpdate from "@/components/StudyPage/studyUpdate.vue";
 import studyJoinList from "@/components/StudyPage/studyJoinList.vue";
 import { useStore } from "vuex";
-import { computed, watch } from "vue";
-
+import { computed, watch,onMounted } from "vue";
+import { useRoute } from "vue-router";
 export default {
+  
   name: "StudyHome",
   components: {
     board,
@@ -132,20 +133,21 @@ export default {
 
   setup() {
     const store = useStore();
+    const route = useRoute()
     const selectedStudy = computed(() => store.getters.selectedStudy);
     const deleteStudy = () =>
       store.dispatch("deleteStudy", store.getters.studyId);
     const pageUpdate = () =>
       store.dispatch("selectStudy", store.getters.selectedStudy.id);
 
-    return { selectedStudy, deleteStudy, pageUpdate };
-  },
-
-  watch: {
-    selectedStudy() {
-      console.log("빅브라더");
-      this.pageUpdate();
-    },
+    const fetchStudyHome = () =>{
+      console.log("패치 스터디 홈 작동")
+      store.dispatch("selectStudy",route.params.studyPk)
+    };
+    onMounted(()=>{
+      fetchStudyHome()
+    })
+    return { selectedStudy, deleteStudy, pageUpdate,fetchStudyHome };
   },
 };
 </script>
