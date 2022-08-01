@@ -22,6 +22,8 @@ public interface StudyService {
 	public List<StudyMyList> studyListA3(long user_id);
 	public List<StudyMyList> studyList(long user_id);
 	public List<StudyMemberList> studyMemberLsit(long study_pk);
+	public int studyMemberOut(long master_id, long user_pk, long study_pk);
+	public void studyMemberOutMe(long master_id, long user_pk, long study_pk);
 
 	
 }

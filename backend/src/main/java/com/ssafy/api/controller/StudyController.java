@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -247,4 +248,48 @@ public class StudyController {
 		
 	}
 	
+	@DeleteMapping("/member/studymemberout/{id}")
+	@ApiOperation(value = "스터디 가입신청 거절", notes = "스터디 가입신청 거절") 
+    @ApiResponses({
+        @ApiResponse(code = 204, message = "성공"),
+    })
+	public ResponseEntity<String> StudyMemberOut(@PathVariable("id") long id){
+		
+		try {
+			studyService.joindelete(id);
+		}catch(Exception e ) {
+			e.printStackTrace();
+			return  ResponseEntity.status(500).body("삭제 실패 "+FAIL);
+		}
+		logger.debug("스터디 가입신청 거절 성공");
+				
+		return ResponseEntity.status(204).body(200 + "Success");
+	}
+	
+	@DeleteMapping("/member/studymemberout")
+	@ApiOperation(value = "스터디 탈퇴 및 강퇴(token)", notes = "스터디 탈퇴 및 강퇴") 
+	@ApiResponses({
+	    @ApiResponse(code = 204, message = "성공"),
+	})
+	public ResponseEntity<String> StudyMemberOut(
+	        @RequestHeader @ApiParam(value="user_pk", required = true) long user_pk,
+	        @RequestHeader @ApiParam(value="user_pk", required = true) long study_pk,
+	        @ApiIgnore Authentication authentication) {
+	    //임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
+	    SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
+	    long master_id = userDetails.getUserId();
+	    int sf = 0;
+	    
+		try {
+			if(master_id == user_pk) studyService.studyMemberOutMe(master_id, user_pk, study_pk);
+			else sf = studyService.studyMemberOut(master_id, user_pk, study_pk);
+		}catch(Exception e ) {
+			e.printStackTrace();
+			return  ResponseEntity.status(500).body("삭제 실패 "+FAIL);
+		}
+		if(sf == 0 ) return ResponseEntity.status(500).body("삭제 실패 "+FAIL);
+		return ResponseEntity.status(204).body(200 + "Success");
+
+
+	}
 }

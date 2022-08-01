@@ -27,5 +27,11 @@ public interface Study_MemberRepository extends JpaRepository<Study_Member, Long
 	@Query(value="select sm.id, sm.user_pk, sm.authority, su.name, su.user_id, sm.study_time from study_member sm, study_user su \r\n" +
 			"where sm.study_pk = :study_pk and sm.user_pk = su.id" ,nativeQuery = true)
 	List<StudyMemberList> findAllMember(@Param("study_pk") long study_pk);
+
+	@Query(value="delete from study_member where user_pk = :user_pk and study_pk = :study_pk" ,nativeQuery = true)
+	void studyMemberOut(long master_id, long user_pk, long study_pk);
+
+	@Query(value="select count(*) from study_member where study_pk = :study_pk and user_pk = :user_pk and authority >= 3" ,nativeQuery = true)
+	int studyMemberMasterCheck(long master_id, long user_pk, long study_pk);
 	
 }
