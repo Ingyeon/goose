@@ -11,9 +11,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <createStudyArticle />
+        <!-- <button class="btn btn-primary">작성하기</button> -->
         <h1>전체 게시글</h1>
-        <h3>보드 : {{ board }}</h3>
-        <boardItem v-for="writing in board" :key="writing" :writing="writing" />
+        <h3>보드 : {{ studyArticles }}</h3>
+        <studyArticle v-for="writing in studyArticles" :key="writing" :writing="writing" />
         <h1>아이템 끝</h1>
       </div>
       <div class="modal-footer">
@@ -25,18 +27,19 @@
 </template>
 
 <script>
-import boardItem from "./boardItem.vue"
+import studyArticle from '@/components/StudyArticle/studyArticle.vue'
+import createStudyArticle from '@/components/StudyArticle/createStudyArticle.vue'
 import { computed } from "vue"
 import { useStore } from "vuex"
 export default {
   components:{
-    boardItem,
+    studyArticle,createStudyArticle,
   },
 
   setup(){
     const store = useStore()
-    const board = computed(() => store.getters.studyBoard )
-    return { board,}
+    const studyArticles = computed(() => store.getters.studyArticles )
+    return { studyArticles,}
   }
 }
 </script>
