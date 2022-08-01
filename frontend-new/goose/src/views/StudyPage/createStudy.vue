@@ -77,12 +77,13 @@
 <script>
 import { reactive } from '@vue/reactivity'
 import { useStore } from "vuex"
-
+import { computed } from "vue"
 export default {
   props:{
   },
   setup(){
       const store = useStore()
+      const loginUser = computed(()=> store.getters.loginUser)
       const state = reactive({
           credential:{
               category: "",
@@ -93,7 +94,7 @@ export default {
               open: 0,
               password: "",
               title : "",
-              url_conf:"",
+              url_conf:Math.random().toString(36).substr(2,11),
               url_page:"",
           }
       })

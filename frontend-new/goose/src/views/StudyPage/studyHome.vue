@@ -14,7 +14,7 @@
   <studyJoinList />
 </div>
 <div class="container d-flex">
-  <div>스터디 주소 : {{ camURL }}</div>
+  <div>스터디 주소 : {{ selectedStudy.url_conf }}</div>
   <router-link :to="{ path: '/' +''}" class="navbar-brand">입장하기</router-link>
 </div>
 <div>
