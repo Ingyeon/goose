@@ -9,6 +9,8 @@
                 <label for="inputId" class="form-label">ID</label>
                 <input type="text" id="inputId" class="form-control" placeholder="ID를 입력해주세요" v-model="state.form.id" maxlength=16 @blur="idValid">
                 <div v-if="!state.idValidFlag" class="form-text">유효하지 않은 아이디 입니다. 영문과 숫자를 조합하여 8-16자 이내로 만드세요.</div>
+                <div v-if="!state.idCommonFlag" class="form-text">이미 사용되고 있는 아이디입니다.</div>
+                <div v-if="state.idCommonFlag" class="form-text">사용 가능한 아이디입니다.</div>
             </div>
             <div class="input-Box">
                 <label for="inputPassword" class="form-label">Password</label>
@@ -61,7 +63,9 @@ export default {
             idValidFlag: true,
             passwordValidFlag: true,
             passwordCheckFlag: true,
-            emailValidFlag : true
+            emailValidFlag : true,
+            idCommonFlag : true,
+            checkValidFlag: true
 
      })
         const signupForm = function(){
@@ -89,9 +93,20 @@ export default {
                 }
                 else {
                     state.idValidFlag = true
+                    state.checkValidFlag = false
+                    let data = await axios.get(`http://localhost:8080/users/userid=${userid.value}`);
+                    login_flag = data.data.login;
+                    if (store.dispatch('fetchUserInfo',state.form.id)) {
+                        state.idCommonFlag = false
+                    }
+                    else {
+                        state.idCommonFlag = true
+                    }
                 }
+                
             } else {
                 state.idValidFlag = false
+                state.checkValidFlag = true
             }
         }
 

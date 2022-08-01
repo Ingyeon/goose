@@ -100,6 +100,7 @@ export default {
                 })
             }
         },
+        
         // id값을 통해 해당 유저 정보 획득 (다른 유저 아이디 및 외래키를 통한 정보 접근용)
         fetchUserInfo({  commit, getters  }, user_pk){
             axios({
