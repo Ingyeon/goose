@@ -11,7 +11,7 @@
     <div>
         <!--스터디 페이지와 연결 // 스터디 페이지 완성 되었을 때 연결 -->
 
-        <!-- 가입 신청 했을 경우 if문으로 신청 취소 구현 -->
+        <!-- 가입 신청 했을 경우 if문으로 신청 취소 구현 (api 미구현)-->
         <button @click.prevent="joinStudy(article_log.study_pk)">참여 신청</button>
         <router-link to="/articles">   <button>게시글 목록</button>  </router-link>
         <button @click="article_edit">수정</button>
@@ -29,11 +29,13 @@ import { reactive,computed } from "vue";
 import {  useStore  } from 'vuex'
 import { useRouter } from 'vue-router';
 import replyList from "./replyList.vue";
+import { useRoute } from "vue-router";
 // import replyList from "./replyList.vue";
 
 export default{
     components: {replyList},
     setup(){
+        const route = useRoute()
         const store = useStore()
         const router = useRouter()
 
@@ -48,6 +50,11 @@ export default{
             },
             componentkey: 0
         })
+        const article_start = function(){
+        store.dispatch('fetchArticle',route.params.id)
+        }
+        article_start()
+
 
         const joinStudy = (studyId) => store.dispatch('joinStudy',studyId)
       
@@ -68,7 +75,7 @@ export default{
         }
 
         const study_name = function(){
-            store.dispatch('selectedStudy',store.getters.article.study_pk)
+            store.dispatch('selectStudy',store.getters.article.study_pk)
         }
         const article_edit = function(){
             router.push({name: 'article_edit'})
@@ -77,7 +84,7 @@ export default{
         const study_log = computed(() => store.getters.selectedStudy)
         const article_log = computed(() => store.getters.article)
 
-        return {article_info,store,state,article_delete,article_edit,article_log,joinStudy,study_log}
+        return {article_info,store,state,article_delete,article_edit,article_log,joinStudy,study_log,article_start}
     },
     
 }

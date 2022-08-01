@@ -65,6 +65,13 @@ export default {
                 data: form_data,
                 headers: getters.authHeader,
             })
+            .then(res => {
+                // 생성 후 바로 상세 페이지 가려면 백앤드 도움 필요
+                router.push({path:`/articles/`})
+            })
+            .catch(err=> {
+                alert('값을 모두 입력하세요!')
+            })
         },
             updateArticle({  getters  },form_data ){
                 axios({
