@@ -12,8 +12,6 @@ import lombok.Setter;
 @Setter
 @ApiModel("UserUpdatePatchRequest")
 public class UserUpdatePatchReq {
-	@ApiModelProperty(name="유저 Password", example="(String) 패스워드")
-	String password;
 	@ApiModelProperty(name="유저 Name", example="(String) 이름")
 	String name;
 	@ApiModelProperty(name="유저 Email", example="(String) 이메일")

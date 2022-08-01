@@ -58,7 +58,15 @@ public class CompilerController {
 		
 		  String clientId = "683c1c7ad02b383e183ce75fb4258278"; //Replace with your client ID
 	      String clientSecret = "97d8fd4d984d31f322f95d330d5de1256a8b27f7155d09ef7bcae0bf5b20e293"; //Replace with your client Secret
-	        String script = "";
+	        String script = "public class MyClass {\r\n" + 
+	        		"    public static void main(String args[]) {\r\n" + 
+	        		"      int x=10;\r\n" + 
+	        		"      int y=25;\r\n" + 
+	        		"      int z=x+y;\r\n" + 
+	        		"\r\n" + 
+	        		"      System.out.println(\"Sum of x+y = \" + z);\r\n" + 
+	        		"    }\r\n" + 
+	        		"}";
 	        String language = "java";
 	        String versionIndex = "0";
 
@@ -78,6 +86,7 @@ public class CompilerController {
 	            outputStream.write(input.getBytes());
 	            outputStream.flush();
 
+	            System.out.println(connection.getResponseCode());
 	            if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
 	                throw new RuntimeException("Please check your inputs : HTTP error code : "+ connection.getResponseCode());
 	            }

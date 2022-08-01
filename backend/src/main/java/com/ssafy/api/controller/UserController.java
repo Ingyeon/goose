@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.api.request.study_user.UserLoginPostReq;
+import com.ssafy.api.request.study_user.UserPasswordPatchReq;
 import com.ssafy.api.request.study_user.UserRegisterPostReq;
 import com.ssafy.api.request.study_user.UserUpdatePatchReq;
 import com.ssafy.api.response.study_user.UserInfoRes;
@@ -102,6 +103,29 @@ public class UserController {
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
 	
+	@PatchMapping("/pw")
+	@ApiOperation(value = "회원 PW 수정", notes = "<strong>회원 PW</strong>를 수정 한다.") 
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "성공"),
+        @ApiResponse(code = 401, message = "인증 실패"),
+        @ApiResponse(code = 404, message = "PW 불일치"),
+        @ApiResponse(code = 500, message = "서버 오류")
+    })
+	public ResponseEntity<? extends BaseResponseBody> updateUser(
+			@RequestBody @ApiParam(value="회원 PW 정보", required = true) UserPasswordPatchReq updateInfo, @ApiIgnore Authentication authentication) {
+		
+		//임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
+		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
+		
+		if(passwordEncoder.matches(updateInfo.getCurrent_password(), userDetails.getPassword())) {	
+			String userId = userDetails.getUsername();
+			userService.updatePW(updateInfo.getNew_password(), userId);
+			
+			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+		} else return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Invalid Password"));
+
+	}
+	
 	@DeleteMapping()
 	@ApiOperation(value = "회원 탈퇴", notes = "<strong>아이디</strong>를 통해 회원탈퇴 한다.") 
     @ApiResponses({
@@ -109,10 +133,6 @@ public class UserController {
     })
 	public ResponseEntity<? extends BaseResponseBody> deleteUser(
 			@RequestHeader @ApiParam(value="회원 비밀번호", required = true) String password, @ApiIgnore Authentication authentication) {
-		System.out.println("123");
-		System.out.println(password);
-		System.out.println("456");
-		System.out.println(authentication);
 		//임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
 		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
 

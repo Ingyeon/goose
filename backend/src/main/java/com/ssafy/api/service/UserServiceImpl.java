@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 		User user = userRepositorySupport.findUserByUserId(userId).get();
 
 		// 보안을 위해서 유저 패스워드 암호화 하여 디비에 저장.
-		user.setPassword(passwordEncoder.encode(updateInfo.getPassword()));
+//		user.setPassword(passwordEncoder.encode(updateInfo.getPassword()));
 		user.setName(updateInfo.getName());
 		user.setEmail(updateInfo.getEmail());
 		user.setInterest(updateInfo.getInterest());
@@ -69,5 +69,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String findName(Long id) {
 		return userRepository.findById(id).get().getName();
+	}
+
+	@Override
+	public User updatePW(String newPw, String userId) {
+		User user = userRepositorySupport.findUserByUserId(userId).get();
+
+		// 보안을 위해서 유저 패스워드 암호화 하여 디비에 저장.
+		user.setPassword(passwordEncoder.encode(newPw));
+		return userRepository.save(user);
 	}
 }
