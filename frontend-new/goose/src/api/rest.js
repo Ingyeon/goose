@@ -15,7 +15,8 @@ export default{
     },
     article: {
     article_create: () => HOST + Article,
-    article_rud: id => HOST + Article + `?id=${id}`,
+    article_read: id => HOST + Article + `?id=${id}`,
+    article_delete: () => HOST + Article,
     article_list: page => HOST + Article + 'list' + `?page=${page}`
     },
     articles_reply:{

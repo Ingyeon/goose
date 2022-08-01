@@ -13,12 +13,13 @@
 <script>
 import {reactive} from 'vue'
 import {useStore} from 'vuex'
-
+import { useRouter } from 'vue-router'
 export default {
     name: 'newArticle',
     
     setup(){
         const store = useStore()
+        const router = useRouter()
         const state = reactive({
             form: {
                 re_content: ''
@@ -29,6 +30,7 @@ export default {
         const onSubmit = function(){
             store.dispatch('createReply',{article_pk: state.article.id, re_content: state.form.re_content})
             state.form.re_content = ''
+            router.go()
         }
 
     return {onSubmit,store,state}}}

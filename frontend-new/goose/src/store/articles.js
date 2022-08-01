@@ -45,7 +45,7 @@ export default {
         // 단일 페이지 조회
         fetchArticle({ commit, getters  }, id){
             axios({
-                url: rest.article.article_rud(id),
+                url: rest.article.article_read(id),
                 method: 'get',
                 headers: getters.authHeader,
             })
@@ -89,14 +89,17 @@ export default {
                     })
                 })
             },
-            deleteArticle({  commit, getters  }, id){
+            deleteArticle({  commit, getters  },id){
                 if (confirm('게시글을 삭제합니다')){
+                    console.log('시도'),
                     axios({
-                        url: rest.article.article_rud(id),
+                        url: rest.article.article_delete(),
                         method: 'delete',
+                        data: id,
                         headers: getters.authHeader,
                     })
                     .then(() => {
+                        console.log('완료')
                         commit('SET_ARTICLE', {})
                         router.push({
                             name: 'Articles'})                    
@@ -147,5 +150,17 @@ export default {
             })
             .catch(err => console.error(err.response))
         },
+
+        fetchReplies({  commit, getters  }, {article_pk,reply_page}){
+            axios.get(rest.articles_reply.reply_cr(),{
+                params:{
+                    articlePk:article_pk,
+                    page: reply_page}})
+            .then(res => {
+                console.log(1)
+                commit('SET_REPLIES',res.data)
+            })
+            .catch(err => console.error(err.response))
+        }
     }
 }
