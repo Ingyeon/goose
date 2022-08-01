@@ -64,7 +64,7 @@ export default {
       .then((res)=>{
         commit('SET_SELECTED_STUDY',res.data)
         dispatch('saveStudyMemberList',res.data.id)
-        router.push({path:'/studyHome'})
+        // router.push({path:'/studyHome'})
       })
       .then(()=>{
         dispatch('joinList')
