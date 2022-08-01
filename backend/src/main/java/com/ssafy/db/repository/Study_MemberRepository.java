@@ -18,7 +18,7 @@ public interface Study_MemberRepository extends JpaRepository<Study_Member, Long
 			 "where sm.user_pk = :user_id and sm.study_pk = s.id and sm.authority >= 3",nativeQuery = true)
 	List<StudyMyList> studyListA3(@Param("user_id") long user_id);
 
-	@Query(value="select s.title, s.id from study_member sm, study s \r\n" +
+	@Query(value="select s.title, s.id, s.image from study_member sm, study s \r\n" +
 			 "where sm.user_pk = :user_id and sm.study_pk = s.id",nativeQuery = true)
 	List<StudyMyList> studyList(@Param("user_id") long user_id);
 
