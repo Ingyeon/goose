@@ -33,7 +33,7 @@ export default {
             passwordCheckFlag: true
         })
         const DeleteForm = () => {
-            store.dispatch("user_delete")
+            store.dispatch("user_delete", status.password1)
         }
 
         const passwordValid = function() {

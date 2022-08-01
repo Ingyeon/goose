@@ -9,20 +9,18 @@
                 <label for="inputId" class="form-label">ID</label>
                 <input type="text" id="inputId" class="form-control" placeholder="ID를 입력해주세요" v-model="state.form.id" maxlength=16 @blur="idValid">
                 <div v-if="!state.idValidFlag" class="form-text">유효하지 않은 아이디 입니다. 영문과 숫자를 조합하여 8-16자 이내로 만드세요.</div>
-                <div v-if="!state.idCommonFlag" class="form-text">이미 사용되고 있는 아이디입니다.</div>
-                <div v-if="state.idCommonFlag" class="form-text">사용 가능한 아이디입니다.</div>
+                <div v-if="state.idCommonFlag == true" class="form-text">이미 사용되고 있는 아이디입니다.</div>
+                <div v-if="state.idCommonFlag == false" class="form-text">사용 가능한 아이디입니다.</div>
             </div>
-            <div class="input-Box">
+            <div class="input-Box" id='no-flex'>
                 <label for="inputPassword" class="form-label">Password</label>
                 <input type="password" id="inputPassword" class="form-control" placeholder="비밀번호를 입력해주세요" aria-describedby="passwordHelpBlock" v-model="state.form.password1" @blur="passwordValid">
                 <div id="passwordHelpBlock" class="form-text">
                     공백을 제외한 특수문자, 영문, 숫자를 이용하여 8-16자 이내로 만드세요.
                 </div>
                 <div v-if="!state.passwordValidFlag" class="form-text">유효하지 않은 비밀번호입니다.</div>
-
                 <input type="password" id="inputPassword2" class="form-control" placeholder="비밀번호 확인" v-model="state.form.password2" @blur="passwordCheckValid">
                 <div v-if="!state.passwordCheckFlag" class="form-text">비밀번호가 동일하지 않습니다.</div>
-
             </div>
              <div class="input-Box">
                 <label for="inputEmail" class="form-label">Email</label>
@@ -45,6 +43,7 @@
 import { reactive,computed } from 'vue'
 import { useStore } from 'vuex'
 import router from '@/router'
+import axios from 'axios'
 
 export default {
     name: 'signupView',
@@ -64,8 +63,7 @@ export default {
             passwordValidFlag: true,
             passwordCheckFlag: true,
             emailValidFlag : true,
-            idCommonFlag : true,
-            checkValidFlag: true
+            idCommonFlag : null,
 
      })
         const signupForm = function(){
@@ -73,7 +71,7 @@ export default {
                 alert('필수값 누락')
                 return
             }
-            if (!state.idValidFlag || !state.passwordValidFlag || !state.passwordCheckFlag || !state.emailValidFlag) {
+            if (!state.idValidFlag || !state.passwordValidFlag || !state.passwordCheckFlag || !state.emailValidFlag || state.idCommonFlag == true) {
                 alert('유효성 확인')
                 return
             }
@@ -86,7 +84,7 @@ export default {
                 alert(err)
             })}
 
-        const idValid = function() {
+        const idValid = async function() {
             if (/^[a-z]+[a-z0-9]{5,19}$/.test(state.form.id)){
                 if (state.form.id.includes(' ')){
                     state.idValidFlag = false
@@ -94,19 +92,19 @@ export default {
                 else {
                     state.idValidFlag = true
                     state.checkValidFlag = false
-                    // let data = await axios.get(`http://localhost:8080/users/userid=${userid.value}`);
-                    login_flag = data.data.login;
-                    if (store.dispatch('fetchUserInfo',state.form.id)) {
-                        state.idCommonFlag = false
-                    }
-                    else {
+                    try{
+                        let data = await axios.get(`http://localhost:8080/api/v1/users/{userId}?userId=${state.form.id}`);
+                        console.log(data.status)
                         state.idCommonFlag = true
+                    } catch(err) {
+                        state.idCommonFlag = false
+                        console.log(err.status)
                     }
                 }
                 
             } else {
                 state.idValidFlag = false
-                state.checkValidFlag = true
+                state.idCommonFlag = null
             }
         }
 
@@ -151,7 +149,7 @@ export default {
         }}
 </script>
 
-<style>
+<style scoped>
 .input-Box:nth-child(6) {
 display: flex;
 /* justify-content: space-evenly; */
