@@ -86,9 +86,8 @@ export default {
                     console.log('시도'),
                     axios({
                         url: rest.article.article_delete(),
-                        method: 'post',
-                        data: id,
-                        headers: getters.authHeader,
+                        method: 'delete',
+                        headers: {'Authorization' : getters.authHeader.Authorization, 'id':id},
                     })
                     .then(() => {
                         console.log('완료')

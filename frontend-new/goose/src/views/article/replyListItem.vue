@@ -22,18 +22,13 @@
 
 <script>
 
-import {reactive, computed} from 'vue'
+import { computed } from 'vue'
 import {useStore} from 'vuex'
 export default {
     
     setup(){
         const store = useStore()
-        const state = reactive({
-            form: {
-                re_content: '',
-            },
-            Name:[]
-        })
+
 
         const reply_list = function(){
             // reply_page 값은 임의로 1 부여
@@ -43,7 +38,7 @@ export default {
 
         const replies = computed(() => store.getters.replies)
 
-    return {store,state,reply_list,replies}}}
+    return {store,reply_list,replies}}}
 
 </script>
 
