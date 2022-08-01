@@ -7,9 +7,22 @@ export default {
     myStudyList : [],
     authStudyList: [],
     studyJoinList : [],
-    selectedStudy : {},
+    selectedStudy : {
+        // "category": "string",
+        // "date": "string",
+        // "id": 0,
+        // "image": "string",
+        // "maxmember": 0,
+        // "member": 0,
+        // "open": 0,
+        // "password": "string",
+        // "title": "string",
+        // "url_conf": "string",
+        // "url_page": "string"
+    },
     studyBoard:[],
     studyMemberList:[],
+    choiceImg : ""
   },
 
   getters:{
@@ -19,7 +32,8 @@ export default {
     studyBoard : state => state.studyBoard,
     studyJoinList: state => state.studyJoinList,
     isJoinList: state => !!state.saveJoinList,
-    studyMemberList: state => state.studyMemberList
+    studyMemberList: state => state.studyMemberList,
+    choiceImg : state => state.choiceImg
   },
 
   mutations:{
@@ -29,6 +43,7 @@ export default {
     SET_MY_STUDY_LIST: (state,studyList) => state.myStudyList = studyList,
     SET_AUTH_STUDY_LIST: (state, authStudyList) => state.authStudyList = authStudyList,
     SET_STUDY_MEMBER_LIST: (state, memberList) => state.studyMemberList = memberList,
+    SET_CHOICE_IMG: (state,img) => state.choiceImg = img
   },
 
   actions:{
@@ -204,6 +219,11 @@ export default {
         console.log(res)
         dispatch('joinList')
       })
+    },
+
+    selectImg({commit},imgurl){
+      console.log(imgurl)
+      commit('SET_CHOICE_IMG',imgurl)
     }
 
 

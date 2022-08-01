@@ -61,10 +61,9 @@
 </div>
 
 <!-- 사진 url -->
-<div class="form-floating">
-  <textarea v-model="state.credential.image" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-  <label for="floatingTextarea">대표 사진 url</label>
-</div>
+<selectImg/>
+
+<!-- 제출 -->
   <div class="input-Box">
     <input @click.prevent="createStudy()" type="submit" value="Submit">  
   </div>
@@ -78,17 +77,23 @@
 import { reactive } from '@vue/reactivity'
 import { useStore } from "vuex"
 import { computed } from "vue"
+import selectImg from "@/components/StudyPage/selectImg.vue"
 export default {
+  components:{
+    selectImg
+  },
+
   props:{
   },
   setup(){
       const store = useStore()
       const loginUser = computed(()=> store.getters.loginUser)
+      const imgUrl = computed(()=>store.getters.choiceImg)
       const state = reactive({
           credential:{
               category: "",
 
-              image : "",
+              image : imgUrl,
               maxmember:1,
               member: 1,
               open: 0,

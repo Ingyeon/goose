@@ -1,6 +1,6 @@
 <template>
 <div class="container d-flex">
-  <img src="http://encykorea.aks.ac.kr/Contents/GetImage?t=origin&id=da07ff58-06ea-4cb2-a957-0964d192cb14&w=878&h=582" alt="기본사진">
+  <img :src=selectedStudy.image alt="기본사진">
   <div>
     <div class="container d-flex">
       <div class="m-3">스터디 이름 : {{ selectedStudy.title }}</div>
