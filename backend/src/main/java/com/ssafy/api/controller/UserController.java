@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -107,9 +108,11 @@ public class UserController {
         @ApiResponse(code = 204, message = "성공"),
     })
 	public ResponseEntity<? extends BaseResponseBody> deleteUser(
-			@RequestBody @ApiParam(value="회원 비밀번호", required = true) String password, @ApiIgnore Authentication authentication) {
-		
+			@RequestHeader @ApiParam(value="회원 비밀번호", required = true) String password, @ApiIgnore Authentication authentication) {
+		System.out.println("123");
 		System.out.println(password);
+		System.out.println("456");
+		System.out.println(authentication);
 		//임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
 		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
 

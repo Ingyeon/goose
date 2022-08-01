@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -140,13 +141,13 @@ public class ArticleController {
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
 	
-	@PostMapping("/delete")
+	@DeleteMapping()
 	@ApiOperation(value = "게시글 삭제", notes = "<strong>게시글 번호</strong>를 통해 게시글 삭제 한다.") 
     @ApiResponses({
         @ApiResponse(code = 204, message = "성공"),
     })
 	public ResponseEntity<? extends BaseResponseBody> deleteArticle(
-			@RequestBody @ApiParam(value="id", required = true) Long id, @ApiIgnore Authentication authentication) {
+			@RequestHeader @ApiParam(value="id", required = true) Long id, @ApiIgnore Authentication authentication) {
 		authentication.getDetails();
 		articleService.deleteArticlesById(id);
 		
