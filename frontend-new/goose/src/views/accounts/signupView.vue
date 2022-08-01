@@ -76,7 +76,7 @@ export default {
             console.log(state.form.id, state.form.password1, state.form.name, state.form.interest, state.form.email  )
             store.dispatch('signup',{"email":state.form.email,"id":state.form.id,"interest":state.form.interest,"name":state.form.name, "password":state.form.password1, "photo": "(String) 사진 사용X"    })
             .then(function (result){
-                router.push({name :'Login'})
+                router.push({name :'Home'})
             })
             .catch(function(err){
                 alert(err)
