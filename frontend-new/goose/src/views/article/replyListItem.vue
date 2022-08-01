@@ -33,9 +33,9 @@ export default {
         const route =useRoute()
         const state = reactive({
             form: {
-                name:'',
                 re_content: '',
             },
+            Name:[]
         })
 
         const reply_list = function(){
@@ -44,9 +44,14 @@ export default {
         }
 
         // 전체 리스트에서 받아오기 때문에 개별 pk에 따른 사용자명 불러오기 힘듬
-        // const name_search = function(){
-        //     store.dispatch('fetchUserInfo',store.getters.replies)
-        // }
+        const name_search = function(){
+            for (var reply in store.getters.replies){
+                store.dispatch('fetchUserInfo',reply.user_pk)
+                state.Name.push(store.getters.targetUser.name)
+                
+            }
+            
+        }
 
         reply_list()
         // name_search()

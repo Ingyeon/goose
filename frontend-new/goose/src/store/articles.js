@@ -1,7 +1,6 @@
 import axios from "axios"
 import rest from '@/api/rest'
 import router from "@/router"
-import _ from "lodash"
 
 
 export default {
@@ -59,19 +58,12 @@ export default {
                 }
             })
         },
-        createArticle({commit,getters},form_data){
+        createArticle({getters},form_data){
             axios({
                 url: rest.article.article_create(),
                 method: 'post',
                 data: form_data,
                 headers: getters.authHeader,
-            })
-            .then(res => {
-                // post 요청 후 반환 값으로 게시글의 id 줄 수 있나?
-                // detail 페이지로 넘어가려면 id 필요함
-                // 현재는 성공했다는 메세지만 나옴
-                // 다른 api로 id 받아오려면 전체 조회를 해야하고 한다 해도 바로 이동 불가
-                // commit('SET_ARTICLE',res.data) <- 현재는 잘못됨
             })
         },
             updateArticle({  commit, getters  }, {id,form_data} ){
@@ -94,7 +86,7 @@ export default {
                     console.log('시도'),
                     axios({
                         url: rest.article.article_delete(),
-                        method: 'delete',
+                        method: 'post',
                         data: id,
                         headers: getters.authHeader,
                     })
@@ -151,7 +143,7 @@ export default {
             .catch(err => console.error(err.response))
         },
 
-        fetchReplies({  commit, getters  }, {article_pk,reply_page}){
+        fetchReplies({  commit }, {article_pk,reply_page}){
             axios.get(rest.articles_reply.reply_cr(),{
                 params:{
                     articlePk:article_pk,
