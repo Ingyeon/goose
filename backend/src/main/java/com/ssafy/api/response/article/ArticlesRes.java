@@ -33,6 +33,8 @@ public class ArticlesRes {
 	
 	@ApiModelProperty(name="작성자 PK")
 	Long user_pk;
+	@ApiModelProperty(name="스터디 PK")
+	Long study_pk;
 	@ApiModelProperty(name="작성자")
 	String name;
 	
@@ -45,7 +47,7 @@ public class ArticlesRes {
 		res.setRecruitment(articles.getRecruitment());
 		res.setHit(articles.getHit());
 		res.setName(articles.getName());
-
+		res.setStudy_pk(articles.getStudy_pk());
 		res.setUser_pk(articles.getUser_pk());
 		return res;
 	}
