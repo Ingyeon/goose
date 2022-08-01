@@ -140,7 +140,7 @@ public class ArticleController {
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
 	
-	@DeleteMapping()
+	@PostMapping("/delete")
 	@ApiOperation(value = "게시글 삭제", notes = "<strong>게시글 번호</strong>를 통해 게시글 삭제 한다.") 
     @ApiResponses({
         @ApiResponse(code = 204, message = "성공"),
