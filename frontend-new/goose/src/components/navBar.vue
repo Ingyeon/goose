@@ -50,8 +50,13 @@
     </ul>
     <!-- 로그인 되있을 경우 끝 -->
   </div>
-        {{ loginUser.id }}
-        {{ loginUser.userId }}님 안녕하세요
+        <div v-if="isLoggedIn">
+          {{ loginUser.id }}
+          {{ loginUser.userId }}님 안녕하세요
+        </div>
+        <div v-if="!isLoggedIn">
+          Guest님 안녕하세요
+        </div>
 </nav>
 </template>
 
