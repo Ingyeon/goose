@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import {onMounted, reactive} from 'vue'
+import { reactive } from 'vue'
 import {useStore} from 'vuex'
 import { useRoute } from 'vue-router';
 export default {
@@ -61,12 +61,12 @@ export default {
     const route = useRoute()
     const state = reactive({
         form:{
-            recruitment: state.getters.article.recruitment,
-            category: state.getters.article.category,
-            title: state.getters.article.title,
-            content: state.getters.article.content,
-            state: state.getters.article.state,
-            study_pk: state.getters.article.study_pk,
+            recruitment: store.getters.article.recruitment,
+            category: store.getters.article.category,
+            title: store.getters.article.title,
+            content: store.getters.article.content,
+            state: store.getters.article.state,
+
         },
         // 현재 내가 운영중인 스터디의 정보
         my_study:[]
@@ -75,23 +75,21 @@ export default {
     store.dispatch('authStudyList')
 // 내가 운영하는 스터디를 state.study에 넣는 함수
     const study_info = function(){
-      console.log(store.getters.authStudyList)
     for (let study of store.getters.authStudyList)
       state.my_study.push({id: study.id,title:study.title})
     }
 
     const clickSet = function(){   // 게시글 수정
-      store.dispatch('updateArticle',route.params.id,{
+      store.dispatch('updateArticle',{
         category:state.form.category, 
+        content: state.form.content,
         recruitment: Number(state.form.recruitment),
         state: state.form.state,
         title: state.form.title,
-        content: state.form.content,
-        study_pk: state.form.study_pk,
-        user_pk: store.getters.loginUser.id,
         })
+        console.log(state.form.category)
     }
-    onMounted(() =>study_info())
+    study_info()
 
     return {state,clickSet,store,study_info}
     }

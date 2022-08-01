@@ -2,6 +2,7 @@
 
     <h3>{{ article_log.title}}</h3>
     <div>
+        <p>스터디 명: {{  study_name  }}</p>
         <p>분류: {{ article_log.category  }}</p>
         <p>모집 여부: {{ article_log.state  }}</p>
         <p>작성일자: {{  article_log.date  }}</p>
@@ -9,6 +10,8 @@
     <div>{{  article_log.content  }}</div>
     <div>
         <!--스터디 페이지와 연결 // 스터디 페이지 완성 되었을 때 연결 -->
+
+        <!-- 가입 신청 했을 경우 if문으로 신청 취소 구현 -->
         <button @click.prevent="joinStudy(article_log.study_pk)">참여 신청</button>
         <router-link to="/articles">   <button>게시글 목록</button>  </router-link>
         <button @click="article_edit">수정</button>
@@ -61,14 +64,20 @@ export default{
 
         const article_delete = function(){
         store.dispatch('deleteArticle',store.getters.article.id)
+        router.push({name: 'ArticleList'})
         }
 
+        const study_name = function(){
+            store.dispatch('selectedStudy',store.getters.article.study_pk)
+        }
         const article_edit = function(){
             router.push({name: 'article_edit'})
         }
+        study_name()
+        const study_log = computed(() => store.getters.selectedStudy)
         const article_log = computed(() => store.getters.article)
 
-        return {article_info,store,state,article_delete,article_edit,article_log,joinStudy}
+        return {article_info,store,state,article_delete,article_edit,article_log,joinStudy,study_log}
     },
     
 }

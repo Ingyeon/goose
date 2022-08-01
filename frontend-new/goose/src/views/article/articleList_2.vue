@@ -28,20 +28,22 @@
         <th>제목</th>
         <th>작성자</th>
         <th>등록일시</th>
+        <th>조회수</th>
       </tr>
       </thead>
       <tbody>
-      <tr v-for="row in state.article_list" :key="row">
-        <td>{{ row.글번호 }}</td>
-        <!-- 링크 어떻게 넣을지 고민중 -->
-        <td><button @click="onclick(row.id)">{{row.제목}}</button></td>
-        <td>{{ row.작성자 }}</td>
-        <td>{{ row.등록일 }}</td>
+      <tr v-for="row in articles" :key="row">
+        <td>{{ row.id }}</td>
+        <td><button @click="onclick(row.id)">{{row.title}}</button></td>
+        <td>{{ row.name }}</td>
+        <td>{{ row.date }}</td>
+        <td>{{ row.hit  }}</td>
       </tr>
       </tbody>
     </table>
 </div>
 </div>
+<!-- 무한 스크롤이랑 카드형 게시글? -->
   <router-link to="/newarticle" class="btn btn-primary">글 작성</router-link>
 
 </template>
@@ -78,39 +80,20 @@ export default {
         const articles_set = function(){
           store.dispatch('fetchArticles',1) 
           state.articles = store.getters.articles
-          console.log(1,state.articles)
         }
         articles_set()
-        
-        const makeLists = function(){
-          console.log(2,state.articles)
-            for(let articleItem of state.articles) {
-                state.article_list.push({
-                    '글번호': articleItem.id,
-                    '상태': articleItem.state,
-                    '분류': articleItem.category,
-                    '제목': articleItem.title,
-                    '작성자': articleItem.name,
-                    '등록일': articleItem.date,
-                    '조회수': articleItem.hit, 
-                    'id': articleItem.id
-                })
-            }
-        }
 
         const isList = computed(() => !_.isEmpty(state.articles))
 
-        const onclick = async function(item){
-          await store.dispatch('fetchArticle', item)
-          
-          await Router.push({name: 'ArticleDetail', params: {id:item}})
+        const onclick = function(item){
+        store.dispatch('fetchArticle', item)
+        Router.push({name: 'ArticleDetail', params: {id:item}})
         }
-
-        onMounted(() => {
-        makeLists()})
         
+        const articles = computed(() => store.getters.articles)
+
     
-    return {currentPage,Rows,PerPage,state,makeLists,onMounted,articles_set,isList,onclick}
+    return {currentPage,Rows,PerPage,state,onMounted,articles_set,isList,onclick,articles}
 
 
     }

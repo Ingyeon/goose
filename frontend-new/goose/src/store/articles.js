@@ -60,37 +60,36 @@ export default {
         },
         createArticle({getters},form_data){
             axios({
-                url: rest.article.article_create(),
+                url: rest.article.article_cud(),
                 method: 'post',
                 data: form_data,
                 headers: getters.authHeader,
             })
         },
-            updateArticle({  commit, getters  }, {id,form_data} ){
+            updateArticle({  getters  },form_data ){
                 axios({
-                    url: rest.article.article_read(id),
-                    method: 'put',
+                    url: rest.article.article_read(getters.article.id),
+                    method: 'patch',
                     data: form_data,
                     headers: getters.authHeader,
                 })
                 .then(res => {
-                    commit('SET_ARTICLE', res.data)
+                    console.log('성공')
                     router.push({
                         name: 'ArticleDetail',
-                        params: {  id: getters.article.article_pk}
+                        params: {  id: getters.article.id  }
                     })
                 })
             },
             deleteArticle({  commit, getters  },id){
                 if (confirm('게시글을 삭제합니다')){
-                    console.log('시도'),
                     axios({
-                        url: rest.article.article_delete(),
+                        url: rest.article.article_cud(),
                         method: 'delete',
                         headers: {'Authorization' : getters.authHeader.Authorization, 'id':id},
                     })
                     .then(() => {
-                        console.log('완료')
+                        console.log('성공')
                         commit('SET_ARTICLE', {})
                         router.push({
                             name: 'Articles'})                    

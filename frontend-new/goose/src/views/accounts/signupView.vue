@@ -94,7 +94,7 @@ export default {
                 else {
                     state.idValidFlag = true
                     state.checkValidFlag = false
-                    let data = await axios.get(`http://localhost:8080/users/userid=${userid.value}`);
+                    // let data = await axios.get(`http://localhost:8080/users/userid=${userid.value}`);
                     login_flag = data.data.login;
                     if (store.dispatch('fetchUserInfo',state.form.id)) {
                         state.idCommonFlag = false
