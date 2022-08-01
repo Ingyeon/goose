@@ -2,8 +2,7 @@
   <ol>
     <li class="list-group-item py-1">
             <ol v-for = "reply in replies.content" :key="reply">
-            <!-- 댓글 api에 댓글 작성자도 받게 부탁? -->
-    <ul>{{'작성자명'}}:{{reply.re_content}}</ul></ol>
+    <ul>{{reply.name}}:{{reply.re_content}}</ul></ol>
     </li>
 
     <!-- <li class="list-group-item flex-fill" v-if="!isEditing">{{  reply.re_content  }}</li> -->
@@ -25,12 +24,10 @@
 
 import {reactive, computed} from 'vue'
 import {useStore} from 'vuex'
-import { useRoute } from 'vue-router'
 export default {
     
     setup(){
         const store = useStore()
-        const route =useRoute()
         const state = reactive({
             form: {
                 re_content: '',
@@ -42,24 +39,11 @@ export default {
             // reply_page 값은 임의로 1 부여
             store.dispatch('fetchReplies', {article_pk:store.getters.article.id,reply_page:1} )
         }
-
-        // 전체 리스트에서 받아오기 때문에 개별 pk에 따른 사용자명 불러오기 힘듬
-        const name_search = function(){
-            for (var reply in store.getters.replies){
-                store.dispatch('fetchUserInfo',reply.user_pk)
-                state.Name.push(store.getters.targetUser.name)
-                
-            }
-            
-        }
-
         reply_list()
-        // name_search()
-        const name = computed(() => store.getters.article.name)
 
         const replies = computed(() => store.getters.replies)
 
-    return {store,state,reply_list,name,replies}}}
+    return {store,state,reply_list,replies}}}
 
 </script>
 

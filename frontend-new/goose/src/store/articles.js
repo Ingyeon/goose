@@ -68,7 +68,7 @@ export default {
         },
             updateArticle({  commit, getters  }, {id,form_data} ){
                 axios({
-                    url: rest.article.article_rud(id),
+                    url: rest.article.article_read(id),
                     method: 'put',
                     data: form_data,
                     headers: getters.authHeader,

@@ -23,14 +23,12 @@
 
 import { reactive, watch } from "vue";
 import {  useStore  } from 'vuex'
-import { useRoute } from 'vue-router';
 import { useRouter } from 'vue-router';
 // import replyList from "./replyList.vue";
 
 export default{
     setup(){
         const store = useStore()
-        const route = useRoute()
         const router = useRouter()
 
         const state = reactive({
