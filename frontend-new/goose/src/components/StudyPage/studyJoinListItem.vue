@@ -19,7 +19,7 @@ export default {
     const credential = reactive({
       id: props.item.id,
       study_pk:props.item.study_pk,
-      user_pk: store.getters
+      user_pk: props.item.user_pk
     })
 
     const joinAccept = ()=>{
