@@ -52,13 +52,13 @@
 <script>
 import { reactive } from 'vue'
 import {useStore} from 'vuex'
-import { useRoute } from 'vue-router';
+
 export default {
     name: 'newArticle',
     
     setup(){
     const store = useStore()
-    const route = useRoute()
+
     const state = reactive({
         form:{
             recruitment: store.getters.article.recruitment,

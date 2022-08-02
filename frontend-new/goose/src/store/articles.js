@@ -1,6 +1,7 @@
 import axios from "axios"
 import rest from '@/api/rest'
 import router from "@/router"
+import store from "."
 
 
 export default {
@@ -53,11 +54,8 @@ export default {
 
             .catch(err => {
                 console.error(err.response)
-                if (err.response.status === 404){
-                    console.log('404 페이지 제작 필요')
-                }
-            })
-        },
+                router.push({name:'ArticleList'})})
+            },
         createArticle({getters},form_data){
             axios({
                 url: rest.article.article_cud(),
@@ -81,7 +79,6 @@ export default {
                     headers: getters.authHeader,
                 })
                 .then(res => {
-                    console.log('성공')
                     router.push({
                         name: 'ArticleDetail',
                         params: {  id: getters.article.id  }
@@ -109,55 +106,54 @@ export default {
             console.log(reply_data)
 
             axios({
-                url: rest.articles_reply.reply_cr(),
+                url: rest.articles_reply.reply_crud(),
                 method: 'post',
                 data: reply_data,
                 headers: getters.authHeader,
             })
             .then(res => {
-                commit('SET_REPLIES', res.data)
             })
             .catch(err => console.error(err.response))
         },
 
-        deleteReply({commit, getters},{id}){
+        deleteReply({dispatch, getters},id){
             if (confirm('댓글을 삭제하시겠습니까?')){
                 axios({
-                    url: rest.articles_reply.reply_ud(id),
+                    url: rest.articles_reply.reply_crud(),
                     method: 'delete',
-                    data: {},
-                    headers: getters.authHeader,
+                    headers: {'Authorization' : getters.authHeader.Authorization, 'id':id},
                 })
                 .then(res => {
-                    commit('SET_REPLIES',res.data)
+                    dispatch('fetchReplies',{article_pk:getters.article.id,reply_page:1})
+                    router.go()
                 })
                 .catch(err => console.error(err.response))
             }
         },
         
-        updateReply({  commit, getters  }, { id, re_content  }){
+        updateReply({  dispatch, getters  }, data){
             axios({
-                url: rest.articles_reply.reply_ud(id), 
-                method: 'put',
-                data: re_content,
+                url: rest.articles_reply.reply_crud(), 
+                method: 'patch',
+                data: data.re_content,
+                params: {id:data.id},
                 headers: getters.authHeader,
+                // "Content-Type": "application/json"
             })
             .then(res => {
-                commit('SET_REPLIES', res.data)
+                dispatch('fetchReplies',{article_pk:getters.article.id,reply_page:1})
             })
             .catch(err => console.error(err.response))
         },
 
         fetchReplies({  commit }, {article_pk,reply_page}){
-            axios.get(rest.articles_reply.reply_cr(),{
+            axios.get(rest.articles_reply.reply_crud(),{
                 params:{
                     articlePk:article_pk,
                     page: reply_page}})
             .then(res => {
-                console.log(1)
                 commit('SET_REPLIES',res.data)
             })
             .catch(err => console.error(err.response))
         }
-    }
-}
+    }}
