@@ -7,6 +7,7 @@ const Study = "study/";
 const User = "users";
 const Member = "member/";
 const Calendar = "calendar/";
+const StudyArticles = "studyArticles/"
 
 export default {
   accounts: {
@@ -38,6 +39,10 @@ export default {
     study_member_list: (study_pk) =>
       HOST + Study + Member + "studymemberlsit/" + `${study_pk}`, // 오타 불편
     study_member_out:()=> HOST + Study + Member + "studymemberout"
+  },
+  studyArticle:{
+    studyArticles :() => HOST + "studyArticles",
+    studyArticleList : () => HOST + StudyArticles + "list",
   },
   user: {
     user: () => HOST + User,

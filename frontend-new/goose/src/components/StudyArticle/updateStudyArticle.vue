@@ -1,21 +1,6 @@
 <template>
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createStudyArticle">
-  새 글 작성
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="createStudyArticle" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">글 작성</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <!-- Modal Body -->
-      <div class="modal-body">
-        <!-- form -->
-        <form>
+    <h1>업데이트!</h1>
+    <form>
         <!-- 카테고리 -->
           <div class="d-flex">
             <p class="text-capitalize custom-label">카테고리</p>
@@ -33,6 +18,7 @@
             <label for="studyArticleName"  class="custom-label">글 제목</label>
             <div class="form-floating input-Box">
               <input type="text" id="studyArticleName" class="form-control" placeholder="글 제목" v-model="credential.title">
+              <!-- <input type="text" id="studyArticleName" class="form-control" placeholder="글 제목" > -->
               <label for="studyArticleName"  class="form-label">글 제목</label>
             </div>
           </div>
@@ -45,19 +31,9 @@
 
         <!-- 제출 -->
           <div class="input-Box">
-            <input @click.prevent="createArticle" type="submit" value="Submit">  
+            <input @click.prevent="updateArticle" type="submit" value="Submit">  
           </div>
         </form>
-
-        <!-- form 끝 -->
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div>
-    </div>
-  </div>
-</div>
 </template>
 
 <script>
@@ -68,24 +44,22 @@ export default {
   setup(){
     const store = useStore();
 
-    // const selectedStudy = computed(() => store.getters.selectedStudy);
     const credential = reactive({
-      category:"",
-      content:"",
-      image:"",
-      study_pk: store.getters.selectedStudy.id,
-      title:""
+      "category":"",
+      "content":"",
+      "image":"",
+      "title":"",
     })
 
-    const createArticle = () =>{
-      // console.log(credential)
-      store.dispatch("createStudyArticle",credential)
+    const updateArticle = () =>{
+      console.log(credential)
+      store.dispatch("updateStudyArticle",credential)
     }
-    return {createArticle,credential} 
+    return {updateArticle,credential} 
   }
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>
