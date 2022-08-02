@@ -18,8 +18,8 @@ export default {
         authHeader: state => ({ Authorization: state.token}),  // 인증 정보
         loginUser: state => state.loginUser,  // 현재 로그인한 유저
         targetUser: state => state.targetUser, // 다른 유저 정보
-        profileDetail: state => state.profileDetail 
-        
+        profileDetail: state => state.profileDetail, 
+        token: state=> state.token
     },
     mutations: {
         SET_TOKEN: (state, token) => state.token = token,

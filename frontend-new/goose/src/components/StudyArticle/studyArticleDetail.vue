@@ -11,6 +11,8 @@
         <div v-if="state.type==0">
             내용:{{article.content}}
             <button @click="deleteArticle">삭제하기</button>
+            <!-- 댓글 -->
+            <comment/>
         </div>
         <!-- 업데이트 -->
         <updateStudyArticle v-if="state.type==1" />
@@ -25,15 +27,17 @@
     </div>
   </div>
 </div>
+
 </template>
 
 <script>
 import updateStudyArticle from "@/components/StudyArticle/updateStudyArticle.vue"
+import comment from "./comment.vue";
 import { computed, reactive } from '@vue/runtime-core';
 import { useStore } from "vuex"
 export default {
     components:{
-        updateStudyArticle,
+        updateStudyArticle,comment,
     },
 
     setup(){

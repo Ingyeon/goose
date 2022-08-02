@@ -29,15 +29,18 @@ export default {
             // "name": "string",
             // "title": "string",
             // "user_pk": 0
-        }
+        },
+        studyArticleCommentList:[],
     },
     getters: {
         studyArticleList: state => state.studyArticleList,
         selectedArticle: state => state.selectedArticle,
+        studyArticleCommentList: state => state.studyArticleCommentList
     },
     mutations: {
        SET_STUDY_ARTICLES: (state,articleList) => state.studyArticleList = articleList,
        SET_SELECTED_ARTICLE: (state,article) => state.selectedArticle = article,
+       SET_STUDY_ARTICLE_COMMENT_LIST: (state,commentList) => state.studyArticleCommentList = commentList
     },
     actions: {
         getStudyArticleList({getters,commit},credential){
@@ -86,9 +89,6 @@ export default {
        },
 
        updateStudyArticle({getters,dispatch},credential){
-        console.log(credential)
-        console.log(getters.selectedArticle.id)
-        console.log(rest.studyArticle.studyArticles())
         axios({
             url: rest.studyArticle.studyArticles(),
             method: 'PATCH',
@@ -97,7 +97,6 @@ export default {
             params: {id:getters.selectedArticle.id}
         })
         .then((res)=>{
-            console.log("업데이트 성공")
             console.log(res)
             dispatch('getStudyArticleList',{category:null,page:1,title:null})
         })
@@ -112,6 +111,69 @@ export default {
             url: rest.studyArticle.studyArticles(),
             method: 'delete',
             headers: ({ Authorization: getters.token, id:getters.selectedArticle.id}),
+        })
+       },
+
+    //    댓글
+       createComment({getters},credential){
+        axios({
+            url: rest.studyArticle.studyArticleReply(),
+            method: 'post',
+            headers: getters.authHeader,
+            data: credential
+        })
+        .then((res)=>{
+            console.log(res)
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+       },
+
+       getComment({getters,commit},credential){
+        axios({
+            url: rest.studyArticle.studyArticleReply(),
+            method: 'get',
+            headers: getters.authHeader,
+            params: credential //{articlePk:int ,id:int, page:int}
+        })
+        .then((res)=>{
+            console.log(res.data.content)
+            commit('SET_STUDY_ARTICLE_COMMENT_LIST',res.data.content)
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+       },
+
+       deleteComment({getters},id){
+        axios({
+            url: rest.studyArticle.studyArticleReply(),
+            method: 'delete',
+            headers: { id:id, Authorization:getters.token }
+        })
+        .then((res)=>{
+            console.log(res)
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+       },
+
+       patchComment({getters},credential){
+        console.log(credential)
+        axios({
+            url: rest.studyArticle.studyArticleReply(),
+            method: "patch",
+            data: {"re_content":credential.re_content},
+            headers: {id:credential.id, Authorization:getters.token }
+        })
+        .then((res)=>{
+            console.log("댓글 수정 완료")
+        })
+        .catch((err)=>{
+            console.log("댓글 수정 실패")
+            console.log(err)
         })
        }
     }
