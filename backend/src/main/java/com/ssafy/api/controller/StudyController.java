@@ -273,7 +273,7 @@ public class StudyController {
 	})
 	public ResponseEntity<String> StudyMemberOut(
 	        @RequestHeader @ApiParam(value="user_pk", required = true) long user_pk,
-	        @RequestHeader @ApiParam(value="user_pk", required = true) long study_pk,
+	        @RequestHeader @ApiParam(value="study_pk", required = true) long study_pk,
 	        @ApiIgnore Authentication authentication) {
 	    //임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
 	    SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();

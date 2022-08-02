@@ -169,9 +169,9 @@ public class StudyServiceImpl implements StudyService{
 
 	@Override
 	public int studyMemberOut(long master_id, long user_pk, long study_pk) {
-		int mastercheck = studyMemberRepository.studyMemberMasterCheck(master_id, user_pk, study_pk);
+		int mastercheck = studyMemberRepository.studyMemberMasterCheck(master_id, study_pk);
 		if(mastercheck > 0) {
-			studyMemberRepository.studyMemberOut(master_id, user_pk, study_pk);
+			studyMemberRepository.studyMemberOut(user_pk, study_pk);
 			return 1;
 		}
 		else return 0;
@@ -180,7 +180,7 @@ public class StudyServiceImpl implements StudyService{
 
 	@Override
 	public void studyMemberOutMe(long master_id, long user_pk, long study_pk) {
-		studyMemberRepository.studyMemberOut(master_id, user_pk, study_pk);
+		studyMemberRepository.studyMemberOut(user_pk, study_pk);
 		
 	}
 
