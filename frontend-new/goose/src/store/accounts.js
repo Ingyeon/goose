@@ -9,6 +9,7 @@ export default {
         authError: null, // 오류 발생 시
         loginUser: {},
         targetUser: {},
+        profileDetail: {},
         
     },
     getters: {
@@ -16,8 +17,9 @@ export default {
         authError: state => state.authError,   // 인증 에러
         authHeader: state => ({ Authorization: state.token}),  // 인증 정보
         loginUser: state => state.loginUser,  // 현재 로그인한 유저
-        targetUser: state => state.targetUser, // 다른 유저 정보 
-        token: state => state.token,
+        targetUser: state => state.targetUser, // 다른 유저 정보
+        profileDetail: state => state.profileDetail 
+        
     },
     mutations: {
         SET_TOKEN: (state, token) => state.token = token,
@@ -27,7 +29,8 @@ export default {
         LOGOUT: () => { 
             localStorage.removeItem('user')
             location.reload();
-        }
+        },
+        SET_PROFILE_DETAIL : (state, data) => state.profileDetail = data,
     },
     actions: {
         login({commit, dispatch},credential){
@@ -133,7 +136,6 @@ export default {
                 console.log(password)
                 if (result.isConfirmed) {
                     axios({
-                        
                         url : rest.user.user(),
                         method: 'delete',
                         headers: {'Authorization' : getters.authHeader.Authorization, 'password': password},
@@ -143,11 +145,30 @@ export default {
                         console.log('then2')
                         Swal.fire(
                             '그동안 Goose를 이용해주셔서 감사합니다'
-                        )  
+                        )
                     router.push({name:'Home'})
                 }
             })
-
+        },
+        profileUpdate({getters,dispatch, commit},userform_data) {
+            console.log('액시오스 전')
+            axios({
+                url: rest.user.user(),
+                method: 'patch',
+                data: userform_data,
+                headers: getters.authHeader
+            })
+            .then(res=>{
+                // console.log(res.config.data)
+                dispatch('fetchLoginUser')
+                commit('SET_PROFILE_DETAIL', res.config.data)
+                router.push({
+                    name: "UserProfile"
+                })
+            })
+            .catch(err=> {
+                console.log(err)
+            })
         }
     }
 }

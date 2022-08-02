@@ -76,8 +76,15 @@ export default {
                 return
             }
             console.log(state.form.id, state.form.password1, state.form.name, state.form.interest, state.form.email  )
-            store.dispatch('signup',{"email":state.form.email,"id":state.form.id,"interest":state.form.interest,"name":state.form.name, "password":state.form.password1, "photo": "(String) 사진 사용X"    })
+            store.dispatch('signup',{
+                "email":state.form.email,
+                "id":state.form.id,
+                "interest":state.form.interest,
+                "name":state.form.name, 
+                "password":state.form.password1, 
+                "photo": "../../assets/프로필4.png"})
             .then(function (result){
+                alert('Goose에 회원가입 해주셔서 감사합니다!')
                 router.push({name :'Home'})
             })
             .catch(function(err){

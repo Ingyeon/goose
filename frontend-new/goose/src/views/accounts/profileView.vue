@@ -29,20 +29,22 @@
 
 <script>
 import {reactive} from 'vue'
-import router from '@/router'
+import { useRouter } from 'vue-router'
 export default {
     setup() {
+        const router = useRouter()
         const changeProfile = function() {
             router.push({name:'ProfileUpdate'})
         }
         return {
+            router,
             changeProfile,
         }
     },
 }
 </script>
 
-<style>
+<style scoped>
     .change-btn {
     display: flex;
     justify-content: space-between;

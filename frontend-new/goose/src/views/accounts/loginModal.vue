@@ -87,8 +87,12 @@ export default {
     display: flex;
     /* justify-content: space-evenly; */
     justify-content: end;
-
     }
+
+    input[type=password]{
+      font-family:"굴림";
+    }
+    
     .input-Box button{
     background: #ffd700;
     color: #000000;
