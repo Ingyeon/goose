@@ -224,7 +224,11 @@ export default {
       }).then((res) => {
         console.log(res);
         dispatch("joinList");
-      });
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+      
     },
 
     // 스터디 가입신청 거절
