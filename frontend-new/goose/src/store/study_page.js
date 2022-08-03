@@ -108,7 +108,7 @@ export default {
         });
     },
 
-    createStudy({ getters }, credential) {
+    createStudy({ getters,dispatch }, credential) {
       axios({
         url: rest.study.study_create(),
         method: "post",
@@ -117,6 +117,7 @@ export default {
       })
         .then((res) => {
           console.log(res);
+          dispatch('myStudyList')
           router.push({ name: "Home" });
         })
         .catch((err) => {
@@ -138,7 +139,7 @@ export default {
       });
     },
 
-    deleteStudy({ commit, getters }) {
+    deleteStudy({ commit, getters,dispatch }) {
       console.log(getters.selectedStudy);
       console.log(rest.study.study_remove(getters.selectedStudy.id));
       axios({
@@ -148,6 +149,7 @@ export default {
       })
         .then(() => {
           console.log("삭제 완료");
+          dispatch('myStudyList')
           commit("SET_SELECTED_STUDY", {});
           router.push({ name: "Home" });
         })

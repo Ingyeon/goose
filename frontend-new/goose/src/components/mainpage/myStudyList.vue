@@ -14,6 +14,8 @@ export default {
     setup(){
     const store = useStore()
     const myStudyList = computed(()=> store.getters.myStudyList)
+    const patchMyStudyList = ()=>{store.dispatch('myStudyList')}
+    patchMyStudyList
     return {myStudyList}
   }
 }
