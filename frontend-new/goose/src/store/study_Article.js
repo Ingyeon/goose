@@ -35,7 +35,8 @@ export default {
     getters: {
         studyArticleList: state => state.studyArticleList,
         selectedArticle: state => state.selectedArticle,
-        studyArticleCommentList: state => state.studyArticleCommentList
+        studyArticleCommentList: state => state.studyArticleCommentList,
+        isArticleWriter: (state,getters) => state.selectedArticle.user_pk == getters.loginUser.id
     },
     mutations: {
        SET_STUDY_ARTICLES: (state,articleList) => state.studyArticleList = articleList,
@@ -48,10 +49,10 @@ export default {
                 url: rest.studyArticle.studyArticleList(),
                 method:'get',
                 headers: getters.authHeader,
-                params: { category:credential.category, page:credential.page, title:credential.title }
+                params: { "category":credential.category, "page":credential.page, "studyPk":credential.studyPk, "title":credential.title}
             })
             .then((res)=>{
-                console.log(res.data)
+                // console.log(res.data)
                 commit("SET_STUDY_ARTICLES",res.data.content)
             })
         },
@@ -64,15 +65,14 @@ export default {
                 params: {id:articleId}
             })
             .then((res)=>{
-                console.log("정보조회 성공")
                 commit("SET_SELECTED_ARTICLE",res.data)
             })
-            .catch((err)=>{
-                console.log(err)
-            })
+            // .catch((err)=>{
+            //     console.log(err)
+            // })
         },
 
-       createStudyArticle({commit,getters},credential){
+       createStudyArticle({getters,dispatch},credential){
         axios({
             url: rest.studyArticle.studyArticles(),
             method: 'post',
@@ -80,11 +80,11 @@ export default {
             data: credential
         })
         .then((res)=>{
-            console.log(res)
+            dispatch('getStudyArticleList',{category:null, page:1, studyPk:getters.selectedStudy.id, title:null})
         })
-        .catch((err)=>{
-            console.log(err)
-        })
+        // .catch((err)=>{
+        //     console.log(err)
+        // })
 
        },
 
@@ -97,16 +97,15 @@ export default {
             params: {id:getters.selectedArticle.id}
         })
         .then((res)=>{
-            console.log(res)
+            // console.log(res)
             dispatch('getStudyArticleList',{category:null,page:1,title:null})
         })
-        .catch((err)=>{
-            console.log(err)
-        })
+        // .catch((err)=>{
+        //     console.log(err)
+        // })
        },
 
        deleteStudyArticle({getters}){
-        console.log(getters.selectedArticle.id)
         axios({
             url: rest.studyArticle.studyArticles(),
             method: 'delete',
@@ -115,7 +114,7 @@ export default {
        },
 
     //    댓글
-       createComment({getters},credential){
+       createComment({getters,dispatch},credential){
         axios({
             url: rest.studyArticle.studyArticleReply(),
             method: 'post',
@@ -123,11 +122,11 @@ export default {
             data: credential
         })
         .then((res)=>{
-            console.log(res)
+            dispatch('getComment',{articlePk:getters.selectedArticle.id,page:1})
         })
-        .catch((err)=>{
-            console.log(err)
-        })
+        // .catch((err)=>{
+        //     console.log(err)
+        // })
        },
 
        getComment({getters,commit},credential){
@@ -138,43 +137,42 @@ export default {
             params: credential //{articlePk:int ,id:int, page:int}
         })
         .then((res)=>{
-            console.log(res.data.content)
             commit('SET_STUDY_ARTICLE_COMMENT_LIST',res.data.content)
         })
-        .catch((err)=>{
-            console.log(err)
-        })
+        // .catch((err)=>{
+        //     console.log(err)
+        // })
        },
 
-       deleteComment({getters},id){
+       deleteComment({getters,dispatch},id){
         axios({
             url: rest.studyArticle.studyArticleReply(),
             method: 'delete',
             headers: { id:id, Authorization:getters.token }
         })
         .then((res)=>{
-            console.log(res)
+            dispatch('getComment',{articlePk:getters.selectedArticle.id,page:1})
         })
-        .catch((err)=>{
-            console.log(err)
-        })
+        // .catch((err)=>{
+        //     console.log(err)
+        // })
        },
 
-       patchComment({getters},credential){
-        console.log(credential)
-        axios({
-            url: rest.studyArticle.studyArticleReply(),
-            method: "patch",
-            data: {"re_content":credential.re_content},
-            headers: {id:credential.id, Authorization:getters.token }
-        })
-        .then((res)=>{
-            console.log("댓글 수정 완료")
-        })
-        .catch((err)=>{
-            console.log("댓글 수정 실패")
-            console.log(err)
-        })
-       }
+    //    patchComment({getters},credential){
+    //     axios({
+    //         url: rest.studyArticle.studyArticleReply(),
+    //         method: 'patch',
+    //         data: {"re_content":"하드코딩"},
+    //         // headers: {id:credential.id, Authorization:getters.token }
+    //         headers: {id:4, Authorization:getters.token }
+    //     })
+    //     .then((res)=>{
+    //         console.log("댓글 수정 완료")
+    //     })
+    //     .catch((err)=>{
+    //         console.log("댓글 수정 실패")
+    //         console.log(err)
+    //     })
+    //    }
     }
 }
