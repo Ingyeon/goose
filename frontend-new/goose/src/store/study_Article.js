@@ -52,7 +52,7 @@ export default {
                 params: { "category":credential.category, "page":credential.page, "studyPk":credential.studyPk, "title":credential.title}
             })
             .then((res)=>{
-                // console.log(res.data)
+                console.log(res.data)
                 commit("SET_STUDY_ARTICLES",res.data.content)
             })
         },
@@ -132,6 +132,7 @@ export default {
        },
 
        getComment({getters,commit},credential){
+        console.log(credential)
         axios({
             url: rest.studyArticle.studyArticleReply(),
             method: 'get',
@@ -139,7 +140,9 @@ export default {
             params: credential //{articlePk:int ,id:int, page:int}
         })
         .then((res)=>{
+            console.log(res.data.content)
             commit('SET_STUDY_ARTICLE_COMMENT_LIST',res.data.content)
+            console.log("패치 성공")
         })
         .catch((err)=>{
             console.log(err)

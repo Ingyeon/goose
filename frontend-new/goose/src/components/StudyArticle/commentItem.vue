@@ -1,5 +1,5 @@
 <template>
-<div class=""></div>
+<hr>
 <h6>댓글 내용: {{ item.re_content }}, 글쓴이: {{ item.name}}</h6>
 <button v-if="isCommentWriter" @click.prevent="deleteComment" class="btn">댓글 삭제</button>
 <!-- <button @click.prevent="updateToggle" class="btn">댓글 수정</button>

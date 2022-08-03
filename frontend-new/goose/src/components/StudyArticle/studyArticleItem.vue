@@ -1,5 +1,5 @@
 <template>
-<br>
+<hr>
 <div class="container d-flex">
   <h3 class="m-3"> 제목:{{ item.title }}</h3>
   <h3 class="m-3"> 글쓴이:{{ item.name }}</h3>
