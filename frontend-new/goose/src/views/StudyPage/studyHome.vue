@@ -4,15 +4,17 @@
     <div>
       <div class="container d-flex">
         <div class="m-3">스터디 이름 : {{ selectedStudy.title }}</div>
-        <div class="m-3">
+        <!-- <div class="m-3">
           인원 : {{ selectedStudy.member }}/ {{ selectedStudy.maxmember }}
-        </div>
+        </div> -->
       </div>
       <div>스터디 소개글 : collume 추가되면 추가할 예정{{}}</div>
+      <div>카페 매니저 : {{ manager.name }}</div>
     </div>
   </div>
   <div>
     <button
+      v-if="isManager"
       type="button"
       class="btn btn-primary"
       data-bs-toggle="modal"
@@ -44,11 +46,11 @@
     <callender />
   </div>
   <div class="container d-flex">
-    <button @click.prevent="deleteStudy">스터디 터트리기</button>
-    {{ loginUser.id }}
+    <button v-if="isManager" @click.prevent="deleteStudy">스터디 터트리기</button>
     <button @click.prevent="dropOutStudy(loginUser.id)">스터디 탈퇴하기</button>
     <div>
       <button
+        v-if="isManager"
         type="button"
         class="btn btn-primary"
         data-bs-toggle="modal"
@@ -151,7 +153,9 @@ export default {
       store.dispatch("dropOutStudy",user_pk)
       router.push({ name: "Home" })
     }
-    return { selectedStudy, deleteStudy, pageUpdate,fetchStudyHome,moveArticles,dropOutStudy,loginUser };
+    const manager = computed(()=> store.getters.studyManager)
+    const isManager = computed(()=> store.getters.isStudyManager)
+    return { selectedStudy, deleteStudy, pageUpdate,fetchStudyHome,moveArticles,dropOutStudy,loginUser,manager,isManager };
   },
 };
 </script>

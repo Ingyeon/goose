@@ -10,7 +10,7 @@
         <!-- 디테일 -->
         <div v-if="state.type==0">
             내용:{{article.content}}
-            <button @click="deleteArticle">삭제하기</button>
+            <button v-if="isWriter" @click="deleteArticle">삭제하기</button>
             <!-- 댓글 -->
             <comment/>
         </div>
@@ -21,7 +21,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button v-if="state.type==0" @click.prevent="typeChange" type="button" class="btn btn-primary">수정하기</button>
+        <button v-if="state.type==0 && isWriter" @click.prevent="typeChange" type="button" class="btn btn-primary">수정하기</button>
         <button v-if="state.type!=0" @click.prevent="typeChange" type="button" class="btn btn-primary">돌아가기</button>
       </div>
     </div>
@@ -52,8 +52,9 @@ export default {
         const deleteArticle = ()=>{
           store.dispatch("deleteStudyArticle")
         }
-
-        return {article,state,typeChange,deleteArticle}
+        
+        const isWriter = computed(()=> store.getters.isArticleWriter)
+        return {article,state,typeChange,deleteArticle,isWriter}
     }
 
 }

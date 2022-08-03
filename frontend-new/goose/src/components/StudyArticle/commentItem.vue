@@ -1,7 +1,8 @@
 <template>
+<div class=""></div>
 <h6>댓글 내용: {{ item.re_content }}, 글쓴이: {{ item.name}}</h6>
-<button @click.prevent="deleteComment" class="btn">댓글 삭제</button>
-<button @click.prevent="updateToggle" class="btn">댓글 수정</button>
+<button v-if="isCommentWriter" @click.prevent="deleteComment" class="btn">댓글 삭제</button>
+<!-- <button @click.prevent="updateToggle" class="btn">댓글 수정</button>
 <div v-if="state.toggle==1" class="cus-blur">
     <form @submit.prevent="patchComment">
     <div class="m-3">
@@ -12,12 +13,13 @@
     <button class="btn">댓글 수정</button>
     </div>
     </form>
-</div>
+</div> -->
 </template>
 
 <script>
 import { reactive } from '@vue/reactivity'
 import { useStore } from "vuex"
+import { computed } from '@vue/runtime-core'
 export default {
     props:{
         item:Object
@@ -39,7 +41,9 @@ export default {
             store.dispatch("patchComment",{re_content:state.re_content, id:props.item.id})
         }
 
-        return {deleteComment,updateToggle,state,patchComment}
+        const isCommentWriter = computed(()=> props.item.user_pk == store.getters.loginUser.id)
+
+        return {deleteComment,updateToggle,state,patchComment,isCommentWriter}
     }
     
 }

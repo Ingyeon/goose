@@ -57,7 +57,7 @@ export default {
             })
         },
         
-        getStudyArticle({getters,commit},articleId){
+        getStudyArticle({getters,commit,dispatch},articleId){
             axios({
                 url: rest.studyArticle.studyArticles(),
                 method: 'get',
@@ -66,6 +66,7 @@ export default {
             })
             .then((res)=>{
                 commit("SET_SELECTED_ARTICLE",res.data)
+                dispatch("getComment",{articlePk:getters.selectedArticle.id ,id:null, page:1})
             })
             // .catch((err)=>{
             //     console.log(err)
@@ -122,11 +123,12 @@ export default {
             data: credential
         })
         .then((res)=>{
+            console.log("hi")
             dispatch('getComment',{articlePk:getters.selectedArticle.id,page:1})
         })
-        // .catch((err)=>{
-        //     console.log(err)
-        // })
+        .catch((err)=>{
+            console.log(err)
+        })
        },
 
        getComment({getters,commit},credential){
@@ -139,9 +141,9 @@ export default {
         .then((res)=>{
             commit('SET_STUDY_ARTICLE_COMMENT_LIST',res.data.content)
         })
-        // .catch((err)=>{
-        //     console.log(err)
-        // })
+        .catch((err)=>{
+            console.log(err)
+        })
        },
 
        deleteComment({getters,dispatch},id){
