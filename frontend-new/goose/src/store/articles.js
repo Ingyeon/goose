@@ -26,6 +26,7 @@ export default {
     },
     actions: {
         // 전체 페이지 조회
+        // 백엔드 -> 페이지 별이 아닌 전체 리스트 뽑는 api 요청하기
         fetchArticles({commit,getters},page){
             axios({
                 url: rest.article.article_list(page),

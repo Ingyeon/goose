@@ -53,7 +53,7 @@ const routes = [
     name: "ProfileUpdate",
     component: ProfileUpdate,
   },
-  { path: "/articles", name: "ArticleList", component: ArticleList },
+  { path: "/articles/", name: "ArticleList", component: ArticleList },
 
   { path: "/articlefix/:id", name: "article_edit", component: ArticleEdit },
 

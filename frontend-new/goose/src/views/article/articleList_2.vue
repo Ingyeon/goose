@@ -34,7 +34,7 @@
       <tbody>
       <tr v-for="row in articles" :key="row">
         <td>{{ row.id }}</td>
-        <td><button @click="onclick(row.id)">{{row.title}}</button></td>
+        <td><div @click="onclick(row.id)" class="btn">{{row.title}}</div></td>
         <td>{{ row.name }}</td>
         <td>{{ row.date }}</td>
         <td>{{ row.hit  }}</td>
@@ -43,6 +43,7 @@
     </table>
 </div>
 </div>
+<pageLink/>
 <!-- 무한 스크롤이랑 카드형 게시글? -->
   <router-link to="/newarticle" class="btn btn-primary">글 작성</router-link>
 
@@ -54,8 +55,11 @@ import { onMounted } from 'vue'
 import {useStore} from 'vuex'
 import _ from 'lodash'
 import { useRouter } from 'vue-router'
+import pageLink from './pagenation/pageLink.vue'
 
 export default {
+
+  components: {pageLink},
     setup(){
         // 추후 게시판 연결 후 ref값 변경 - 페이지네이션 관련 코드
         const Router = useRouter()

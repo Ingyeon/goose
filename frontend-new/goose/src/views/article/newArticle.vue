@@ -41,7 +41,6 @@
   <button type="submit" @click.prevent="clickSet" class="btn btn-primary">작성</button>
     </div>
 </form>
-{{state.form}}
 </div>
 
 </template>
@@ -102,6 +101,9 @@ export default {
 </script>
 
 <style scoped>
+
+
+
   .input-Box:nth-child(3) {
     display: flex;
     /* justify-content: space-evenly; */
@@ -119,5 +121,8 @@ export default {
     border-radius: 80px 40px;
     margin-right: 30px;
   }
+
+
+
 
 </style>
