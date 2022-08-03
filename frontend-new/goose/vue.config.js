@@ -8,11 +8,11 @@ module.exports = {
       "/api/v1": {
         target: "http://localhost:8080/",
       },
-      // "/v1/execute": {
-      //   target: "https://api.jdoodle.com/",
-      //   changeOrigin: true,
-      //   secure: false,
-      // },
+      "/v1/execute": {
+        target: "https://api.jdoodle.com/",
+        changeOrigin: true,
+        secure: false,
+      },
     },
 
     historyApiFallback: true,

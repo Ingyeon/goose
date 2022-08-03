@@ -222,14 +222,14 @@ export default {
         method: "post",
         headers: getters.authHeader,
         data: credential,
-      }).then((res) => {
-        console.log(res);
-        dispatch("joinList");
       })
-      .catch((err)=>{
-        console.log(err)
-      })
-      
+        .then((res) => {
+          console.log(res);
+          dispatch("joinList");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
 
     // 스터디 가입신청 거절
@@ -250,14 +250,41 @@ export default {
       commit("SET_CHOICE_IMG", imgurl);
     },
 
-    dropOutStudy({getters},user_pk){
-      console.log("스토어에는 도착")
-      console.log(getters.token)
+    dropOutStudy({ getters }, user_pk) {
+      console.log("스토어에는 도착");
+      console.log(getters.token);
       axios({
-        url:rest.study.study_member_out(),
+        url: rest.study.study_member_out(),
         method: "delete",
-        headers: ({ Authorization: getters.token, study_pk: getters.selectedStudy.id, user_pk: user_pk}),
+        headers: {
+          Authorization: getters.token,
+          study_pk: getters.selectedStudy.id,
+          user_pk: user_pk,
+        },
+      });
+    },
+    compile() {
+      console.log("compile");
+      axios({
+        url: "/v1/execute",
+        method: "post",
+        data: {
+          clientId: "683c1c7ad02b383e183ce75fb4258278",
+          clientSecret:
+            "48d14c2f3257a101345589019219ae6a4b94a59502add15eb4bef43c0544ed83",
+          script: "print (30+20)" + "\n" + "print (40+10)",
+          versionIndex: "0",
+          language: "python3",
+        },
       })
-    }
+        .then((res) => {
+          console.log("컴파일 성공");
+          console.log(res.data);
+        })
+        .catch((res) => {
+          console.log("컴파일 실패");
+          console.log(res);
+        });
+    },
   },
 };
