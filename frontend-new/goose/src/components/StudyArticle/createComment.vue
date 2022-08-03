@@ -8,7 +8,7 @@
     <div>
     <button class="btn">작성 하기</button>
     </div>
-</form>
+    </form>
 </div>
 </template>
 
