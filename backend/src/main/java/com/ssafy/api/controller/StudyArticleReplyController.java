@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -37,6 +38,7 @@ import springfox.documentation.annotations.ApiIgnore;
  * 스터디 게시판 댓글 관련 API 요청 처리를 위한 컨트롤러 정의.
  */
 @Api(value = "스터디 게시판 댓글 API", tags = {"StudyArticleReply"})
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/studyArticlesReply")
 public class StudyArticleReplyController {
