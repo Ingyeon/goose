@@ -45,11 +45,12 @@ export default {
     },
     actions: {
         getStudyArticleList({getters,commit},credential){
+            console.log(credential)
             axios({
                 url: rest.studyArticle.studyArticleList(),
                 method:'get',
                 headers: getters.authHeader,
-                params: { "category":credential.category, "page":credential.page, "studyPk":credential.studyPk, "title":credential.title}
+                params: { "category":credential.category, "page":credential.page, "studyPk":getters.selectedStudy.id, "title":credential.title}
             })
             .then((res)=>{
                 console.log(res.data)
