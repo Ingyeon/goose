@@ -164,7 +164,7 @@ export default {
         console.log(credential)
         axios({
             url: rest.studyArticle.studyArticleReply(),
-            method: "patch",
+            method: 'patch',
             data: {"re_content":credential.re_content},
             headers: {id:credential.id, Authorization:getters.token }
         })
