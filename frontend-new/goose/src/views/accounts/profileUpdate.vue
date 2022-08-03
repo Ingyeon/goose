@@ -2,20 +2,20 @@
   <div class="container mt-5">
         <form @submit.prevent="updateForm">
             <div class="input-Box">
-                <label for="imagename" class="form-label">프로필 이미지</label>
+                <label for="imagename" class="form-label">프로필이미지</label>
                 
                 <ul class="d-flex justify-content-evenly">
                     <li>
-                        <input name="profile" v-model="state.form.photo" type="radio" value="../../assets/프로필4.png" id="../../assets/프로필4.png">
-                        <label for="../../assets/프로필4.png"><img src="../../assets/프로필4.png"></label>
+                        <input name="profile" v-model="state.form.photo" type="radio" value="../../assets/profile4.png" id="../../assets/profile4.png">
+                        <label for="../../assets/프로필4.png"><img src="../../assets/profile4.png"></label>
                     </li>
                     <li>
-                        <input name="profile" v-model="state.form.photo" type="radio" value="../../assets/프로필1.png" id="../../assets/프로필1.png">
-                        <label for="../../assets/프로필1.png"><img src="../../assets/프로필1.png"></label>
+                        <input name="profile" v-model="state.form.photo" type="radio" value="../../assets/profile1.png" id="../../assets/profile1.png">
+                        <label for="../../assets/profile1.png"><img src="../../assets/profile1.png"></label>
                     </li>
                     <li>
-                        <input name="profile" v-model="state.form.photo" type="radio" value="../../assets/프로필2.jpg" id="../../assets/프로필2.jpg">
-                        <label for="../../assets/프로필2.jpg"><img src="../../assets/프로필2.jpg"></label>
+                        <input name="profile" v-model="state.form.photo" type="radio" value="../../assets/profile2.jpg" id="../../assets/profile2.jpg">
+                        <label for="../../assets/profile2.jpg"><img src="../../assets/profile2.jpg"></label>
                     </li>
                     
                 </ul>
@@ -52,7 +52,7 @@
 <script>
 import { reactive,computed } from 'vue'
 import { useStore } from 'vuex'
-// import router from '@/router'
+// import router from '../../router'
 import { useRouter } from 'vue-router'
 export default {
     setup() {
@@ -86,7 +86,7 @@ export default {
                 // console.log('then')
                 updateprofile()
                 alert('프로필이 변경되었습니다.')})
-            console.log(store.getters.loginUser.info)
+            console.log(store.getters.loginUser.photo)
             
             console.log(store.getters.loginUser.info)
             // updateprofile()
@@ -98,20 +98,20 @@ export default {
             console.log(store.getters.loginUser)
             router.push({name:"UserProfile"})
         }
-        const checkOnlyOne = function(element) {
+        // const checkOnlyOne = function(element) {
 
-            console.log(element)
-            document.getElementsByName('profile')
-                .forEach(cb=>cb.checked=false);
-            element.checked = true;
-        }
+        //     console.log(element)
+        //     document.getElementsByName('profile')
+        //         .forEach(cb=>cb.checked=false);
+        //     element.checked = true;
+        // }
 
         return {
             state,
             updateprofile,
             updateForm,
             BackProfile,
-            checkOnlyOne
+            // checkOnlyOne
         }
     }
 }

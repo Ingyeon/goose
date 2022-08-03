@@ -59,6 +59,37 @@ export default {
       commit("SET_TOKEN", "");
       localStorage.setItem("token", "");
     },
+    actions: {
+        login({commit, dispatch},credential){
+            axios({
+                url: rest.accounts.login(),
+                method: 'post',
+                data: credential
+            })
+            .then(res => {
+                const token = res.data.accessToken
+                dispatch('saveToken', token)
+                dispatch('fetchLoginUser')
+                dispatch('myStudyList')
+                // alert(`${getters.loginUser}님 환영합니다!`)
+                router.push({name: 'Home'})
+                
+            })
+            .catch(err => {
+                alert('비밀번호를 확인해주세요')
+                console.log("catch")
+                console.error(err.response.data)
+                commit('SET_AUTH_ERROR', err.response.data)
+            })
+        },
+        saveToken({  commit  }, token) {
+            commit('SET_TOKEN', token)
+            localStorage.setItem('token', token)
+        },
+        removeToken({  commit  }){
+            commit('SET_TOKEN', '')
+            localStorage.setItem('token','')
+        },
 
     signup({ commit }, credentials) {
       console.log("엑시오스 하기 전");

@@ -82,7 +82,7 @@ export default {
                 "interest":state.form.interest,
                 "name":state.form.name, 
                 "password":state.form.password1, 
-                "photo": "../../assets/프로필4.png"})
+                "photo": "../../assets/profile4.png"})
             .then(function (result){
                 alert('Goose에 회원가입 해주셔서 감사합니다!')
                 router.push({name :'Home'})

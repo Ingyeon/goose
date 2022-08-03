@@ -1,6 +1,6 @@
 <template>
   <div>
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal">
+  <button type="button" class="login" data-bs-toggle="modal" data-bs-target="#Modal">
     로그인
   </button>
     <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -15,8 +15,10 @@
             <form>
   <div class="mb-3 container">
     <div class="input-Box">
-        <label for="IdInput" class="form-label">Id</label>
-        <input type="text" class="form-control" id="IdInput" v-model="state.form.id">
+        <label for="IdInput" class="form-label">ID</label>
+        <input type="text" class="form-control" id="IdInput" v-model="state.form.id" @blur="idValid">
+        <div v-if="!state.idValidFlag" class="form-text">존재하지 않는 ID입니다. 다시 한 번 확인해주세요</div>
+                
       </div>
           </div>
       <div class="mb-3">
@@ -31,9 +33,9 @@
       </div>
     </form>
           </div>
-          <div class="modal-footer">
+          <!-- <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -46,7 +48,7 @@
 import {reactive,computed} from 'vue'
 import {useStore} from 'vuex'
 import { useRouter } from 'vue-router'
-
+import axios from 'axios'
 export default {
 
   setup(){
@@ -58,26 +60,42 @@ export default {
         form:{
             id: '',
             password: '',
-        }
+        },
+        idValidFlag : true
     })
-        const clickLogin = async function(){
-        // dispatch 함수명 바뀔 경우 아래줄 수정
-        console.log(state.form.id, state.form.password)
-        await store.dispatch('login',{id: state.form.id, password: state.form.password})
-         router.push()
-        .then(function (result){
-            
-          console.log(result)
-        })
-        .catch(function(err){
-            alert(err)
-        })
+    const idValid = async function() {
+      try{
+        let data = await axios.get(`http://localhost:8080/api/v1/users/{userId}?userId=${state.form.id}`)
+        state.idValidFlag=true
+      } catch(err) {
+        state.idValidFlag=false
       }
-      const clickSignup = function(){
-        router.push({name:'Signup'})
-      }
+    }
+    const clickLogin = async function(){
+      // dispatch 함수명 바뀔 경우 아래줄 수정
+      console.log(state.form.id, state.form.password)
+      await store.dispatch('login',{id: state.form.id, password: state.form.password})
+        
+      router.push()
+      .then(function (result){
+        
+        console.log(result)
+      })
+      .catch(function(err){
+          alert(err)
+      })
+    }
+    const clickSignup = async function(){
+      await router.push({name:'Signup'})
+    }
 
-    return {state,clickLogin,store,token,clickSignup}
+    return {
+      state,
+      idValid,
+      clickLogin,
+      store,
+      token,
+      clickSignup}
   }
 }
 </script>
@@ -104,5 +122,17 @@ export default {
     border-radius: 80px 40px;
     margin-right: 30px;
   }
-
+  button[class="login"]{
+      background: #ffd700;
+    cursor: pointer;
+    padding: 9px 20px;
+    border: none;
+    /* border-radius: 50px; */
+    font-family: "NanumSquare", sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.5s ease 0s;
+    margin-left: 20px;
+    border-radius: 80px 40px;
+  }
 </style>
