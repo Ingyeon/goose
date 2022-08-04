@@ -13,7 +13,7 @@
           <img src="../assets/Goose-1.png" alt="main-logo" class="logo" />
         </router-link>
       </span>
-      <nav>
+      <nav class="navbar">
         <ul v-if="!isLoggedIn" class="nav-links">
           <!-- <li><router-link to="#"><button>로그인</button></router-link></li> -->
           <li><login-modal class="button"></login-modal></li>
@@ -21,27 +21,41 @@
           <li><a to="#"><button>게시판</button></a></li> -->
         </ul>
         <ul v-if="isLoggedIn" class="nav-links">
-          <li><router-link to="/createStudy"><button>스터디생성하기</button></router-link></li>
-          <li><router-link to="/newarticle"><button>모집글쓰기</button></router-link></li>
+          <li class="nav-id"><router-link to="/createStudy"><button>스터디생성하기</button></router-link></li>
+          <li class="nav-id"><router-link to="/newarticle"><button>모집글쓰기</button></router-link></li>
+          
+          <li class="nav-id"><router-link to="/articles"><button>게시판</button></router-link></li>
           <li class="dropdown">
             <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img :src="state.photo" alt="profilephoto" class="profilephoto">
             </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">    
               <router-link to="/:id/profile"><button class="dropdown-tag">마이페이지</button></router-link>
               <button class="dropdown-tag" @click="clickLogout">로그아웃</button>
-              <router-link to="/articles"><button class="dropdown-tag">게시판</button></router-link>
               <hr>
               <router-link to="/:id/delete"><button class="dropdown-tag">회원탈퇴</button></router-link>
             </div>
+           
           </li>
-          <!-- <li><router-link to="#"><button @click="clickLogout">로그아웃</button></router-link></li>
-          <li><router-link to="#"><button>게시판</button></router-link></li> -->
         </ul>
+        <li class="min-dropdown">
+            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img :src="state.photo" alt="profilephoto" class="profilephoto">
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <router-link to="/createStudy"><button class="dropdown-tag">스터디<br>생성하기</button></router-link>
+              <hr>
+              <router-link to="/newarticle"><button class="dropdown-tag">모집글쓰기</button></router-link>
+              
+              <router-link to="/articles"><button class="dropdown-tag">게시판</button></router-link>
+              <router-link to="/:id/profile"><button class="dropdown-tag">마이페이지</button></router-link>
+              <button class="dropdown-tag" @click="clickLogout">로그아웃</button>
+              <hr>
+              <router-link to="/:id/delete"><button class="dropdown-tag">회원탈퇴</button></router-link>
+            </div>
+        </li>
       </nav>
-      <!-- <a href="#"><button>Contact Us</button></a> -->
     </header>
-  <!-- </body> -->
 </div>
 </template>
 
@@ -63,7 +77,8 @@ export default {
     setup() {
       const store = useStore()
       const isLoggedIn = computed(()=> store.getters.isLoggedIn)
-      const loginUser = computed(()=> store.getters.loginUser)
+      // const loginUser = computed(()=> store.getters.loginUser)
+      const loginUser = store.getters.loginUser
       const state = reactive({
         photo: ''
       })
@@ -73,6 +88,7 @@ export default {
         alert('로그아웃 되었습니다.')
       }
       const savePhoto = function() {
+        console.log(loginUser)
           if (loginUser.photo === '../../assets/profile1.png') {
             state.photo = profile1
           } 
@@ -114,6 +130,7 @@ header {
   justify-content: flex-end;
   align-items: center;
   margin: 0rem 1.5rem;
+  border-bottom: solid 3px #ffd700;
 }
 
 button {
@@ -128,7 +145,10 @@ button {
   /* height: 4.2rem; */
   margin-right: auto;
 }
-
+.min-dropdown {
+  list-style: none;
+  display:none;
+}
 .nav-links {
   list-style: none;
 }
@@ -180,8 +200,47 @@ button:hover {
 img[class="profilephoto"]{
     width: 6rem;
     height: 6rem;
+    border-radius: 70%;
     object-fit: cover;
 }
-
+/* 
+@media screen and (max-width:1048px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0;
+  }
+  ul[class="nav-links"] {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .nav-links li {
+  width: 100%;
+  text-align: center;
+  }
+} */
+@media screen and (max-width:1048px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0;
+  }
+  ul[class="nav-links"] {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .nav-links li {
+  width: 100%;
+  text-align: center;
+  }
+  .min-dropdown {
+  /* list-style: none; */
+  display:block;
+  }
+}
 </style>>
 

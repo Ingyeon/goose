@@ -1,51 +1,52 @@
 <template>
 <h1>스터디 참여하기</h1>
 <!-- 검색창 -->
-<div class="input-group mb-3">
-<select class="form-select-line-height" v-model="state.search.status">
-  <option selected>상태</option>
-  <option value="1">모집중</option>
-  <option value="2">진행중</option>
-  <option value="3">모집완료</option>
-</select>
-<select class="form-select-line-height" v-model="state.search.category">
-  <option selected>분류</option>
-  <option value="1">토익</option>
-  <option value="2">면접</option>
-  <option value="3">자유</option>
-</select>
-  <input type="text" class="form-control" v-model="state.search.text">
-    <button class="btn btn-outline-secondary" type="button">검색</button>
-</div>
+<div class="container">
+  <div class="input-group mb-3">
+  <select class="form-select-line-height" v-model="state.search.status">
+    <option selected>상태</option>
+    <option value="1">모집중</option>
+    <option value="2">진행중</option>
+    <option value="3">모집완료</option>
+  </select>
+  <select class="form-select-line-height" v-model="state.search.category">
+    <option selected>분류</option>
+    <option value="1">토익</option>
+    <option value="2">면접</option>
+    <option value="3">자유</option>
+  </select>
+    <input type="text" class="form-control" v-model="state.search.text">
+      <button class="btn btn-outline-secondary" type="button">검색</button>
+  </div>
 
-<!-- 게시판 -->
-<div class="board-list">
-<div v-if="isList">
-    <table class="table table-hover">
-      <thead>
-      <tr>
-        <th>No</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>등록일시</th>
-        <th>조회수</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="row in articles" :key="row">
-        <td>{{ row.id }}</td>
-        <td><button @click="onclick(row.id)">{{row.title}}</button></td>
-        <td>{{ row.name }}</td>
-        <td>{{ row.date }}</td>
-        <td>{{ row.hit  }}</td>
-      </tr>
-      </tbody>
-    </table>
+  <!-- 게시판 -->
+  <div class="board-list">
+  <div v-if="isList">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>No</th>
+          <th>제목</th>
+          <th>작성자</th>
+          <th>등록일시</th>
+          <th>조회수</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="row in articles" :key="row">
+          <td>{{ row.id }}</td>
+          <td><button @click="onclick(row.id)">{{row.title}}</button></td>
+          <td>{{ row.name }}</td>
+          <td>{{ row.date }}</td>
+          <td>{{ row.hit  }}</td>
+        </tr>
+        </tbody>
+      </table>
+  </div>
+  </div>
+  <!-- 무한 스크롤이랑 카드형 게시글? -->
+    <router-link to="/newarticle" class="btn btn-primary">글 작성</router-link>
 </div>
-</div>
-<!-- 무한 스크롤이랑 카드형 게시글? -->
-  <router-link to="/newarticle" class="btn btn-primary">글 작성</router-link>
-
 </template>
 
 <script>

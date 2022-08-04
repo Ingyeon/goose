@@ -17,4 +17,7 @@ export default {
     height: 300px
     /* height: 7rem; */
   }
+
+ 
 </style>
+

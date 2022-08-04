@@ -2,11 +2,11 @@
 <div>
     <div class="container mt-5">
         <div class="wrapper">
-            <div class="left">
+            <div   class="left">
                 <img :src="state.profilephoto" alt="user" width="200">
                 <!-- <img :src="state.photo" alt=""> -->
                 <h4>{{state.name}}</h4>
-                <p>관심분야: {{state.interest}}</p>
+                <p>관심언어: {{state.interest}}</p>
                 <div class="change-btn">
                   <input type="button" value="프로필 변경" @click="changeProfile">
                 </div>

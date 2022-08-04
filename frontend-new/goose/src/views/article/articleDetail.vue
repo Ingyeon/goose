@@ -1,7 +1,7 @@
 <template>
     <div class="mx-5">
     <h3 class="d-flex justify-content-center my-2">{{ article_log.title}}</h3>
-    <div class="d-flex border-top border-warning">
+    <div class="d-flex">
         <p class="mx-2">스터디명: {{  study_log.title  }}</p>
         <p class="mx-2">분류: {{ article_log.category  }}</p>
         <p class="mx-2">모집 여부: {{ article_log.state  }}</p>

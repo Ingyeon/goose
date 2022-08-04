@@ -22,6 +22,7 @@
     "bootstrap-vue-3": "^0.1.14",
     "core-js": "^3.23.5",
     "lodash": "^4.17.21",
+    "scss": "^0.2.4",
     "sweetalert2": "^11.4.24",
     "vue": "^3.2.37",
     "vue-router": "^4.1.2",
@@ -34,8 +35,11 @@
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "compass-mixins": "^0.12.12",
     "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3"
+    "eslint-plugin-vue": "^8.0.3",
+    "node-sass": "^7.0.1",
+    "sass-loader": "^13.0.2"
   },
   "eslintConfig": {
     "root": true,
