@@ -3,6 +3,7 @@ package com.ssafy.api.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -79,8 +80,8 @@ public class StudyArticleReplyController {
 			@RequestParam(required = true) int page,
 			@RequestParam(required = false) Long articlePk,
             @RequestParam(required = false) Long id) {
-		
-		PageRequest pageRequest = PageRequest.of(page-1, 5);
+		Sort sort = Sort.by("date").descending();
+		PageRequest pageRequest = PageRequest.of(page-1, 5, sort);
 		
 		Specification<StudyArticleReply> spec = (root, query, criteriaBuilder) -> null;
 		

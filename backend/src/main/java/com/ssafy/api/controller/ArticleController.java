@@ -3,7 +3,7 @@ package com.ssafy.api.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
 import org.springframework.http.ResponseEntity;
@@ -87,8 +87,8 @@ public class ArticleController {
             @RequestParam(required = false) String state) {
 		
 	
-
-		PageRequest pageRequest = PageRequest.of(page-1, 10);
+		Sort sort = Sort.by("date").descending();
+		PageRequest pageRequest = PageRequest.of(page-1, 10, sort);
 		
 		Specification<Article> spec = (root, query, criteriaBuilder) -> null;
 		
