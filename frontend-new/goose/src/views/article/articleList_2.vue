@@ -11,12 +11,24 @@
 </select>
 <select v-model="state.search.category">
   <option value=null>분류</option>
-  <option value="토익">토익</option>
-  <option value="면접">면접</option>
-  <option value="알고리즘">자유</option>
+          <option value="C">C</option>
+          <option value="C++">C++</option>
+          <option value="JAVA">JAVA</option>
+          <option value="JavaScripts">JavaScripts</option>
+          <option value="Python">Python</option>
 </select>
   <input type="text" class="form-control" v-model="state.search.title">
     <button class="btn btn-outline-secondary" type="button" @click="filterArticles()">검색</button>
+</div>
+
+<div>
+  <button @click="category_sort()">전체</button>
+  <button @click="category_sort('C')">C</button>
+  <button @click="category_sort('C++')">C++</button>
+  <button @click="category_sort('JAVA')">JAVA</button>
+  <button @click="category_sort('Python')">Python</button>
+  <button @click="category_sort('JavaScripts')">JavaScripts</button>
+
 </div>
 
 <!-- 게시판 -->
@@ -44,7 +56,7 @@
     </table>
 </div>
 </div>
-<pageLink/>
+<pageLink :search = 'state.search'/>
 <!-- 무한 스크롤이랑 카드형 게시글? -->
   <router-link to="/newarticle" class="btn btn-primary">글 작성</router-link>
 </div>
@@ -99,8 +111,12 @@ export default {
         
         const articles = computed(() => store.getters.articles)
 
+        const category_sort = function(item){
+          store.dispatch('sortedArticles',item)
+        }
+
     
-    return {state,filterArticles,onMounted,articles_set,isList,onclick,articles}
+    return {state,filterArticles,onMounted,articles_set,isList,onclick,articles,category_sort}
 
 
     }

@@ -2,9 +2,15 @@
 <h1>게시글 수정</h1>
 <div>
 <form>
+
+    <label class="form-label">모집 여부</label>
+    <select class="form-select" v-model="state.form.state">
+  <option value='모집중'>모집 중</option>
+  <option value=모집완료>모집완료</option>
+</select>
+
     <label class="form-label">인원 선택</label>
     <select class="form-select" v-model="state.form.recruitment">
-  <option selected>인원</option>
   <option value=1>1</option>
   <option value=2>2</option>
   <option value=3>3</option>
@@ -15,7 +21,6 @@
 
       <label class="form-label">모집할 내 스터디 선택</label>
     <select class="form-select" v-model="state.form.study_pk">
-  <option selected>선택</option>
   <!-- 함수로 for문 돌려서 셀렉트 박스에 넣기 -->
   
   <option v-for="item in state.my_study"  :value="item.id">{{  item.title }}</option> 
@@ -25,7 +30,6 @@
 
     <label class="form-label">분류 선택</label>
     <select class="form-select" v-model="state.form.category">
-  <option selected>선택</option>
   <option value="면접">면접</option>
   <option value="토익">토익</option>
   <option value="알고리즘">알고리즘</option>

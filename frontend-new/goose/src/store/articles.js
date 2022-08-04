@@ -50,6 +50,26 @@ export default {
 
         },
 
+        sortedArticles({commit,getters}, item){
+            axios({
+                // 필터 된 상황에서의 페이지 네이션 생각해보기
+                url: rest.article.article_list(1),
+                method: 'get',
+                headers: getters.authHeader,
+                params: {
+                    category:item,
+                }
+            })
+            .then(res => {
+                console.log(res.data)
+                commit('SET_TOTALPAGE',res.data.totalPages)
+                commit('SET_ARTICLES',res.data.content
+                )
+            
+            })
+            .catch(err => 
+                {console.log(err)})},
+
         filterArticles({commit,getters}, form){
             console.log(form)
             axios({

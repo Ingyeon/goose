@@ -141,6 +141,7 @@ export default {
             state,
             changeProfile,
             savePhoto,
+            replyArticle,
             // getImgUrl
             // savePath,
             photo

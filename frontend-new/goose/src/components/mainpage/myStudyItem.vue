@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card mcs mx-2 my-2 row row-col-4">
     {{ item.image }}
     <img :src="state.photo" alt="사진" class='card-img-top'/>
     <div class="card-body">
@@ -7,6 +7,7 @@
       <a @click.prevent="selectStudy" class="btn btn-warning">스터디 홈</a>
     </div>
   </div>
+
 </template>
 
 <script>

@@ -1,7 +1,8 @@
 <template>
   <ol>
     <li class="list-group py-1">
-            <ol v-for = "reply in replies.content" :key="reply.id">
+            <ol v-for = "reply in replies" :key="reply.id">
+
     <ul class="list-group-item flex-fill"><div>{{reply.name}}</div>{{reply.re_content}}
         <li v-if="state.isEditing">
     <input type="text" v-model="state.form.re_content">
@@ -48,7 +49,6 @@ export default {
         const reply_list = function(){
             // reply_page 값은 임의로 1 부여
             store.dispatch('fetchReplies', {article_pk:store.getters.article.id,reply_page:1} )
-            console.log(store.getters.replies,'테스트')
         }
         reply_list()
 

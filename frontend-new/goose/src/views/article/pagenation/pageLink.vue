@@ -12,9 +12,12 @@
 import { reactive,computed } from "vue";
 import {  useStore  } from 'vuex'
 
-
+// 필터링 하고 페이지네이션 쓰면 풀리는 문제 해결해야함
 export default{
-    setup(){
+  props: {
+    search: Object,
+  },
+    setup(props){
         const store = useStore()
         const state = reactive({
             totalListItemCount: 0,
@@ -30,7 +33,7 @@ export default{
         const movePage = function(param){
             state.currentPageIndex = param
             store.dispatch('fetchArticles',param)
-            
+            console.log(props.search)
         }
 
         const initUi = function()
