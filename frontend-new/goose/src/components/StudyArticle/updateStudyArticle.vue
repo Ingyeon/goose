@@ -52,7 +52,6 @@ export default {
     })
 
     const updateArticle = () =>{
-      console.log(credential)
       store.dispatch("updateStudyArticle",credential)
     }
     return {updateArticle,credential} 

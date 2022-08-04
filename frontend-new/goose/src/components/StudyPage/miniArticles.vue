@@ -18,7 +18,7 @@
 <script>
 import studyArticleDetail from '@/components/StudyArticle/studyArticleDetail.vue'
 import { useStore } from "vuex"
-import { reactive } from "vue"
+import { reactive, watch,computed } from "vue"
 import { useRouter } from "vue-router"
 export default {
     components:{
@@ -27,15 +27,19 @@ export default {
     setup(){
         const store = useStore()
         const router = useRouter();
+        const state = reactive({
+            halfArticleList : [],
+        })
+
         const fetchStudyArticleList = () => {
             store.dispatch('getStudyArticleList',{category:null,page:1,title:null})
+            .then(()=>{
+                state.halfArticleList = store.getters.studyArticleList
+                state.halfArticleList.splice(5)
+            })
         }
         fetchStudyArticleList
 
-        const state = reactive({
-            halfArticleList : store.getters.studyArticleList,
-        })
-        state.halfArticleList.splice(5)
         
         const moveArticles = () => {
             router.push({
@@ -47,7 +51,18 @@ export default {
         const selectArticle = (articleId)=>{
             store.dispatch('getStudyArticle',articleId)
         }
-        return {state,moveArticles,selectArticle}
+
+        const selectedStudy = computed(()=> store.getters.selectedStudy)
+
+        return {state,moveArticles,selectArticle,fetchStudyArticleList,selectedStudy}
+    },
+
+    watch:{
+        selectedStudy:{
+            handler(){
+                this.fetchStudyArticleList();
+            }
+        }
     }
 }
 </script>

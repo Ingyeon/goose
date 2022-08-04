@@ -35,7 +35,6 @@ export default {
     })
 
     const changePhoto = ()=>{
-      console.log(props.item.image)
       if (props.item.image==='study1'){state.photo = study1}
       else if (props.item.image==='study2'){state.photo = study2}
       else if (props.item.image==="study3"){state.photo = study3}

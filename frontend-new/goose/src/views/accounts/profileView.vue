@@ -82,26 +82,37 @@ export default {
             console.log(state.photo)
         }
         const savePhoto = function() {
-            if (state.photo === '../../assets/profile1.png') {
+            if (store.getters.loginUser.photo === '../../assets/profile1.png') {
               state.profilephoto = profile1
             } 
-            else if (state.photo === '../../assets/profile2.jpg') {
+            else if (store.getters.loginUser.photo === '../../assets/profile2.jpg') {
               state.profilephoto = profile2
             } else {
               state.profilephoto = profile4
             }
          }
         savePhoto()
+
+        const photo = computed(()=> store.getters.loginUser.photo)
         return {
             store,
             router,
             state,
             changeProfile,
-            // savePhoto
+            savePhoto,
             // getImgUrl
             // savePath,
+            photo
         }
     },
+
+    watch:{
+      photo:{
+        handler(){
+          this.savePhoto
+        }
+      }
+    }
 }
 </script>
 

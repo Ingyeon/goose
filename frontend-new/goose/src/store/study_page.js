@@ -87,7 +87,6 @@ export default {
           dispatch("joinList");
         })
         .catch((err) => {
-          console.log("스터디 선택 실패");
           console.log(err);
         });
 
@@ -109,7 +108,6 @@ export default {
     },
 
     createStudy({ getters,dispatch }, credential) {
-      console.log(credential)
       axios({
         url: rest.study.study_create(),
         method: "post",
@@ -132,7 +130,6 @@ export default {
         headers: getters.authHeader,
         data: credential,
       }).then((res) => {
-        console.log(getters.selectedStudy.id);
         dispatch("selectStudy", getters.selectedStudy.id);
       });
     },
@@ -149,7 +146,6 @@ export default {
           router.push({ name: "Home" });
         })
         .catch((err) => {
-          console.log(err);
           alert("스터디 삭제에 실패했습니다.");
         });
       router.push({ name: "Home" });
@@ -212,7 +208,6 @@ export default {
 
     // 스터디 가입신청 승락
     joinAgree({ getters, dispatch }, credential) {
-      console.log(rest.study.study_join_agree());
       axios({
         url: rest.study.study_join_agree(),
         method: "post",

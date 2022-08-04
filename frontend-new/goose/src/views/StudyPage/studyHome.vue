@@ -88,11 +88,6 @@
   </div>
     <!-- 게시판 -->
     <miniArticles />
-    <!-- <div>
-      <button @click.prevent="moveArticles" class="btn btn-primary">
-        게시판 전체보기
-      </button>
-    </div> -->
   <hr>
   <div>
     <button
@@ -205,7 +200,6 @@ export default {
       store.dispatch("selectStudy", store.getters.selectedStudy.id);
 
     const fetchStudyHome = () => {
-      console.log("패치 스터디 홈 작동");
       store.dispatch("selectStudy", route.params.studyPk);
     };
     onMounted(() => {
@@ -259,7 +253,6 @@ export default {
   watch: {
     selectedStudy: {
       handler(){
-        console.log("빅 브라더")
         this.changePhoto();
       }
     }
