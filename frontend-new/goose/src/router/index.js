@@ -17,6 +17,8 @@ import ArticleEdit from "@/views/article/articleEdit.vue";
 import CreateStudy from "@/views/StudyPage/createStudy";
 import StudyHome from "@/views/StudyPage/studyHome.vue";
 import StudyArticles from "@/views/studyArticles/studyArticles.vue"
+import PrivateStudyRoom from "@/views/room/PrivateStudyRoom.vue";
+import PublicStudyRoom from "@/views/room/PublicStudyRoom.vue";
 
 const routes = [
   {
@@ -76,7 +78,17 @@ const routes = [
     path: "/studyHome/:studyPk/Articles",
     name: "studyArticles",
     component: StudyArticles,
-  }
+  },
+  {
+    path: "/PrivateStudyRoom",
+    name: "PrivateStudyRoom",
+    component: PrivateStudyRoom,
+  },
+  {
+    path: "/PublicStudyRoom",
+    name: "PublicStudyRoom",
+    component: PublicStudyRoom,
+  },
 ];
 
 const router = createRouter({

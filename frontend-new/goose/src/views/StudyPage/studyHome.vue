@@ -26,13 +26,70 @@
   </div>
   <div class="container d-flex">
     <div>스터디 주소 : {{ selectedStudy.url_conf }}</div>
-    <router-link :to="{ path: '/' + '' }" class="navbar-brand"
-      >입장하기</router-link
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
     >
+      입장용 모달
+    </button>
+
+    <!-- 입장용 모달 시작 -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">...</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              @click.prevent="clickbtn"
+            >
+              입장하기
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              @click.prevent="clickbtn2"
+            >
+              입장하기2
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 입장용 모달 끝 -->
   </div>
   <div>
     <!-- 게시판 -->
-    <button @click.prevent="moveArticles" class="btn btn-primary">게시판</button>
+    <button @click.prevent="moveArticles" class="btn btn-primary">
+      게시판
+    </button>
   </div>
   <div>
     <button
@@ -46,7 +103,9 @@
     <callender />
   </div>
   <div class="container d-flex">
-    <button v-if="isManager" @click.prevent="deleteStudy">스터디 터트리기</button>
+    <button v-if="isManager" @click.prevent="deleteStudy">
+      스터디 터트리기
+    </button>
     <button @click.prevent="dropOutStudy(loginUser.id)">스터디 탈퇴하기</button>
     <div>
       <button
@@ -114,14 +173,13 @@ import callender from "@/components/StudyPage/callender";
 import studyUpdate from "@/components/StudyPage/studyUpdate.vue";
 import studyJoinList from "@/components/StudyPage/studyJoinList.vue";
 import { useStore } from "vuex";
-import { computed, watch,onMounted } from "vue";
-import { useRoute,useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+import { computed, watch, onMounted } from "vue";
+import router from "@/router";
 
 export default {
-  
   name: "StudyHome",
   components: {
-    
     callender,
     studyUpdate,
     studyJoinList,
@@ -137,25 +195,49 @@ export default {
     const pageUpdate = () =>
       store.dispatch("selectStudy", store.getters.selectedStudy.id);
 
-    const fetchStudyHome = () =>{
-      console.log("패치 스터디 홈 작동")
-      store.dispatch("selectStudy",route.params.studyPk)
+    const fetchStudyHome = () => {
+      console.log("패치 스터디 홈 작동");
+      store.dispatch("selectStudy", route.params.studyPk);
     };
-    onMounted(()=>{
-      fetchStudyHome()
-    })
+    onMounted(() => {
+      fetchStudyHome();
+    });
 
-    const moveArticles = ()=>{
-      router.push({name: 'studyArticles', params: {studyPk:store.getters.selectedStudy.id}})
-    }
-    const loginUser = computed(()=> store.getters.loginUser)
-    const dropOutStudy = (user_pk)=> {
-      store.dispatch("dropOutStudy",user_pk)
-      router.push({ name: "Home" })
-    }
-    const manager = computed(()=> store.getters.studyManager)
-    const isManager = computed(()=> store.getters.isStudyManager)
-    return { selectedStudy, deleteStudy, pageUpdate,fetchStudyHome,moveArticles,dropOutStudy,loginUser,manager,isManager };
+    const moveArticles = () => {
+      router.push({
+        name: "studyArticles",
+        params: { studyPk: store.getters.selectedStudy.id },
+      });
+    };
+    const loginUser = computed(() => store.getters.loginUser);
+    const dropOutStudy = (user_pk) => {
+      store.dispatch("dropOutStudy", user_pk);
+      router.push({ name: "Home" });
+    };
+    const manager = computed(() => store.getters.studyManager);
+    const isManager = computed(() => store.getters.isStudyManager);
+    const clickbtn = function () {
+      router.push({ name: "PrivateStudyRoom" });
+    };
+    const clickbtn2 = function () {
+      router.push({ name: "PublicStudyRoom" });
+    };
+    onMounted(() => {
+      fetchStudyHome();
+    });
+    return {
+      selectedStudy,
+      deleteStudy,
+      pageUpdate,
+      fetchStudyHome,
+      moveArticles,
+      dropOutStudy,
+      loginUser,
+      manager,
+      isManager,
+      clickbtn,
+      clickbtn2,
+    };
   },
 };
 </script>

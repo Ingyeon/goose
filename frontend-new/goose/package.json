@@ -8,6 +8,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.2",
+    "@fortawesome/free-solid-svg-icons": "^6.1.2",
     "@fullcalendar/adaptive": "^5.11.2",
     "@fullcalendar/core": "^5.11.2",
     "@fullcalendar/daygrid": "^5.11.2",
@@ -18,10 +20,13 @@
     "@popperjs/core": "^2.11.5",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
+    "bootstrap-icons-vue": "^1.8.1",
     "bootstrap-vue": "^2.22.0",
     "bootstrap-vue-3": "^0.1.14",
     "core-js": "^3.23.5",
+    "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
+    "openvidu-browser": "^2.22.0",
     "sweetalert2": "^11.4.24",
     "vue": "^3.2.37",
     "vue-router": "^4.1.2",
