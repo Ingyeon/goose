@@ -3,6 +3,7 @@
     <div id="main-container" class="d-flex">
       <div id="session-center">
         <div id="session" v-if="session">
+          
           <div id="session-header" class="d-flex">
             <h1 id="session-title">{{ this.roomName }}</h1>
             <!-- 방 제목 -->
@@ -59,7 +60,7 @@
               </div>
             </div>
           </div>
-
+메
           <div id="main-video-session">
             <div id="main-video" style="width: 60%; margin: 0 auto">
               <UserVideo
@@ -101,7 +102,7 @@
                   id="buttonLeaveSession"
                   @click="muteAudio()"
                 >
-                <i class="fa-solid fa-microphone"></i>
+                  <i class="fa-solid fa-microphone"></i>
                   <span class="footerBtnText">{{ audioMsg }}</span>
                 </button>
                 <!-- 마이크 on/off 버튼 -->
@@ -113,7 +114,7 @@
                   id="buttonLeaveSession"
                   @click="muteAudio()"
                 >
-                <i class="fa-solid fa-microphone-slash"></i>
+                  <i class="fa-solid fa-microphone-slash"></i>
                   <span class="footerBtnText">{{ audioMsg }}</span></button
                 ><!-- 마이크 on/off 버튼 -->
               </div>
@@ -255,7 +256,7 @@
       </div>
       <!-- session-right -->
     </div>
-    <MonacoYjs/>
+    <MonacoYjs />
     <!-- #main-container -->
   </div>
 </template>
@@ -273,7 +274,7 @@ import UserList from "@/components/openvidu/UserList";
 import jwt_decode from "jwt-decode";
 import { computed } from "vue";
 import { useStore } from "vuex";
-import MonacoYjs from "@/components/openvidu/MonacoYjs"
+import MonacoYjs from "@/components/openvidu/MonacoYjs";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -318,6 +319,7 @@ export default {
 
   data() {
     return {
+      monacococo: false,
       //방정보
       roomName: "none",
       roomUrl: "none",

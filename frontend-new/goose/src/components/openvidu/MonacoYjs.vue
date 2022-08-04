@@ -16,34 +16,33 @@
         The content of this editor is shared with every client that visits this
         domain.
       </p>
-      <!-- <div id="monaco-editor" :value="title" @input="titleUpdate" /> -->
-      <div id="monaco-editor" />
-      <!-- <input type="text" :v-model="code"> -->
-      <!-- <input type="text" :value = "title" @input = "titleUpdate" 
-style = "padding: 20px; border: 1px pink solid"> -->
-      <!-- <input v-model="testv" /> -->
-      <button @click="ride()">fff</button>
+      <div id="monaco-editor" @input="titleUpdate" ref="monaco" />
+      <button @click="ride">fff</button>
     </body>
   </div>
 </template>
 
 <script>
+import { useStore } from "vuex";
 import monaco from "@/util/monaco.js";
+import { useRouter } from "vue-router";
 export default {
-  data() {
+    data() {
     return {
-      code: "12345",
+      code: "",
       testv: "",
     };
   },
   methods: {
     titleUpdate(e) {
-      console.log(e.target.value);
-      console.log()
+      this.code = e.target.value;
+      console.log(this.$refs.monaco.data);
     },
     ride() {
-      console.log("dddddd", this.testv);
-      console.log(this.testv);
+      console.log(this.code);
+
+    this.$store.dispatch("compile", this.code);
+
     },
   },
 };

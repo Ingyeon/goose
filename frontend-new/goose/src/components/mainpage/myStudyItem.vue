@@ -26,7 +26,6 @@ export default {
 
     const selectStudy = () => {
       store.dispatch("selectStudy", props.item.id);
-      store.dispatch("compile");
       router.push({ name: "StudyHome", params: { studyPk: props.item.id } });
     };
 

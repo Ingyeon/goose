@@ -248,8 +248,9 @@ export default {
         },
       });
     },
-    compile() {
+    compile({ getters, dispatch },code) {
       console.log("compile");
+      console.log("llllllllll",code);
       axios({
         url: "/v1/execute",
         method: "post",
@@ -257,9 +258,9 @@ export default {
           clientId: "683c1c7ad02b383e183ce75fb4258278",
           clientSecret:
             "48d14c2f3257a101345589019219ae6a4b94a59502add15eb4bef43c0544ed83",
-          script: "print (30+20)" + "\n" + "print (40+10)",
+          script: code,
           versionIndex: "0",
-          language: "python3",
+          language: "java",
         },
       })
         .then((res) => {
