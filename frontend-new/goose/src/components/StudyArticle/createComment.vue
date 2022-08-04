@@ -19,12 +19,11 @@ export default {
     setup(){
         const store = useStore()
         const state = reactive({
-            article_pk: store.getters.selectedArticle.id,
             re_content: "",
-            study_pk: store.getters.selectedStudy.id
         })
         const createComment = ()=>{
-            store.dispatch('createComment',state)
+            store.dispatch('createComment',state.re_content)
+            state.re_content = ""
         }
         return {createComment,state}
     }

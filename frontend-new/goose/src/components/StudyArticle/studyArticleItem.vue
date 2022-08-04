@@ -19,7 +19,6 @@ export default {
   setup(props){
     const store = useStore();
     const selectArticle = ()=>{
-      console.log(props.item)
       store.dispatch('getStudyArticle',props.item.id)
     }
     

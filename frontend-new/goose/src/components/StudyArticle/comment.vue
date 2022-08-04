@@ -46,7 +46,7 @@ export default {
         }
 
         const fetchCommentList = ()=>{
-            store.dispatch("getComment",{articlePk:store.getters.selectedArticle.id, id:null, page:data.page})
+            store.dispatch("getComment",{page:data.page})
         }
         fetchCommentList()
 

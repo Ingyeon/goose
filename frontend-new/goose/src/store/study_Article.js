@@ -68,6 +68,7 @@ export default {
             .then((res)=>{
                 commit("SET_SELECTED_ARTICLE",res.data)
                 dispatch("getComment",{articlePk:getters.selectedArticle.id ,id:null, page:1})
+                console.log(getters.selectedArticle)
             })
             // .catch((err)=>{
             //     console.log(err)
@@ -116,12 +117,12 @@ export default {
        },
 
     //    댓글
-       createComment({getters,dispatch},credential){
+       createComment({getters,dispatch},re_content){
         axios({
             url: rest.studyArticle.studyArticleReply(),
             method: 'post',
             headers: getters.authHeader,
-            data: credential
+            data: { article_pk:getters.selectedArticle.id, re_content:re_content, study_pk:getters.selectedStudy.id }
         })
         .then((res)=>{
             console.log("hi")
