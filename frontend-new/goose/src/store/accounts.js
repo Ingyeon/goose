@@ -172,9 +172,7 @@ export default {
             .catch(err=> {
                 console.log(err)
             })
-        }
-      });
-    },
+        },
     profileUpdate({ getters, dispatch, commit }, userform_data) {
       console.log("액시오스 전");
       axios({
@@ -194,5 +192,5 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-    },}
-}
+    }
+}}

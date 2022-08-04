@@ -24,14 +24,15 @@
     </div>
     <div>
       <ul class="button-links">
-        <li><button class="button-study" @click.prevent="hire_study">모집중인 스터디</button></li>
+        <li><button @click.prevent="hire_study" >모집중인 스터디</button></li>
         <articleList v-if='state.toggle==1'/>
 
-        <li><button class="button-study" @click.prevent="me_study">참여중인 스터디</button></li>
+        <li><button @click.prevent="me_study">참여중인 스터디</button></li>
         <myStudyList v-if="state.toggle==2" />
       </ul>
     </div>
   </div>
+
 </template>
 
 <script>

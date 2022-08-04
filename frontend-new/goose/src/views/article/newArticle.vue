@@ -29,6 +29,7 @@
     <option value="개인공부">개인공부</option>
     <option value="기타">기타</option>
 </select>
+
   <div class="mb-3 input-Box">
     <label for="titleInput" class="form-label">제목</label>
     <input type="text" class="form-control" id="titleInput" v-model="state.form.title" required>

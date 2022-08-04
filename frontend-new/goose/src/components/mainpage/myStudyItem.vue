@@ -1,8 +1,11 @@
 <template>
-  {{ item }}
-  <div @click.prevent="selectStudy" class="d-flex container">
-    <img :src="item.image" alt="기본사진" />
-    <h3>스터디명: {{ item.title }}</h3>
+  <div class="card">
+    <img :src="item.image" alt="@/src/assets/study1.png" class='card-img-top'/>
+    <div class="card-body">
+      <h3 class="card-title">{{ item.title }}</h3>
+      <a @click.prevent="selectStudy" class="btn btn-warning">스터디 홈</a>
+    </div>
+    
   </div>
 </template>
 
