@@ -74,11 +74,10 @@
 
           <!-- 제출 -->
             <div class="input-Box">
-              <input @click.prevent="updateStudy()" type="submit" value="Submit">  
+              <input @click.prevent="updateStudy()" type="submit" value="Submit" data-bs-dismiss="modal">  
             </div>
           </form>
           </div>
-          {{ state.credential }}
           </div>
             <!-- 업데이트에만 있는 목록들 -->
             <hr>

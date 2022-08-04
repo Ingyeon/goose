@@ -209,7 +209,6 @@ export default {
     const loginUser = computed(() => store.getters.loginUser);
     const dropOutStudy = (user_pk) => {
       store.dispatch("dropOutStudy", user_pk);
-      router.push({ name: "Home" });
     };
     const manager = computed(() => store.getters.studyManager);
     const isManager = computed(() => store.getters.isStudyManager);

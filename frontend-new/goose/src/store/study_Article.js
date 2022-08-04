@@ -106,11 +106,14 @@ export default {
        },
 
        deleteStudyArticle({getters}){
-        axios({
-            url: rest.studyArticle.studyArticles(),
-            method: 'delete',
-            headers: ({ Authorization: getters.token, id:getters.selectedArticle.id}),
-        })
+            const check = confirm("글을 삭제하시겠습니까?")
+            if(check){
+                axios({
+                    url: rest.studyArticle.studyArticles(),
+                    method: 'delete',
+                    headers: ({ Authorization: getters.token, id:getters.selectedArticle.id}),
+                })
+            }
        },
 
     //    댓글
@@ -145,18 +148,21 @@ export default {
        },
 
        deleteComment({getters,dispatch},id){
-        axios({
-            url: rest.studyArticle.studyArticleReply(),
-            method: 'delete',
-            headers: { id:id, Authorization:getters.token }
-        })
-        .then((res)=>{
-            dispatch('getComment',{articlePk:getters.selectedArticle.id,page:1})
-        })
-        // .catch((err)=>{
-        //     console.log(err)
-        // })
-       },
+            const check = confirm("댓글을 삭제하시겠습니까?")
+            if(check){
+                axios({
+                    url: rest.studyArticle.studyArticleReply(),
+                    method: 'delete',
+                    headers: { id:id, Authorization:getters.token }
+                })
+                .then((res)=>{
+                    dispatch('getComment',{articlePk:getters.selectedArticle.id,page:1})
+                })
+                // .catch((err)=>{
+                //     console.log(err)
+                // })
+            }
+        },
 
     //    patchComment({getters},credential){
     //     axios({
