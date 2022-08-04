@@ -109,6 +109,7 @@ export default {
     },
 
     createStudy({ getters,dispatch }, credential) {
+      console.log(credential)
       axios({
         url: rest.study.study_create(),
         method: "post",

@@ -42,7 +42,8 @@ export default {
     })
 
     const pageUp = ()=>{
-      if (!_.isEmpty(store.getters.studyArticleList)){
+      // if (!_.isEmpty(store.getters.studyArticleList)){
+      if (store.getters.studyArticleList.length ==10){
         data.page++;
         fetchStudyArticleList();
       }

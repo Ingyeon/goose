@@ -45,10 +45,10 @@ export default {
     const store = useStore();
 
     const credential = reactive({
-      "category":"",
-      "content":"",
-      "image":"",
-      "title":"",
+      "category":store.getters.selectedArticle.category,
+      "content":store.getters.selectedArticle.content,
+      "image":store.getters.selectedArticle.image,
+      "title":store.getters.selectedArticle.title,
     })
 
     const updateArticle = () =>{
