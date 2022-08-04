@@ -60,7 +60,6 @@
               </div>
             </div>
           </div>
-메
           <div id="main-video-session">
             <div id="main-video" style="width: 60%; margin: 0 auto">
               <UserVideo
