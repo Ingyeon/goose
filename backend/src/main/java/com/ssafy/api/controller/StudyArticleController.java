@@ -84,7 +84,7 @@ public class StudyArticleController {
 			@RequestParam(required = false) String title,
 			@RequestParam(required = false) String category) {
 		
-		Sort sort = Sort.by("date").descending();
+		Sort sort = Sort.by("date").descending().and(Sort.by("id").descending());
 
 		PageRequest pageRequest = PageRequest.of(page-1, 10, sort);
 		
