@@ -289,7 +289,17 @@ public class StudyController {
 		}
 		if(sf == 0 ) return ResponseEntity.status(500).body("삭제 실패 "+FAIL);
 		return ResponseEntity.status(204).body(200 + "Success");
-
-
+	}
+	
+	@GetMapping("/member/publicstudylist")
+	@ApiOperation(value = "공개 스터디 목록 ", notes = "공개 스터디 목록 ")
+	@ApiResponses({ @ApiResponse(code = 200, message = "성공"), 
+					@ApiResponse(code = 401, message = "실패"),
+					@ApiResponse(code = 404, message = "스터디 없음"), 
+					@ApiResponse(code = 500, message = "서버 오류")})
+	public ResponseEntity<List<StudyMyList>> getPublicStudyList(){
+		List<StudyMyList> studyListA = studyService.publicstudyList();
+		
+		return new ResponseEntity<List<StudyMyList>>(studyListA, HttpStatus.OK);
 	}
 }

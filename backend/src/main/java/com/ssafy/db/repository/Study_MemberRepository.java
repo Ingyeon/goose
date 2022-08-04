@@ -37,5 +37,8 @@ public interface Study_MemberRepository extends JpaRepository<Study_Member, Long
 
 	@Query(value="select count(*) from study_member where study_pk = :study_pk and user_pk = :master_id and authority >= 3" ,nativeQuery = true)
 	int studyMemberMasterCheck(@Param("master_id") long master_id, @Param("study_pk") long study_pk);
+
+	@Query(value="select * from study where open = 0", nativeQuery = true)
+	List<StudyMyList> publicstudyList();
 	
 }

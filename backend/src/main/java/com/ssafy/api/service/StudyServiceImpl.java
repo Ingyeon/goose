@@ -184,6 +184,12 @@ public class StudyServiceImpl implements StudyService{
 		
 	}
 
+	@Override
+	public List<StudyMyList> publicstudyList() {
+		List<StudyMyList> studyList = studyMemberRepository.publicstudyList();
+		return studyList;
+	}
+
 
 
 
