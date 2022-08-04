@@ -28,7 +28,8 @@ export default {
     studyManager: { 
       // id:0,
       // name:""
-    }
+    },
+    reloadCheck: false,
   },
 
   getters: {
@@ -40,6 +41,7 @@ export default {
     isJoinList: (state) => !!state.saveJoinList,
     studyMemberList: (state) => state.studyMemberList,
     choiceImg: (state) => state.choiceImg,
+    reloadCheck: (state) => state.reloadCheck,
     events: (state) => state.events,
     event: (state) => state.event,
     studyManager: (state) => state.studyManager,
@@ -60,6 +62,7 @@ export default {
     SET_EVENTS: (state, events) => (state.events = events),
     SET_EVENT: (state, event) => (state.event = event),
     SET_STUDY_MANAGER: (state,manager) => state.studyManager = manager,
+    SET_RELOADCHECK: (state, reloadCheck) => state.reloadCheck = reloadCheck,
   },
 
   actions: {
@@ -261,9 +264,8 @@ export default {
         })
       }
     },
-    compile({ getters, dispatch },code) {
+    compile() {
       console.log("compile");
-      console.log("llllllllll",code);
       axios({
         url: "/v1/execute",
         method: "post",
@@ -271,9 +273,9 @@ export default {
           clientId: "683c1c7ad02b383e183ce75fb4258278",
           clientSecret:
             "48d14c2f3257a101345589019219ae6a4b94a59502add15eb4bef43c0544ed83",
-          script: code,
+          script: "print (30+20)" + "\n" + "print (40+10)",
           versionIndex: "0",
-          language: "java",
+          language: "python3",
         },
       })
         .then((res) => {

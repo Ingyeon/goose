@@ -3,7 +3,6 @@
     <div id="main-container" class="d-flex">
       <div id="session-center">
         <div id="session" v-if="session">
-          
           <div id="session-header" class="d-flex">
             <h1 id="session-title">{{ this.roomName }}</h1>
             <!-- 방 제목 -->
@@ -271,9 +270,11 @@ import { OpenVidu } from "openvidu-browser";
 import UserVideo from "@/components/openvidu/PrivateUserVideo";
 import UserList from "@/components/openvidu/UserList";
 import jwt_decode from "jwt-decode";
-import { computed } from "vue";
+import { computed, reactive } from "vue";
 import { useStore } from "vuex";
 import MonacoYjs from "@/components/openvidu/MonacoYjs";
+import { useRouter } from "vue-router";
+import { mapMutations } from "vuex";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -290,8 +291,27 @@ export default {
   },
   setup() {
     const store = useStore();
+    const state = reactive({
+      reloadCheck: store.getters.reloadCheck,
+    });
+    const router = useRouter();
+
     const selectedStudy = computed(() => store.getters.selectedStudy);
     const loginUser = computed(() => store.getters.loginUser);
+    // const reloadCheck = computed(() => store.getters.reloadCheck);
+    const flip = function () {
+      console.log("><><><><><><><>");
+      if (state.reloadCheck == false) {
+        console.log(">>>>1", state.reloadCheck);
+        state.reloadCheck = true;
+        console.log(">>>>2", state.reloadCheck);
+        store.commit("SET_RELOADCHECK", state.reloadCheck);
+        console.log(">>>>3", store.getters.reloadCheck);
+      router.go();
+      }
+    };
+    console.log(">>>>0");
+    flip();
     return { selectedStudy, loginUser };
   },
   computed: {
@@ -318,7 +338,8 @@ export default {
 
   data() {
     return {
-      monacococo: false,
+      reload: false,
+      monacococo: true,
       //방정보
       roomName: "none",
       roomUrl: "none",
@@ -372,6 +393,14 @@ export default {
   },
 
   created() {
+    // this.reload = this.reloadCheck;
+    // if (this.reload == false) {
+    //   console.log("reload");
+    //   this.reloadCheck = true;
+
+    //   this.$router.go();
+    // }
+
     this.roomName = this.selectedStudy.title;
     this.roomUrl = this.selectedStudy.url_conf;
     this.roomStudyNo = this.selectedStudy.id;
@@ -404,6 +433,7 @@ export default {
     window.removeEventListener("beforeunload", this.unLoadEvent);
   },
   methods: {
+    ...mapMutations(["SET_RELOADCHECK"]),
     unLoadEvent: function (event) {
       if (this.canLeaveSite) return;
 
@@ -581,6 +611,7 @@ export default {
     },
 
     leaveSession() {
+      this.SET_RELOADCHECK(false);
       // --- Leave the session by calling 'disconnect' method over the Session object ---
       if (this.session) this.session.disconnect();
 
