@@ -84,7 +84,8 @@ public class ArticleController {
 			@RequestParam(required = true) int page,
 			@RequestParam(required = false) String title,
             @RequestParam(required = false) String category,
-            @RequestParam(required = false) String state) {
+            @RequestParam(required = false) String state,
+            @RequestParam(required = false) Long userPk) {
 		
 	
 		Sort sort = Sort.by("date").descending().and(Sort.by("id").descending());
@@ -100,6 +101,9 @@ public class ArticleController {
 		}
 		if (state != null) {
 			spec = spec.and(ArticleSpecification.equalState(state));
+		}
+		if (userPk != null) {
+			spec = spec.and(ArticleSpecification.equalUserPk(userPk));
 		}
 		
 		Page<Article> articles = articleService.getArticles(spec, pageRequest);

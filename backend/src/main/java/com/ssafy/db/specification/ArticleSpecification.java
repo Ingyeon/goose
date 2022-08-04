@@ -17,5 +17,9 @@ public class ArticleSpecification {
 	public static Specification<Article> equalTitle(String title){
 		return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("title"), title);
 	}
+	
+	public static Specification<Article> equalUserPk(Long userPk){
+		return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("user_pk"), userPk);
+	}
 
 }

@@ -255,6 +255,7 @@
       </div>
       <!-- session-right -->
     </div>
+    <MonacoYjs/>
     <!-- #main-container -->
   </div>
 </template>
@@ -272,6 +273,7 @@ import UserList from "@/components/openvidu/UserList";
 import jwt_decode from "jwt-decode";
 import { computed } from "vue";
 import { useStore } from "vuex";
+import MonacoYjs from "@/components/openvidu/MonacoYjs"
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -284,6 +286,7 @@ export default {
   components: {
     UserVideo,
     UserList,
+    MonacoYjs,
   },
   setup() {
     const store = useStore();
