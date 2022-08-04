@@ -7,7 +7,7 @@
                 <ul class="d-flex justify-content-evenly">
                     <li>
                         <input name="profile" v-model="state.form.photo" type="radio" value="../../assets/profile4.png" id="../../assets/profile4.png">
-                        <label for="../../assets/프로필4.png"><img src="../../assets/profile4.png"></label>
+                        <label for="../../assets/profile4.png"><img src="../../assets/profile4.png"></label>
                     </li>
                     <li>
                         <input name="profile" v-model="state.form.photo" type="radio" value="../../assets/profile1.png" id="../../assets/profile1.png">
@@ -38,8 +38,16 @@
                 <div v-if="!state.emailValidFlag" class="form-text">이메일을 제대로 입력해주세요.</div>
             </div>
             <div class="input-Box">
-                <label for="inputInterest" class="form-label">Interest</label>
-                <input type="text" id="inputInterest" class="form-control" placeholder="취미를 입력해주세요" v-model="state.form.interest">
+                <label for="selectcategory" class="custom-label">관심 언어</label>
+                <select v-model="state.form.interest" id="selectcategory" class="form-select" aria-label="Default select example">
+                    <!-- <option selected>분류</option> -->
+                    <option value="what" selected>관심언어를 골라주세요</option>
+                    <option value="C">C</option>
+                    <option value="C++">C++</option>
+                    <option value="JAVA">JAVA</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="Python">Python</option>
+                    </select>
             </div>
             <div class="input-Box">
               <input type="submit" value="Submit">  
@@ -208,4 +216,10 @@ label img {
   .input-Box input[type="submit"] {
     margin-right:4px;
   }
+  .form-select {
+    width: 100%;
+    height: 50px;
+    margin-top: 3px;
+    border: solid 1px #000;
+}
 </style>

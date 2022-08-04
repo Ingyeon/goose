@@ -24,10 +24,10 @@
     </div>
     <div>
       <ul class="button-links">
-        <li><button @click.prevent="hire_study" >모집중인 스터디</button></li>
+        <li><button class="btn btn-3 hover-border-3" @click.prevent="hire_study">공개 스터디</button></li>
         <articleList v-if='state.toggle==1'/>
 
-        <li><button @click.prevent="me_study">참여중인 스터디</button></li>
+        <li><button class="btn btn-3 hover-border-3" @click.prevent="me_study">참여중인 스터디</button></li>
         <myStudyList v-if="state.toggle==2" />
       </ul>
     </div>
@@ -74,4 +74,89 @@ export default {
 </script>
 
 <style scoped>
+  .notice-item {
+    width : 100%;
+    height: 300px;
+    background-color: #ffd700;
+    border: 1px solid #ffd700;
+    display: flex;
+    justify-content: center;
+  }
+  ul[class="button-links"]{
+    display:flex;
+    margin-top:50px;
+  }
+  .button-links {
+    list-style: none;
+  }
+
+  li .button-study {
+    display: inline-block;
+    /* padding: 0 1.25rem; */
+    cursor: pointer;
+    padding: 9px 20px;
+    border: none;
+    /* border-radius: 50px; */
+    font-family: "NanumSquare", sans-serif;
+    font-weight: bold;
+    font-size: 1.25rem;
+    transition: all 0.5s ease 0s;
+    margin-left: 20px;
+    background: #fff;
+    /* border-radius: 80px 40px; */
+  }
+  
+:active, :hover, :focus {
+outline: 0!important;
+outline-offset: 0;
+}
+::before,
+::after {
+  position: absolute;
+  content: "";
+}
+.btn {
+  position: relative;
+  display: inline-block;
+  width: auto; height: auto;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin: 0px 25px 15px;
+  min-width: 150px;
+}
+  .btn span {         
+    position: relative;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    top: 0; left: 0;
+    width: 100%;
+    padding: 15px 20px;
+    transition: 0.3s;
+  }
+.btn.hover-border-3::before,
+.btn.hover-border-3::after {
+  width: 0%; height: 0%;
+  opacity: 0;
+  transition: width 0.2s 0.15s linear, height 0.15s linear, opacity 0s 0.35s;
+}
+.btn.hover-border-3::before {
+  top: 0; right: 0;
+  border-top: 1px solid rgb(28, 31, 30);
+  border-left: 1px solid rgb(28, 31, 30);
+}
+.btn.hover-border-3::after {
+  bottom: 0; left: 0;
+  border-bottom: 1px solid rgb(28, 31, 30);
+  border-right: 1px solid rgb(28, 31, 30);
+}
+.btn.hover-border-3:hover::before,
+.btn.hover-border-3:hover::after {
+  width: 100%; height: 99%;
+  opacity: 1;
+  transition: width 0.2s linear, height 0.15s 0.2s linear, opacity 0s;   
+}
 </style>
