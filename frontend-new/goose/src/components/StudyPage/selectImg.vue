@@ -4,15 +4,15 @@
         
         <ul class="d-flex justify-content-evenly">
             <li>
-                <input name="profile" type="radio" value="study1" id="study1">
+                <input name="study-img" type="radio" value="study1" id="study1">
                 <label for="study1"><img @click="selectImg('study1')" src="../../assets/study1.png"></label>
             </li>
             <li>
-                <input name="profile" type="radio" value="study2" id="study2">
+                <input name="study-img" type="radio" value="study2" id="study2">
                 <label for="study2"><img @click="selectImg('study2')" src="../../assets/study2.png"></label>
             </li>
             <li>
-                <input name="profile" type="radio" value="study3" id="study3">
+                <input name="study-img" type="radio" value="study3" id="study3">
                 <label for="study3"><img @click="selectImg('study3')" src="../../assets/study3.jpg"></label>
             </li>
             
