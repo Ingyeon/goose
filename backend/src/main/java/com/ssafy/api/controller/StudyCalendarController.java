@@ -1,5 +1,6 @@
 package com.ssafy.api.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.api.request.article.StudyArticleRegistPostReq;
 import com.ssafy.api.request.article.StudyArticleUpdatePatchReq;
 import com.ssafy.api.request.studyCalendar.StudyCalendarReq;
+import com.ssafy.api.request.studyCalendar.StudyCalendarRes;
 import com.ssafy.api.response.article.StudyArticlesInfoRes;
 import com.ssafy.api.service.StudyCalendarService;
 import com.ssafy.api.service.UserService;
@@ -81,7 +83,7 @@ public class StudyCalendarController {
         @ApiResponse(code = 404, message = "사용자 없음"),
         @ApiResponse(code = 500, message = "서버 오류")
     })
-	public ResponseEntity<List<StudyCalendar>> getCalendars(
+	public ResponseEntity<List<StudyCalendarRes>> getCalendars(
 			@RequestParam(required = true) Long studyPk) {
 		
 		
@@ -92,7 +94,12 @@ public class StudyCalendarController {
 		}
 
 		
-		List<StudyCalendar> calendars = studyCalendarService.getCalendars(spec);
+		List<StudyCalendar> calendarsT = studyCalendarService.getCalendars(spec);
+		List<StudyCalendarRes> calendars = new ArrayList<StudyCalendarRes>();
+		
+		for (StudyCalendar studyCalendar : calendarsT) {
+			calendars.add(StudyCalendarRes.of(studyCalendar));
+		}
 
 		return ResponseEntity.status(200).body(calendars);
 	}

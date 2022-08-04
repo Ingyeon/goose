@@ -42,80 +42,80 @@
     data-libs="mavenlib1, mavenlib2"
   ></div> -->
   <FullCalendar :options="calendarOptionsW" />
-  <FullCalendar :options="calendarOptionsM" />
+
 </template>
 
 <script>
-// import "@fullcalendar/core/vdom"; // solves problem with Vite
-// import FullCalendar from "@fullcalendar/vue3";
-// import dayGridPlugin from "@fullcalendar/daygrid";
-// import interactionPlugin from "@fullcalendar/interaction";
-// import koLocale from "@fullcalendar/core/locales/ko";
-// import { useStore } from "vuex";
+import "@fullcalendar/core/vdom"; // solves problem with Vite
+import FullCalendar from "@fullcalendar/vue3";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import koLocale from "@fullcalendar/core/locales/ko";
+import { useStore } from "vuex";
 
-// export default {
-//   setup() {
-//     const store = useStore();
-//     const events_set = function () {
-//       store.dispatch("fetchCalendars", 6);
-//       const events = JSON.parse(JSON.stringify(store.getters.events));
-//       console.log(events);
-//     };
-//     events_set();
-//   },
-//   // mounted() {
-//   //   let recaptchaScript = document.createElement("script");
-//   //   recaptchaScript.setAttribute(
-//   //     "src",
-//   //     "https://www.jdoodle.com/assets/jdoodle-pym.min.js"
-//   //   );
-//   //   document.head.appendChild(recaptchaScript);
-//   // },
-//   components: {
-//     FullCalendar, // make the <FullCalendar> tag available
-//   },
-//   data() {
-//     const store = useStore();
-//     console.log(123, JSON.parse(JSON.stringify(store.getters.events)));
-//     return {
-//       calendars: [],
-//       calendarOptionsW: {
-//         plugins: [dayGridPlugin, interactionPlugin],
-//         // initialView: "dayGridWeek",
-//         initialView: "dayGrid", // the name of a generic view
-//         duration: { weeks: 2 },
-//         selectable: true,
-//         dateClick: this.handleDateClick,
-//         eventClick: this.handleEventClick,
-//         height: 500,
-//         locale: koLocale,
-//         timeZone: "local",
-//         events: JSON.parse(JSON.stringify(store.getters.events)),
-//       },
-//       calendarOptionsM: {
-//         plugins: [dayGridPlugin, interactionPlugin],
-//         initialView: "dayGridMonth",
-//         selectable: true,
-//         height: 700,
-//         dateClick: this.handleDateClick,
-//         eventClick: this.handleEventClick,
+export default {
+  setup() {
+    const store = useStore();
+    const events_set = function () {
+      store.dispatch("fetchCalendars", 6);
+      const events = JSON.parse(JSON.stringify(store.getters.events));
+      console.log(events);
+    };
+    events_set();
+  },
+  // mounted() {
+  //   let recaptchaScript = document.createElement("script");
+  //   recaptchaScript.setAttribute(
+  //     "src",
+  //     "https://www.jdoodle.com/assets/jdoodle-pym.min.js"
+  //   );
+  //   document.head.appendChild(recaptchaScript);
+  // },
+  components: {
+    FullCalendar, // make the <FullCalendar> tag available
+  },
+  data() {
+    const store = useStore();
+    console.log(123, JSON.parse(JSON.stringify(store.getters.events)));
+    return {
+      calendars: [],
+      calendarOptionsW: {
+        plugins: [dayGridPlugin, interactionPlugin],
+        // initialView: "dayGridWeek",
+        initialView: "dayGrid", // the name of a generic view
+        duration: { weeks: 2 },
+        selectable: true,
+        dateClick: this.handleDateClick,
+        eventClick: this.handleEventClick,
+        height: 500,
+        locale: koLocale,
+        timeZone: "local",
+        events: JSON.parse(JSON.stringify(store.getters.events)),
+      },
+      calendarOptionsM: {
+        plugins: [dayGridPlugin, interactionPlugin],
+        initialView: "dayGridMonth",
+        selectable: true,
+        height: 700,
+        dateClick: this.handleDateClick,
+        eventClick: this.handleEventClick,
 
-//         locale: koLocale,
-//         timeZone: "local",
-//         events: JSON.parse(JSON.stringify(store.getters.events)),
-//       },
-//     };
-//   },
-//   methods: {
-//     handleDateClick: function (arg) {
-//       alert("date click! " + arg.dateStr);
-//     },
-//     handleEventClick: function (arg) {
-//       console.log(arg.event);
-//       alert("event click! " + arg.event.startStr + arg.event.id);
-//     },
-//   },
-// };
+        locale: koLocale,
+        timeZone: "local",
+        events: JSON.parse(JSON.stringify(store.getters.events)),
+      },
+    };
+  },
+  methods: {
+    handleDateClick: function (arg) {
+      alert("date click! " + arg.dateStr);
+    },
+    handleEventClick: function (arg) {
+      console.log(arg.event);
+      alert("event click! " + arg.event.startStr + arg.event.id);
+    },
+  },
+};
 </script>
 
 <style></style>
