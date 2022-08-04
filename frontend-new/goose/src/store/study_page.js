@@ -133,7 +133,7 @@ export default {
         headers: getters.authHeader,
         data: credential,
       }).then((res) => {
-        console.log("업데이트 성공");
+        console.log("업데이트 성공"+res);
         console.log(getters.selectedStudy.id);
         dispatch("selectStudy", getters.selectedStudy.id);
       });
@@ -282,7 +282,7 @@ export default {
           clientId: "683c1c7ad02b383e183ce75fb4258278",
           clientSecret:
             "48d14c2f3257a101345589019219ae6a4b94a59502add15eb4bef43c0544ed83",
-          script: "print (30+20)" + "\n" + "print (40+10)",
+          script: "print (30+20)\\n print (test)" + "\n" + "print (40+10)",
           versionIndex: "0",
           language: "python3",
         },

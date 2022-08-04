@@ -43,7 +43,7 @@
     >
       전체보기
     </button>
-    <callender />
+    <calendar />
   </div>
   <div class="container d-flex">
     <button v-if="isManager" @click.prevent="deleteStudy">스터디 터트리기</button>
@@ -110,11 +110,11 @@
 </template>
 
 <script>
-import callender from "@/components/StudyPage/callender";
+import calendar from "@/components/StudyPage/studyCalendar";
 import studyUpdate from "@/components/StudyPage/studyUpdate.vue";
 import studyJoinList from "@/components/StudyPage/studyJoinList.vue";
 import { useStore } from "vuex";
-import { computed, watch,onMounted } from "vue";
+import { computed,onMounted } from "vue";
 import { useRoute,useRouter } from "vue-router";
 
 export default {
@@ -122,7 +122,7 @@ export default {
   name: "StudyHome",
   components: {
     
-    callender,
+    calendar,
     studyUpdate,
     studyJoinList,
   },
