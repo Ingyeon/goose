@@ -4,16 +4,16 @@
         
         <ul class="d-flex justify-content-evenly">
             <li>
-                <input name="profile" type="radio" value="../../assets/study1.png" id="../../assets/study1.png">
-                <label for="../../assets/study1.png"><img @click="selectImg('../../assets/study1.png')" src="../../assets/study1.png"></label>
+                <input name="profile" type="radio" value="study1" id="study1">
+                <label for="study1"><img @click="selectImg('study1')" src="../../assets/study1.png"></label>
             </li>
             <li>
-                <input name="profile" type="radio" value="../../assets/study2.png" id="../../assets/study2.png">
-                <label for="../../assets/study2.png"><img @click="selectImg('../../assets/study2.png')" src="../../assets/study2.png"></label>
+                <input name="profile" type="radio" value="study2" id="study2">
+                <label for="study2"><img @click="selectImg('study2')" src="../../assets/study2.png"></label>
             </li>
             <li>
-                <input name="profile" type="radio" value="../../assets/study3.jpg" id="../../assets/study3.jpg">
-                <label for="../../assets/study3.jpg"><img @click="selectImg('../../assets/study3.jpg')" src="../../assets/study3.jpg"></label>
+                <input name="profile" type="radio" value="study3" id="study3">
+                <label for="study3"><img @click="selectImg('study3')" src="../../assets/study3.jpg"></label>
             </li>
             
         </ul>

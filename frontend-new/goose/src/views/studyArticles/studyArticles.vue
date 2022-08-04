@@ -1,15 +1,16 @@
 <template>
   <h1>게시판</h1>
+  <router-link :to="{ name:'StudyHome', params: {studyPk:selectedStudy.id}}"><button>스터디 홈으로</button></router-link>
   <createStudyArticle />
   <studyArticleItem v-for="item in studyArticleList" :key="item.id" :item="item" />
   <!-- pagination -->
   <hr>
   <nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li @click="pageDown" class="page-item"><a class="page-link" href="#">Previous</a></li>
-    <li @click="pageUp" class="page-item"><a class="page-link" href="#">Next</a></li>
-  </ul>
-</nav>
+    <ul class="pagination">
+      <li @click="pageDown" class="page-item"><a class="page-link" href="#">Previous</a></li>
+      <li @click="pageUp" class="page-item"><a class="page-link" href="#">Next</a></li>
+    </ul>
+  </nav>
   
   <hr>
   <div>
@@ -31,11 +32,11 @@ export default {
 
   setup(){
     const store = useStore()
-    const studyArticles = computed(() => store.getters.studyArticles )
+    // const studyArticles = computed(() => store.getters.studyArticles )
     const studyArticleList = computed(() => store.getters.studyArticleList)
     const selectedArticle = computed(() => store.getters.selectedArticle)
     // const isArticleList = computed(()=> !_.isEmpty(store.getters.studyArticleList))
-
+    const selectedStudy = computed(()=> store.getters.selectedStudy)
     const data = reactive({
       page:1,
       isArticleList: !_.isEmpty(store.getters.studyArticleList)
@@ -60,7 +61,7 @@ export default {
       store.dispatch('getStudyArticleList',{category:null,page:data.page,title:null})
     }
     fetchStudyArticleList()
-    return { studyArticles,studyArticleList,selectedArticle,pageUp,pageDown,data}
+    return {studyArticleList,selectedArticle,pageUp,pageDown,data,selectedStudy}
   }
 }
 </script>

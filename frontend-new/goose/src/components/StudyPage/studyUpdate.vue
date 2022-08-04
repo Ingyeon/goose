@@ -3,14 +3,14 @@
   <div class="modal-fullscreen modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">스터디 만들기</h5>
+        <h5 class="modal-title" id="exampleModalLabel">스터디 업데이트</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <!-- 모달 바디 -->
         <div class="container">
           <div class="d-flex justify-content-center m-5">
-            <h3>스터디 만들기</h3>
+            <h3>스터디 업데이트</h3>
           </div>
           <div class="container">
           <form>
@@ -74,7 +74,7 @@
 
           <!-- 제출 -->
             <div class="input-Box">
-              <input @click.prevent="createStudy()" type="submit" value="Submit">  
+              <input @click.prevent="updateStudy()" type="submit" value="Submit">  
             </div>
           </form>
           </div>
@@ -116,12 +116,12 @@ export default {
     setup(){
         const store = useStore()
         const studyId = computed(()=>store.getters.selectedStudy.id)
-
+        const imgUrl = computed(()=>store.getters.choiceImg)
         const state = reactive({
             credential:{
                 category: store.getters.selectedStudy.category,
                 id: store.getters.selectedStudy.id,
-                image : store.getters.selectedStudy.image,
+                image : imgUrl,
                 member: store.getters.selectedStudy.member,
                 maxmember:store.getters.selectedStudy.maxmember,
                 open: store.getters.selectedStudy.open,

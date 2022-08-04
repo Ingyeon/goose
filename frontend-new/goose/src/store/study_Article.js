@@ -45,7 +45,6 @@ export default {
     },
     actions: {
         getStudyArticleList({getters,commit},credential){
-            console.log(credential)
             axios({
                 url: rest.studyArticle.studyArticleList(),
                 method:'get',
@@ -53,7 +52,6 @@ export default {
                 params: { "category":credential.category, "page":credential.page, "studyPk":getters.selectedStudy.id, "title":credential.title}
             })
             .then((res)=>{
-                console.log(res.data)
                 commit("SET_STUDY_ARTICLES",res.data.content)
             })
         },
@@ -68,7 +66,6 @@ export default {
             .then((res)=>{
                 commit("SET_SELECTED_ARTICLE",res.data)
                 dispatch("getComment",{articlePk:getters.selectedArticle.id ,id:null, page:1})
-                console.log(getters.selectedArticle)
             })
             // .catch((err)=>{
             //     console.log(err)
@@ -125,7 +122,6 @@ export default {
             data: { article_pk:getters.selectedArticle.id, re_content:re_content, study_pk:getters.selectedStudy.id }
         })
         .then((res)=>{
-            console.log("hi")
             dispatch('getComment',{articlePk:getters.selectedArticle.id,page:1})
         })
         .catch((err)=>{
@@ -134,7 +130,6 @@ export default {
        },
 
        getComment({getters,commit},credential){
-        console.log(credential)
         axios({
             url: rest.studyArticle.studyArticleReply(),
             method: 'get',
@@ -142,9 +137,7 @@ export default {
             params: credential //{articlePk:int ,id:int, page:int}
         })
         .then((res)=>{
-            console.log(res.data.content)
             commit('SET_STUDY_ARTICLE_COMMENT_LIST',res.data.content)
-            console.log("패치 성공")
         })
         .catch((err)=>{
             console.log(err)

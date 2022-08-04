@@ -117,12 +117,10 @@ export default {
         data: credential,
       })
         .then((res) => {
-          console.log(res);
           dispatch('myStudyList')
           router.push({ name: "Home" });
         })
         .catch((err) => {
-          console.log("catch");
           console.log(err);
         });
     },
@@ -134,29 +132,24 @@ export default {
         headers: getters.authHeader,
         data: credential,
       }).then((res) => {
-        console.log("업데이트 성공");
         console.log(getters.selectedStudy.id);
         dispatch("selectStudy", getters.selectedStudy.id);
       });
     },
 
     deleteStudy({ commit, getters,dispatch }) {
-      console.log(getters.selectedStudy);
-      console.log(rest.study.study_remove(getters.selectedStudy.id));
       axios({
         url: rest.study.study_remove(getters.selectedStudy.id),
         method: "delete",
         headers: getters.authHeader,
       })
         .then(() => {
-          console.log("삭제 완료");
           dispatch('myStudyList')
           commit("SET_SELECTED_STUDY", {});
           router.push({ name: "Home" });
         })
         .catch((err) => {
           console.log(err);
-          console.log("망함");
           alert("스터디 삭제에 실패했습니다.");
         });
       router.push({ name: "Home" });
@@ -191,42 +184,34 @@ export default {
     },
 
     joinList({ getters, dispatch }) {
-      console.log(getters.selectedStudy);
       axios({
         url: rest.study.study_join_list(getters.selectedStudy.id),
         method: "get",
       })
         .then((res) => {
           dispatch("saveJoinList", res.data);
-          console.log(getters.studyJoinList);
         })
         .catch((err) => {
-          console.log("catch");
           console.log(err);
         });
     },
 
     //스터디 가입 신청
     joinStudy({ getters }, studyId) {
-      console.log("스토어 도착");
       axios({
         url: rest.study.study_join(studyId),
         method: "post",
         headers: getters.authHeader,
       })
-        .then((res) => {
-          console.log("스터디 가입신청 완료");
-          console.log(res);
-        })
-        .catch((res) => {
-          console.log("스터디 가입 신청 실패");
-          console.log(res);
+        // .then((res) => {
+        // })
+        .catch((err) => {
+          console.log(err);
         });
     },
 
     // 스터디 가입신청 승락
     joinAgree({ getters, dispatch }, credential) {
-      console.log("승락 신청");
       console.log(rest.study.study_join_agree());
       axios({
         url: rest.study.study_join_agree(),
@@ -235,7 +220,6 @@ export default {
         data: credential,
       })
         .then((res) => {
-          console.log(res);
           dispatch("joinList");
         })
         .catch((err) => {
@@ -245,25 +229,20 @@ export default {
 
     // 스터디 가입신청 거절
     joinRefuse({ getters, dispatch }, joinStudyId) {
-      console.log("거절");
       axios({
         url: rest.study.study_join_delete(joinStudyId),
         method: "delete",
         headers: getters.authHeader,
       }).then((res) => {
-        console.log(res);
         dispatch("joinList");
       });
     },
 
     selectImg({ commit }, imgurl) {
-      console.log(imgurl);
       commit("SET_CHOICE_IMG", imgurl);
     },
 
     dropOutStudy({ getters }, user_pk) {
-      console.log("스토어에는 도착");
-      console.log(getters.token);
       axios({
         url: rest.study.study_member_out(),
         method: "delete",
@@ -299,11 +278,8 @@ export default {
     },
 
     findStudyManager({getters,commit}){
-      console.log(getters.studyMemberList)
       getters.studyMemberList.forEach((member)=>{
         if(member.authority==5){
-          console.log("매니저 찾음")
-          console.log(member)
           commit('SET_STUDY_MANAGER',{id:member.user_pk, name:member.user_id})
         }
       })

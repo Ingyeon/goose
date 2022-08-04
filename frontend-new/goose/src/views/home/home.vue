@@ -66,6 +66,8 @@ export default {
         state.toggle = 2
       }
       else(state.toggle = 0)}
+
+    store.dispatch('myStudyList')
   return {store,state,hire_study,me_study}
 
 }}
