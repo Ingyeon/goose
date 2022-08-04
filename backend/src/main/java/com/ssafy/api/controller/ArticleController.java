@@ -87,7 +87,7 @@ public class ArticleController {
             @RequestParam(required = false) String state) {
 		
 	
-		Sort sort = Sort.by("date").descending();
+		Sort sort = Sort.by("date").descending().and(Sort.by("id").descending());
 		PageRequest pageRequest = PageRequest.of(page-1, 10, sort);
 		
 		Specification<Article> spec = (root, query, criteriaBuilder) -> null;
