@@ -1,13 +1,12 @@
 <template>
 <div>
-    <head>
+    <!-- <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <link rel="stylesheet" href="styles.css" /> -->
     <title>Navbar Design</title>
-  </head>
-  <body>
+  </head> -->
+  <!-- <body> -->
     <header>
       <span class="image-clickable">
         <router-link to="/home">
@@ -23,22 +22,37 @@
         </ul>
         <ul v-if="isLoggedIn" class="nav-links">
           <li><router-link to="/createStudy"><button>스터디생성하기</button></router-link></li>
-          <li><router-link to="#"><button @click="clickLogout">로그아웃</button></router-link></li>
-          <li><router-link to="#"><button>게시판</button></router-link></li>
+          <li><router-link to="/newarticle"><button>모집글쓰기</button></router-link></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img :src="state.photo" alt="profilephoto" class="profilephoto">
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <router-link to="/:id/profile"><button class="dropdown-tag">마이페이지</button></router-link>
+              <button class="dropdown-tag" @click="clickLogout">로그아웃</button>
+              <router-link to="/articles"><button class="dropdown-tag">게시판</button></router-link>
+              <hr>
+              <router-link to="/:id/delete"><button class="dropdown-tag">회원탈퇴</button></router-link>
+            </div>
+          </li>
+          <!-- <li><router-link to="#"><button @click="clickLogout">로그아웃</button></router-link></li>
+          <li><router-link to="#"><button>게시판</button></router-link></li> -->
         </ul>
       </nav>
-      <a href="#"><button>Contact Us</button></a>
+      <!-- <a href="#"><button>Contact Us</button></a> -->
     </header>
-  </body>
+  <!-- </body> -->
 </div>
 </template>
 
 <script>
 import { useStore } from "vuex"
-import { computed } from "vue"
+import { reactive, computed } from "vue"
 import loginModal from "@/views/accounts/loginModal.vue"
-// import createStudy from "@/components/StudyPage/studyCreate.vue"
-
+import profile1 from '../assets/profile1.png'
+import profile2 from '../assets/profile2.jpg'
+import profile4 from '../assets/profile4.png'
+import { useRouter } from 'vue-router'
 
 export default {
     components: {
@@ -50,15 +64,31 @@ export default {
       const store = useStore()
       const isLoggedIn = computed(()=> store.getters.isLoggedIn)
       const loginUser = computed(()=> store.getters.loginUser)
+      const state = reactive({
+        photo: ''
+      })
       const clickLogout = function(){
         console.log(store.getters.loginUser)
         store.dispatch("logout")
         alert('로그아웃 되었습니다.')
       }
-
+      const savePhoto = function() {
+          if (loginUser.photo === '../../assets/profile1.png') {
+            state.photo = profile1
+          } 
+          else if (loginUser.photo === '../../assets/profile2.jpg') {
+            state.photo = profile2
+          } else {
+            state.photo = profile4
+          }
+        }
+      savePhoto()
       return { 
+        state,
         isLoggedIn,
-        clickLogout,loginUser
+        clickLogout,
+        loginUser,
+        savePhoto
       }
     },
 }
@@ -66,7 +96,7 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
-img {
+img[class="logo"]{
     width: 7rem;
     height: 7rem;
  /* max-width: 100%;
@@ -86,7 +116,6 @@ header {
   margin: 0rem 1.5rem;
 }
 
-a,
 button {
   color: black;
 }
@@ -121,8 +150,12 @@ button {
 }
 
 
-button {
+button:not(.dropdown-tag) {
   background: #ffd700;
+  border-radius: 80px 40px;
+}
+
+button{
   cursor: pointer;
   padding: 9px 20px;
   border: none;
@@ -132,11 +165,23 @@ button {
   font-size: 1rem;
   transition: all 0.5s ease 0s;
   margin-left: 20px;
-  border-radius: 80px 40px;
+  
 }
 
 button:hover {
   background: rgba(0, 173, 181, 0.8);
 }
+/* a[class="dropdown-toggle"]{
+    width: 150px;
+    height: 150px; 
+    border-radius: 0%;
+    overflow: hidden;
+} */
+img[class="profilephoto"]{
+    width: 6rem;
+    height: 6rem;
+    object-fit: cover;
+}
+
 </style>>
 

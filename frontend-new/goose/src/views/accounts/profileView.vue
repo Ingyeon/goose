@@ -1,38 +1,15 @@
 <template>
 <div>
-    <!-- <div class="container">
-        <div class="title">
-            <h1 class="fw-bold">Profile</h1>
-        </div> -->
-         <div class="change-btn">
-            <input type="button" value="프로필 변경" @click="changeProfile">
-        </div> 
-        <!-- <div class="container">
-            <div class="row">
-                <div class="user-img col-4">
-                    <img :src="state.photo" alt="대표사진">
-                    https://i.imgur.com/cMy8V5j.png
-                </div>
-                <div class="user-detail col-8">
-                    <div class="user-information">자기소개글</div>
-                    <div class="user-attendance">출석일</div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="card">
-                <div class="card-title">참여 스터디</div>
-            </div>
-        </div>
-    </div>     -->
-    <!-- {{state.photo}} -->
     <div class="container mt-5">
         <div class="wrapper">
             <div class="left">
                 <img :src="state.profilephoto" alt="user" width="200">
                 <!-- <img :src="state.photo" alt=""> -->
                 <h4>{{state.name}}</h4>
-                <p>{{state.info}}</p>
+                <p>관심분야: {{state.interest}}</p>
+                <div class="change-btn">
+                  <input type="button" value="프로필 변경" @click="changeProfile">
+                </div>
             </div>
             <div class="right">
                 <div class="info">
@@ -43,21 +20,21 @@
                             <p>{{state.email}}</p>
                         </div>
                         <div class="data">
-                        <h4>Phone</h4>
-                            <p>0001-213-998761</p>
+                        <h4>자기소개</h4>
+                            <p>{{state.info}}</p>
                     </div>
                     </div>
                 </div>
             
             <div class="projects">
-                    <h3>Projects</h3>
+                    <h3>Article</h3>
                     <div class="projects_data">
                         <div class="data">
-                            <h4>Recent</h4>
+                            <h4>작성한 글</h4>
                             <p>Lorem ipsum dolor sit amet.</p>
                         </div>
                         <div class="data">
-                        <h4>Most Viewed</h4>
+                        <h4>댓글 단 글</h4>
                             <p>dolor sit amet.</p>
                     </div>
                     </div>
@@ -177,7 +154,7 @@ body{
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   text-align: center;
-  color: #fff;
+  color: #000;
 }
 
 .wrapper .left img{
@@ -247,7 +224,7 @@ body{
 .wrapper .social_media ul li{
   width: 45px;
   height: 45px;
-  background: linear-gradient(to right,#01a9ac,#01dbdf);
+  background: linear-gradient(to right,#ffd700,#ffd700);
   margin-right: 10px;
   border-radius: 5px;
   text-align: center;
@@ -258,5 +235,19 @@ body{
   color :#fff;
   display: block;
   font-size: 18px;
+}
+.change-btn {
+  position: relative;
+  bottom: 300px;
+  left:100%;
+}
+.change-btn input[type="button"] {
+background: #ffd700;
+cursor: pointer;
+width: 100px;
+margin-bottom: 20px;
+font-weight: 600;
+text-align: center;
+border-radius: 80px 40px;
 }
 </style>
