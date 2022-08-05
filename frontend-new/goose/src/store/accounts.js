@@ -95,8 +95,9 @@ export default {
                 method: 'get',
                 headers: getters.authHeader,
               })
-                .then(res =>
+                .then(res =>{
                     commit('SET_LOGIN_USER', res.data)
+                    console.log("로긴 유저 업뎃 완료")}
                 )
                 .catch(err => {
                   if (err.response.status === 401) {

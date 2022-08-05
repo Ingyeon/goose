@@ -78,7 +78,8 @@ export default {
       const store = useStore()
       const isLoggedIn = computed(()=> store.getters.isLoggedIn)
       // const loginUser = computed(()=> store.getters.loginUser)
-      const loginUser = store.getters.loginUser
+      const originPhoto = computed(()=> store.getters.loginUser.photo)
+      // const loginUser = store.getters.loginUser
       const state = reactive({
         photo: ''
       })
@@ -88,11 +89,11 @@ export default {
         alert('로그아웃 되었습니다.')
       }
       const savePhoto = function() {
-        console.log(loginUser)
-          if (loginUser.photo === '../../assets/profile1.png') {
+        // console.log(loginUser)
+          if (store.getters.loginUser.photo === '../../assets/profile1.png') {
             state.photo = profile1
           } 
-          else if (loginUser.photo === '../../assets/profile2.jpg') {
+          else if (store.getters.loginUser.photo === '../../assets/profile2.jpg') {
             state.photo = profile2
           } else {
             state.photo = profile4
@@ -103,10 +104,18 @@ export default {
         state,
         isLoggedIn,
         clickLogout,
-        loginUser,
-        savePhoto
+        // loginUser,
+        savePhoto,
+        originPhoto
       }
     },
+    watch:{
+      originPhoto:{
+        handler(){
+          this.savePhoto()
+        }
+      }
+    }
 }
 </script>
 
