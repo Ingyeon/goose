@@ -106,7 +106,7 @@ export default {
 
           const set = new Set(state.form)
           store.commit('SET_TEST',set)
-        }
+
         const replyArticle = computed(() => store.getters.test)
         myReplies()
 
@@ -150,7 +150,9 @@ export default {
         }
     },
     components: { MyArticles }
-}
+}}
+
+
 </script>
 
 <style scoped>
