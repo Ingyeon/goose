@@ -196,15 +196,13 @@ export default {
     const selectedStudy = computed(() => store.getters.selectedStudy);
     const deleteStudy = () =>
       store.dispatch("deleteStudy", store.getters.studyId);
-    const pageUpdate = () =>
-      store.dispatch("selectStudy", store.getters.selectedStudy.id);
+    // const pageUpdate = () =>
+    //   store.dispatch("selectStudy", store.getters.selectedStudy.id);
 
     const fetchStudyHome = () => {
       store.dispatch("selectStudy", route.params.studyPk);
     };
-    onMounted(() => {
-      fetchStudyHome();
-    });
+    fetchStudyHome();
 
     const loginUser = computed(() => store.getters.loginUser);
     const dropOutStudy = (user_pk) => {
@@ -218,9 +216,7 @@ export default {
     const clickbtn2 = function () {
       router.push({ name: "PublicStudyRoom" });
     };
-    onMounted(() => {
-      fetchStudyHome();
-    });
+
     const state = reactive({
       photo : store.getters.selectedStudy.image
     })
@@ -236,8 +232,8 @@ export default {
     return {
       selectedStudy,
       deleteStudy,
-      pageUpdate,
-      fetchStudyHome,
+      // pageUpdate,
+      // fetchStudyHome,
       dropOutStudy,
       loginUser,
       manager,

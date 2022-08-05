@@ -22,11 +22,10 @@ export default {
     item: Object,
   },
   setup(props) {
-    const store = useStore();
+    // const store = useStore();
     const router = useRouter();
 
     const selectStudy = () => {
-      store.dispatch("selectStudy", props.item.id);
       router.push({ name: "StudyHome", params: { studyPk: props.item.id } });
     };
 
