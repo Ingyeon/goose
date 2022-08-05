@@ -1,34 +1,25 @@
 <template>
-<h1 class="d-flex justify-content-center">스터디 모집 게시판</h1>
+<h1 class="d-flex justify-content-center my-4">스터디 모집 게시판</h1>
 <div class="container">
 <!-- 검색창 -->
 <div class="input-group mb-3">
 <select v-model="state.search.state">
   <option value=null>상태</option>
   <option value="모집중">모집중</option>
-  <option value="진행중">진행중</option>
   <option value="모집완료">모집완료</option>
 </select>
-<select v-model="state.search.category">
-  <option value=null>분류</option>
-          <option value="C">C</option>
-          <option value="C++">C++</option>
-          <option value="JAVA">JAVA</option>
-          <option value="JavaScripts">JavaScripts</option>
-          <option value="Python">Python</option>
-</select>
+
   <input type="text" class="form-control" v-model="state.search.title">
-    <button class="btn btn-outline-secondary" type="button" @click="filterArticles()">검색</button>
+    <button class="btn btn-outline-secondary search btn-warning" type="button" @click="filterArticles()"><i class="fa fa-search"></i></button>
 </div>
 
 <div>
   <button @click="category_sort()">전체</button>
-  <button @click="category_sort('C')">C</button>
-  <button @click="category_sort('C++')">C++</button>
-  <button @click="category_sort('JAVA')">JAVA</button>
-  <button @click="category_sort('Python')">Python</button>
-  <button @click="category_sort('JavaScripts')">JavaScripts</button>
-
+  <button @click="category_sort('C')" class="c">C</button>
+  <button @click="category_sort('C++')" class="cc">C++</button>
+  <button @click="category_sort('JAVA')" class="java">JAVA</button>
+  <button @click="category_sort('Python')" class="python">Python</button>
+  <button @click="category_sort('JavaScripts')" class='javascript'>JavaScripts</button>
 </div>
 
 <!-- 게시판 -->
@@ -40,15 +31,20 @@
         <th>No</th>
         <th>제목</th>
         <th>작성자</th>
+        <th>언어</th>
+        <th>모집여부</th>
         <th>등록일시</th>
         <th>조회수</th>
       </tr>
       </thead>
       <tbody>
+        
       <tr v-for="row in articles" :key="row">
         <td>{{ row.id }}</td>
-        <td><div @click="onclick(row.id)" class="btn">{{row.title}}</div></td>
+        <td><div @click="onclick(row.id)" class="d-flex btn">{{row.title}}</div></td>
         <td>{{ row.name }}</td>
+        <td>{{ row.category }}</td>
+        <td>{{row.state}}</td>
         <td>{{ row.date }}</td>
         <td>{{ row.hit  }}</td>
       </tr>
@@ -56,9 +52,8 @@
     </table>
 </div>
 </div>
+<router-link to="/newarticle" class="btn btn-warning">작성</router-link>
 <pageLink :search = 'state.search'/>
-<!-- 무한 스크롤이랑 카드형 게시글? -->
-  <router-link to="/newarticle" class="btn btn-primary">글 작성</router-link>
 </div>
 </template>
 
@@ -82,7 +77,6 @@ export default {
         const state = reactive({
             article_list: [
             ],
-            headers: ['글번호','상태','분류','제목','작성자','등록일','조회수'],
             articles: [],
             search: {
               state: null,
@@ -112,19 +106,18 @@ export default {
         const articles = computed(() => store.getters.articles)
 
         const category_sort = function(item){
+          state.search.category = item
           store.dispatch('sortedArticles',item)
         }
 
-    
     return {state,filterArticles,onMounted,articles_set,isList,onclick,articles,category_sort}
-
-
     }
     
 }
 </script>
 
 <style scoped>
+
   .input-Box:nth-child(3) {
     display: flex;
     /* justify-content: space-evenly; */
@@ -181,8 +174,8 @@ h2 a {
 .yellow { color: #FFF842; }
 
 .container th h1 {
-	  font-weight: bold;
-	  font-size: 1em;
+  font-weight: bold;
+  font-size: 1em;
   text-align: left;
   color: #185875;
 }
@@ -224,22 +217,34 @@ h2 a {
 	        box-shadow: 0 6px 6px -6px #0E1119;
 }
 
-.container td:hover {
-  background-color: #FFF842;
-  color: #403E10;
-  font-weight: bold;
-  
-  box-shadow: #7F7C21 -1px 1px, #7F7C21 -2px 2px, #7F7C21 -3px 3px, #7F7C21 -4px 4px, #7F7C21 -5px 5px, #7F7C21 -6px 6px;
-  transform: translate3d(6px, -6px, 0);
-  
-  transition-delay: 0s;
-	  transition-duration: 0.4s;
-	  transition-property: all;
-  transition-timing-function: line;
-}
 
 @media (max-width: 800px) {
 .container td:nth-child(4),
 .container th:nth-child(4) { display: none; }
 }
+
+button:not(.search) {
+  border-radius: 80px 40px;
+  margin-bottom: 20px;
+}
+
+.cc{background: #3CBDB1;}
+.python{background: #3776AB}
+.javascript{background: #F7DF1E;}
+.java{background: #FF7800;}
+.c{background: #A8B9CC;}
+button{
+  cursor: pointer;
+  padding: 9px 20px;
+  border: none;
+  /* border-radius: 50px; */
+  font-family: "NanumSquare", sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: all 0.5s ease 0s;
+  margin-left: 20px;
+}
+
+
+
 </style>
