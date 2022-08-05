@@ -1,12 +1,20 @@
 <template>
-  <div>
+  <div class="session-monaco">
     <!-- <div id="type">{{ selectedStudy.category }}</div> -->
-    <div id="language">{{ compiler }}</div>
-    <div>compiler</div>
-    <button type="button" id="y-connect-btn">Disconnect</button>
-    <div id="monaco-editor" @input="titleUpdate" ref="monaco" />
-    <button @click="ride">컴파일 실행</button>
-    <div>실행 결과 : {{ result }}</div>
+    <!-- <div>compiler</div> -->
+    <!-- <button type="button" id="y-connect-btn">Disconnect</button> -->
+    <div id="monoco-top" style="height:7%"></div>
+    <div class="d-flex" style="height:93%">
+      <div id="monaco-editor" @input="titleUpdate" ref="monaco"></div>
+      <div id="session-compile">
+        <b-button variant="primary" @click="ride">컴파일 실행</b-button>
+        <p id="language">{{ compiler }}</p>
+        <p>실행 결과 집합 : {{ result }}</p>
+        <p>실행 결과 : {{ output }}</p>
+        <p>사용 메모리 : {{ memory }}</p>
+        <p>실행 시간 : {{ cpuTime }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -23,7 +31,10 @@ export default {
         script: "print(50)",
         language: "",
       },
-      result: store.getters.result,
+      result: "",
+      output: "",
+      memory: "",
+      cpuTime: "",
     };
   },
   methods: {
@@ -32,21 +43,31 @@ export default {
       console.log(this.code.script);
       console.log(this.code.language);
     },
-    ride() {
+    async ride() {
       console.log(this.compiler);
-      this.code.language = this.compiler.toLowerCase();
+      this.code.language = await this.compiler.toLowerCase();
       if (this.code.language == "python") this.code.language = "python3";
       else if (this.code.language == "c++") this.code.language = "cpp";
-      this.$store.dispatch("compile", this.code);
+      await this.$store.dispatch("compile", this.code);
+      // console.log("ddddddddddd>", this.$store.getters.language);
+      // console.log("ddddddd result>", this.$store.getters.result);
+      this.result = this.$store.getters.result;
+
+      this.output = this.result.output;
+      this.memory = this.result.memory;
+      this.cpuTime = this.result.cpuTime;
     },
   },
 };
 </script>
 
 <style>
+#session-compile{
+  margin-left:20px;
+}
 #monaco-editor {
-  width: 100%;
-  height: 600px;
+  width: 75%;
+  height: 93%;
   border: 1px solid #ccc;
 }
 .yRemoteSelection {

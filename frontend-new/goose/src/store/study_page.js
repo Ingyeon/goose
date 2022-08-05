@@ -67,7 +67,7 @@ export default {
     SET_EVENTS: (state, events) => (state.events = events),
     SET_EVENT: (state, event) => (state.event = event),
     SET_LANGUAGE: (state, language) => (state.language = language),
-    SET_RESULT: (state, result) => (state.language = result),
+    SET_RESULT: (state, result) => (state.result = result),
     SET_STUDY_MANAGER: (state, manager) => (state.studyManager = manager),
     SET_RELOADCHECK: (state, reloadCheck) => (state.reloadCheck = reloadCheck),
   },
@@ -274,11 +274,11 @@ export default {
         });
       }
     },
-    compile({ dispatch }, code) {
+    async compile({ dispatch }, code) {
       console.log("compile", code.script, code.language);
       // const temp = code.language.toLowerCase();
       // if (temp == "python") temp = "python3";
-      axios({
+      await axios({
         url: "/v1/execute",
         // url: "https://cors-anywhere.herokuapp.com/https://api.jdoodle.com/v1/execute",
         // url: "https://api.jdoodle.com/v1/execute",

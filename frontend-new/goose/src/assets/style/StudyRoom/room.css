@@ -376,13 +376,25 @@ left: 15%; */
   color: rgb(231, 241, 134);
 }
 
+.session-monaco{
+  height: 100%;
+}
+
 .MonacoScroll{
   width: 100px;
   z-index: 2;
   display: scroll; 
   position: fixed; 
-  bottom: 10px; 
-  left: 10px;
+  bottom: 100px; 
+  right: 10px;
+}
+
+#monaco-timer{
+  z-index: 2;
+  display: scroll; 
+  position: fixed; 
+  top: 1%; 
+  left: 1%;
 }
 
 #MonacoScroll{

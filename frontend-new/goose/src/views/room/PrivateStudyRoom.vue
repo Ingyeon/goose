@@ -260,6 +260,47 @@
       <!-- session-right -->
     </div>
     <MonacoYjs :language="language" />
+    <div v-if="this.scrollPosition > 900" id="monaco-timer" class="d-flex">
+      <div>
+        <h3 id="session-time">{{ hours }} : {{ minutes }} : {{ seconds }}</h3>
+      </div>
+
+      <div id="timerBtn" v-if="true">
+        <b-button v-if="!timer" variant="primary" @click="startTimer()" style="margin-left:20px"
+          >시작</b-button
+        >
+        <b-button v-else variant="danger" @click="stopTimer"> 정지 </b-button>
+        <b-button v-if="resetButton" variant="success" @click="resetTimer">
+          종료
+        </b-button>
+        <b-button v-if="!timer" variant="primary" @click="editTimer">
+          시간 설정
+        </b-button>
+        <div v-if="edit" class="d-flex justify-content-center mt-1 d-flex">
+          <input
+            class="p-3 text-center"
+            type="text"
+            v-model="inputHour"
+            placeholder="시"
+            style="width: 100px"
+          />
+          <input
+            class="p-3 text-center"
+            type="text"
+            v-model="inputMin"
+            placeholder="분"
+            style="width: 100px"
+          />
+          <input
+            class="p-3 text-center"
+            type="text"
+            v-model="inputSec"
+            placeholder="초"
+            style="width: 100px"
+          />
+        </div>
+      </div>
+    </div>
     <!-- #main-container -->
     <div class="MonacoScroll">
       <button
@@ -325,13 +366,9 @@ export default {
     const loginUser = computed(() => store.getters.loginUser);
     // const reloadCheck = computed(() => store.getters.reloadCheck);
     const flip = function () {
-      console.log("><><><><><><><>");
       if (state.reloadCheck == false) {
-        console.log(">>>>1", state.reloadCheck);
         state.reloadCheck = true;
-        console.log(">>>>2", state.reloadCheck);
         store.commit("SET_RELOADCHECK", state.reloadCheck);
-        console.log(">>>>3", store.getters.reloadCheck);
         router.go();
       }
     };
@@ -455,7 +492,7 @@ export default {
   },
   mounted() {
     window.addEventListener("beforeunload", this.unLoadEvent);
-    window.addEventListener('scroll', this.updateScroll);
+    window.addEventListener("scroll", this.updateScroll);
   },
   beforeUnmount() {
     window.removeEventListener("beforeunload", this.unLoadEvent);
@@ -469,7 +506,8 @@ export default {
       window.scrollTo(0, 10000);
     },
     updateScroll() {
-      this.scrollPosition = window.scrollY || document.documentElement.scrollTop;
+      this.scrollPosition =
+        window.scrollY || document.documentElement.scrollTop;
       // console.log(this.scrollPosition);
     },
     unLoadEvent: function (event) {
