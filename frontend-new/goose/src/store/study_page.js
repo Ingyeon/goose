@@ -25,7 +25,9 @@ export default {
     choiceImg: "",
     events: [], // 전체 캘린더
     event: [], // 개별 캘린더
-    studyManager: { 
+    language: "",
+    result: [],
+    studyManager: {
       // id:0,
       // name:""
     },
@@ -44,8 +46,11 @@ export default {
     reloadCheck: (state) => state.reloadCheck,
     events: (state) => state.events,
     event: (state) => state.event,
+    language: (state) => state.language,
+    result: (state) => state.result,
     studyManager: (state) => state.studyManager,
-    isStudyManager: (state,getters) => state.studyManager.id == getters.loginUser.id
+    isStudyManager: (state, getters) =>
+      state.studyManager.id == getters.loginUser.id,
   },
 
   mutations: {
@@ -61,8 +66,10 @@ export default {
     SET_CHOICE_IMG: (state, img) => (state.choiceImg = img),
     SET_EVENTS: (state, events) => (state.events = events),
     SET_EVENT: (state, event) => (state.event = event),
-    SET_STUDY_MANAGER: (state,manager) => state.studyManager = manager,
-    SET_RELOADCHECK: (state, reloadCheck) => state.reloadCheck = reloadCheck,
+    SET_LANGUAGE: (state, language) => (state.language = language),
+    SET_RESULT: (state, result) => (state.language = result),
+    SET_STUDY_MANAGER: (state, manager) => (state.studyManager = manager),
+    SET_RELOADCHECK: (state, reloadCheck) => (state.reloadCheck = reloadCheck),
   },
 
   actions: {
@@ -108,7 +115,7 @@ export default {
         });
     },
 
-    createStudy({ getters,dispatch }, credential) {
+    createStudy({ getters, dispatch }, credential) {
       axios({
         url: rest.study.study_create(),
         method: "post",
@@ -116,7 +123,7 @@ export default {
         data: credential,
       })
         .then((res) => {
-          dispatch('myStudyList')
+          dispatch("myStudyList");
           router.push({ name: "Home" });
         })
         .catch((err) => {
@@ -132,20 +139,20 @@ export default {
         data: credential,
       }).then((res) => {
         dispatch("selectStudy", getters.selectedStudy.id);
-        alert("스터디 정보가 업데이트 되었습니다.")
+        alert("스터디 정보가 업데이트 되었습니다.");
       });
     },
 
-    deleteStudy({ commit, getters,dispatch }) {
-      const check = confirm("정말로 삭제하시겠습니까?")
-      if (check){
+    deleteStudy({ commit, getters, dispatch }) {
+      const check = confirm("정말로 삭제하시겠습니까?");
+      if (check) {
         axios({
           url: rest.study.study_remove(getters.selectedStudy.id),
           method: "delete",
           headers: getters.authHeader,
         })
           .then(() => {
-            dispatch('myStudyList')
+            dispatch("myStudyList");
             commit("SET_SELECTED_STUDY", {});
             router.push({ name: "Home" });
           })
@@ -217,20 +224,20 @@ export default {
 
     // 스터디 가입신청 승락
     joinAgree({ getters, dispatch }, credential) {
-      const check = confirm(`${credential.name}을 받으시겠습니까?`)
-      if (check){
+      const check = confirm(`${credential.name}을 받으시겠습니까?`);
+      if (check) {
         axios({
           url: rest.study.study_join_agree(),
           method: "post",
           headers: getters.authHeader,
           data: credential,
         })
-        .then((res) => {
-          dispatch("joinList");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+          .then((res) => {
+            dispatch("joinList");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
     },
 
@@ -250,8 +257,10 @@ export default {
     },
 
     dropOutStudy({ getters }, user_pk) {
-      const check = confirm(`${getters.selectedStudy.title}을(를) 탈퇴 하시겠습니까?`)
-      if (check){
+      const check = confirm(
+        `${getters.selectedStudy.title}을(를) 탈퇴 하시겠습니까?`
+      );
+      if (check) {
         axios({
           url: rest.study.study_member_out(),
           method: "delete",
@@ -260,42 +269,56 @@ export default {
             study_pk: getters.selectedStudy.id,
             user_pk: user_pk,
           },
-        })
-        .then((res)=>{
+        }).then((res) => {
           router.push({ name: "Home" });
-        })
+        });
       }
     },
-    compile() {
-      console.log("compile");
+    compile({ dispatch }, code) {
+      console.log("compile", code.script, code.language);
+      // const temp = code.language.toLowerCase();
+      // if (temp == "python") temp = "python3";
       axios({
         url: "/v1/execute",
+        // url: "https://cors-anywhere.herokuapp.com/https://api.jdoodle.com/v1/execute",
+        // url: "https://api.jdoodle.com/v1/execute",
         method: "post",
         data: {
           clientId: "683c1c7ad02b383e183ce75fb4258278",
           clientSecret:
             "48d14c2f3257a101345589019219ae6a4b94a59502add15eb4bef43c0544ed83",
-          script: "print (30+20)" + "\n" + "print (40+10)",
+          script: code.script,
           versionIndex: "0",
-          language: "python3",
+          language: code.language,
         },
       })
         .then((res) => {
           console.log("컴파일 성공");
           console.log(res.data);
+          dispatch("saveResult", res.data);
         })
         .catch((res) => {
           console.log("컴파일 실패");
           console.log(res);
         });
     },
+    saveResult({ commit }, result) {
+      commit("SET_RESULT", result);
+    },
+    saveLanguage({ commit }, language) {
+      console.log("action : ", language);
+      commit("SET_LANGUAGE", language);
+    },
 
-    findStudyManager({getters,commit}){
-      getters.studyMemberList.forEach((member)=>{
-        if(member.authority==5){
-          commit('SET_STUDY_MANAGER',{id:member.user_pk, name:member.user_id})
+    findStudyManager({ getters, commit }) {
+      getters.studyMemberList.forEach((member) => {
+        if (member.authority == 5) {
+          commit("SET_STUDY_MANAGER", {
+            id: member.user_pk,
+            name: member.user_id,
+          });
         }
-      })
-    }
+      });
+    },
   },
 };

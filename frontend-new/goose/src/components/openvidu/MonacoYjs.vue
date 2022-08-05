@@ -1,48 +1,43 @@
 <template>
   <div>
-    <head>
-      <meta charset="utf-8" />
-      <title>Yjs Monaco Example</title>
-    </head>
-    <body>
-      <button type="button" id="y-connect-btn">Disconnect</button>
-      <p></p>
-      <p>
-        This is a demo of the <a href="https://github.com/yjs/yjs">Yjs</a> ⇔
-        <a href="https://microsoft.github.io/monaco-editor/">Monaco</a> binding:
-        <a href="https://github.com/yjs/y-monaco">y-monaco</a>.
-      </p>
-      <p>
-        The content of this editor is shared with every client that visits this
-        domain.
-      </p>
-      <div id="monaco-editor" @input="titleUpdate" ref="monaco" />
-      <button @click="ride">fff</button>
-    </body>
+    <!-- <div id="type">{{ selectedStudy.category }}</div> -->
+    <div id="language">{{ compiler }}</div>
+    <div>compiler</div>
+    <button type="button" id="y-connect-btn">Disconnect</button>
+    <div id="monaco-editor" @input="titleUpdate" ref="monaco" />
+    <button @click="ride">컴파일 실행</button>
+    <div>실행 결과 : {{ result }}</div>
   </div>
 </template>
 
 <script>
 import { useStore } from "vuex";
 import monaco from "@/util/monaco.js";
-import { useRouter } from "vue-router";
+
 export default {
-    data() {
+  data() {
+    const store = useStore();
     return {
-      code: "",
-      testv: "",
+      compiler: store.getters.language,
+      code: {
+        script: "print(50)",
+        language: "",
+      },
+      result: store.getters.result,
     };
   },
   methods: {
     titleUpdate(e) {
-      this.code = e.target.value;
-      console.log(this.$refs.monaco.data);
+      this.code.script = e.target.value;
+      console.log(this.code.script);
+      console.log(this.code.language);
     },
     ride() {
-      console.log(this.code);
-
-    this.$store.dispatch("compile", this.code);
-
+      console.log(this.compiler);
+      this.code.language = this.compiler.toLowerCase();
+      if (this.code.language == "python") this.code.language = "python3";
+      else if (this.code.language == "c++") this.code.language = "cpp";
+      this.$store.dispatch("compile", this.code);
     },
   },
 };

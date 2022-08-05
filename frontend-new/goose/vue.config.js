@@ -6,11 +6,11 @@ module.exports = {
         data: `
           @import "@/styles/_variables.scss";
           @import "@/styles/_mixins.scss";
-        `
-      }
-    }
+        `,
+      },
+    },
   },
-  
+
   devServer: {
     https: false,
     port: 8083,

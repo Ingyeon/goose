@@ -254,7 +254,7 @@
       </div>
       <!-- session-right -->
     </div>
-    <MonacoYjs />
+    <MonacoYjs :language="language" />
     <!-- #main-container -->
   </div>
 </template>
@@ -307,7 +307,7 @@ export default {
         console.log(">>>>2", state.reloadCheck);
         store.commit("SET_RELOADCHECK", state.reloadCheck);
         console.log(">>>>3", store.getters.reloadCheck);
-      router.go();
+        router.go();
       }
     };
     console.log(">>>>0");
@@ -338,6 +338,7 @@ export default {
 
   data() {
     return {
+      language: "python",
       reload: false,
       monacococo: true,
       //방정보
