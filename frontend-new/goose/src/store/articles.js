@@ -81,6 +81,7 @@ export default {
                     category:form.category,
                     state: form.state,
                     title: form.title,
+                    user_pk: form.id
                     
                 }
             })
@@ -118,7 +119,8 @@ export default {
                 headers: getters.authHeader,
             })
             .then(res => {
-                // 생성 후 바로 상세 페이지 가려면 백앤드 도움 필요
+                console.log(res)
+                // 생성 후 바로 상세 페이지 가려면 res 데이터에 article_pk 값 받아올 수 있어야 함 / 백앤드?
                 router.push({path:`/articles/`})
             })
             .catch(err=> {
@@ -166,6 +168,7 @@ export default {
             })
             .then(res => {
                 console.log(res.data)
+                router.go()
             })
             .catch(err => console.error(err.response))
         },

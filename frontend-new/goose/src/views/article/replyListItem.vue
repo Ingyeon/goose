@@ -1,18 +1,20 @@
 <template>
-  <ol>
+  <ol class="m-0 p-0">
     <li class="list-group py-1">
             <ol v-for = "reply in replies" :key="reply.id">
 
-    <ul class="list-group-item flex-fill"><div>{{reply.name}}</div>{{reply.re_content}}
-        <li v-if="state.isEditing">
+      <div class="bg-warning">{{reply.name}}</div>
+    <ul class="list-group-item d-flex justify-content-between">
+    {{reply.re_content}}
+        <div v-if="state.isEditing">
     <input type="text" v-model="state.form.re_content">
-    <button @click.prevent="update_reply(reply.id)">완료</button>
-    <button @click.prevent="switchEditing()">취소</button>
-    </li>
-        <li v-if="loginUser.id === reply.user_pk && state.isEditing == false" class="px-1">
-    <button @click.prevent="switchEditing()">수정</button>
-    <button @click.prevent="deleteReply(reply.id)">삭제</button>
-    </li></ul></ol>
+    <button @click.prevent="update_reply(reply.id)" class="mx-2">완료</button>
+    <button @click.prevent="switchEditing()" class="mx-2">취소</button>
+    </div>
+        <div v-if="loginUser.id === reply.user_pk && state.isEditing == false" class="px-1">
+    <button @click.prevent="switchEditing()" class="mx-2">수정</button>
+    <button @click.prevent="deleteReply(reply.id)" class="mx-2">삭제</button>
+    </div></ul></ol>
     </li>
   </ol>
 </template>

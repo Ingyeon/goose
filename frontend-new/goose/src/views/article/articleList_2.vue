@@ -9,17 +9,22 @@
   <option value="모집완료">모집완료</option>
 </select>
 
-  <input type="text" class="form-control" v-model="state.search.title">
+  <input type="text" class="form-control" v-model="state.search.title" @keyup.enter="filterArticles()">
     <button class="btn btn-outline-secondary search btn-warning" type="button" @click="filterArticles()"><i class="fa fa-search"></i></button>
 </div>
 
-<div>
+<div class="d-flex justify-content-between">
+  <div>
   <button @click="category_sort()">전체</button>
   <button @click="category_sort('C')" class="c">C</button>
   <button @click="category_sort('C++')" class="cc">C++</button>
   <button @click="category_sort('JAVA')" class="java">JAVA</button>
   <button @click="category_sort('Python')" class="python">Python</button>
   <button @click="category_sort('JavaScripts')" class='javascript'>JavaScripts</button>
+  </div>
+  <router-link to="/newarticle" class="btn cssbutton">작성</router-link>
+
+  <!-- 일부 검색어만 줘도 관련 결과 다 받을 수 있게 백엔드에 요청 -->
 </div>
 
 <!-- 게시판 -->
@@ -41,7 +46,7 @@
         
       <tr v-for="row in articles" :key="row">
         <td>{{ row.id }}</td>
-        <td><div @click="onclick(row.id)" class="d-flex btn">{{row.title}}</div></td>
+        <td><div @click="onclick(row.id)" class="d-flex ">{{row.title}}</div></td>
         <td>{{ row.name }}</td>
         <td>{{ row.category }}</td>
         <td>{{row.state}}</td>
@@ -52,7 +57,7 @@
     </table>
 </div>
 </div>
-<router-link to="/newarticle" class="btn btn-warning">작성</router-link>
+
 <pageLink :search = 'state.search'/>
 </div>
 </template>
@@ -233,7 +238,26 @@ button:not(.search) {
 .javascript{background: #F7DF1E;}
 .java{background: #FF7800;}
 .c{background: #A8B9CC;}
+
 button{
+  cursor: pointer;
+  padding: 9px 20px;
+  border: none;
+  /* border-radius: 50px; */
+  font-family: "NanumSquare", sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: all 0.5s ease 0s;
+  margin-left: 20px;
+}
+
+
+.cssbutton:not(.search) {
+  border-radius: 80px 40px;
+  margin-bottom: 20px;
+}
+.cssbutton{
+  background: #ffd700;
   cursor: pointer;
   padding: 9px 20px;
   border: none;

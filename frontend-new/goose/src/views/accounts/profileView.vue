@@ -31,7 +31,7 @@
                     <div class="projects_data">
                         <div class="data">
                             <h4>작성한 글</h4>
-                            <p>Lorem ipsum dolor sit amet.</p>
+                            <MyArticles/>
                         </div>
                         <div class="data">
                         <h4>댓글 단 글</h4>
@@ -56,6 +56,7 @@
 </template>
 
 <script>
+import myArticles from './components/myArticlesList.vue'
 import { reactive,computed } from 'vue'
 import { useStore } from 'vuex'
 // import router from '@/router'
@@ -64,50 +65,42 @@ import profile1 from '../../assets/profile1.png'
 import profile2 from '../../assets/profile2.jpg'
 import profile4 from '../../assets/profile4.png'
 import { useRouter } from 'vue-router'
+import MyArticles from './components/myArticlesList.vue'
 // import 
+
 export default {
+  components: {myArticles},
     setup() {
-        const store = useStore()
-        const router = useRouter()
+        const store = useStore();
+        const router = useRouter();
         const state = reactive({
             id: store.getters.loginUser.userId,
-            name : store.getters.loginUser.name,
-            info : store.getters.loginUser.info,
-            email : store.getters.loginUser.email,
-            photo : store.getters.loginUser.photo,
-            interest : store.getters.loginUser.interest,
-            profilephoto : '',
+            name: store.getters.loginUser.name,
+            info: store.getters.loginUser.info,
+            email: store.getters.loginUser.email,
+            photo: store.getters.loginUser.photo,
+            interest: store.getters.loginUser.interest,
+            profilephoto: "",
             form: []
-        })
-
-
-
-        const myArticles = function(){
-          store.dispatch('fetchArticles',state.id)
-        }
-
-
-
+        });
         // 내가 댓글 단 글 확인
         // 1. 게시글 및 댓글 리스트를 불러온다.
         // 2. 댓글의 user_pk와 profile 유저의 id가 일치하면 단일 게시물 정보 api 불러옴
         // 3. form에 저장된 댓글 데이터의 article_pk와 게시글 리스트의 개별 게시글 article_pk 비교
         // 4. 같을 경우 저장한다. 
-
         // 디버깅해야 하는 버그
         // 1. id 값은 제대로 전달되는데 commit 되는 값이 전부 동일하게 들어감 => 원인 파악도 못함
-        
-        const myReplies = async function(){
-          await store.dispatch('fetchArticles',1) // 임의값으로 1 줌
-          await store.dispatch('fetchReplies',{article_pk:null,reply_page:1})
-
-          var item = null
-          for (item of store.getters.replies){
-            if (item.user_pk == store.getters.loginUser.id){
-              console.log(item.article_pk)
-              store.dispatch('fetchArticle',item.article_pk)
-              console.log(store.getters.article.title)
-              state.form.push(store.getters.article.title)
+        const myReplies = async function () {
+            await store.dispatch("fetchArticles", 1); // 임의값으로 1 줌
+            await store.dispatch("fetchReplies", { article_pk: null, reply_page: 1 });
+            var item = null;
+            for (item of store.getters.replies) {
+                if (item.user_pk == store.getters.loginUser.id) {
+                    console.log(item.article_pk);
+                    store.dispatch("fetchArticle", item.article_pk);
+                    console.log(store.getters.article.title);
+                    state.form.push(store.getters.article.title);
+                }
             }
           }
 
@@ -155,8 +148,8 @@ export default {
         handler(){
           this.savePhoto()
         }
-      }
-    }
+    },
+    components: { MyArticles }
 }
 </script>
 
