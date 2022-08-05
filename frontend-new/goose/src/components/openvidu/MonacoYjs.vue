@@ -62,8 +62,17 @@ export default {
 </script>
 
 <style>
+.session-monaco{
+  background-color: #fffac7;
+}
 #session-compile{
+  padding: 5px;
+  border-radius: 5px;
+  width:23%;
+  height:93%;
   margin-left:20px;
+  background-color: #1e1e1e;
+  color : #fff;
 }
 #monaco-editor {
   width: 75%;

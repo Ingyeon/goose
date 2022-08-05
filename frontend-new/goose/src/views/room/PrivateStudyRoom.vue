@@ -8,8 +8,8 @@
             <!-- 방 제목 -->
             <div
               id="session-timer"
-              class="text-center"
-              style="margin-left: 30%"
+              class="text-center d-flex"
+              style="margin-left: 5%; margin-top: 10px"
             >
               <div>
                 <h3 id="session-time">
@@ -17,44 +17,77 @@
                 </h3>
               </div>
 
-              <div id="timerBtn" v-if="true">
-                <b-button v-if="!timer" variant="primary" @click="startTimer()"
+              <div id="timerBtn" v-if="true" class="d-flex">
+                <b-button
+                  v-if="!timer"
+                  variant="primary"
+                  @click="startTimer()"
+                  style="margin-left: 20px; height: 38px"
                   >시작</b-button
                 >
-                <b-button v-else variant="danger" @click="stopTimer">
+                <b-button
+                  v-else
+                  variant="danger"
+                  @click="stopTimer"
+                  style="height: 38px; margin-left:20px;"
+                >
                   정지
                 </b-button>
                 <b-button
                   v-if="resetButton"
                   variant="success"
                   @click="resetTimer"
+                  style="height: 38px"
                 >
                   종료
                 </b-button>
-                <b-button v-if="!timer" variant="primary" @click="editTimer">
+                <b-button
+                  v-if="!timer"
+                  variant="primary"
+                  @click="editTimer"
+                  style="height: 38px"
+                >
                   시간 설정
                 </b-button>
-                <div v-if="edit" class="d-flex justify-content-center mt-1">
-                  <input
+                <div
+                  v-if="edit"
+                  class="d-flex justify-content-center mt-1 d-flex"
+                >
+                  <b-form-input
                     class="p-3 text-center"
                     type="text"
                     v-model="inputHour"
                     placeholder="시"
-                    style="width: 100px"
+                    style="
+                      width: 80px;
+                      height: 40px;
+                      margin-left: 10px;
+                      margin-top: -5px;
+                    "
                   />
-                  <input
+                  <b-form-input
                     class="p-3 text-center"
                     type="text"
                     v-model="inputMin"
                     placeholder="분"
-                    style="width: 100px"
+                    style="
+                      width: 80px;
+                      height: 40px;
+                      margin-top: -5px;
+                      margin-left: 1px;
+                    "
                   />
-                  <input
+                  <b-form-input
                     class="p-3 text-center"
                     type="text"
                     v-model="inputSec"
                     placeholder="초"
-                    style="width: 100px"
+                    style="
+                      width: 80px;
+                      height: 40px;
+                      margin-top: -5px;
+                      margin-left: 1px;
+                    "
                   />
                 </div>
               </div>
@@ -264,39 +297,74 @@
       <div>
         <h3 id="session-time">{{ hours }} : {{ minutes }} : {{ seconds }}</h3>
       </div>
-
-      <div id="timerBtn" v-if="true">
-        <b-button v-if="!timer" variant="primary" @click="startTimer()" style="margin-left:20px"
+      <div id="timerBtn" v-if="true" class="d-flex">
+        <b-button
+          v-if="!timer"
+          variant="primary"
+          @click="startTimer()"
+          style="margin-left: 20px; height: 38px"
           >시작</b-button
         >
-        <b-button v-else variant="danger" @click="stopTimer"> 정지 </b-button>
-        <b-button v-if="resetButton" variant="success" @click="resetTimer">
+        <b-button
+          v-else
+          variant="danger"
+          @click="stopTimer"
+          style="height: 38px; margin-left:20px;"
+        >
+          정지
+        </b-button>
+        <b-button
+          v-if="resetButton"
+          variant="success"
+          @click="resetTimer"
+          style="height: 38px"
+        >
           종료
         </b-button>
-        <b-button v-if="!timer" variant="primary" @click="editTimer">
+        <b-button
+          v-if="!timer"
+          variant="primary"
+          @click="editTimer"
+          style="height: 38px"
+        >
           시간 설정
         </b-button>
         <div v-if="edit" class="d-flex justify-content-center mt-1 d-flex">
-          <input
+          <b-form-input
             class="p-3 text-center"
             type="text"
             v-model="inputHour"
             placeholder="시"
-            style="width: 100px"
+            style="
+              width: 80px;
+              height: 40px;
+              margin-left: 10px;
+              margin-top: -5px;
+            "
           />
-          <input
+          <b-form-input
             class="p-3 text-center"
             type="text"
             v-model="inputMin"
             placeholder="분"
-            style="width: 100px"
+            style="
+              width: 80px;
+              height: 40px;
+              margin-top: -5px;
+              margin-left: 1px;
+            "
           />
-          <input
+          <b-form-input
             class="p-3 text-center"
             type="text"
             v-model="inputSec"
             placeholder="초"
-            style="width: 100px"
+            style="
+              width: 80px;
+              height: 40px;
+              margin-top: -5px;
+              margin-left: 1px;
+            "
           />
         </div>
       </div>
