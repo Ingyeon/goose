@@ -25,6 +25,7 @@ public interface StudyService {
 	public int studyMemberOut(long master_id, long user_pk, long study_pk);
 	public void studyMemberOutMe(long master_id, long user_pk, long study_pk);
 	public List<StudyMyList> publicstudyList();
+	public String getPublicStudyAuth(long study_pk, long user_pk);
 
 	
 }

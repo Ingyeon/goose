@@ -1,7 +1,6 @@
 <template>
   <div id="main">
     <div id="main-container" class="d-flex">
-      
       <div id="session-center">
         <div id="session" v-if="session">
           <div id="session-header" class="d-flex">
@@ -200,7 +199,7 @@
 import "@/assets/style/style.css";
 import "@/assets/style/StudyRoom/room.css";
 import axios from "axios";
-// import http from "@/util/http-common.js";
+import http from "@/util/http-common.js";
 import { OpenVidu } from "openvidu-browser";
 import UserVideo from "@/components/openvidu/PublicUserVideo";
 import UserVideoPublisher from "@/components/openvidu/PublicUserVideoPublisher";
@@ -208,7 +207,6 @@ import UserList from "@/components/openvidu/UserList";
 import jwt_decode from "jwt-decode";
 import { computed } from "vue";
 import { useStore } from "vuex";
-
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -227,7 +225,8 @@ export default {
     const store = useStore();
     const selectedStudy = computed(() => store.getters.selectedStudy);
     const loginUser = computed(() => store.getters.loginUser);
-    return { selectedStudy, loginUser };
+    const isManager = computed(() => store.getters.isStudyManager);
+    return { selectedStudy, loginUser, isManager };
   },
   data() {
     return {
@@ -271,6 +270,7 @@ export default {
       // 강퇴관련
       outMemberModal: false,
       isLeader: null,
+      power: "",
 
       // 스터디 규칙 관련
       studyRuleModal: false,
@@ -288,7 +288,7 @@ export default {
     this.roomName = this.selectedStudy.title;
     this.roomUrl = this.selectedStudy.url_conf;
     this.roomStudyNo = this.selectedStudy.id;
-    this.power = this.participant = this.loginUser.userId;
+    // this.power = this.participant = this.loginUser.userId;
 
     // 초기 장치 셋팅
     (this.audioEnabled = this.isaudio), (this.videoEnabled = this.isvideo);
@@ -337,7 +337,7 @@ export default {
 
     // 공개스터디 멤버 불러오기 (예비)
     async getPublicStudyMembers(publicstudyroomid) {
-      console.log(publicstudyroomid)
+      console.log(publicstudyroomid);
     },
 
     outUser(memberId) {
@@ -349,7 +349,6 @@ export default {
         to: [],
         type: "out",
       });
-
     },
 
     // 권한부여 기능(예비)
@@ -391,7 +390,7 @@ export default {
         console.warn(exception);
       });
 
-      // receive 강퇴 
+      // receive 강퇴
       this.session.on("signal:out", async (event) => {
         var id = event.data;
 
@@ -495,11 +494,39 @@ export default {
 
       window.addEventListener("beforeunload", this.leaveSession);
     },
-    async removePublicRoom() {
 
+    async getPublicStudyAuth() {
+      await http({
+        method: "get",
+        url: `/study/member/publicstudyAuth/${this.roomStudyNo}`,
+        headers: this.getUserToken(),
+      })
+        .then((res) => {
+          this.power = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    async removePublicRoom() {
+      if (this.power >= 3) {
+        await http({
+          method: "delete",
+          url: `/study/remove/${this.roomStudyNo}`,
+        })
+          .then((res) => {
+            console.log(">>>>>7>>", res)
+          })
+          .catch((err) => {
+            console.log(">>>>>>>>>>>err>>>", err);
+          });
+      }
     },
 
     async leaveSession() {
+      await this.getPublicStudyAuth();
+      await this.removePublicRoom();
       // --- Leave the session by calling 'disconnect' method over the Session object ---
       if (this.session) this.session.disconnect();
 

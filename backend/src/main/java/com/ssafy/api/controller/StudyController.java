@@ -302,4 +302,23 @@ public class StudyController {
 		
 		return new ResponseEntity<List<StudyMyList>>(studyListA, HttpStatus.OK);
 	}
+	
+	@GetMapping("/member/publicstudyAuth/{study_pk}")
+	@ApiOperation(value = "공개 스터디원 권한 확인(token) ", notes = "공개 스터디원 권한 확인 ")
+	@ApiResponses({ @ApiResponse(code = 200, message = "성공"), 
+					@ApiResponse(code = 401, message = "실패"),
+					@ApiResponse(code = 404, message = "스터디 없음"), 
+					@ApiResponse(code = 500, message = "서버 오류")})
+	public ResponseEntity<String> getPublicStudyAuth(
+			@PathVariable long study_pk,
+	        @ApiIgnore Authentication authentication){
+	    
+		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
+	    long user_pk = userDetails.getUserId();
+	    
+		String auth = studyService.getPublicStudyAuth(study_pk, user_pk);
+		
+		return new ResponseEntity<String>(auth, HttpStatus.OK);
+	}
+	
 }

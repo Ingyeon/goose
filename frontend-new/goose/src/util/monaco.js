@@ -48,3 +48,4 @@ window.addEventListener('load', () => {
   // @ts-ignore
   window.example = { provider, ydoc, ytext, monacoBinding }
 })
+

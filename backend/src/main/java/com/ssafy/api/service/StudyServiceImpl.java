@@ -190,6 +190,14 @@ public class StudyServiceImpl implements StudyService{
 		return studyList;
 	}
 
+	@Override
+	public String getPublicStudyAuth(long study_pk, long user_pk) {
+		String auth = studyRepository.getPublicStudyAuth(study_pk, user_pk);
+		return auth;
+	}
+
+
+
 
 
 
