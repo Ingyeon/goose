@@ -1,6 +1,6 @@
 @media (max-width: 1050px) {
   #session-footer {
-    width: 270px !important;
+    width: 330px !important;
   }
 
   .footerBtnText {
@@ -35,8 +35,8 @@
   margin: 0 auto;
   content: "";
   /* padding-bottom: 80px; */
-  /* background-color: #c8c1e4; */
-  background: url(../../../../public/배경.png);
+  background-color: #fff6a1;
+  /* background: url(../../../../public/배경.png); */
   background-repeat: no-repeat;
   background-size: cover;
   z-index: -1;
@@ -105,6 +105,8 @@
 }
 
 #session-aside-right {
+  margin-top: 1%;
+  /* border-radius: 1rem; */
   width: 30%;
   /* width: 500px; */
   height: 100%;
@@ -112,6 +114,7 @@
   top: 0;
   right: 10px; */
   background-color: #fff;
+  /* opacity:0.8; */
   /* display: none; */
 }
 #session-aside-right .list_clientName p {
@@ -121,6 +124,7 @@
   margin-left: 10px;
 }
 #session-aside-right .participant {
+  border-radius: 3px;
   height: 25%;
   background-color: #ffffff;
   /* margin-bottom: 10px; */
@@ -130,12 +134,14 @@
   overflow: auto;
 }
 #session-aside-right .right_label {
+  background-color: #fff;
+  border-radius: 3px;
   display: table;
   margin-bottom: 0px;
   padding: 0 0 3px 5px;
   /* margin-left: 5px; */
   width: 100%;
-  height: 10%;
+  height: 6%;
   /* height: 40px; */
   border-bottom: 1px solid #aaa;
   box-shadow: 0px 1px 0px 0px #ddd;
@@ -143,6 +149,7 @@
 }
 
 #session-aside-right .right_label_participant {
+  border-radius: 3px;
   display: table;
   margin-bottom: 0px;
   padding: 15px 5px 3px 5px;
@@ -163,6 +170,7 @@
   vertical-align: bottom;
   padding-bottom: 5px;
   padding-left: 10px;
+  font-weight: 700;
 }
 
 #session-aside-right .right_label_participant span {
@@ -173,6 +181,7 @@
   vertical-align: bottom;
   padding-bottom: 5px;
   padding-left: 10px;
+  font-weight: 700;
 }
 
 #session-aside-right .participant .participant_list {
@@ -189,8 +198,8 @@
 }
 
 #session-aside-right .user_chat {
-  height: 73%;
-  /* background-color: black; */
+  height: 76%;
+  background-color: #fffac7;
 }
 #session-aside-right .chat {
   height: 90%;
@@ -257,7 +266,7 @@
 bottom: 0px;
 left: 15%; */
   border-radius: 10px;
-  background-color: #f0f0f0;
+  background-color: rgb(255, 255, 255);
   margin-bottom: 15px;
   /* transform: translate(-50%,0%); */
 }
@@ -366,3 +375,24 @@ left: 15%; */
   cursor: pointer;
   color: rgb(231, 241, 134);
 }
+
+.MonacoScroll{
+  width: 100px;
+  z-index: 2;
+  display: scroll; 
+  position: fixed; 
+  bottom: 10px; 
+  left: 10px;
+}
+
+#MonacoScroll{
+  margin-top: 5px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+

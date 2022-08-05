@@ -182,7 +182,7 @@
                 placeholder="메세지를 입력하세요."
               />
               <button id="submitBtn" type="submit" @click="sendMessage()">
-                Enter
+                전송
               </button>
             </form>
           </div>
@@ -423,24 +423,24 @@ export default {
             // console.log("나나나>");
             this.messages +=
               '<div align="right">' +
-              '<div style="width: 60%; background-color: #fff; border-radius: 10px; word-wrap: break-word;">' +
-              '<div style="font-weight: 900;">' +
+              '<div style="width: 60%; background-color: #fae100; border-radius: 10px; word-wrap: break-word;">' +
+              '<div style="font-weight: 900; margin-right:10px;">' +
               message[0] +
               " 님의 메시지: </div>" +
-              '<div class="mb-3" style="">' +
+              '<div class="mb-3" style="margin-right:10px;">' +
               message[1] +
               " </div>" +
               "</div>" +
               "</div>";
           } else {
-            // console.log('너너너<');
+            // console.log('너너너>');
             this.messages +=
               '<div align="left">' +
               '<div style="width: 60%; background-color: #fff; color: #000; border-radius: 10px; word-wrap: break-word;">' +
-              '<div style="font-weight: 900;">' +
+              '<div style="font-weight: 900; margin-left:10px;">' +
               message[0] +
               " 님의 메시지: </div>" +
-              '<div class="mb-3">' +
+              '<div class="mb-3" style="margin-left:10px;">' +
               message[1] +
               " </div>" +
               "</div>";

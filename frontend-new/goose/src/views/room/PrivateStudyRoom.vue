@@ -1,5 +1,5 @@
 <template>
-  <div id="main">
+  <div id="main" @input="handleScroll">
     <div id="main-container" class="d-flex">
       <div id="session-center">
         <div id="session" v-if="session">
@@ -16,6 +16,7 @@
                   {{ hours }} : {{ minutes }} : {{ seconds }}
                 </h3>
               </div>
+
               <div id="timerBtn" v-if="true">
                 <b-button v-if="!timer" variant="primary" @click="startTimer()"
                   >시작</b-button
@@ -177,7 +178,7 @@
                   id="buttonLeaveSession"
                   @click="asideRight = true"
                 >
-                  <i class="fa-solid fa-comment-slash"></i>
+                  <i class="fa-solid fa-comment"></i>
                   <span class="footerBtnText">채팅보기</span>
                 </b-button>
               </div>
@@ -188,7 +189,7 @@
                   id="buttonLeaveSession"
                   @click="asideRight = false"
                 >
-                  <i class="fa-solid fa-comment"></i>
+                  <i class="fa-solid fa-comment-slash"></i>
                   <span class="footerBtnText">채팅닫기</span>
                 </b-button>
               </div>
@@ -211,51 +212,75 @@
         </div>
         <!-- #session-footer-wrap -->
       </div>
+
       <!-- #session-center -->
-      <div id="session-aside-right" v-if="session && asideRight">
-        <div class="participant">
-          <div class="right_label_participant">
-            <span>참가자</span>
-          </div>
-          <div class="participant_list">
-            <!-- 참가자 리스트 -->
-            <UserList :stream-manager="publisher" />
-            <UserList
-              v-for="sub in subscribers"
-              :key="sub.stream.connection.connectionId"
-              :stream-manager="sub"
-            />
-          </div>
-        </div>
-
-        <!-- 채팅 시작 -->
-        <div class="user_chat">
-          <div class="right_label">
-            <span>채팅</span>
-          </div>
-          <div class="chat">
-            <div class="messages" v-html="messages" ref="messages"></div>
-
-            <form class="chatFooter" onsubmit="return false">
-              <input
-                class="chat_input"
-                id="msg"
-                type="text"
-                autocomplete="off"
-                placeholder="메세지를 입력하세요."
+      <transition-group name="fade">
+        <div id="session-aside-right" v-if="session && asideRight">
+          <div class="participant">
+            <div class="right_label_participant">
+              <span>참가자</span>
+            </div>
+            <div class="participant_list">
+              <!-- 참가자 리스트 -->
+              <UserList :stream-manager="publisher" />
+              <UserList
+                v-for="sub in subscribers"
+                :key="sub.stream.connection.connectionId"
+                :stream-manager="sub"
               />
-              <button id="submitBtn" type="submit" @click="sendMessage()">
-                Enter
-              </button>
-            </form>
+            </div>
           </div>
+
+          <!-- 채팅 시작 -->
+          <div class="user_chat">
+            <div class="right_label">
+              <span>채팅</span>
+            </div>
+            <div class="chat">
+              <div class="messages" v-html="messages" ref="messages"></div>
+
+              <form class="chatFooter" onsubmit="return false">
+                <input
+                  class="chat_input"
+                  id="msg"
+                  type="text"
+                  autocomplete="off"
+                  placeholder="메세지를 입력하세요."
+                  style="background-color: #fff"
+                />
+                <button id="submitBtn" type="submit" @click="sendMessage()">
+                  전송
+                </button>
+              </form>
+            </div>
+          </div>
+          <!-- 채팅 끝 -->
         </div>
-        <!-- 채팅 끝 -->
-      </div>
+      </transition-group>
       <!-- session-right -->
     </div>
     <MonacoYjs :language="language" />
     <!-- #main-container -->
+    <div class="MonacoScroll">
+      <button
+        id="MonacoScroll"
+        class="btn btn-large btn-primary footerBtn"
+        type="button"
+        @click="scrollToDown()"
+        v-if="this.scrollPosition < 500"
+      >
+        공유판서로 이동
+      </button>
+      <button
+        id="MonacoScroll"
+        class="btn btn-large btn-primary footerBtn"
+        type="button"
+        @click="scrollToUp()"
+        v-if="this.scrollPosition > 500"
+      >
+        화상화면으로
+      </button>
+    </div>
   </div>
 </template>
 <style scoped>
@@ -339,6 +364,7 @@ export default {
   data() {
     return {
       language: "python",
+      scrollPosition: "",
       reload: false,
       monacococo: true,
       //방정보
@@ -429,12 +455,23 @@ export default {
   },
   mounted() {
     window.addEventListener("beforeunload", this.unLoadEvent);
+    window.addEventListener('scroll', this.updateScroll);
   },
   beforeUnmount() {
     window.removeEventListener("beforeunload", this.unLoadEvent);
   },
   methods: {
     ...mapMutations(["SET_RELOADCHECK"]),
+    scrollToUp() {
+      window.scrollTo(0, 0);
+    },
+    scrollToDown() {
+      window.scrollTo(0, 10000);
+    },
+    updateScroll() {
+      this.scrollPosition = window.scrollY || document.documentElement.scrollTop;
+      // console.log(this.scrollPosition);
+    },
     unLoadEvent: function (event) {
       if (this.canLeaveSite) return;
 
@@ -542,11 +579,11 @@ export default {
             // console.log("나나나>");
             this.messages +=
               '<div align="right">' +
-              '<div style="width: 60%; background-color: #fff; border-radius: 10px; word-wrap: break-word;">' +
-              '<div style="font-weight: 900;">' +
+              '<div style="width: 60%; background-color: #fae100; border-radius: 10px; word-wrap: break-word;">' +
+              '<div style="font-weight: 900; margin-right:10px;">' +
               message[0] +
               " 님의 메시지: </div>" +
-              '<div class="mb-3" style="">' +
+              '<div class="mb-3" style="margin-right:10px;">' +
               message[1] +
               " </div>" +
               "</div>" +
@@ -556,10 +593,10 @@ export default {
             this.messages +=
               '<div align="left">' +
               '<div style="width: 60%; background-color: #fff; color: #000; border-radius: 10px; word-wrap: break-word;">' +
-              '<div style="font-weight: 900;">' +
+              '<div style="font-weight: 900; margin-left:10px;">' +
               message[0] +
               " 님의 메시지: </div>" +
-              '<div class="mb-3">' +
+              '<div class="mb-3" style="margin-left:10px;">' +
               message[1] +
               " </div>" +
               "</div>";
