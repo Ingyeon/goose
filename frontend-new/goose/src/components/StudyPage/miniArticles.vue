@@ -32,7 +32,7 @@ export default {
         })
 
         const fetchStudyArticleList = () => {
-            store.dispatch('getStudyArticleList',{category:null,page:1,title:null})
+            store.dispatch('getStudyArticleList',{category:"notice",page:1,title:null})
             .then(()=>{
                 state.halfArticleList = store.getters.studyArticleList
                 state.halfArticleList.splice(5)

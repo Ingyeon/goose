@@ -1,7 +1,7 @@
 <template>
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createStudyArticle">
-  새 글 작성
+<button type="button" class="cus-btn-yellow" data-bs-toggle="modal" data-bs-target="#createStudyArticle">
+  new
 </button>
 
 <!-- Modal -->
@@ -17,14 +17,14 @@
         <!-- form -->
         <form>
         <!-- 카테고리 -->
-          <div class="d-flex">
+          <div v-if="isManager" class="d-flex">
             <p class="text-capitalize custom-label">카테고리</p>
             <div class="m-3">
               <select v-model="credential.category" class="form-select" aria-label="Default select example">
               <!-- <select class="form-select" aria-label="Default select example"> -->
                 <option value="notice">공지</option>
                 <option value="free">자유</option>
-                <option value="code">코드</option>
+                <!-- <option value="code">코드</option> -->
             </select>
             </div>
           </div>
@@ -45,7 +45,7 @@
 
         <!-- 제출 -->
           <div class="input-Box">
-            <input @click.prevent="createArticle" type="submit" value="Submit">  
+            <input @click.prevent="createArticle" type="submit" value="Submit" data-bs-dismiss="modal">  
           </div>
         </form>
 
@@ -53,7 +53,6 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
       </div>
     </div>
   </div>
@@ -70,7 +69,7 @@ export default {
 
     // const selectedStudy = computed(() => store.getters.selectedStudy);
     const credential = reactive({
-      category:"",
+      category:"free",
       content:"",
       image:"",
       study_pk: store.getters.selectedStudy.id,
@@ -80,12 +79,26 @@ export default {
     const createArticle = () =>{
       // console.log(credential)
       store.dispatch("createStudyArticle",credential)
+      credential.title = ""
+      credential.content = ""
+      credential.category = ""
     }
-    return {createArticle,credential} 
+
+    const isManager = store.getters.isStudyManager
+    return {createArticle,credential,isManager} 
   }
 }
 </script>
 
 <style scoped>
-
+.cus-btn-yellow {
+background: #ffd700;
+color: #000000;
+cursor: pointer;
+width: 100px;
+margin-bottom: 20px;
+font-weight: 600;
+text-align: center;
+border-radius: 40px 80px;
+}
 </style>

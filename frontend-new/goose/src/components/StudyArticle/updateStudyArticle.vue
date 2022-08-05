@@ -2,14 +2,14 @@
     <h1>업데이트!</h1>
     <form>
         <!-- 카테고리 -->
-          <div class="d-flex">
+          <div v-if="isManager" class="d-flex">
             <p class="text-capitalize custom-label">카테고리</p>
             <div class="m-3">
               <select v-model="credential.category" class="form-select" aria-label="Default select example">
               <!-- <select class="form-select" aria-label="Default select example"> -->
                 <option value="notice">공지</option>
                 <option value="free">자유</option>
-                <option value="code">코드</option>
+                <!-- <option value="code">코드</option> -->
             </select>
             </div>
           </div>
@@ -54,7 +54,8 @@ export default {
     const updateArticle = () =>{
       store.dispatch("updateStudyArticle",credential)
     }
-    return {updateArticle,credential} 
+    const isManager = store.getters.isStudyManager
+    return {updateArticle,credential,isManager} 
   }
 }
 </script>

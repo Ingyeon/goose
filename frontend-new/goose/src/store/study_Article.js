@@ -164,21 +164,22 @@ export default {
             }
         },
 
-    //    patchComment({getters},credential){
-    //     axios({
-    //         url: rest.studyArticle.studyArticleReply(),
-    //         method: 'patch',
-    //         data: {"re_content":"하드코딩"},
-    //         // headers: {id:credential.id, Authorization:getters.token }
-    //         headers: {id:4, Authorization:getters.token }
-    //     })
-    //     .then((res)=>{
-    //         console.log("댓글 수정 완료")
-    //     })
-    //     .catch((err)=>{
-    //         console.log("댓글 수정 실패")
-    //         console.log(err)
-    //     })
-    //    }
+       patchComment({getters,dispatch},credential){
+        axios({
+            url: rest.studyArticle.studyArticleReply(),
+            method: 'patch',
+            data: {"re_content":credential.re_content},
+            headers: getters.authHeader,
+            params: {id:credential.id}
+        })
+        .then((res)=>{
+            console.log("댓글 수정 완료")
+            dispatch('getComment',{articlePk:getters.selectedArticle.id ,id:null, page:1})
+        })
+        .catch((err)=>{
+            console.log("댓글 수정 실패")
+            console.log(err)
+        })
+       }
     }
 }

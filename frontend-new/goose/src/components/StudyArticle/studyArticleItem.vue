@@ -1,14 +1,13 @@
 <template>
-<hr>
-<div class="container d-flex">
-  <h3 class="m-3"> 제목:{{ item.title }}</h3>
-  <h3 class="m-3"> 글쓴이:{{ item.name }}</h3>
-  <button @click="selectArticle" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#studyArticleDetail">
-  자세히 보기
-</button>
-</div>
+<tr @click="selectArticle" data-bs-toggle="modal" data-bs-target="#studyArticleDetail">
+  <td>{{ item.id }}</td>
+  <td>{{ item.title }}</td>
+  <td>{{ item.name }}</td>
+  <td>{{ item.date }}</td>
+  <td>{{ item.hit }}</td>
+</tr>
 </template>
-
+<!-- <button @click="selectArticle" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#studyArticleDetail"></button> -->
 <script>
 import { useStore } from "vuex"
 export default {
