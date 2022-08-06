@@ -24,9 +24,10 @@ window.MonacoEnvironment = {
 
 window.addEventListener("load", () => {
   const ydoc = new Y.Doc();
+  const link = document.getElementById("link").innerText;
   const provider = new WebsocketProvider(
     "wss://demos.yjs.dev",
-    "goose-session1",
+    "goose-session" + link,
     ydoc
   );
   const ytext = ydoc.getText("monaco");
@@ -37,6 +38,7 @@ window.addEventListener("load", () => {
   //   )
   //   .toLowerCase();
   const compiler = document.getElementById("language").innerHTML.toLowerCase();
+
   const editor = monaco.editor.create(
     /** @type {HTMLElement} */ (document.getElementById("monaco-editor")),
     {
@@ -45,6 +47,7 @@ window.addEventListener("load", () => {
       theme: "vs-dark",
     }
   );
+
   const monacoBinding = new MonacoBinding(
     ytext,
     /** @type {monaco.editor.ITextModel} */ (editor.getModel()),

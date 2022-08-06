@@ -16,6 +16,7 @@
         <textarea v-model="output" rows="5" readonly></textarea>
         <p>사용 메모리 : {{ memory }}</p>
         <p>실행 시간 : {{ cpuTime }}</p>
+        <p id="link" style="opacity: 0">{{ link }}</p>
       </div>
     </div>
   </div>
@@ -31,6 +32,7 @@ export default {
     const store = useStore();
     return {
       compiler: store.getters.language,
+      link: store.getters.selectedStudy.url_conf,
       code: {
         script: "",
         language: "",
@@ -61,25 +63,23 @@ export default {
     titleUpdate(e) {
       this.code.script = e.target.value;
       console.log(this.code.script);
-      // console.log(this.code.language);
     },
     async ride() {
       this.code.language = await this.compiler.toLowerCase();
 
-      // let temp = document.getElementById("monaco-editor").innerText;
-      // let cnt = 1;
-      // while (true) {
-      //   if (
-      //     (temp.charAt(cnt) >= 0 && temp.charAt(cnt) <= 9) ||
-      //     temp.charAt(cnt) == "\n"
-      //   ) {
-      //     cnt++;
-      //   } else break;
-      // }
+      let temp = document.getElementById("monaco-editor").innerText;
+      let cnt = 1;
+      while (true) {
+        if (
+          (temp.charAt(cnt) >= 0 && temp.charAt(cnt) <= 9) ||
+          temp.charAt(cnt) == "\n"
+        ) {
+          cnt++;
+        } else break;
+      }
 
-      // this.code.script = temp.substring(cnt);
-      // console.log(temp);
-      // console.log(this.code.script);
+      this.code.script = temp.substring(cnt).replaceAll(" ", " ");
+      console.log("ride : ", this.code.script);
 
       if (this.code.language == "python") this.code.language = "python3";
       else if (this.code.language == "c++") this.code.language = "cpp";
@@ -116,13 +116,14 @@ export default {
 #monaco-editor {
   margin-left: 20px;
   width: 100%;
-  height: 93%;
+  /* height: 93%;
   border: 1px solid #ccc;
+  overflow: visible; */
 }
 .yRemoteSelection {
   background-color: rgb(250, 129, 0, 0.5);
 }
-.yRemoteSelectionHead {
+/* .yRemoteSelectionHead {
   position: absolute;
   border-left: orange solid 2px;
   border-top: orange solid 2px;
@@ -137,5 +138,5 @@ export default {
   border-radius: 4px;
   left: -4px;
   top: -5px;
-}
+} */
 </style>

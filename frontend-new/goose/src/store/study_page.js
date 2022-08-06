@@ -275,7 +275,7 @@ export default {
       }
     },
     async compile({ dispatch }, code) {
-      console.log("compile", code.script, code.language, code.stdin);
+      console.log(code.script);
       // const temp = code.language.toLowerCase();
       // if (temp == "python") temp = "python3";
       await axios({
