@@ -44,9 +44,9 @@
       </thead>
       <tbody>
         
-      <tr v-for="row in articles" :key="row">
+      <tr v-for="row in articles" :key="row" @click="onclick(row.id)" style="cursor: pointer">
         <td>{{ row.id }}</td>
-        <td><div @click="onclick(row.id)" class="d-flex ">{{row.title}}</div></td>
+        <td>{{row.title}}</td>
         <td>{{ row.name }}</td>
         <td>{{ row.category }}</td>
         <td>{{row.state}}</td>
@@ -105,6 +105,7 @@ export default {
 
         const onclick = function(item){
         store.dispatch('fetchArticle', item)
+        window.scrollTo(0,0)
         Router.push({name: 'ArticleDetail', params: {id:item}})
         }
         

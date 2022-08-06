@@ -81,6 +81,21 @@ export default {
       commit("SET_JOIN_LIST", joinArray);
     },
 
+
+
+
+    select_one({commit,getters},id){
+      console.log('진입 ')
+      axios({
+        url: rest.study.study_search(id),
+        method: "get",
+        headers: getters.authHeader,
+      })
+        .then((res) => {
+          commit("SET_SELECTED_STUDY", res.data)});
+          console.log(getters.selectedStudy)
+    },
+
     selectStudy({ commit, getters, dispatch }, id) {
       axios({
         url: rest.study.study_search(id),

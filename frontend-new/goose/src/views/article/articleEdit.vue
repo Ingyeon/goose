@@ -1,5 +1,6 @@
 <template>
-<h1>게시글 수정</h1>
+<div class="container">
+<h3 class="d-flex justify-content-center m-5">게시글 수정</h3>
 <div>
 <form>
 
@@ -48,9 +49,8 @@
     
 </form>
 </div>
+</div>
 
-<!-- 확인용 -->
-{{state.form}}
 </template>
 
 <script>
@@ -99,3 +99,49 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+  h3 {
+    font-family: 'NanumSquare', sans-serif;
+    font-weight: bold;
+  }
+  .input-Box:nth-child(6) {
+    display: flex;
+    /* justify-content: space-evenly; */
+    justify-content: end;
+
+    }
+    .input-Box button{
+    background: #ffd700;
+    color: #000000;
+    cursor: pointer;
+    width: 100px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 80px 40px;
+    margin-right: 30px;
+  }
+  label[class="form-label"] {
+    font-family: 'NanumSquare', sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 3px;
+    }
+  .form-select {
+    width: 100%;
+    height: 50px;
+    margin-top: 3px;
+    border: solid 1px #000;
+}
+textarea {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: solid 1px #000;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: none;
+    }
+</style>

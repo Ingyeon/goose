@@ -22,17 +22,6 @@
           <option v-for="item in study_list"  :value="item.id">{{  item.title }}</option> 
         </select>
       </div>
-      <div class="input-Box">
-        <label class="form-label">분류 선택</label>
-        <select class="form-select" v-model="state.form.category">
-          <option value=null selected>선택</option>
-          <option value="C">C</option>
-          <option value="C++">C++</option>
-          <option value="JAVA">JAVA</option>
-          <option value="JavaScripts">JavaScripts</option>
-          <option value="Python">Python</option>
-        </select>
-      </div>
     <div class="input-Box">
       <label for="titleInput" class="form-label">제목</label>
       <input type="text" class="form-control" id="titleInput" v-model="state.form.title" required>
@@ -53,6 +42,7 @@
 import {computed, onMounted, reactive} from 'vue'
 import {useStore} from 'vuex'
 import {  useRouter  } from 'vue-router'
+import axios from 'axios'
 
 export default {
     name: 'newArticle',
@@ -84,10 +74,12 @@ export default {
       state.my_study.push({id: study.id,title:study.title})
     }
 
-    const clickSet = function(){   // 게시글 생성
-      store.dispatch('fetchLoginUser')
+    const clickSet = async function(){   // 게시글 생성
+      await axios.get('http://localhost:8080/api/v1/study/search/'+Number(state.form.study_pk))
+    .then((res) => {
+      console.log(res.data)
       store.dispatch('createArticle',{
-        category:state.form.category, 
+        category:res.data.category, 
         recruitment: Number(state.form.recruitment),
         state: state.form.state,
         title: state.form.title,
@@ -95,8 +87,8 @@ export default {
         study_pk: state.form.study_pk,
         user_pk: store.getters.loginUser.id,
         })
-        Router.push({path:`/article/${store.getters.article.id}`})
-    }
+    })}
+
     onMounted(() =>study_info())
     const study_list = computed(() => store.getters.authStudyList)
     return {state,clickSet,store,study_info,study_list}

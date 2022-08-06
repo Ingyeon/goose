@@ -16,11 +16,22 @@
         <div class="d-flex justify-content-between">
             <router-link to="/articles">   <button class="btn btn-secondary my-2">게시글 목록</button>  </router-link>
 
-        <div>
-        <button @click="article_edit" v-if="state.check == true" class="btn btn-primary mx-2 my-2">수정</button>
 
-        <button @click="article_delete" v-if="state.check == true" class="btn btn-danger my-2">삭제</button> 
-        </div>
+<p>
+  <a class="btn btn-secondary" data-bs-toggle="collapse" v-if="state.check == true && state.toggle==false" href="#collapse" role="button" aria-expanded="false" aria-controls="collapse" @click.prevent="switching()">
+    ...
+  </a>
+</p>
+<div class="collapse" id="collapse">
+  <div class="card card-body">
+        <p @click="article_edit" v-if="state.check == true" style="cursor: pointer">수정</p>
+        <p @click="article_delete" v-if="state.check == true" style="cursor: pointer">삭제</p> 
+  </div>
+</div>
+
+
+
+
         </div>
         <div class="d-flex justify-content-center">
             <!-- 스터디 이미 참여중인 인원은 참여 신청 안보이게 설정 -->
@@ -59,13 +70,18 @@ export default{
                 date: '',
                 content: '',
             },
-            check: false
+            check: false,
+            toggle: false
         })
         // const article_start = function(){
         // store.dispatch('fetchArticle',route.params.id)
         // }
         // article_start()
 
+        const switching = function(){
+            if (state.toggle == false){state.toggle = true}
+            else {state.toggle=false}
+        }
 
         const joinStudy = (studyId) => store.dispatch('joinStudy',studyId)
       
@@ -100,7 +116,7 @@ export default{
         const study_log = computed(() => store.getters.selectedStudy)
         const article_log = computed(() => store.getters.article)
 
-        return {article_info,store,state,article_delete,article_edit,article_log,joinStudy,study_log}
+        return {article_info,store,state,article_delete,article_edit,article_log,joinStudy,study_log,switching}
     },
 }
 </script>
@@ -137,4 +153,5 @@ export default{
     transform: scale(1.2);
     cursor: pointer;
 }
+
 </style>

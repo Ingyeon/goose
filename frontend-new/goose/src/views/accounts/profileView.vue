@@ -56,7 +56,6 @@
 </template>
 
 <script>
-import myArticles from './components/myArticlesList.vue'
 import { reactive,computed } from 'vue'
 import { useStore } from 'vuex'
 // import router from '@/router'
@@ -69,7 +68,7 @@ import MyArticles from './components/myArticlesList.vue'
 // import 
 
 export default {
-  components: {myArticles},
+  components: {MyArticles},
     setup() {
         const store = useStore();
         const router = useRouter();
