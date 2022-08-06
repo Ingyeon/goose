@@ -99,6 +99,6 @@ width: 100px;
 margin-bottom: 20px;
 font-weight: 600;
 text-align: center;
-border-radius: 40px 80px;
+border-radius: 80px 40px;
 }
 </style>

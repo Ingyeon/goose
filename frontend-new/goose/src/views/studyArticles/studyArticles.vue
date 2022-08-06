@@ -1,11 +1,11 @@
 <template>
 <div class="container">
-    <h1 class="text-center my-3">게시판</h1>
-  <router-link :to="{ name:'StudyHome', params: {studyPk:selectedStudy.id}}"><button class="cus-btn-black">Study home</button></router-link>
+    <h1 class="text-center fw-bold my-3">게시판</h1>
+  <router-link :to="{ name:'StudyHome', params: {studyPk:selectedStudy.id}}"><button id="title" class="btn btn-3 hover-border-3">{{selectedStudy.title}}로 이동</button></router-link>
   <div class="d-flex justify-content-between">
     <div>
-      <button class="cus-btn-sky" @click="noticeClick">공지</button>
-      <button class="cus-btn-sky" @click="freeClick">자유</button>
+      <button id="notice" class="btn btn-3 hover-border-3 active" @click="noticeClick">공지</button>
+      <button id="free" class="btn btn-3 hover-border-3" @click="freeClick">자유</button>
     </div>
     <createStudyArticle />
   </div>
@@ -33,14 +33,14 @@
   <!-- 테이블 끝 -->
   <!-- pagination -->
   <hr>
-  <nav aria-label="Page navigation example">
-    <ul class="pagination">
-      <li @click="pageDown" class="page-item"><a class="page-link" href="#">Previous</a></li>
-      <li @click="pageUp" class="page-item"><a class="page-link" href="#">Next</a></li>
-    </ul>
-  </nav>
-  
-  <hr>
+  <div class="d-flex justify-content-center">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li @click="pageDown" class="page-item"><a class="page-link" href="#">Previous</a></li>
+        <li @click="pageUp" class="page-item"><a class="page-link" href="#">Next</a></li>
+      </ul>
+    </nav>
+  </div>
   <div>
     <studyArticleDetail />
   </div>
@@ -95,6 +95,8 @@ export default {
         data.category = "notice"
         data.page = 1
         fetchStudyArticleList()
+        document.getElementById('notice').classList.add('active')
+        document.getElementById('free').classList.remove('active')
       }
     }
 
@@ -103,6 +105,8 @@ export default {
         data.category = "free"
         data.page = 1
         fetchStudyArticleList()
+        document.getElementById('notice').classList.remove('active')
+        document.getElementById('free').classList.add('active')
       }
     }
 
@@ -113,36 +117,18 @@ export default {
 </script>
 
 <style scoped>
-.cus-btn-blue {
-background: #0078AA;
-color: #000000;
-cursor: pointer;
-width: 100px;
-margin-bottom: 20px;
-font-weight: 600;
-text-align: center;
-border-radius: 40px 80px;
+#title {
+  font-size: 1.5rem;
+  color:#000
 }
-
-.cus-btn-sky {
-background: #3AB4F2;
-color: #000000;
-cursor: pointer;
-width: 100px;
-margin-bottom: 20px;
-font-weight: 600;
-text-align: center;
-border-radius: 40px 80px;
+.btn.hover-border-3.active{
+  color: #000;
+  border:none;
 }
-
-.cus-btn-black {
-background: #81CACF;
-color: black;
-cursor: pointer;
-width: 100px;
-margin-bottom: 20px;
-font-weight: 600;
-text-align: center;
-border-radius: 40px 80px;
+.btn.hover-border-3{
+  color: #f0f0f1
+}
+.page-link{
+  color: #000
 }
 </style>

@@ -31,13 +31,7 @@
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
               Close
             </button>
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-dismiss="modal"
-              @click.prevent="clickbtn"
-              @click="selectLanguage"
-            >
+            <button type="button" class="btn btn-warning" data-bs-dismiss="modal" @click.prevent="clickbtn" @click="selectLanguage">
               입장하기
             </button>
             <button type="button" class="btn btn-warning" data-bs-dismiss="modal" @click.prevent="clickbtn2">
@@ -52,7 +46,6 @@
       </div>
       <div class="col-lg-8 col-md-6 col-12">
         <div class="container d-flex justify-content-center">
-          
           <h3 class="m-3 fw-bold">{{ selectedStudy.title }}</h3>
         </div>
         <div>
@@ -220,11 +213,11 @@ img {
 import callender from "@/components/StudyPage/callender";
 import studyUpdate from "@/components/StudyPage/studyUpdate.vue";
 import studyJoinList from "@/components/StudyPage/studyJoinList.vue";
-import miniArticles from "@/components/StudyPage/miniArticles.vue";
+import miniArticles from "@/components/StudyPage/miniArticles.vue"
 // 사진
-import study1 from "@/assets/study1.png";
-import study2 from "@/assets/study2.png";
-import study3 from "@/assets/study3.jpg";
+import study1 from "@/assets/study1.png"
+import study2 from "@/assets/study2.png"
+import study3 from "@/assets/study3.jpg"
 import { useStore } from "vuex";
 import { useRoute, useRouter } from "vue-router";
 import { computed, watch, onMounted, reactive } from "vue";
@@ -239,26 +232,10 @@ export default {
     miniArticles,
   },
 
-  data() {
-    const store = useStore();
-    return {
-      compiler: store.getters.selectedStudy.category,
-    };
-  },
-  methods: {
-    selectLanguage() {
-      console.log("select : ", this.compiler);
-      this.$store.dispatch("saveLanguage", this.compiler);
-    },
-  },
-
   setup() {
     const store = useStore();
     const route = useRoute();
     const router = useRouter();
-    // const selectLanguage = () => {
-
-    // };
     const selectedStudy = computed(() => store.getters.selectedStudy);
     const deleteStudy = () =>
       store.dispatch("deleteStudy", store.getters.studyId);
@@ -284,23 +261,19 @@ export default {
     };
 
     const state = reactive({
-      photo: store.getters.selectedStudy.image,
-    });
+      photo : store.getters.selectedStudy.image
+    })
 
-    const changePhoto = () => {
-      if (store.getters.selectedStudy.image === "study1") {
-        state.photo = study1;
-      } else if (store.getters.selectedStudy.image === "study2") {
-        state.photo = study2;
-      } else if (store.getters.selectedStudy.image === "study3") {
-        state.photo = study3;
-      }
-    };
-    changePhoto;
-
+    const changePhoto = ()=>{
+      if (store.getters.selectedStudy.image==='study1'){state.photo = study1}
+      else if (store.getters.selectedStudy.image==='study2'){state.photo = study2}
+      else if (store.getters.selectedStudy.image==='study3'){state.photo = study3}
+    }
+    changePhoto
+    
+    
     return {
       selectedStudy,
-      // selectLanguage,
       deleteStudy,
       // pageUpdate,
       // fetchStudyHome,
@@ -311,16 +284,20 @@ export default {
       clickbtn,
       clickbtn2,
       changePhoto,
-      state,
+      state
     };
   },
 
   watch: {
     selectedStudy: {
-      handler() {
+      handler(){
         this.changePhoto();
-      },
-    },
-  },
+      }
+    }
+  }
 };
+
+
 </script>
+
+<style></style>
