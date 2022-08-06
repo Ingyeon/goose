@@ -1,34 +1,24 @@
 <template>
-  <h1>Callender.vue</h1>
-
+<div class="container">
+  <div class="d-flex justify-content-between">
+    <h4>스터디 일정관리</h4>
+    <button type="button" class="btn btn-3 hover-border-3" data-bs-toggle="modal" data-bs-target="#callenderModal">
+        전체보기
+    </button>
+  </div>
   <!-- 전체보기 누를경우 보이는 내용 -->
-  <div
-    class="modal fade"
-    id="callenderModal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
+  <div class="modal fade" id="callenderModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-fullscreen modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">캘린더</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <FullCalendar :options="calendarOptionsM" />
         </div>
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Close
           </button>
         </div>
@@ -41,8 +31,11 @@
     data-version-index="4"
     data-libs="mavenlib1, mavenlib2"
   ></div> -->
-  <FullCalendar :options="calendarOptionsW" />
-
+  <br>
+  <div class="container box">
+    <FullCalendar :options="calendarOptionsW" />
+  </div>
+</div>
 </template>
 
 <script>
@@ -118,4 +111,72 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+h4 {
+    font-weight:bold;
+}
+* {
+    font-family: "NanumSquare", sans-serif;
+}
+:active, :hover, :focus {
+outline: 0!important;
+outline-offset: 0;
+}
+::before,
+::after {
+  position: absolute;
+  content: "";
+}
+.btn {
+  position: relative;
+  display: inline-block;
+  width: auto; height: auto;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin: 0px 25px 15px;
+  min-width: 150px;
+}
+  .btn span {         
+    position: relative;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    top: 0; left: 0;
+    width: 100%;
+    padding: 15px 20px;
+    transition: 0.3s;
+  }
+.btn.hover-border-3::before,
+.btn.hover-border-3::after {
+  width: 0%; height: 0%;
+  opacity: 0;
+  transition: width 0.2s 0.15s linear, height 0.15s linear, opacity 0s 0.35s;
+}
+.btn.hover-border-3::before {
+  top: 0; right: 0;
+  border-top: 1px solid rgb(28, 31, 30);
+  border-left: 1px solid rgb(28, 31, 30);
+}
+.btn.hover-border-3::after {
+  bottom: 0; left: 0;
+  border-bottom: 1px solid rgb(28, 31, 30);
+  border-right: 1px solid rgb(28, 31, 30);
+}
+.btn.hover-border-3:hover::before,
+.btn.hover-border-3:hover::after {
+  width: 100%; height: 99%;
+  opacity: 1;
+  transition: width 0.2s linear, height 0.15s 0.2s linear, opacity 0s;   
+}
+
+.container.box{
+    background-color: #f0f0f1;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    height:85%;
+    border-radius: 10px;
+    }
+</style>

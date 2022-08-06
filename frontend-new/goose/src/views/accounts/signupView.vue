@@ -176,6 +176,5 @@ export default {
 display: flex;
 /* justify-content: space-evenly; */
 justify-content: end;
-
 }
 </style>

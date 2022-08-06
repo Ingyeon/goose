@@ -1,7 +1,12 @@
 <template>
-    <h3>멤버리스트 뷰</h3>
-
-    <memberItemVue v-for="item in memberList" :key="item.id" :item="item"/>
+<div class="container">
+    <div class="input-Box">
+        <label class="form-label">멤버리스트</label>
+        <ul> 
+            <memberItemVue v-for="item in memberList" :key="item.id" :item="item"/>
+        </ul>
+    </div>
+</div>
 </template>
 
 <script>
@@ -21,6 +26,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+* {
+  font-family: 'NanumSquare', sans-serif;
+}
 
 </style>

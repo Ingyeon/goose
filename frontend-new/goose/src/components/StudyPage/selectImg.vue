@@ -43,6 +43,7 @@ ul {
 
 li {
   display: inline-block;
+  list-style-type: none;
 }
 
 input[type="radio"][id^="../../"] {
@@ -51,10 +52,10 @@ input[type="radio"][id^="../../"] {
 
 label {
   border: 1px solid #fff;
-  padding: 10px;
+  /* padding: 10px; */
   display: block;
   position: relative;
-  margin: 10px;
+  /* margin: 10px; */
   cursor: pointer;
 }
 

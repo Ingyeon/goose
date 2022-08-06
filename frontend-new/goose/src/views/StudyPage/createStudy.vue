@@ -66,7 +66,7 @@
   </div>
 </form>
 </div>
-{{ state.credential }}
+<!-- {{ state.credential }} -->
 </div>
 </template>
 
@@ -121,5 +121,9 @@ h3 {
     font-family: 'NanumSquare', sans-serif;
     font-weight: bold;
   }
-
+.input-Box:nth-child(7) {
+display: flex;
+/* justify-content: space-evenly; */
+justify-content: end;
+}
 </style>

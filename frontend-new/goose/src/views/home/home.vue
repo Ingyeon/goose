@@ -92,18 +92,15 @@ export default {
 
   li .button-study {
     display: inline-block;
-    /* padding: 0 1.25rem; */
     cursor: pointer;
     padding: 9px 20px;
     border: none;
-    /* border-radius: 50px; */
     font-family: "NanumSquare", sans-serif;
     font-weight: bold;
     font-size: 1.25rem;
     transition: all 0.5s ease 0s;
     margin-left: 20px;
     background: #fff;
-    /* border-radius: 80px 40px; */
   }
   
 :active, :hover, :focus {

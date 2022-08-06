@@ -1,7 +1,35 @@
 <template>
-  <h1>구성원</h1>
-  <p>이름 : {{ item.name }}</p>{{ item }}
-  <button @click.prevent="kickOutmember(item.user_pk)" >강퇴</button>
+  <div class="input-Box">
+    <label class="form-label">구성원</label>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>이름</th>
+          <th>아이디</th>
+          <th>스터디 가입 날짜</th>
+          <!-- <th>강퇴</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{item.id}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.user_id}}</td>
+          <td>{{item.study_time}}</td>
+          <td><button class="button-danger" @click.prevent="kickOutmember(item.user_pk)" >강퇴</button></td>
+        </tr>
+      </tbody>
+    </table>
+    
+      <!-- <p>{{item}}</p> -->
+    <!-- <div class="d-flex">
+      <p>{{ item.id }}</p>
+      <p>이름 : {{ item.name }}</p>
+      <p>{{ item.user_id }}</p>
+      <button class="button-danger" @click.prevent="kickOutmember(item.user_pk)" >강퇴</button>
+    </div> -->
+  </div>
 </template>
 
 <script>
@@ -20,6 +48,21 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+* {
+  font-family: 'NanumSquare', sans-serif;
+}
+.button-danger{
+  margin-left: 10px;
+  background: #ec610b;
+  color: #fff;
+  cursor: pointer;
+  width: 70px;
+  height:25px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 80px 40px;
+  font-size:18px;
+  border:none;
+}
 </style>

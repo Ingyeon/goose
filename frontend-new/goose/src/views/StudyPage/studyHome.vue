@@ -1,59 +1,21 @@
 <template>
-  <div class="container d-flex">
-    <!-- {{ state.photo }} -->
-    <img :src="state.photo" alt="기본사진" />
-    <div>
-      <div class="container d-flex">
-        <div class="m-3">스터디 이름 : {{ selectedStudy.title }}</div>
-        <!-- <div class="m-3">
-          인원 : {{ selectedStudy.member }}/ {{ selectedStudy.maxmember }}
-        </div> -->
-      </div>
-      <div>스터디 소개글 : collume 추가되면 추가할 예정{{}}</div>
-      <div>카페 매니저 : {{ manager.name }}</div>
-    </div>
-  </div>
-  <div>
-    <button
-      v-if="isManager"
-      type="button"
-      class="btn btn-primary"
-      data-bs-toggle="modal"
-      data-bs-target="#studyJoinListModal"
-    >
-      참가 신청 리스트
-    </button>
-    <studyJoinList />
-  </div>
-  <div class="container d-flex">
-    <div>스터디 주소 : {{ selectedStudy.url_conf }}</div>
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-bs-toggle="modal"
-      data-bs-target="#exampleModal"
-    >
-      입장용 모달
-    </button>
+  <div class="container d-flex mt-3">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 col-12">
+        <img class="container-fluid" :src="state.photo" alt="기본사진">
+        <div class="d-flex align-items-center">
+          <div class="fw-bold">스터디 주소 : <span>{{ selectedStudy.url_conf }}</span></div>
+          <button type="modal-button" class="modal-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            스터디 입장하기
+          </button>
 
     <!-- 입장용 모달 시작 -->
-    <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            <h5 class="modal-title" id="exampleModalLabel">{{selectedStudy.title}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             컴파일러 선택
@@ -66,11 +28,7 @@
             {{ compiler }} {{ selectedStudy.category }}
           </div>
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
               Close
             </button>
             <button
@@ -82,12 +40,7 @@
             >
               입장하기
             </button>
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-dismiss="modal"
-              @click.prevent="clickbtn2"
-            >
+            <button type="button" class="btn btn-warning" data-bs-dismiss="modal" @click.prevent="clickbtn2">
               입장하기2
             </button>
           </div>
@@ -96,77 +49,74 @@
     </div>
     <!-- 입장용 모달 끝 -->
   </div>
+      </div>
+      <div class="col-lg-8 col-md-6 col-12">
+        <div class="container d-flex justify-content-center">
+          
+          <h3 class="m-3 fw-bold">{{ selectedStudy.title }}</h3>
+        </div>
+        <div>
+          <span class="accept-list">
+            <button id="listbutton" v-if="isManager" type="button" class="button" data-bs-toggle="modal" data-bs-target="#studyJoinListModal">
+              참가 신청 리스트
+            </button>
+            <studyJoinList />
+          </span>
+          <span class="editbutton">
+            <button id="editbutton" v-if="isManager" type="button" class="button" data-bs-toggle="modal" data-bs-target="#updateStudyModal">
+              스터디 수정
+            </button>
+          <studyUpdate />
+        </span>
+          <!-- <div class="m-3">
+            인원 : {{ selectedStudy.member }}/ {{ selectedStudy.maxmember }}
+          </div> -->
+        </div>
+        
+        
+        <div class="d-flex justify-content-end">스터디 관리자 : {{ manager.name }}</div>
+        <div class="study-content">
+          <div class="container">
+            <p>스터디 소개글 : collume 추가되면 추가할 예정{{}}</p>
+          </div>
+        </div>        
+      </div>
+    </div>
+  </div>
+  <br>
+  <br> 
+  <div class="box">
   <!-- 게시판 -->
-  <miniArticles />
-  <hr />
-  <div>
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-bs-toggle="modal"
-      data-bs-target="#callenderModal"
-    >
-      전체보기
-    </button>
+    <miniArticles />
+  </div>
+
+  <div class="callender-box">
     <callender />
   </div>
-  <div class="container d-flex">
-    <button v-if="isManager" @click.prevent="deleteStudy">
+  <div class="container d-flex justify-content-evenly">
+    <button class="button-danger" v-if="isManager" @click.prevent="deleteStudy">
       스터디 터트리기
     </button>
-    <button @click.prevent="dropOutStudy(loginUser.id)">스터디 탈퇴하기</button>
-    <div>
-      <button
-        v-if="isManager"
-        type="button"
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#updateStudyModal"
-      >
-        스터디 수정
-      </button>
-      <studyUpdate />
-    </div>
+    <button class="button-danger" @click.prevent="dropOutStudy(loginUser.id)">스터디 탈퇴하기</button>
+    
   </div>
 
   <!-- Button trigger modal -->
-  <button
-    type="button"
-    class="btn btn-primary"
-    data-bs-toggle="modal"
-    data-bs-target="#staticBackdrop1"
-  >
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
     Launch static backdrop modal
   </button>
 
   <!-- Modal -->
-  <div
-    class="modal fade"
-    id="staticBackdrop1"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false"
-    tabindex="-1"
-    aria-labelledby="staticBackdropLabel"
-    aria-hidden="true"
-  >
+  <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">...</div>
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Close
           </button>
           <button type="button" class="btn btn-primary">Understood</button>
@@ -175,6 +125,96 @@
     </div>
   </div>
 </template>
+
+
+<style scoped>
+* {
+  font-family: 'NanumSquare', sans-serif;
+}
+.row{
+  display: flex;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+}
+
+.study-content {
+  /* border: 4px solid #000; */
+  background-color: #f0f0f1;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  height:70%;
+  border-radius: 30px;
+}
+img {
+  margin-top: 50px;
+}
+
+.editbutton {
+
+  position: relative;
+  bottom: 0px;
+  left: 67%;
+}
+.accept-list  {
+  position: relative;
+  bottom:0px;
+  left:65%
+}
+.button {
+  background: #ffd700;
+  color: #000000;
+  cursor: pointer;
+  width: 150px;
+  height:30px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 80px 40px;
+  font-size:16px;
+  border:none;
+}
+.modal-button{
+  margin-left: 10px;
+  background: #ffd700;
+  color: #000000;
+  cursor: pointer;
+  width: 150px;
+  height:40px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 80px 40px;
+  font-size:18px;
+  border:none;
+}
+.button-danger{
+  margin-left: 10px;
+  background: #ec610b;
+  color: #fff;
+  cursor: pointer;
+  width: 150px;
+  height:40px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 80px 40px;
+  font-size:18px;
+  border:none;
+}
+.box{
+  height:50%;
+  margin-top:15px;
+}
+.callender-box{
+  height:70%;
+  margin-top:15px;
+}
+@media screen and (max-width:1048px) {
+  .box{
+    position:relative;
+    top:50px;
+  }
+}
+</style>
+
 
 <script>
 import callender from "@/components/StudyPage/callender";
@@ -284,5 +324,3 @@ export default {
   },
 };
 </script>
-
-<style></style>
