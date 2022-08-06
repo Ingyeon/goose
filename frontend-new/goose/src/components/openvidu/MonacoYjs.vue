@@ -116,14 +116,14 @@ export default {
 #monaco-editor {
   margin-left: 20px;
   width: 100%;
-  /* height: 93%;
+  height: 93%;
   border: 1px solid #ccc;
-  overflow: visible; */
+  overflow: visible;
 }
 .yRemoteSelection {
   background-color: rgb(250, 129, 0, 0.5);
 }
-/* .yRemoteSelectionHead {
+.yRemoteSelectionHead {
   position: absolute;
   border-left: orange solid 2px;
   border-top: orange solid 2px;
@@ -138,5 +138,5 @@ export default {
   border-radius: 4px;
   left: -4px;
   top: -5px;
-} */
+}
 </style>
