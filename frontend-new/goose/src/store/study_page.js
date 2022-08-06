@@ -87,16 +87,16 @@ export default {
         method: "get",
         headers: getters.authHeader,
       })
-      .then((res) => {
-        commit("SET_SELECTED_STUDY", res.data);
-        dispatch("saveStudyMemberList", res.data.id);
-      })
-      .then(() => {
-        dispatch("joinList");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then((res) => {
+          commit("SET_SELECTED_STUDY", res.data);
+          dispatch("saveStudyMemberList", res.data.id);
+        })
+        .then(() => {
+          dispatch("joinList");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
 
       // 전체 페이지 조회
       axios({
@@ -181,18 +181,18 @@ export default {
       });
     },
 
-    saveStudyMemberList({ dispatch,getters, commit }, id) {
+    saveStudyMemberList({ dispatch, getters, commit }, id) {
       axios({
         url: rest.study.study_member_list(id),
         method: "get",
         headers: getters.authHeader,
       })
-      .then((res) => {
-        commit("SET_STUDY_MEMBER_LIST", res.data);
-      })
-      .then(()=>{
-        dispatch('findStudyManager')
-      })
+        .then((res) => {
+          commit("SET_STUDY_MEMBER_LIST", res.data);
+        })
+        .then(() => {
+          dispatch("findStudyManager");
+        });
     },
 
     joinList({ getters, dispatch }) {
@@ -275,7 +275,7 @@ export default {
       }
     },
     async compile({ dispatch }, code) {
-      console.log("compile", code.script, code.language);
+      console.log("compile", code.script, code.language, code.stdin);
       // const temp = code.language.toLowerCase();
       // if (temp == "python") temp = "python3";
       await axios({
@@ -290,6 +290,7 @@ export default {
           script: code.script,
           versionIndex: "0",
           language: code.language,
+          stdin: code.stdin,
         },
       })
         .then((res) => {
