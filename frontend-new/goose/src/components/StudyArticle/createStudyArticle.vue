@@ -45,7 +45,7 @@
 
         <!-- 제출 -->
           <div class="input-Box">
-            <input @click.prevent="createArticle" type="submit" value="Submit" data-bs-dismiss="modal">  
+            <input @click.prevent="[createArticle(),$emit('createArticle',credential.category)]" type="submit" value="Submit" data-bs-dismiss="modal">  
           </div>
         </form>
 
@@ -81,7 +81,6 @@ export default {
       store.dispatch("createStudyArticle",credential)
       credential.title = ""
       credential.content = ""
-      credential.category = ""
     }
 
     const isManager = store.getters.isStudyManager

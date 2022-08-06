@@ -68,9 +68,10 @@
         
         
         <div class="d-flex justify-content-end">스터디 관리자 : {{ manager.name }}</div>
+          <h3>공지사항</h3>
         <div class="study-content">
           <div class="container">
-            <p>스터디 소개글 : collume 추가되면 추가할 예정{{}}</p>
+            <notice />
           </div>
         </div>        
       </div>
@@ -214,6 +215,7 @@ import callender from "@/components/StudyPage/callender";
 import studyUpdate from "@/components/StudyPage/studyUpdate.vue";
 import studyJoinList from "@/components/StudyPage/studyJoinList.vue";
 import miniArticles from "@/components/StudyPage/miniArticles.vue"
+import notice from "@/components/StudyPage/notice.vue"
 // 사진
 import study1 from "@/assets/study1.png"
 import study2 from "@/assets/study2.png"
@@ -230,6 +232,7 @@ export default {
     studyUpdate,
     studyJoinList,
     miniArticles,
+    notice,
   },
 
   setup() {
@@ -269,7 +272,7 @@ export default {
       else if (store.getters.selectedStudy.image==='study2'){state.photo = study2}
       else if (store.getters.selectedStudy.image==='study3'){state.photo = study3}
     }
-    changePhoto
+    changePhoto()
     
     
     return {

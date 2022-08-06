@@ -1,83 +1,45 @@
 <template>
-<div class="container">
-    <div class="d-flex justify-content-between">
-        <h4>최신 게시글</h4>
-        <button @click.prevent="moveArticles" class="btn btn-3 hover-border-3">
-            전체보기
-        </button>
-    </div>
     <div class="container box">
-        <ul v-for="article in state.recentlyArticleList" :key="article.id">
-            <ul class="d-flex justify-content-between" data-bs-toggle="modal" data-bs-target="#studyArticleDetail" @click="selectArticle">
+        <ul v-for="article in state.noticeList" :key="article.id">
+            <ul class="d-flex justify-content-between" data-bs-toggle="modal" data-bs-target="#studyArticleDetail" @click="selectArticle" :key="article.id">
                 <li class="article" >{{article.title}}</li>
                 <li class="article-author">{{article.name}}</li>
             </ul>
         </ul>
     </div>
-</div>
-
-<div>
-    <studyArticleDetail />
-</div>
-
 </template>
 
 <script>
-import studyArticleDetail from '@/components/StudyArticle/studyArticleDetail.vue'
-import { useStore } from "vuex"
-import { reactive, watch,computed } from "vue"
-import { useRouter } from "vue-router"
 import axios from 'axios'
 import rest from '@/api/rest'
+import { useStore } from "vuex"
+import { reactive, computed } from "vue"
 export default {
-    props: {
-    item:Object
-    },
-    components:{
-        studyArticleDetail
-    },
-    setup(props){
-        const store = useStore()
-        const router = useRouter();
+    setup(){
+        const store = useStore();
         const state = reactive({
-            recentlyArticleList : [],
+            noticeList : [],
         })
-
-        const fetchRecentlyArticleList = () => {
+        const fetchNoticeList = () => {
             axios({
                 url: rest.studyArticle.studyArticleList(),
                 method:'get',
                 headers: store.getters.authHeader,
-                params: { "category":null, "page":1, "studyPk":store.getters.selectedStudy.id, "title":null}
+                params: { "category":"notice", "page":1, "studyPk":store.getters.selectedStudy.id, "title":null}
             })
             .then((res)=>{
-                const articleList = res.data.content.slice(0,5)
-                state.recentlyArticleList = articleList
+                const articleList = res.data.content.slice(0,3)
+                state.noticeList = articleList
             })
         }
-        // fetchRecentlyArticleList()
-
-        const moveArticles = () => {
-            router.push({
-            name: "studyArticles",
-            params: { studyPk: store.getters.selectedStudy.id },
-            });
-        };
-        
-        const selectArticle = ()=>{
-            store.dispatch('getStudyArticle',props.item.id)
-        }
-        
         const selectedStudy = computed(()=> store.getters.selectedStudy)
-
-        return {state,moveArticles,selectArticle,selectedStudy,fetchRecentlyArticleList}
+        return {state,selectedStudy,fetchNoticeList}
     },
 
     watch:{
         selectedStudy:{
             handler(){
-                console.log("최신 게시글 변경")
-                this.fetchRecentlyArticleList();
+                this.fetchNoticeList();
             }
         },
     }
