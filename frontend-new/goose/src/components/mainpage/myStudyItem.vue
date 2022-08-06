@@ -1,12 +1,28 @@
 <template>
-  <div class="card mcs mx-2 my-2 row row-col-4">
-    {{ item.image }}
-    <img :src="state.photo" alt="사진" class='card-img-top'/>
-    <div class="card-body">
-      <h3 class="card-title">{{ item.title }}</h3>
-      <a @click.prevent="selectStudy" class="btn btn-warning">스터디 홈</a>
+  <div class="container d-flex">
+    <div class="row mt-3">
+      <div class="col-lg-4 col-md-6 col-12">
+        <img :src="state.photo" alt="사진" class='container-fluid'/>
+      </div>
+      <div id="study-category" class="col-lg-8 col-md-6 col-12 d-flex">
+        <div class="container d-flex justify-content-center">
+          <h3 class="fw-bold mt-3">{{item.title}}</h3>
+          <!-- {{item}} -->
+          <!-- {{item.category}} -->
+        </div>
+        <div class="d-flex justify-content-end align-items-end">
+          <button @click.prevent="selectStudy" class="button">스터디 홈</button>
+        </div>
+      </div>
     </div>
   </div>
+  <!-- <div class="card mcs mx-2 my-2 row row-col-4"> -->
+    <!-- {{ item.image }} -->
+    <!-- <div class="card-body">
+      <h3 class="card-title">{{ item.title }}</h3>
+      <a @click.prevent="selectStudy" class="btn btn-warning">스터디 홈</a>
+    </div> -->
+  <!-- </div> -->
 
 </template>
 
@@ -53,4 +69,29 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+* {
+  font-family: 'NanumSquare', sans-serif;
+}
+
+#study-category {
+  /* border: 2px solid ; */
+  background-color: #f0f0f1;
+  border-radius: 20px
+}
+
+.button {
+  background: #ffd700;
+  color: #000000;
+  cursor: pointer;
+  width: 150px;
+  height:30px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 80px 40px;
+  font-size:16px;
+  border:none;
+}
+
+</style>

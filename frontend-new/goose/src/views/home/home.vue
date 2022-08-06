@@ -24,12 +24,13 @@
     </div>
     <div>
       <ul class="button-links">
-        <li><button class="btn btn-3 hover-border-3" @click.prevent="hire_study">공개 스터디</button></li>
-        <articleList v-if='state.toggle==1'/>
-
-        <li><button class="btn btn-3 hover-border-3" @click.prevent="me_study">참여중인 스터디</button></li>
-        <myStudyList v-if="state.toggle==2" />
+        <li><button id="open-study" class="btn btn-3 hover-border-3" @click.prevent="hire_study">공개 스터디</button></li>
+        <li><button id="me-study" class="btn btn-3 hover-border-3" @click.prevent="me_study">참여중인 스터디</button></li>
       </ul>
+    </div>
+    <div class="container">
+      <articleList v-if='state.toggle==1'/>  
+      <myStudyList v-if="state.toggle==2" />
     </div>
   </div>
 
@@ -58,12 +59,16 @@ export default {
     const hire_study = function(){
       if (state.toggle != 1){
         state.toggle = 1
+        document.getElementById('open-study').classList.add('active')
+        document.getElementById('me-study').classList.remove('active')
       }
       else {state.toggle = 0}}
 
     const me_study = function(){
       if (state.toggle != 2){
         state.toggle = 2
+        document.getElementById('open-study').classList.remove('active')
+        document.getElementById('me-study').classList.add('active')
       }
       else(state.toggle = 0)}
 
@@ -156,4 +161,12 @@ outline-offset: 0;
   opacity: 1;
   transition: width 0.2s linear, height 0.15s 0.2s linear, opacity 0s;   
 }
+.btn.hover-border-3.active{
+  color: #000;
+  border:none;
+}
+.btn.hover-border-3{
+  color: #a7aaad
+}
+
 </style>

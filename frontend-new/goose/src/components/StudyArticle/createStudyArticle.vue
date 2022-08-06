@@ -17,27 +17,25 @@
         <!-- form -->
         <form>
         <!-- 카테고리 -->
-          <div v-if="isManager" class="d-flex">
-            <p class="text-capitalize custom-label">카테고리</p>
-            <div class="m-3">
-              <select v-model="credential.category" class="form-select" aria-label="Default select example">
-              <!-- <select class="form-select" aria-label="Default select example"> -->
-                <option value="notice">공지</option>
-                <option value="free">자유</option>
-                <!-- <option value="code">코드</option> -->
+          <div v-if="isManager" class="input-Box">
+            <label class="form-label">카테고리</label>
+            <!-- <p class="text-capitalize custom-label">카테고리</p> -->
+            <!-- <div class="m-3"> -->
+            <select v-model="credential.category" class="form-select" aria-label="Default select example">
+            <!-- <select class="form-select" aria-label="Default select example"> -->
+              <option value="notice">공지</option>
+              <option value="free">자유</option>
+              <!-- <option value="code">코드</option> -->
             </select>
-            </div>
           </div>
           <!-- 스터디 이름 -->
-          <div>
-            <label for="studyArticleName"  class="custom-label">글 제목</label>
-            <div class="form-floating input-Box">
-              <input type="text" id="studyArticleName" class="form-control" placeholder="글 제목" v-model="credential.title">
-              <label for="studyArticleName"  class="form-label">글 제목</label>
-            </div>
+          <div class="input-Box">
+            <label for="studyArticleName"  class="form-label">글 제목</label>
+            <input type="text" id="studyArticleName" class="form-control" placeholder="글 제목" v-model="credential.title">
+              <!-- <label for="studyArticleName"  class="form-label">글 제목</label> -->
           </div>
           <!-- 글 내용 -->
-          <div class="mb-3 input-Box">
+          <div class="input-Box">
             <label for="articleContent" class="form-label">내용</label>
             <textarea type="textarea" class="form-control" id="articleContent" v-model="credential.content" required></textarea>
             <!-- <textarea type="textarea" class="form-control" id="articleContent" required></textarea> -->
@@ -99,5 +97,30 @@ margin-bottom: 20px;
 font-weight: 600;
 text-align: center;
 border-radius: 80px 40px;
+}
+
+.form-select {
+    width: 100%;
+    height: 50px;
+    margin-top: 3px;
+    border: solid 1px #000;
+}
+
+textarea {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: solid 1px #000;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: none;
+}
+.input-Box:nth-child(4) {
+  display: flex;
+  justify-content: end;
+  }
+.input-Box input[type="submit"] {
+  margin-right:4px;
 }
 </style>

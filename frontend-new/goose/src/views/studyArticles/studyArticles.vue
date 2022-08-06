@@ -128,6 +128,9 @@ export default {
 </script>
 
 <style scoped>
+*{
+  font-family: 'NanumSquare', sans-serif;
+}
 #title {
   font-size: 1.5rem;
   color:#000
@@ -137,7 +140,7 @@ export default {
   border:none;
 }
 .btn.hover-border-3{
-  color: #f0f0f1
+  color: #787c82
 }
 .page-link{
   color: #000

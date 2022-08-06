@@ -13,16 +13,13 @@
           <div class="modal-body">
             <div class="container">
             <form>
-  <div class="mb-3 container">
     <div class="input-Box">
         <label for="IdInput" class="form-label">ID</label>
         <input type="text" class="form-control" id="IdInput" v-model="state.form.id" @blur="idValid">
-        <div v-if="!state.idValidFlag" class="form-text">존재하지 않는 ID입니다. 다시 한 번 확인해주세요</div>
-                
-      </div>
-          </div>
+        <div v-if="!state.idValidFlag" class="form-text">존재하지 않는 ID입니다. 다시 한 번 확인해주세요</div>    
+    </div>
       <div class="mb-3">
-                <div class="input-Box">
+      <div class="input-Box">
         <label for="passwordInput" class="form-label">Password</label>
         <input type="password" class="form-control" id="passwordInput" v-model="state.form.password">
       </div>

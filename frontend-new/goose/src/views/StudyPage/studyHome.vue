@@ -4,7 +4,7 @@
       <div class="col-lg-4 col-md-6 col-12">
         <img class="container-fluid" :src="state.photo" alt="기본사진">
         <div class="d-flex align-items-center">
-          <div class="fw-bold">스터디 주소 : <span>{{ selectedStudy.url_conf }}</span></div>
+          <div id="study-url" class="fw-bold">스터디 주소 : <span>{{ selectedStudy.url_conf }}</span></div>
           <button type="modal-button" class="modal-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
             스터디 입장하기
           </button>
@@ -48,7 +48,7 @@
         <div class="container d-flex justify-content-center">
           <h3 class="m-3 fw-bold">{{ selectedStudy.title }}</h3>
         </div>
-        <div>
+        <div class="d-flex justify-content-end">
           <span class="accept-list">
             <button id="listbutton" v-if="isManager" type="button" class="button" data-bs-toggle="modal" data-bs-target="#studyJoinListModal">
               참가 신청 리스트
@@ -129,6 +129,8 @@
   display: flex;
   display: -webkit-flex;
   flex-wrap: wrap;
+  width:100%;
+  height:100%
 }
 
 .study-content {
@@ -141,19 +143,22 @@
 }
 img {
   margin-top: 50px;
+  background-size: cover;
+  /* width:100%;*/
+  height: 90%; 
 }
 
-.editbutton {
+/* .editbutton {
 
   position: relative;
   bottom: 0px;
-  left: 67%;
+  left: 65%;
 }
 .accept-list  {
   position: relative;
   bottom:0px;
-  left:65%
-}
+  left:60%
+} */
 .button {
   background: #ffd700;
   color: #000000;
@@ -201,6 +206,18 @@ img {
   height:70%;
   margin-top:15px;
 }
+
+@media screen and (max-width:768px) {
+  /* .box{
+    position:relative;
+    top:50px;
+  } */
+  #study-url {
+    display:none;
+  }
+}
+
+
 @media screen and (max-width:1048px) {
   .box{
     position:relative;

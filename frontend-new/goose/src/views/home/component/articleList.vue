@@ -1,6 +1,6 @@
 <template>
   <div>
-    <li class="active">모집중인 스터디</li>
+    <li class="active">오픈 스터디</li>
     <b-card-group class="d-flex justify-content-start">
     <div v-for="article in articleList" :key="article.id">
     <div class="card mcs mx-2 my-2 row row-col-4" style="width: 18rem;" >

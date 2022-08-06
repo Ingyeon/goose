@@ -61,7 +61,7 @@
 
 
           <!-- 비공개방일시 비밀번호 -->
-          <div class="input-Box">
+          <div v-if="state.credential.open==1" class="input-Box">
             <label for="floatingPassword" class="form-label">Password</label>
             <input v-model="state.credential.password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
           <!-- <label for="floatingPassword" class="form-label">Password</label> -->
@@ -72,7 +72,7 @@
           <selectImg/>
 
           <!-- 제출 -->
-            <div class="input-Box">
+            <div class="input-Box d-flex justify-content-end">
               <input @click.prevent="updateStudy()" type="submit" value="Submit" data-bs-dismiss="modal">  
             </div>
           </form>
@@ -151,9 +151,4 @@ h3 {
     font-weight: bold;
   }
 
-.input-Box:nth-child(7) {
-display: flex;
-/* justify-content: space-evenly; */
-justify-content: end;
-}
 </style>

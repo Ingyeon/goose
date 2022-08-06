@@ -1,9 +1,5 @@
 @import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
 
-* {
-  font-family: 'NanumSquare', sans-serif;
-}
-
 :active, :hover, :focus {
     outline: 0!important;
     outline-offset: 0;

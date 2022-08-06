@@ -1,5 +1,5 @@
 <template>
-    <h3 class="d-flex">스터디 리스트</h3>
+    <!-- <h3 class="d-flex">스터디 리스트</h3> -->
     <MyStudyItem v-for="item in myStudyList" :key="item.id" :item="item"/>
 </template>
 
