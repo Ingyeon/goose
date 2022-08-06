@@ -1,4 +1,5 @@
 <template>
+<!-- css 적용하기 -->
   <ol class="m-0 p-0">
     <li class="list-group py-1">
             <ol v-for = "reply in replies" :key="reply.id">

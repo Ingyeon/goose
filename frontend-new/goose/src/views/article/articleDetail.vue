@@ -29,15 +29,14 @@
   </div>
 </div>
 
-
-
-
         </div>
         <div class="d-flex justify-content-center">
             <!-- 스터디 이미 참여중인 인원은 참여 신청 안보이게 설정 -->
         <button @click.prevent="joinStudy(article_log.study_pk)" v-if="article_log.state == '모집중'" class="w-btn w-btn-yellow">참여 신청</button>
         </div>
         </div>
+
+        <!-- css 적용하기 -->
         <reply-list/>
     </div>
     </div>
