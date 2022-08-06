@@ -104,7 +104,7 @@
 <script>
 import { reactive } from '@vue/reactivity'
 import { useStore } from "vuex"
-import { computed } from "vue"
+import { computed, watch } from "vue"
 import memberListVue from '@/components/StudyPage/memberList.vue'
 import selectImg from "@/components/StudyPage/selectImg.vue"
 export default {
@@ -117,6 +117,7 @@ export default {
         const store = useStore()
         const studyId = computed(()=>store.getters.selectedStudy.id)
         const imgUrl = computed(()=>store.getters.choiceImg)
+        const selectedStudy = computed(() => store.getters.selectedStudy);
         const state = reactive({
             credential:{
                 category: store.getters.selectedStudy.category,
@@ -134,8 +135,29 @@ export default {
         const updateStudy = ()=>{
             store.dispatch('updateStudy',state.credential)
         }
-        return { updateStudy, state}
-    }
+
+        const patchCredential = ()=>{
+          state.credential.category = store.getters.selectedStudy.category
+          state.credential.id = store.getters.selectedStudy.id
+          state.credential.image = imgUrl
+          state.credential.member = store.getters.selectedStudy.member
+          state.credential.maxmember = store.getters.selectedStudy.maxmember
+          state.credential.open = store.getters.selectedStudy.open
+          state.credential.title = store.getters.selectedStudy.title
+          state.credential.url_conf = store.getters.selectedStudy.url_conf
+          state.credential.url_page = store.getters.selectedStudy.url_page
+        }
+
+        return { updateStudy, state, selectedStudy,patchCredential}
+    },
+
+    watch:{
+      selectedStudy: {
+        handler(){
+          this.patchCredential()
+        }
+      }
+  }
 }
 </script>
 

@@ -3,14 +3,14 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">{{ article.title }}</h5>
+        <h5 v-if="state.type==0" class="modal-title" id="staticBackdropLabel">제목: {{ article.title }}</h5>
+        <h5 v-if="state.type!=0" class="modal-title" id="staticBackdropLabel">글 수정</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <!-- 디테일 -->
         <div v-if="state.type==0">
             내용:{{article.content}}
-            <button v-if="isWriter" @click="deleteArticle">삭제하기</button>
             <!-- 댓글 -->
             <comment/>
         </div>
@@ -20,7 +20,8 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button @click="typeReset" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button v-if="isWriter && state.type==0" @click="deleteArticle" class="btn btn-warning">삭제하기</button>
         <button v-if="state.type==0 && isWriter" @click.prevent="typeChange" type="button" class="btn btn-primary">수정하기</button>
         <button v-if="state.type!=0" @click.prevent="typeChange" type="button" class="btn btn-primary">돌아가기</button>
       </div>
@@ -52,9 +53,13 @@ export default {
         const deleteArticle = ()=>{
           store.dispatch("deleteStudyArticle")
         }
+        const typeReset = ()=>{
+          state.type = 0
+        }
+        
         
         const isWriter = computed(()=> store.getters.isArticleWriter)
-        return {article,state,typeChange,deleteArticle,isWriter}
+        return {article,state,typeChange,deleteArticle,isWriter,typeReset}
     }
 
 }

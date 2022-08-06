@@ -4,7 +4,7 @@
         
         <ul class="d-flex justify-content-evenly">
             <li>
-                <input name="study-img" type="radio" value="study1" id="study1">
+                <input name="study-img" type="radio" value="study1" id="study1" ref="study1">
                 <label for="study1"><img @click="selectImg('study1')" src="../../assets/study1.png"></label>
             </li>
             <li>
@@ -23,16 +23,31 @@
 </template>
 
 <script>
-import { reactive } from '@vue/reactivity'
+import { computed } from "vue"
 import { useStore } from "vuex"
 export default {
     setup(){
         const store = useStore()
+        
         const selectImg = (url)=>{
             store.dispatch('selectImg',url)
         }
-        return {selectImg,}
-    }
+
+        const checkDefault = ()=>{
+          const defaultInput = document.querySelector(`#${store.getters.selectedStudy.image}`)
+          defaultInput.setAttribute("checked","checked")
+        }
+
+        const selectedStudy = computed(() => store.getters.selectedStudy);
+        return {selectImg,selectedStudy,checkDefault}
+    },
+    watch:{
+      selectedStudy: {
+        handler(){
+          this.checkDefault()
+        }
+      }
+  }
 }
 </script>
 

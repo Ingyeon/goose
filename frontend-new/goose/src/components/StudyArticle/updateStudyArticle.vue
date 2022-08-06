@@ -1,5 +1,4 @@
 <template>
-    <h1>업데이트!</h1>
     <form>
         <!-- 카테고리 -->
           <div v-if="isManager" class="d-flex">
@@ -60,6 +59,40 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.cus-btn-yellow {
+background: #ffd700;
+color: #000000;
+cursor: pointer;
+width: 100px;
+margin-bottom: 20px;
+font-weight: 600;
+text-align: center;
+border-radius: 80px 40px;
+}
 
+.form-select {
+    width: 100%;
+    height: 50px;
+    margin-top: 3px;
+    border: solid 1px #000;
+}
+
+textarea {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: solid 1px #000;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: none;
+}
+.input-Box:nth-child(4) {
+  display: flex;
+  justify-content: end;
+  }
+.input-Box input[type="submit"] {
+  margin-right:4px;
+}
 </style>
