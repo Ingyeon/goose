@@ -8,7 +8,7 @@
       <div id="monaco-editor" @input="titleUpdate" ref="monaco"></div>
       <div id="session-compile">
         <p>입력 값</p>
-        <textarea id="stdin" rows="5" v-model="code.stdin" />
+        <textarea id="stdin" rows="5" v-model="code.stdin"></textarea>
         <b-button variant="primary" @click="ride">컴파일 실행</b-button>
         <p id="language">{{ compiler }}</p>
         <!-- <p>실행 결과 집합 : {{ result }}</p> -->
@@ -26,6 +26,7 @@ import { useStore } from "vuex";
 import monaco from "@/util/monaco.js";
 
 export default {
+  props: ["propcompile", "propstdin"],
   data() {
     const store = useStore();
     return {
@@ -39,7 +40,22 @@ export default {
       output: "",
       memory: "",
       cpuTime: "",
+      resultNew: "",
     };
+  },
+  // moounted() {
+  //   this.resultNew = this.propcompile;
+  // },
+  watch:{
+    propcompile(){
+      this.result = JSON.parse(this.propcompile);
+      this.output = this.result.output;
+      this.memory = this.result.memory + "KB";
+      this.cpuTime = this.result.cpuTime + "s";
+      console.log("<dfjdkfjdkfjdkjfkdjkdjkf");
+      console.log(this.propstdin);
+      this.code.stdin = this.propstdin;
+    },
   },
   methods: {
     titleUpdate(e) {
@@ -71,11 +87,13 @@ export default {
       // console.log("ddddddddddd>", this.$store.getters.language);
       // console.log("ddddddd result>", this.$store.getters.result);
       this.result = this.$store.getters.result;
-      this.output = this.result.output;
-      this.memory = this.result.memory + "KB";
-      this.cpuTime = this.result.cpuTime + "s";
+      // this.output = this.result.output;
+      // this.memory = this.result.memory + "KB";
+      // this.cpuTime = this.result.cpuTime + "s";
 
-      console.log(this.result);
+      this.$emit("sendCodestdin", this.code.stdin);
+      this.$emit("sendResult", this.result);
+      // console.log(this.result);
     },
   },
 };

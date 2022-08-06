@@ -29,7 +29,7 @@
                   v-else
                   variant="danger"
                   @click="stopTimer"
-                  style="height: 38px; margin-left:20px;"
+                  style="height: 38px; margin-left: 20px"
                 >
                   정지
                 </b-button>
@@ -292,7 +292,7 @@
       </transition-group>
       <!-- session-right -->
     </div>
-    <MonacoYjs :language="language" />
+    <MonacoYjs :language="language" @sendResult="setResult" v-bind:propcompile="propcompile" v-bind:propstdin="propstdin" @sendCodestdin="setCodestdin"/>
     <div v-if="this.scrollPosition > 900" id="monaco-timer" class="d-flex">
       <div>
         <h3 id="session-time">{{ hours }} : {{ minutes }} : {{ seconds }}</h3>
@@ -309,7 +309,7 @@
           v-else
           variant="danger"
           @click="stopTimer"
-          style="height: 38px; margin-left:20px;"
+          style="height: 38px; margin-left: 20px"
         >
           정지
         </b-button>
@@ -468,6 +468,10 @@ export default {
 
   data() {
     return {
+      propstdin: "",
+      propcompile: "",
+      stdin: "",
+      resultCom: "",
       language: "python",
       scrollPosition: "",
       reload: false,
@@ -525,14 +529,6 @@ export default {
   },
 
   created() {
-    // this.reload = this.reloadCheck;
-    // if (this.reload == false) {
-    //   console.log("reload");
-    //   this.reloadCheck = true;
-
-    //   this.$router.go();
-    // }
-
     this.roomName = this.selectedStudy.title;
     this.roomUrl = this.selectedStudy.url_conf;
     this.roomStudyNo = this.selectedStudy.id;
@@ -566,6 +562,16 @@ export default {
     window.removeEventListener("beforeunload", this.unLoadEvent);
   },
   methods: {
+    setCodestdin(stdin) {
+      this.stdin = stdin;
+      // console.log(">>>>emit check");
+      this.sendStdin();
+    },
+    setResult(result) {
+      this.resultCom = result;
+      // console.log(">>>>emit check");
+      this.sendCompile();
+    },
     ...mapMutations(["SET_RELOADCHECK"]),
     scrollToUp() {
       window.scrollTo(0, 0);
@@ -672,6 +678,17 @@ export default {
       // On every asynchronous exception...
       this.session.on("exception", ({ exception }) => {
         console.warn(exception);
+      });
+
+      //컴파일 결과 전송
+      this.session.on("signal:result-com", (event) => {
+        console.log("session test");
+        var compile = event.data;
+        this.propcompile = compile;
+      });
+      this.session.on("signal:stdin", (event) => {
+        var stdin = event.data;
+        this.propstdin = stdin;
       });
 
       // 같은 session 내에서 텍스트 채팅을 위한 signal
@@ -794,6 +811,38 @@ export default {
           });
       }
     },
+
+    // 컴파일 결과 전송
+    sendCompile() {
+      if (this.resultCom != "") {
+        this.session
+          .signal({
+            data: JSON.stringify(this.resultCom),
+            to: [],
+            type: "result-com",
+          })
+          .then(() => {})
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    },
+    // 컴파일 결과 전송
+    sendStdin() {
+      if (this.stdin != "") {
+        this.session
+          .signal({
+            data: this.stdin,
+            to: [],
+            type: "stdin",
+          })
+          .then(() => {})
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    },
+
 
     muteVideo() {
       this.videoEnabled = !this.videoEnabled;
@@ -1019,6 +1068,9 @@ export default {
     },
     time() {
       this.sendTimer();
+    },
+    resultCom() {
+      this.resultCom;
     },
   },
 };
