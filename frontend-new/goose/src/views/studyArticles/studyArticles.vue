@@ -7,7 +7,7 @@
       <button id="notice" class="btn btn-3 hover-border-3 active" @click="noticeClick">공지</button>
       <button id="free" class="btn btn-3 hover-border-3" @click="freeClick">자유</button>
     </div>
-    <createStudyArticle />
+    <createStudyArticle @createArticle="btnActive" />
   </div>
   <!-- 테이블 -->
 <div class="board-list">
@@ -111,7 +111,18 @@ export default {
     }
 
     fetchStudyArticleList()
-    return {studyArticleList,selectedArticle,pageUp,pageDown,data,selectedStudy,noticeClick,freeClick}
+
+    const btnActive = (category)=>{
+      if( category =='free'){
+        document.getElementById('notice').classList.remove('active')
+        document.getElementById('free').classList.add('active')
+      }
+      else{
+        document.getElementById('notice').classList.add('active')
+        document.getElementById('free').classList.remove('active')
+      }
+    }
+    return {studyArticleList,selectedArticle,pageUp,pageDown,data,selectedStudy,noticeClick,freeClick,btnActive}
   }
 }
 </script>
