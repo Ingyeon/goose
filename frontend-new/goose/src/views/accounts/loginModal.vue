@@ -98,6 +98,9 @@ export default {
 </script>
 
 <style scoped>
+*{
+  font-family: 'NanumSquare', sans-serif;
+}
   .input-Box:nth-child(3) {
     display: flex;
     /* justify-content: space-evenly; */
@@ -120,7 +123,7 @@ export default {
     margin-right: 30px;
   }
   button[class="login"]{
-      background: #ffd700;
+    background: #ffd700;
     cursor: pointer;
     padding: 9px 20px;
     border: none;

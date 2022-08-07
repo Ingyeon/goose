@@ -51,6 +51,7 @@ export default {
     user: () => HOST + User,
     user_check: (userId) => HOST + User + `/{userId}?id=${userId}`, // pk값이 아닌 로그인 할 때 그 id
     user_myprofile: () => HOST + User + "/me",
+    user_passwordupdate: () => HOST + User + '/pw'
   },
 
   calendar: {

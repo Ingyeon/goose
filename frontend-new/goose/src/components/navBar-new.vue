@@ -33,6 +33,7 @@
               <router-link to="/:id/profile"><button class="dropdown-tag">마이페이지</button></router-link>
               <button class="dropdown-tag" @click="clickLogout">로그아웃</button>
               <hr>
+              <router-link to="/:id/updatepassword"><button class="dropdown-tag">비밀번호 수정</button></router-link>
               <router-link to="/:id/delete"><button class="dropdown-tag">회원탈퇴</button></router-link>
             </div>
            
@@ -51,6 +52,7 @@
               <router-link to="/:id/profile"><button class="dropdown-tag">마이페이지</button></router-link>
               <button class="dropdown-tag" @click="clickLogout">로그아웃</button>
               <hr>
+              <router-link to="/:id/updatepassword"><button class="dropdown-tag">비밀번호 수정</button></router-link>
               <router-link to="/:id/delete"><button class="dropdown-tag">회원탈퇴</button></router-link>
             </div>
         </li>

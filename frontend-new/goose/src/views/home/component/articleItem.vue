@@ -5,7 +5,7 @@
       <div class="row" v-for="article in openstudyList" :key="article.id">
         <div class="col-12 col-md-4 col-lg-3">        
         <div class="card">
-          <img :src="article.photo" class="card-img-top" alt="alt">
+          <img :src="state.photo" class="card-img-top" alt="alt">
           <div class="card-body">
             <h5 class="card-title">{{article.title}}</h5>
             <p class="card-text">사용 언어: {{}}</p>
@@ -35,26 +35,26 @@ export default {
     item:Object,
   },
 
-  setup(){
+  setup(props){
     const store = useStore()
     const myStudyList = computed(()=> store.getters.myStudyList)
     // const openstudyList = computed(()=> store.getters.openstudyList)
     const openstudyList = store.getters.openstudyList
     
-    // const state = reactive({
-    //   photo : ""
-    // })
+    const state = reactive({
+      photo : ""
+    })
     
     const fetchMyStudyList = function(studyId){
       store.dispatch('myStudyList',studyId)
     }
     
-    // const changePhoto = ()=>{
-    //   if (props.item.image==='study1'){state.photo = study1}
-    //   else if (props.item.image==='study2'){state.photo = study2}
-    //   else if (props.item.image==="study3"){state.photo = study3}
-    // }
-    // changePhoto()
+    const changePhoto = ()=>{
+      if (props.item.image==='study1'){state.photo = study1}
+      else if (props.item.image==='study2'){state.photo = study2}
+      else if (props.item.image==="study3"){state.photo = study3}
+    }
+    changePhoto()
     const open_set = function(){
       console.log('시작')
       console.log(openstudyList)
@@ -64,7 +64,7 @@ export default {
     // open_set()
 
     // const joinStudy = (studyId) => store.dispatch('joinStudy',studyId)
-    return {myStudyList,fetchMyStudyList,openstudyList,open_set}
+    return {myStudyList,fetchMyStudyList,openstudyList,open_set, changePhoto,state}
   },
 
   watch: {

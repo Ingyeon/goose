@@ -1,19 +1,21 @@
 <template>
+<div class="container">
     <form @submit.prevent="DeleteForm">
-        <div class="inputBox">
+        <div class="input-Box">
             <label for="inputPassword" class="form-label">Password</label>
             <input type="password" id="inputPassword1" class="form-control" placeholder="비밀번호를 입력해주세요" v-model="status.password1" @blur="passwordValid">
             <div class="form-text" v-if="!status.passwordValidFlag">비밀번호가 틀렸습니다.</div>
-            <input type="password" id="inputPassword2" class="form-control mt-3" placeholder="비밀번호 확인" v-model="status.password2" @blur="passwordCheckValid">
+            <input type="password" id="inputPassword2" class="form-control" placeholder="비밀번호 확인" v-model="status.password2" @blur="passwordCheckValid">
             <div class="form-text" v-if="!status.passwordCheckFlag">비밀번호가 동일하지 않습니다.</div>
         </div>
         
-        <div class="inputBox">
+        <div class="input-Box">
             <input type="submit" value="탈퇴">
             <!-- <input type="button" value="Back" @click="moveToHome"> -->
-            <router-link to="/" class="nav-link active" href="#">Back</router-link>
+            <router-link to="/home" class="button-link"> <button>Back</button> </router-link>
         </div>
     </form>
+</div>
 
 </template>
 
@@ -66,33 +68,22 @@ export default {
 </script>
 
 <style scoped>
-    .inputBox {
-    width: 100%;
-    margin-top: 20px;
-    }
-
-    .inputBox:nth-child(2) {
+    .input-Box:nth-child(2) {
     display: flex;
     justify-content: space-evenly;
-    }
 
-    .inputBox input[type="submit"] {
-    background: #fff;
-    color: #666;
-    cursor: pointer;
-    width: 100px;
-    margin-bottom: 20px;
-    font-weight: 600;
-    text-align: center;
     }
-
-    .inputBox input[type="button"] {
-    background: #fff;
-    color: #666;
-    cursor: pointer;
-    width: 100px;
-    margin-bottom: 20px;
-    font-weight: 600;
-    text-align: center;
+    .form-label {
+        font-family: "NanumSquare", sans-serif;
+    }
+    button {
+        background: #ffd700;
+        color: #000000;
+        cursor: pointer;
+        width: 100px;
+        margin-bottom: 20px;
+        font-weight: 600;
+        text-align: center;
+        border-radius: 40px 80px;
     }
 </style>

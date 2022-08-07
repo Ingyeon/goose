@@ -150,6 +150,9 @@ export default {
                         Swal.fire(
                             '그동안 Goose를 이용해주셔서 감사합니다'
                         )
+                    // .catch((err) =>{
+                    //     alert('비밀번호를 확인해주세요')
+                    // })
                     router.push({name:'Home'})
                 }
             })
@@ -175,6 +178,28 @@ export default {
                 console.log(err)
             })
         },
+        passwordUpdate({getters, dispatch, commit},passwordform_data) {
+            console.log('액시오스 전')
+            console.log(passwordform_data)
+            axios({
+                url: rest.user.user_passwordupdate(),
+                method: 'patch',
+                data: passwordform_data,
+                headers: getters.authHeader
+            })
+            .then(res=>{
+                // dispatch('fetchLoginUser')
+                dispatch('removeToken')
+                alert('비밀번호가 변경되었습니다. 다시 로그인해주세요')
+                router.push({
+                    name: "Home"
+                })
+            })
+            .catch(err=>{
+                alert('기존의 비밀번호와 다른 비밀번호입니다.')
+                console.log(err)
+            })
+        }
     // profileUpdate({ getters, dispatch, commit }, userform_data) {
     //   console.log("액시오스 전");
     //   axios({

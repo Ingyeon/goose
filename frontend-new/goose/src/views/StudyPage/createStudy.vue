@@ -103,7 +103,7 @@ export default {
       const createStudy = ()=>{
           store.dispatch('createStudy',state.credential)
           store.dispatch('authStudyList')
-
+          store.dispatch('saveOpenList')
       }
       return { createStudy, state}
   }
