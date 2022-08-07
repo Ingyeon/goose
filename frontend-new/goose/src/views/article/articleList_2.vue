@@ -236,7 +236,7 @@ button:not(.search) {
 
 .cc{background: #3CBDB1;}
 .python{background: #3776AB}
-.javascript{background: #F7DF1E;}
+.javascript{background: #FB667A;}
 .java{background: #FF7800;}
 .c{background: #A8B9CC;}
 
@@ -252,6 +252,9 @@ button{
   margin-left: 20px;
 }
 
+button:focus{
+  background-color: yellow;
+}
 
 .cssbutton:not(.search) {
   border-radius: 80px 40px;

@@ -9,12 +9,12 @@
     {{reply.re_content}}
         <div v-if="state.isEditing">
     <input type="text" v-model="state.form.re_content">
-    <button @click.prevent="update_reply(reply.id)" class="mx-2">완료</button>
-    <button @click.prevent="switchEditing()" class="mx-2">취소</button>
+    <button @click.prevent="update_reply(reply.id)" class="mx-2 check-button"></button>
+    <button @click.prevent="switchEditing()" class="mx-2 btn-close p-0"></button>
     </div>
         <div v-if="loginUser.id === reply.user_pk && state.isEditing == false" class="px-1">
-    <button @click.prevent="switchEditing()" class="mx-2">수정</button>
-    <button @click.prevent="deleteReply(reply.id)" class="mx-2">삭제</button>
+    <button @click.prevent="switchEditing()" class="img-button"></button>
+    <button @click.prevent="deleteReply(reply.id)" class="mx-2 p-0 btn-close size"></button>
     </div></ul></ol>
     </li>
   </ol>
@@ -63,6 +63,25 @@ export default {
 
 </script>
 
-<style>
+<style scoped >
 
+button.img-button {
+        background: url( "@/assets/수정버튼.png" ) no-repeat;
+        border: none;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+      }
+
+.check-button {
+          background: url( "@/assets/체크.png" ) no-repeat;
+        border: none;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+}
+.size {
+          width: 24px;
+        height: 24px;
+}
 </style>
