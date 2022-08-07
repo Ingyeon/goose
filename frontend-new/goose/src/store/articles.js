@@ -104,7 +104,7 @@ export default {
 
         },
         // 단일 페이지 조회
-        fetchArticle({ commit, getters  }, id){
+        fetchArticle({ commit, getters,dispatch  }, id){
             axios({
                 url: rest.article.article_read(id),
                 method: 'get',
@@ -113,6 +113,9 @@ export default {
             .then(res => {
                 console.log(res.data.title)
                 commit('SET_ARTICLE', res.data)})
+            .then(()=>{
+                dispatch('fetchReplies', {article_pk:getters.article.id,reply_page:1} ) // 댓글도 함께 조회 페이지 일단 1번 고정해뒀음
+            })
             .catch(err => {
                 console.error(err.response)
                 router.push({name:'ArticleList'})})

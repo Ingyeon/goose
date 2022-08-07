@@ -53,7 +53,7 @@ export default {
             // reply_page 값은 임의로 1 부여
             store.dispatch('fetchReplies', {article_pk:store.getters.article.id,reply_page:1} )
         }
-        reply_list()
+        // reply_list() 글 조회시 같이 패치되게 글 조회 함수에서 작동
 
         const loginUser = computed(() => store.getters.loginUser)
 
