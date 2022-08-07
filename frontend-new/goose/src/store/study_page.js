@@ -32,6 +32,7 @@ export default {
       // name:""
     },
     reloadCheck: false,
+    openstudyList: []
   },
 
   getters: {
@@ -51,6 +52,7 @@ export default {
     studyManager: (state) => state.studyManager,
     isStudyManager: (state, getters) =>
       state.studyManager.id == getters.loginUser.id,
+    openstudyList: (state) => state.openstudyList ,
   },
 
   mutations: {
@@ -70,6 +72,7 @@ export default {
     SET_RESULT: (state, result) => (state.result = result),
     SET_STUDY_MANAGER: (state, manager) => (state.studyManager = manager),
     SET_RELOADCHECK: (state, reloadCheck) => (state.reloadCheck = reloadCheck),
+    SET_OPENSTUDY_LIST: (state, openstudyList) => (state.openstudyList = openstudyList)
   },
 
   actions: {
@@ -81,6 +84,21 @@ export default {
       commit("SET_JOIN_LIST", joinArray);
     },
 
+    saveOpenList({commit, getters}){
+      console.log('액시오스전')
+      axios({
+        url: rest.study.open_study(),
+        method:"get",
+        headers: getters.authHeader,
+      })
+      .then((res) => {
+        console.log(res)
+        commit("SET_OPENSTUDY_LIST", res.data)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    },
 
 
 

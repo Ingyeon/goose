@@ -1,41 +1,62 @@
 <template>
-  <div>
-    <li class="active">오픈 스터디</li>
+  <div class="container">
+    <!-- <li class="active">오픈 스터디</li> -->
     <b-card-group class="d-flex justify-content-start">
-    <div v-for="article in articleList" :key="article.id">
-    <div class="card mcs mx-2 my-2 row row-col-4" style="width: 18rem;" >
-  <img src="#" class="card-img-top" alt="alt">
-  <div class="card-body">
-    <h5 class="card-title">{{article.title}}</h5>
-    <p class="card-text">{{article.content}}</p>
-    <button @click.prevent="joinStudy(article)" type="button" class="btn btn-primary" >가입신청</button>
-  </div>
-  </div>
-  </div>
-  </b-card-group>
+      <div class="row" v-for="article in openstudyList" :key="article.id">
+        <div class="col-12 col-md-4 col-lg-3">        
+        <div class="card">
+          <img :src="article.image" class="card-img-top" alt="alt">
+          <div class="card-body">
+            <h5 class="card-title">{{article.title}}</h5>
+            <p class="card-text">사용 언어: {{}}</p>
+            <div class="d-flex justify-content-end">
+              <button href="#" class="button">스터디 입장하기</button>
+            </div>
+          </div>
+            <!-- {{article}} -->
+      <!-- <p class="card-text">{{article.content}}</p> -->
+      <!-- <button @click.prevent="joinStudy(article)" type="button" class="btn btn-primary" >가입신청</button> -->
+          </div>
+        </div>
+      </div>
+    </b-card-group>
   </div>  
 </template>
 
 <script>
 import { useStore } from "vuex"
 import { computed } from "vue"
+import study1 from "@/assets/study1.png"
+import study2 from "@/assets/study2.png"
+import study3 from "@/assets/study3.jpg"
 export default {
 
   setup(){
     const store = useStore()
     const myStudyList = computed(()=> store.getters.myStudyList)
-    const articleList = computed(()=> store.getters.articles)
+    // const openstudyList = computed(()=> store.getters.openstudyList)
+    const openstudyList = store.getters.openstudyList
     const fetchMyStudyList = function(studyId){
       store.dispatch('myStudyList',studyId)
     }
-    const joinStudy = (studyId) => store.dispatch('joinStudy',studyId)
-    return {myStudyList,fetchMyStudyList,articleList,joinStudy}
+    const open_set = function(){
+      console.log('시작')
+      console.log(openstudyList)
+      store.dispatch('saveOpenList')
+    }
+    
+    // open_set()
+
+    // const joinStudy = (studyId) => store.dispatch('joinStudy',studyId)
+    return {myStudyList,fetchMyStudyList,openstudyList,open_set}
   },
 
   watch: {
     $route: {
       handler() {
+        // this.open_set()
         this.fetchMyStudyList()
+        this.open_set()
       },
       immediate: true
     }
@@ -44,6 +65,13 @@ export default {
 </script>
 
 <style>
+  .row {
+    margin: 10px;
+  }
+  .card {
+    width: 18rem;
+    margin-left:20px;
+  }
   .notice-item {
     width : 100%;
     height: 300px;
@@ -51,5 +79,15 @@ export default {
     border: 1px solid red;
     display: flex;
     justify-content: center;
+  }
+  .button{
+    background: #ffd700;
+    color: #000000;
+    cursor: pointer;
+    width: 80%;
+    margin-bottom: 20px;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 40px 80px;
   }
 </style>

@@ -109,26 +109,41 @@
             <!-- <div class="m-3">
             인원 : {{ selectedStudy.member }}/ {{ selectedStudy.maxmember }}
           </div> -->
-          </div>
-
-          <div class="d-flex justify-content-end">
-            스터디 관리자 : {{ manager.name }}
-          </div>
-          <h3>공지사항</h3>
-          <div class="study-content">
-            <div class="container">
-              <notice />
-            </div>
+        </div>
+        
+        
+        <div class="d-flex justify-content-end">스터디 관리자 : {{ manager.name }}</div>
+          <!-- <h3>공지사항</h3> -->
+        <div class="study-content">
+          <div class="container">
+            <h3 class="text-center fw-bold">공지사항</h3>
+            <notice />
           </div>
         </div>
       </div>
     </div>
-    <br />
-    <br />
-    <div class="box">
-      <!-- 게시판 -->
-      <miniArticles />
-    </div>
+  </div>
+  <br>
+  <br> 
+  <div class="box">
+  <!-- 게시판 -->
+    <miniArticles />
+  </div>
+
+  <div class="callender-box">
+    <callender />
+  </div>
+  <div class="button-box d-flex justify-content-evenly">
+    <button class="button-danger" v-if="isManager" @click.prevent="deleteStudy">
+      스터디 터트리기
+    </button>
+    <button class="button-danger" @click.prevent="dropOutStudy(loginUser.id)">스터디 탈퇴하기</button>
+  </div>
+
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+    Launch static backdrop modal
+  </button>
 
     <div class="callender-box">
       <callender />
@@ -243,12 +258,25 @@ img {
   #study-url {
     display: none;
   }
+  .callender-box{
+  position:relative;
+  top:50px;
+  }
 }
 
-@media screen and (max-width: 1048px) {
-  .box {
-    position: relative;
-    top: 50px;
+
+@media screen and (min-width:768px) {
+  .box{
+    position:relative;
+    top:50px;
+  }
+    .callender-box{
+  position:relative;
+  top:50px;
+  }
+  .button-box{
+      position:relative;
+  top:30px;
   }
 }
 </style>

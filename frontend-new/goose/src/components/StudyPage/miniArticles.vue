@@ -12,6 +12,7 @@
                 <li class="article" >{{article.title}}</li>
                 <li class="article-author">{{article.name}}</li>
             </ul>
+            <hr>
         </ul>
     </div>
 </div>
@@ -51,7 +52,7 @@ export default {
                 params: { "category":null, "page":1, "studyPk":store.getters.selectedStudy.id, "title":null}
             })
             .then((res)=>{
-                const articleList = res.data.content.slice(0,5)
+                const articleList = res.data.content.slice(0,6)
                 state.recentlyArticleList = articleList
             })
         }
