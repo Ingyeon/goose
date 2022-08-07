@@ -302,7 +302,7 @@
           v-if="!timer"
           variant="primary"
           @click="startTimer()"
-          style="margin-left: 20px; height: 38px"
+          style="margin-left: 30px; height: 38px"
           >시작</b-button
         >
         <b-button
