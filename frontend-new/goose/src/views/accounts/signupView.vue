@@ -92,9 +92,12 @@ export default {
                 "name":state.form.name, 
                 "password":state.form.password1, 
                 "photo": "../../assets/profile4.png"})
-            .then(function (result){
+            .then(function (){
                 alert('Goose에 회원가입 해주셔서 감사합니다!')
-                router.push({name :'Home'})
+                store.dispatch('login',{
+                    'id': state.form.id,
+                    'password': state.form.password1
+                })
             })
             .catch(function(err){
                 alert(err)
