@@ -80,7 +80,7 @@ export default {
             photo: store.getters.loginUser.photo,
             interest: store.getters.loginUser.interest,
             profilephoto: "",
-            form: []
+            form: [] // 그냥 replyArticle을 고쳤습니다
         });
         // 내가 댓글 단 글 확인
         // 1. 게시글 및 댓글 리스트를 불러온다.
@@ -92,13 +92,11 @@ export default {
         const myReplies = async function () {
             await store.dispatch("fetchArticles", 1); // 임의값으로 1 줌
             await store.dispatch("fetchReplies", { article_pk: null, reply_page: 1 });
-            var item = null;
-            for (item of store.getters.replies) {
+            // var item = null;
+            store.dispatch('resetMyReplyList')    // 값이 누적되는 형태라 누적시키기 전에 reset용
+            for (let item of store.getters.replies) {
                 if (item.user_pk == store.getters.loginUser.id) {
-                    console.log(item.article_pk);
-                    store.dispatch("fetchArticle", item.article_pk);
-                    console.log(store.getters.article.title);
-                    state.form.push(store.getters.article.title);
+                    store.dispatch("fetchArticle2", item.article_pk);
                 }
             }
           }
@@ -106,7 +104,7 @@ export default {
           const set = new Set(state.form)
           store.commit('SET_TEST',set)
 
-        const replyArticle = computed(() => store.getters.test)
+        const replyArticle = computed(() => store.getters.myReplyList)
         myReplies()
 
         console.log(state.photo)

@@ -10,7 +10,11 @@ export default {
         replies: [], // 해당 게시물의 전체 댓글 조회 시 사용
         reply: {}, //개별 댓글의 CRUD
         total: [],
-        test: []
+        test: [],
+        myReplyList: [
+            // id : 댓글단 글의 id가 들어감
+            // title: 댓글단 글의 제목이 들어감
+        ],
     },
     getters: {
         articles: state => state.articles,
@@ -19,7 +23,8 @@ export default {
         replies: state => state.replies,
         reply: state => state.reply,
         total: state => state.total,
-        test: state => state.test
+        test: state => state.test,
+        myReplyList: state => state.myReplyList
     },
     mutations: {
         SET_ARTICLES: (state, articles) => state.articles = articles,
@@ -27,7 +32,9 @@ export default {
         SET_REPLIES: (state, replies) => state.replies = replies,
         SET_REPLY: (state, reply) => state.reply = reply,
         SET_TOTALPAGE: (state, total) => state.total = total,
-        SET_TEST: (state, test) => state.test = test,               
+        SET_TEST: (state, test) => state.test = test,
+        RESET_MY_REPLY_LIST: (state) => state.myReplyList = [],
+        ADD_MY_REPLY_LIST: (state,replyList) => state.myReplyList.push(replyList),               
     },
     actions: {
         // 전체 페이지 조회
@@ -106,11 +113,24 @@ export default {
             .then(res => {
                 console.log(res.data.title)
                 commit('SET_ARTICLE', res.data)})
-
             .catch(err => {
                 console.error(err.response)
                 router.push({name:'ArticleList'})})
             },
+        // 프로필에서 댓글 단 글 조회시 사용할 용도
+        fetchArticle2({ commit, getters }, id){
+            axios({
+                url: rest.article.article_read(id),
+                method: 'get',
+                headers: getters.authHeader,
+            })
+            .then((res)=>{
+                commit('ADD_MY_REPLY_LIST',{id:res.data.id ,title:res.data.title})
+            })
+        },
+        
+        
+        
         createArticle({getters},form_data){
             axios({
                 url: rest.article.article_cud(),
@@ -212,5 +232,9 @@ export default {
                 commit('SET_REPLIES',res.data.content)
             })
             .catch(err => console.error(err.response))
+        },
+
+        resetMyReplyList({commit}){
+            commit('RESET_MY_REPLY_LIST')
         }
     }}

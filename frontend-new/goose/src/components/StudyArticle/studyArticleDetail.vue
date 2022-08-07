@@ -54,7 +54,9 @@ export default {
           store.dispatch("deleteStudyArticle")
         }
         const typeReset = ()=>{
-          state.type = 0
+          setTimeout(()=>{
+            state.type = 0
+          },1000)
         }
         
         
