@@ -313,8 +313,13 @@ export default {
     miniArticles,
     notice,
   },
-
+  data(){
+    return{
+    compiler:"123",
+    }
+  },
   setup() {
+    
     const store = useStore();
     const route = useRoute();
     const router = useRouter();
@@ -378,6 +383,7 @@ export default {
     selectedStudy: {
       handler() {
         this.changePhoto();
+        this.compiler = this.selectedStudy.category;
       },
     },
   },
