@@ -115,8 +115,8 @@ export default {
           console.log(getters.selectedStudy)
     },
 
-    selectStudy({ commit, getters, dispatch }, id) {
-      axios({
+    async selectStudy({ commit, getters, dispatch }, id) {
+      await axios({
         url: rest.study.study_search(id),
         method: "get",
         headers: getters.authHeader,
@@ -133,7 +133,7 @@ export default {
         });
 
       // 전체 페이지 조회
-      axios({
+      await axios({
         url: rest.calendar.calendar_list(id),
         method: "get",
         headers: getters.authHeader,

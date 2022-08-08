@@ -49,12 +49,12 @@ import { useStore } from "vuex";
 export default {
   setup() {
     const store = useStore();
-    const events_set = function () {
-      store.dispatch("fetchCalendars", 6);
-      const events = JSON.parse(JSON.stringify(store.getters.events));
-      console.log(events);
-    };
-    events_set();
+    // const events_set = function () {
+    //   store.dispatch("fetchCalendars", 6);
+    //   const events = JSON.parse(JSON.stringify(store.getters.events));
+    //   console.log(events);
+    // };
+    // events_set();
   },
   // mounted() {
   //   let recaptchaScript = document.createElement("script");

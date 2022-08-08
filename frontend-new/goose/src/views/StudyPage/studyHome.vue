@@ -321,8 +321,8 @@ export default {
     // const pageUpdate = () =>
     //   store.dispatch("selectStudy", store.getters.selectedStudy.id);
 
-    const fetchStudyHome = () => {
-      store.dispatch("selectStudy", route.params.studyPk);
+    const fetchStudyHome = async() => {
+      await store.dispatch("selectStudy", route.params.studyPk);
     };
     fetchStudyHome();
 
