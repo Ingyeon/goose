@@ -43,6 +43,10 @@ export default {
             passwordCheckFlag: true
         })
         const changeForm = () => {
+            if (!status.passwordValidFlag || !status.passwordCheckFlag){
+                alert('중복되지 않거나 올바르지 않은 양식이 있습니다.')
+                return
+            }
             store.dispatch("passwordUpdate", {"current_password": status.current_password,
                                              "new_password": status.new_password1})
         }
@@ -95,6 +99,9 @@ export default {
     }
     .form-label {
         font-family: "NanumSquare", sans-serif;
+    }
+    input[type="password"] {
+        font-family: "Gulim"
     }
     button {
         background: #ffd700;

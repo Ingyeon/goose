@@ -224,7 +224,14 @@ export default {
             })
             .then(res=>{
                 console.log(res)
-                commit('SET_FIND_ID', res.data)
+                if (res.data === "Wrong Info") {
+                    alert('조회되지 않습니다.')
+                    return
+                }
+                else {
+                    commit('SET_FIND_ID', res.data)
+                }
+                
             })
             .catch(err=>{
                 alert('이름과 이메일을 확인해주세요')

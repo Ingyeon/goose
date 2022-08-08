@@ -11,7 +11,7 @@
         
         <div class="input-Box">
             <button @click="FindForm" data-bs-toggle="modal" data-bs-target="#idModal">ID찾기</button>
-            <div class="modal fade" id="idModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div v-if="status.validcheck" class="modal fade" id="idModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                     <div class="modal-header">
@@ -44,23 +44,31 @@ export default {
         // const token = computed(() => store.getters.isLoggedIn)
         const findid = computed(()=>store.getters.findId)
         const status = reactive({
+            validcheck: 0,
            name : '',
            email : ''
         })
         
-        const CheckFindId = () => {
-            if (findid === "Wrong Info") {
-                findid = "조회되는 아이디가 없습니다."
-            }
-        }
+        // const CheckFindId = () => {
+        //     if (findid === "Wrong Info") {
+        //         findid = "조회되는 아이디가 없습니다."
+        //     }
+        // }
         const FindForm = () => {
             store.dispatch("findId", {"email": status.email, "name": status.name})
+            .then(() =>{
+                console.log(status)
+                status.validcheck = 1
+        })
+            .catch(() => {
+                console.log(status)
+                status.validcheck = 0
+        })
         }
         return {
             status,
             store,
             FindForm,
-            CheckFindId,
             findid
         }
     },

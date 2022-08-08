@@ -25,9 +25,9 @@
       </div>
       </div>
           <div class="input-Box">
-      <button type="submit" @click.prevent="clickidpwSelect" data-bs-dismiss="modal" class="id-password">ID/PW찾기</button>
       <button type="submit" @click.prevent="clickLogin" data-bs-dismiss="modal" class="btn btn-primary">로그인</button>
       <button type="submit" @click.prevent="clickSignup" data-bs-dismiss="modal" class="btn btn-secondary">회원가입</button>
+      <button type="submit" @click.prevent="clickidpwSelect" data-bs-dismiss="modal" class="id-password">ID/PW찾기</button>
       </div>
     </form>
           </div>
