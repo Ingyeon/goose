@@ -15,6 +15,11 @@ export default {
             // id : 댓글단 글의 id가 들어감
             // title: 댓글단 글의 제목이 들어감
         ],
+        pageIndex: 1,
+        articleCheck: {test:true},
+        tempList : [
+            // myReplyList가 n명 이상이라 못들어간 목록 임시 저장소 
+        ]
     },
     getters: {
         articles: state => state.articles,
@@ -24,7 +29,10 @@ export default {
         reply: state => state.reply,
         total: state => state.total,
         test: state => state.test,
-        myReplyList: state => state.myReplyList
+        myReplyList: state => state.myReplyList,
+        pageIndex: state => state.pageIndex,
+        articleCheck: state => state.articleCheck,
+        tempList: state => state.tempList
     },
     mutations: {
         SET_ARTICLES: (state, articles) => state.articles = articles,
@@ -34,7 +42,12 @@ export default {
         SET_TOTALPAGE: (state, total) => state.total = total,
         SET_TEST: (state, test) => state.test = test,
         RESET_MY_REPLY_LIST: (state) => state.myReplyList = [],
-        ADD_MY_REPLY_LIST: (state,replyList) => state.myReplyList.push(replyList),               
+        ADD_MY_REPLY_LIST: (state,replyList) => state.myReplyList.push(replyList),
+        SET_PAGE_INDEX: (state,pageIndex) => state.pageIndex = pageIndex,
+        ADD_ARTICLE_CHECK: (state,value) => Object.defineProperty(state.articleCheck,value,{value:true}),
+        CLEAR_ARTICLE_CHECK:(state) => state.articleCheck = {},
+        ADD_TEMP_LIST: (state,item) => state.tempList.push(item),
+        CLEAR_TEMP_LIST:(state) => state.tempList = []
     },
     actions: {
         // 전체 페이지 조회
@@ -121,16 +134,16 @@ export default {
                 router.push({name:'ArticleList'})})
             },
         // 프로필에서 댓글 단 글 조회시 사용할 용도
-        fetchArticle2({ commit, getters }, id){
-            axios({
-                url: rest.article.article_read(id),
-                method: 'get',
-                headers: getters.authHeader,
-            })
-            .then((res)=>{
-                commit('ADD_MY_REPLY_LIST',{id:res.data.id ,title:res.data.title})
-            })
-        },
+        // fetchArticle2({ commit, getters }, id){
+        //     axios({
+        //         url: rest.article.article_read(id),
+        //         method: 'get',
+        //         headers: getters.authHeader,
+        //     })
+        //     .then((res)=>{
+        //         commit('ADD_MY_REPLY_LIST',{id:res.data.id ,title:res.data.title})
+        //     })
+        // },
         
         
         
@@ -236,7 +249,54 @@ export default {
             .catch(err => console.error(err.response))
         },
 
-        resetMyReplyList({commit}){
+        // resetMyReplyList({commit}){
+        //     commit('RESET_MY_REPLY_LIST')
+        // },
+
+        clearArticleCheck({commit}){
+            commit('CLEAR_ARTICLE_CHECK')
+        },
+        findMyReplyArticles({  state,commit,getters }){
             commit('RESET_MY_REPLY_LIST')
-        }
+            // while (getters.myReplyList.length != 5){
+                axios.get(rest.articles_reply.reply_crud(),{params:{page: 
+                    // getters.pageIndex}})
+                    1}})
+                .then(res => {
+                    for (let reply of res.data.content){
+                        if(reply.user_pk == getters.loginUser.id){
+                            // 해당 아티클 조회하여 title 가져오기 위해
+                            console.log("한번에 실행되는거 확인용")
+                            axios({
+                                url: rest.article.article_read(reply.article_pk),
+                                method: 'get',
+                                headers: getters.authHeader,
+                            })
+                            .then((res)=>{
+                                console.log("여긴 도착?",res.data.id)
+                                if(!Object.keys(getters.articleCheck).includes(res.data.id)){
+                                    if (getters.myReplyList.length <5){
+                                        commit('ADD_MY_REPLY_LIST',{id:res.data.id, title:res.data.title})
+                                        commit('ADD_ARTICLE_CHECK',res.data.id)
+                                        console.log("체크용",getters.articleCheck)
+                                        const t = getters.articleCheck
+                                        console.log("t:",t)
+                                        // console.log(Object.keys(getters.articleCheck).includes("12"))
+                                        console.log("왜없냐",Object.keys(getters.articleCheck))
+                                        // console.log("???",getters.articleCheck.includes(12))
+                                    } else {
+                                        console.log("가득찼어")
+                                        commit('ADD_TEMP_LIST',{id:res.data.id, title:res.data.title})
+                                    }
+                                }
+                                
+                            })
+                        }
+                    }
+                })
+                // 페이지 업~
+                .catch(err => console.error(err.response))
+                
+            // }
+        },
     }}

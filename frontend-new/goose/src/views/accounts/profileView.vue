@@ -90,16 +90,18 @@ export default {
         // 디버깅해야 하는 버그
         // 1. id 값은 제대로 전달되는데 commit 되는 값이 전부 동일하게 들어감 => 원인 파악도 못함
         const myReplies = async function () {
-            await store.dispatch("fetchArticles", 1); // 임의값으로 1 줌
-            await store.dispatch("fetchReplies", { article_pk: null, reply_page: 1 });
+            // await store.dispatch("fetchArticles", 1); // 임의값으로 1 줌
+            // await store.dispatch("fetchReplies", { article_pk: null, reply_page: 1 });
             // var item = null;
-            store.dispatch('resetMyReplyList')    // 값이 누적되는 형태라 누적시키기 전에 reset용
-            for (let item of store.getters.replies) {
-                if (item.user_pk == store.getters.loginUser.id) {
-                    store.dispatch("fetchArticle2", item.article_pk);
-                }
-            }
+            // store.dispatch('resetMyReplyList')    // 값이 누적되는 형태라 누적시키기 전에 reset용
+            // for (let item of store.getters.replies) {
+            //     if (item.user_pk == store.getters.loginUser.id) {
+            //         store.dispatch("fetchArticle2", item.article_pk);
+            //     }
+            // }      
           }
+          store.dispatch('clearArticleCheck')
+          store.dispatch('findMyReplyArticles')
 
           const set = new Set(state.form)
           store.commit('SET_TEST',set)

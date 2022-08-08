@@ -361,6 +361,7 @@ export default {
     };
     changePhoto();
     const isJoinList = computed(()=>store.getters.isJoinList)
+    const test = computed(()=>store.getters.selectedArticle)
     return {
       selectedStudy,
       deleteStudy,
@@ -374,7 +375,8 @@ export default {
       clickbtn2,
       changePhoto,
       state,
-      isJoinList
+      isJoinList,
+      test
     };
   },
   methods: {

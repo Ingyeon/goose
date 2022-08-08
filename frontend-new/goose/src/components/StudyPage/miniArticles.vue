@@ -8,7 +8,7 @@
     </div>
     <div class="container box">
         <ul v-for="article in state.recentlyArticleList" :key="article.id">
-            <ul class="d-flex justify-content-between" data-bs-toggle="modal" data-bs-target="#studyArticleDetail" @click="selectArticle">
+            <ul class="d-flex justify-content-between" data-bs-toggle="modal" data-bs-target="#studyArticleDetail" @click="selectArticle(article.id)">
                 <li class="article" >{{article.title}}</li>
                 <li class="article-author">{{article.name}}</li>
             </ul>
@@ -32,7 +32,6 @@ import axios from 'axios'
 import rest from '@/api/rest'
 export default {
     props: {
-    item:Object
     },
     components:{
         studyArticleDetail
@@ -65,8 +64,8 @@ export default {
             });
         };
         
-        const selectArticle = ()=>{
-            store.dispatch('getStudyArticle',props.item.id)
+        const selectArticle = (article_pk)=>{
+            store.dispatch('getStudyArticle',article_pk)
         }
         
         const selectedStudy = computed(()=> store.getters.selectedStudy)

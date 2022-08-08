@@ -1,6 +1,6 @@
 <template>
     <ul v-for="article in state.noticeList" :key="article.id">
-        <div class="d-flex justify-content-between" data-bs-toggle="modal" data-bs-target="#studyArticleDetail" @click="selectArticle" :key="article.id">
+        <div class="d-flex justify-content-between" data-bs-toggle="modal" data-bs-target="#studyArticleDetail" @click="selectArticle(article.id)" :key="article.id">
             <li class="article" >{{article.title}}</li>
             <li class="article-author">{{article.name}}</li>
         </div>
@@ -31,7 +31,10 @@ export default {
             })
         }
         const selectedStudy = computed(()=> store.getters.selectedStudy)
-        return {state,selectedStudy,fetchNoticeList}
+        const selectArticle = (article_pk)=>{
+            store.dispatch('getStudyArticle',article_pk)
+        }
+        return {state,selectedStudy,fetchNoticeList,selectArticle}
     },
 
     watch:{
