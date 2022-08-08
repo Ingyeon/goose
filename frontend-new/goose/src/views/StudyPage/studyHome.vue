@@ -141,7 +141,7 @@
     <miniArticles />
   </div>
 
-  <div class="callender-box">
+  <!-- <div class="callender-box">
     <callender />
   </div>
   <div class="button-box d-flex justify-content-evenly">
@@ -149,14 +149,14 @@
       스터디 터트리기
     </button>
     <button class="button-danger" @click.prevent="dropOutStudy(loginUser.id)">스터디 탈퇴하기</button>
-  </div>
+  </div> -->
 
   <!-- Button trigger modal -->
-
     <div class="callender-box">
       <callender />
     </div>
-    <div class="container d-flex justify-content-evenly">
+    <br>
+    <div class="container d-flex justify-content-evenly m-5">
       <button
         class="button-danger"
         v-if="isManager"

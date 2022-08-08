@@ -71,8 +71,9 @@ export default {
         document.getElementById('me-study').classList.add('active')
       }
       else(state.toggle = 0)}
-
-    store.dispatch('myStudyList')
+    if (store.getters.isLoggedIn){
+      store.dispatch('myStudyList')
+    }
   return {store,state,hire_study,me_study}
 
 }}
