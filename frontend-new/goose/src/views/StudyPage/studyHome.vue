@@ -1,4 +1,5 @@
 <template>
+  <div>
     <div class="container d-flex mt-3">
       <div class="row">
         <div class="col-lg-4 col-md-6 col-12">
@@ -90,8 +91,13 @@
               >
                 참가 신청 리스트
               </button>
-              <button id="listbutton2" v-if="isManager && isJoinList" type="button" class="button"
-                data-bs-toggle="modal" data-bs-target="#studyJoinListModal"
+              <button
+                id="listbutton"
+                v-if="isManager && isJoinList"
+                type="button"
+                class="button"
+                data-bs-toggle="modal"
+                data-bs-target="#studyJoinListModal"
                 style="color:red"
               >
                 참가 신청 리스트
@@ -114,32 +120,43 @@
             <!-- <div class="m-3">
             인원 : {{ selectedStudy.member }}/ {{ selectedStudy.maxmember }}
           </div> -->
-          </div>
-
-          <div class="d-flex justify-content-end">
-            스터디 관리자 : {{ manager.name }}
-          </div>
+        </div>
+        
+        
+        <div class="d-flex justify-content-end">스터디 관리자 : {{ manager.name }}</div>
           <!-- <h3>공지사항</h3> -->
         <div class="study-content">
           <div class="container">
             <h3 class="text-center fw-bold">공지사항</h3>
-            <hr>
             <notice />
           </div>
         </div>
       </div>
     </div>
-    <br />
-    <br />
-    <div class="box">
-      <!-- 게시판 -->
-      <miniArticles />
-    </div>
+  </div>
+  <br>
+  <br> 
+  <div class="box">
+  <!-- 게시판 -->
+    <miniArticles />
+  </div>
+
+  <!-- <div class="callender-box">
+    <callender />
+  </div>
+  <div class="button-box d-flex justify-content-evenly">
+    <button class="button-danger" v-if="isManager" @click.prevent="deleteStudy">
+      스터디 터트리기
+    </button>
+    <button class="button-danger" @click.prevent="dropOutStudy(loginUser.id)">스터디 탈퇴하기</button>
+  </div> -->
+
+  <!-- Button trigger modal -->
 
     <div class="callender-box">
       <callender />
     </div>
-    <div class="button-box d-flex justify-content-evenly" style="margin-top:50px;">
+    <div class="container d-flex justify-content-evenly">
       <button
         class="button-danger"
         v-if="isManager"
@@ -151,8 +168,7 @@
         스터디 탈퇴하기
       </button>
     </div>
-
-    <div style="height: 150px"></div>
+    <div style="height: 50px"></div>
   </div>
 </template>
 
@@ -250,24 +266,25 @@ img {
   #study-url {
     display: none;
   }
-  .callender-box {
-    position: relative;
-    top: 50px;
+  .callender-box{
+  position:relative;
+  top:50px;
   }
 }
 
-@media screen and (min-width: 768px) {
-  .box {
-    position: relative;
-    top: 50px;
+
+@media screen and (min-width:768px) {
+  .box{
+    position:relative;
+    top:50px;
   }
-  .callender-box {
-    position: relative;
-    top: 50px;
+    .callender-box{
+  position:relative;
+  top:50px;
   }
-  .button-box {
-    position: relative;
-    top: 30px;
+  .button-box{
+      position:relative;
+  top:30px;
   }
 }
 </style>
@@ -353,7 +370,7 @@ export default {
       clickbtn2,
       changePhoto,
       state,
-      isJoinList,
+      isJoinList
     };
   },
 
