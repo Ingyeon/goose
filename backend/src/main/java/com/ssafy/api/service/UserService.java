@@ -12,8 +12,12 @@ public interface UserService {
 	User updateUser(UserUpdatePatchReq updateInfo, String userId);
 	User updatePW(String newPw, String userId);
 	User getUserByUserId(String userId);
+	Boolean getUserByEmail(String email);
+	Boolean getUserByUserIdAndEmail(String userId, String email);
+	String getUserByNameAndEmail(String name, String email);
 	void deleteUserByUserId(String userId);
 	String findName(Long id);
+	
 
 
 }

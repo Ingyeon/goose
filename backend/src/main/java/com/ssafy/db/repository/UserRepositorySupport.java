@@ -24,5 +24,26 @@ public class UserRepositorySupport {
         if(user == null) return Optional.empty();
         return Optional.ofNullable(user);
     }
+    
+    public Optional<User> findUserByEmail(String email) {
+        User user = jpaQueryFactory.select(qUser).from(qUser)
+                .where(qUser.email.eq(email)).fetchOne();
+        if(user == null) return Optional.empty();
+        return Optional.ofNullable(user);
+    }
+    
+    public Optional<User> findUserByUserIdAndEmail(String userId, String email) {
+        User user = jpaQueryFactory.select(qUser).from(qUser)
+        		.where(qUser.userId.eq(userId)).where(qUser.email.eq(email)).fetchOne();
+        if(user == null) return Optional.empty();
+        return Optional.ofNullable(user);
+    }
+    
+    public Optional<User> findUserByNameAndEmail(String name, String email) {
+        User user = jpaQueryFactory.select(qUser).from(qUser)
+        		.where(qUser.name.eq(name)).where(qUser.email.eq(email)).fetchOne();
+        if(user == null) return Optional.empty();
+        return Optional.ofNullable(user);
+    }
 
 }

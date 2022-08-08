@@ -1,5 +1,7 @@
 package com.ssafy.api.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -78,5 +80,32 @@ public class UserServiceImpl implements UserService {
 		// 보안을 위해서 유저 패스워드 암호화 하여 디비에 저장.
 		user.setPassword(passwordEncoder.encode(newPw));
 		return userRepository.save(user);
+	}
+
+	@Override
+	public Boolean getUserByEmail(String email) {
+
+		if(userRepositorySupport.findUserByEmail(email).isPresent()) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public String getUserByNameAndEmail(String name, String email) {
+		Optional<User> user = userRepositorySupport.findUserByNameAndEmail(name, email);
+		if(user.isPresent()) {
+			return user.get().getUserId();
+		}
+		return null;
+	}
+
+	@Override
+	public Boolean getUserByUserIdAndEmail(String userId, String email) {
+		Optional<User> user = userRepositorySupport.findUserByUserIdAndEmail(userId, email);
+		if(user.isPresent()) {
+			return true;
+		}
+		return false;
 	}
 }

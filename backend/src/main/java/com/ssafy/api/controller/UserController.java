@@ -1,5 +1,7 @@
 package com.ssafy.api.controller;
 
+import java.io.Console;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.api.request.study_user.UserFindPasswordPatchReq;
 import com.ssafy.api.request.study_user.UserLoginPostReq;
 import com.ssafy.api.request.study_user.UserPasswordPatchReq;
 import com.ssafy.api.request.study_user.UserRegisterPostReq;
@@ -82,6 +85,60 @@ public class UserController {
 		 */
 		User user = userService.getUserByUserId(userId);
 		return ResponseEntity.status(200).body(UserInfoRes.of(user));
+	}
+	
+	@GetMapping("/email")
+	@ApiOperation(value = "이메일 중복 확인", notes = "이메일 중복 여부를 응답한다.") 
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "성공"),
+        @ApiResponse(code = 500, message = "서버 오류")
+    })
+	public ResponseEntity<String> checkEmail(@RequestParam(value = "email")String email) {
+		
+		/**
+		 * 요청 헤더 액세스 토큰이 포함된 경우에만 실행되는 인증 처리이후, 리턴되는 인증 정보 객체(authentication) 통해서 요청한 유저 식별.
+		 * 액세스 토큰이 없이 요청하는 경우, 403 에러({"error": "Forbidden", "message": "Access Denied"}) 발생.
+		 */
+		if( !userService.getUserByEmail(email)) return ResponseEntity.status(200).body("OK");
+		else return ResponseEntity.status(200).body("Duplicated");
+
+	}
+	
+	@GetMapping("/findID")
+	@ApiOperation(value = "ID 찾기", notes = "이름, 이메일로 ID 찾기") 
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "성공"),
+        @ApiResponse(code = 500, message = "서버 오류")
+    })
+	public ResponseEntity<String> findID(@RequestParam(value = "name")String name,@RequestParam(value = "email")String email) {
+		String result = userService.getUserByNameAndEmail(name, email);
+		if( result !=null) return ResponseEntity.status(200).body(result);
+		 else return ResponseEntity.status(200).body("Wrong Info");
+	}
+	
+	@GetMapping("/findpw")
+	@ApiOperation(value = "PW 찾기1", notes = "아이디, 이메일로 PW 찾기") 
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "성공"),
+        @ApiResponse(code = 500, message = "서버 오류")
+    })
+	public ResponseEntity<String> findPW(@RequestParam(value = "userId")String userId,@RequestParam(value = "email")String email) {
+			
+		if( userService.getUserByUserIdAndEmail(userId, email)) return ResponseEntity.status(200).body("OK");
+		else return ResponseEntity.status(200).body("Wrong Info");
+	}
+	
+	@PatchMapping("/findpw")
+	@ApiOperation(value = "PW 찾기2", notes = "<strong>pw</strong>를 수정 한다.") 
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "성공"),
+        @ApiResponse(code = 500, message = "서버 오류")
+    })
+	public ResponseEntity<? extends BaseResponseBody> updatePw(
+			@RequestBody @ApiParam(value="회원 PW 정보", required = true) UserFindPasswordPatchReq updateInfo) {
+			System.out.println(updateInfo.getNew_password() +" "+updateInfo.getUser_id());
+			userService.updatePW(updateInfo.getNew_password(), updateInfo.getUser_id());
+			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
 	
 	@PatchMapping()
