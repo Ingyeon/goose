@@ -141,7 +141,7 @@ header {
   justify-content: flex-end;
   align-items: center;
   margin: 0rem 1.5rem;
-  border-bottom: solid 3px #ffd700;
+  /* border-bottom: solid 3px #ffd700; */
 }
 
 button {

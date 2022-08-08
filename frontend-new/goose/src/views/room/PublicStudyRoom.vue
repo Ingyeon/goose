@@ -233,7 +233,12 @@ export default {
     const selectedStudy = computed(() => store.getters.selectedStudy);
     const loginUser = computed(() => store.getters.loginUser);
     const isManager = computed(() => store.getters.isStudyManager);
-    return { selectedStudy, loginUser, isManager, router };
+
+    const open_set = async function () {
+      await store.dispatch("saveOpenList");
+    };
+
+    return { selectedStudy, loginUser, isManager, router, open_set };
   },
   data() {
     return {
@@ -560,6 +565,7 @@ export default {
         "beforeunload",
         this.leaveSessionForScreenSharing
       );
+      this.open_set();
       this.$router.push("Home");
     },
 
