@@ -16,7 +16,7 @@
         <textarea v-model="output" rows="5" readonly></textarea>
         <p>사용 메모리 : {{ memory }}</p>
         <p>실행 시간 : {{ cpuTime }}</p>
-        <p id="link" style="opacity: 0">{{ link }}</p>
+        <p id="link" style="opacity: 1">{{ link }}</p>
       </div>
     </div>
   </div>
@@ -38,7 +38,7 @@ export default {
         language: "",
         stdin: "",
       },
-      result: "",
+      // result: "",
       output: "",
       memory: "",
       cpuTime: "",
@@ -79,17 +79,23 @@ export default {
       }
 
       this.code.script = temp.substring(cnt).replaceAll(" ", " ");
-      console.log("ride : ", this.code.script);
+
 
       if (this.code.language == "python") this.code.language = "python3";
       else if (this.code.language == "c++") this.code.language = "cpp";
+
+      
+      console.log("ride : ", this.code.script, this.code.language, this.code.stdin);
+
       await this.$store.dispatch("compile", this.code);
+
+
       // console.log("ddddddddddd>", this.$store.getters.language);
       // console.log("ddddddd result>", this.$store.getters.result);
       this.result = this.$store.getters.result;
-      // this.output = this.result.output;
-      // this.memory = this.result.memory + "KB";
-      // this.cpuTime = this.result.cpuTime + "s";
+      this.output = this.result.output;
+      this.memory = this.result.memory + "KB";
+      this.cpuTime = this.result.cpuTime + "s";
 
       this.$emit("sendCodestdin", this.code.stdin);
       this.$emit("sendResult", this.result);

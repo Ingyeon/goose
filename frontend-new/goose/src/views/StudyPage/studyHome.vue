@@ -378,6 +378,12 @@ export default {
       isJoinList
     };
   },
+  methods: {
+    selectLanguage() {
+      console.log("select : ", this.compiler);
+      this.$store.dispatch("saveLanguage", this.compiler);
+    },
+  },
 
   watch: {
     selectedStudy: {
