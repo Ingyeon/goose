@@ -2,9 +2,18 @@
 <div class="container">
     <div class="input-Box">
         <label class="form-label">멤버리스트</label>
-        <ul> 
-            <memberItemVue v-for="item in memberList" :key="item.id" :item="item"/>
-        </ul>
+            <label class="form-label">구성원</label>
+        <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>이름</th>
+                <th>아이디</th>
+                <th>스터디 가입 날짜</th>
+            </tr>
+        </thead>
+        <memberItemVue v-for="item in memberList" :key="item.id" :item="item"/>
+        </table>
     </div>
 </div>
 </template>

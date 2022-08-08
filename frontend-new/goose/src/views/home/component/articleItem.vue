@@ -1,13 +1,10 @@
 <template>
-  <div class="container">
-    <!-- <li class="active">오픈 스터디</li> -->
-    <b-card-group class="d-flex justify-content-start">
-      <div class="row" v-for="article in openstudyList" :key="article.id">
-        <div class="col-12 col-md-4 col-lg-3">        
+    <!-- <li class="active">오픈 스터디</li> -->     
+      <div class="col-12 col-md-4 col-lg-3">
         <div class="card">
           <img :src="state.photo" class="card-img-top" alt="alt">
           <div class="card-body">
-            <h5 class="card-title">{{article.title}}</h5>
+            <h5 class="card-title">{{item.title}}</h5>
             <p class="card-text">사용 언어: {{}}</p>
             <div class="d-flex justify-content-end">
               <button href="#" class="button">스터디 입장하기</button>
@@ -16,11 +13,8 @@
             <!-- {{article}} -->
       <!-- <p class="card-text">{{article.content}}</p> -->
       <!-- <button @click.prevent="joinStudy(article)" type="button" class="btn btn-primary" >가입신청</button> -->
-          </div>
         </div>
       </div>
-    </b-card-group>
-  </div>  
 </template>
 
 <script>
@@ -84,17 +78,18 @@ export default {
   .row {
     margin: 10px;
   }
+  /* img {
+    height:100%
+  } */
   .card {
     width: 18rem;
+    height: 100%;
     margin-left:20px;
+    margin-bottom:20px;
   }
-  .notice-item {
-    width : 100%;
-    height: 300px;
-    background-color: #f5d682;
-    border: 1px solid red;
-    display: flex;
-    justify-content: center;
+  .card-img-top {
+    height: 15rem;
+    object-fit: cover;
   }
   .button{
     background: #ffd700;

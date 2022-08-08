@@ -1,16 +1,6 @@
 <template>
-  <div class="input-Box">
-    <label class="form-label">구성원</label>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>No</th>
-          <th>이름</th>
-          <th>아이디</th>
-          <th>스터디 가입 날짜</th>
-          <!-- <th>강퇴</th> -->
-        </tr>
-      </thead>
+  <!-- <div class="input-Box"> -->
+    <!-- <table class="table table-hover"> -->
       <tbody>
         <tr>
           <td>{{item.id}}</td>
@@ -20,7 +10,7 @@
           <td><button class="button-danger" @click.prevent="kickOutmember(item.user_pk)" >강퇴</button></td>
         </tr>
       </tbody>
-    </table>
+    <!-- </table> -->
     
       <!-- <p>{{item}}</p> -->
     <!-- <div class="d-flex">
@@ -29,7 +19,7 @@
       <p>{{ item.user_id }}</p>
       <button class="button-danger" @click.prevent="kickOutmember(item.user_pk)" >강퇴</button>
     </div> -->
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>
