@@ -300,7 +300,7 @@
       v-bind:propstdin="propstdin"
       @sendCodestdin="setCodestdin"
     />
-    <div v-if="this.scrollPosition > 900" id="monaco-timer" class="d-flex">
+    <div v-if="this.scrollPosition > 800" id="monaco-timer" class="d-flex">
       <div>
         <h3 id="session-time">{{ hours }} : {{ minutes }} : {{ seconds }}</h3>
       </div>

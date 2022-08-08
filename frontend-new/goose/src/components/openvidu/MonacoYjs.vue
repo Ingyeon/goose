@@ -7,7 +7,7 @@
     <div class="d-flex" style="height: 93%">
       <div id="monaco-editor" @input="titleUpdate" ref="monaco"></div>
       <div id="session-compile">
-        <p>입력 값</p>
+        <p style="margin-top:10px; margin-bottom:5px;">입력 값</p>
         <textarea
           id="stdin"
           rows="5"
@@ -16,7 +16,7 @@
         ></textarea>
 
         <!-- <p>실행 결과 집합 : {{ result }}</p> -->
-        <p>실행 결과</p>
+        <p style="margin-top:20px; margin-bottom:5px;">실행 결과</p>
         <textarea
           v-model="output"
           rows="5"
@@ -27,15 +27,21 @@
         <p>실행 시간 : {{ cpuTime }}</p>
         <p id="link" style="opacity: 0">{{ link }}</p>
         <!-- <div style="height:37%"></div> -->
-        <div class="center" style="width:15%; text-align: center; position: fixed; right:3%; bottom:4.5%" v-if="this.scrollPosition > 700">
+        <div
+          class="center"
+          style="
+            width: 100%;
+            margin-top:98%;
+          "
+        >
           <p id="language" style="text-align: left">
             설정언어 : {{ compiler }}
           </p>
           <b-button
-          id="getcode"
+            id="getcode"
             variant="white"
             @click="ride"
-            style="width: 98%; background-color: #E6E6E6; color: #424242  "
+            style="width: 98%; background-color: #e6e6e6; color: #424242"
             >컴파일 실행</b-button
           >
         </div>
@@ -66,7 +72,7 @@ export default {
       memory: "",
       cpuTime: "",
       resultNew: "",
-      scrollPosition:"",
+      scrollPosition: "",
     };
   },
   // moounted() {
@@ -96,7 +102,7 @@ export default {
     async ride() {
       this.code.language = await this.compiler.toLowerCase();
       let temp = save();
-      console.log("123 : ",temp);
+      console.log("123 : ", temp);
 
       // let cnt = 1;
       // while (true) {
@@ -134,7 +140,7 @@ export default {
       // console.log(this.result);
     },
   },
-   mounted() {
+  mounted() {
     window.addEventListener("scroll", this.updateScroll);
   },
 };
