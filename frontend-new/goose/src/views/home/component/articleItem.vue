@@ -4,7 +4,7 @@
         <div class="card">
           <img :src="state.photo" class="card-img-top" alt="alt">
           <div class="card-body">
-            <h5 class="card-title">{{item.title}}</h5>
+            <h5 class="card-title fw-bold">{{item.title}}</h5>
             <p class="card-text">사용 언어: {{}}</p>
             <div class="d-flex justify-content-end">
               <button @click="clickbtn(item.id)" class="button" >스터디 입장하기</button>
@@ -112,6 +112,7 @@ export default {
     margin-bottom: 20px;
     font-weight: 600;
     text-align: center;
-    border-radius: 40px 80px;
+    border-radius: 80px 40px;
+    border: none;
   }
 </style>
