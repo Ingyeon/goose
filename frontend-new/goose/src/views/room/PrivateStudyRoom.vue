@@ -20,9 +20,12 @@
               <div id="timerBtn" v-if="true" class="d-flex">
                 <b-button
                   v-if="!timer"
-                  variant="primary"
                   @click="startTimer()"
-                  style="margin-left: 20px; height: 38px"
+                  style="
+                    margin-left: 20px;
+                    height: 38px;
+                    background-color: #2e9afe;
+                  "
                   >시작</b-button
                 >
                 <b-button
@@ -35,17 +38,15 @@
                 </b-button>
                 <b-button
                   v-if="resetButton"
-                  variant="success"
                   @click="resetTimer"
-                  style="height: 38px"
+                  style="height: 38px; background-color: #6c757d"
                 >
                   종료
                 </b-button>
                 <b-button
                   v-if="!timer"
-                  variant="primary"
                   @click="editTimer"
-                  style="height: 38px"
+                  style="height: 38px; background-color: #2e9afe"
                 >
                   시간 설정
                 </b-button>
@@ -292,7 +293,13 @@
       </transition-group>
       <!-- session-right -->
     </div>
-    <MonacoYjs :language="language" @sendResult="setResult" v-bind:propcompile="propcompile" v-bind:propstdin="propstdin" @sendCodestdin="setCodestdin" />
+    <MonacoYjs
+      :language="language"
+      @sendResult="setResult"
+      v-bind:propcompile="propcompile"
+      v-bind:propstdin="propstdin"
+      @sendCodestdin="setCodestdin"
+    />
     <div v-if="this.scrollPosition > 900" id="monaco-timer" class="d-flex">
       <div>
         <h3 id="session-time">{{ hours }} : {{ minutes }} : {{ seconds }}</h3>
@@ -300,9 +307,8 @@
       <div id="timerBtn" v-if="true" class="d-flex">
         <b-button
           v-if="!timer"
-          variant="primary"
           @click="startTimer()"
-          style="margin-left: 30px; height: 38px"
+          style="margin-left: 20px; height: 38px; background-color: #2e9afe"
           >시작</b-button
         >
         <b-button
@@ -315,17 +321,15 @@
         </b-button>
         <b-button
           v-if="resetButton"
-          variant="success"
           @click="resetTimer"
-          style="height: 38px"
+          style="height: 38px; background-color: #6c757d"
         >
           종료
         </b-button>
         <b-button
           v-if="!timer"
-          variant="primary"
           @click="editTimer"
-          style="height: 38px"
+          style="height: 38px; background-color: #2e9afe"
         >
           시간 설정
         </b-button>
@@ -373,16 +377,18 @@
     <div class="MonacoScroll">
       <button
         id="MonacoScroll"
-        class="btn btn-large btn-primary footerBtn"
+        class="btn btn-large footerBtn"
+        style="background-color: #2e9afe; color: white"
         type="button"
         @click="scrollToDown()"
         v-if="this.scrollPosition < 500"
       >
-        다 같이<br>코딩하기
+        다 같이<br />코딩하기
       </button>
       <button
         id="MonacoScroll"
-        class="btn btn-large btn-primary footerBtn"
+        class="btn btn-large footerBtn"
+        style="background-color: #2e9afe; color: white"
         type="button"
         @click="scrollToUp()"
         v-if="this.scrollPosition > 500"
@@ -842,7 +848,6 @@ export default {
           });
       }
     },
-
 
     muteVideo() {
       this.videoEnabled = !this.videoEnabled;

@@ -385,8 +385,8 @@ left: 15%; */
   z-index: 2;
   display: scroll; 
   position: fixed; 
-  bottom: 30px; 
-  left: 20px;
+  bottom: 55px; 
+  left: 25px;
 }
 
 #monaco-timer{

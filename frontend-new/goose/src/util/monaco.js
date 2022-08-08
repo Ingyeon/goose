@@ -39,12 +39,23 @@ window.addEventListener("load", () => {
   //   .toLowerCase();
   const compiler = document.getElementById("language").innerHTML.toLowerCase();
 
+
+
+  monaco.editor.defineTheme('my-dark', {
+    base: 'vs',
+    inherit: true,
+    rules: [{ background: 'EDF9FA' }],
+    colors: {
+      "editor.background": '#FAFAFA'
+    }
+  });
+
   const editor = monaco.editor.create(
     /** @type {HTMLElement} */ (document.getElementById("monaco-editor")),
     {
       value: "",
       language: compiler,
-      theme: "vs-dark",
+      theme: "my-dark",
     }
   );
 
