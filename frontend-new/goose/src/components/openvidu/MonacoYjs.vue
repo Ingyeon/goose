@@ -26,8 +26,8 @@
         <p>사용 메모리 : {{ memory }}</p>
         <p>실행 시간 : {{ cpuTime }}</p>
         <p id="link" style="opacity: 0">{{ link }}</p>
-        <div style="height:37%"></div>
-        <div class="center" style="text-align: center;">
+        <!-- <div style="height:37%"></div> -->
+        <div class="center" style="width:15%; text-align: center; position: fixed; right:3%; bottom:4.5%" v-if="this.scrollPosition > 700">
           <p id="language" style="text-align: left">
             설정언어 : {{ compiler }}
           </p>
@@ -66,6 +66,7 @@ export default {
       memory: "",
       cpuTime: "",
       resultNew: "",
+      scrollPosition:"",
     };
   },
   // moounted() {
@@ -83,6 +84,11 @@ export default {
     },
   },
   methods: {
+    updateScroll() {
+      this.scrollPosition =
+        window.scrollY || document.documentElement.scrollTop;
+      // console.log(this.scrollPosition);
+    },
     titleUpdate(e) {
       this.code.script = e.target.value;
       console.log(this.code.script);
@@ -127,6 +133,9 @@ export default {
       this.$emit("sendResult", this.result);
       // console.log(this.result);
     },
+  },
+   mounted() {
+    window.addEventListener("scroll", this.updateScroll);
   },
 };
 </script>
