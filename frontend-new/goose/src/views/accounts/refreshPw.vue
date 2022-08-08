@@ -1,8 +1,8 @@
 <template>
 <div class="container">
         <div class="input-Box">
-            <label for="inputName" class="form-label">이름</label>
-            <input type="text" id="inputName" class="form-control" placeholder="회원정보에 등록한 이름을 입력해주세요" v-model="status.name">
+            <label for="inputName" class="form-label">ID</label>
+            <input type="text" id="inputName" class="form-control" placeholder="회원정보에 등록한 아이디를 입력해주세요" v-model="status.id">
         </div>
         <div class="input-Box">
             <label for="inputName" class="form-label">이메일</label>
@@ -10,25 +10,7 @@
         </div>
         
         <div class="input-Box">
-            <button @click="FindForm">ID찾기</button>
-            <!-- <div v-if="!status.validcheck" class="modal fade" id="idModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">{{status.name}}님의 아이디</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container">
-                            <div class="input-Box">
-                                <label for="IdInput" class="form-label">ID</label> 
-                                <div class="form-lable">{{findid}}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
+            <button @click="FindForm">PW재발급받기</button>
         <router-link to="/idpasswordselect" class="button-link"> <button>이전 페이지</button> </router-link>
     </div>
 </div>
@@ -37,15 +19,17 @@
 <script>
 import { reactive, computed } from 'vue'
 import {useStore} from 'vuex'
-
+import axios from 'axios'
+import { useRouter } from 'vue-router'
 export default {
      setup() {
         const store = useStore()
+        const router = useRouter()
         // const token = computed(() => store.getters.isLoggedIn)
         const findid = computed(()=>store.getters.findId)
         const status = reactive({
             validcheck: 0,
-           name : '',
+           id : '',
            email : ''
         })
         
@@ -54,15 +38,21 @@ export default {
         //         findid = "조회되는 아이디가 없습니다."
         //     }
         // }
-        const FindForm = () => {
-            store.dispatch("findId", {"email": status.email, "name": status.name})
-            .then(() =>{
-                console.log(status)
-                status.validcheck = 1
-        })
+        const FindForm = async function(){
+            try {
+                let data = await axios.get(`http://localhost:8080/api/v1/users/findpw?email=${status.email}&userId=${status.id}`)
+                console.log(data)
+                router.push({name:{}})
+            }
+            catch(err){
+                console.log(err)
+                alert('ID와 이메일을 확인해주세요')
+            }
         }
+            
         return {
             status,
+            router,
             store,
             FindForm,
             findid

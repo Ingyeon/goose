@@ -3,7 +3,7 @@
     <h2 class="d-flex justify-content-center fw-bold">ID/PW찾기</h2>
     <div class="container mt-5 d-flex align-items-center justify-content-evenly">
         <router-link to="/find/id"><button>ID찾기</button></router-link>
-        <router-link to="/refresh/password"><button>PW재발급받기</button></router-link>
+        <router-link to="/find/password"><button>PW재발급받기</button></router-link>
     </div>
 </div>
 </template>

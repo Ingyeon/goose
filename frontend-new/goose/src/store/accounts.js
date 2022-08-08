@@ -223,18 +223,33 @@ export default {
                 // headers: getters.authHeader,
             })
             .then(res=>{
+                alert(`찾으시는 아이디는 ${res.data}입니다.`)
                 console.log(res)
-                if (res.data === "Wrong Info") {
-                    alert('조회되지 않습니다.')
-                    return
-                }
-                else {
-                    commit('SET_FIND_ID', res.data)
-                }
+                commit('SET_FIND_ID', res.data)
                 
             })
             .catch(err=>{
                 alert('이름과 이메일을 확인해주세요')
+                console.log('에러')
+                console.log(err)
+            })
+        },
+        refreshPassword({getters}, data) {
+            console.log('액시오스 전')
+            console.log(data)
+            axios({
+                url: rest.user.user_findpw(),
+                method: 'patch',
+                data: data,
+                headers: getters.authHeader,
+            })
+            .then(res=>{
+                console.log(res)
+                alert('비밀번호가 재발급되었습니다.')
+                router.push({name:'Home'})
+            })
+            .catch(err=>{
+                // alert('이름과 이메일을 확인해주세요')
                 console.log('에러')
                 console.log(err)
             })

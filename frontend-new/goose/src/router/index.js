@@ -11,6 +11,9 @@ import ProfileUpdate from "@/views/accounts/profileUpdate.vue";
 import PasswordUpdate from "@/views/accounts/passwordUpdate.vue";
 import IdPasswordSelect from "@/views/accounts/idpasswordSelect.vue";
 import IdFind from "@/views/accounts/idFind.vue"
+import pwFind from "@/views/accounts/pwFind.vue"
+import pwRefresh from "@/views/accounts/refreshPw.vue"
+
 //Article
 import ArticleList from "@/views/article/articleList_2.vue";
 import NewArticle from "@/views/article/newArticle.vue";
@@ -75,6 +78,16 @@ const routes = [
     name: "FindId",
     component: IdFind,
   },
+  {
+    path: "/find/password",
+    name: "FindPw",
+    component: pwFind,
+  },
+  // {
+  //   path: "/refresh/password",
+  //   name: "RefreshPw",
+  //   component: pwRefresh,
+  // },
   {
     path: "/:id/updatepassword",
     name: "PasswordUpdate",
