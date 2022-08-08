@@ -91,6 +91,10 @@ export default {
   .row {
     margin: 10px;
   }
+  * {
+  font-family: 'NanumSquare', sans-serif;
+}
+
   /* img {
     height:100%
   } */

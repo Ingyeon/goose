@@ -67,12 +67,20 @@ export default {
   font-family: 'NanumSquare', sans-serif;
 }
 
-#study-category {
-  /* border: 2px solid ; */
+/* #study-category {
   background-color: #f0f0f1;
   border-radius: 20px
-}
-
+} */
+  .card {
+    width: 18rem;
+    height: 100%;
+    margin-left:20px;
+    margin-bottom:20px;
+  }
+  .card-img-top {
+    height: 15rem;
+    object-fit: cover;
+  }
 .button {
   background: #ffd700;
   color: #000000;

@@ -8,7 +8,9 @@ import Signup from "@/views/accounts/signupView.vue";
 import UserDelete from "@/views/accounts/userDelete.vue";
 import UserProfile from "@/views/accounts/profileView.vue";
 import ProfileUpdate from "@/views/accounts/profileUpdate.vue";
-import PasswordUpdate from "@/views/accounts/passwordUpdate.vue"
+import PasswordUpdate from "@/views/accounts/passwordUpdate.vue";
+import IdPasswordSelect from "@/views/accounts/idpasswordSelect.vue";
+import IdFind from "@/views/accounts/idFind.vue"
 //Article
 import ArticleList from "@/views/article/articleList_2.vue";
 import NewArticle from "@/views/article/newArticle.vue";
@@ -62,6 +64,16 @@ const routes = [
     path: "/:id/profileupdate",
     name: "ProfileUpdate",
     component: ProfileUpdate,
+  },
+  {
+    path: "/idpasswordselect",
+    name: "IdPasswordSelect",
+    component: IdPasswordSelect,
+  },
+  {
+    path: "/find/id",
+    name: "FindId",
+    component: IdFind,
   },
   {
     path: "/:id/updatepassword",

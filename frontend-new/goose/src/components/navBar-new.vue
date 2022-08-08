@@ -14,9 +14,9 @@
         </router-link>
       </span>
       <nav class="navbar">
-        <ul v-if="!isLoggedIn" class="nav-links">
+        <ul v-if="!isLoggedIn" class="nav-links-login">
           <!-- <li><router-link to="#"><button>로그인</button></router-link></li> -->
-          <li><login-modal></login-modal></li>
+          <li id="login"><login-modal></login-modal></li>
           <!-- <li><a to="#"><button></button></a></li>
           <li><a to="#"><button>게시판</button></a></li> -->
         </ul>
@@ -38,7 +38,8 @@
             </div>
            
           </li>
-        </ul>
+        </ul >
+        <ul v-if="isLoggedIn">
         <li class="min-dropdown">
             <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img :src="state.photo" alt="profilephoto" class="profilephoto">
@@ -56,6 +57,7 @@
               <router-link to="/:id/delete"><button class="dropdown-tag">회원탈퇴</button></router-link>
             </div>
         </li>
+      </ul>
       </nav>
     </header>
 </div>
@@ -254,5 +256,27 @@ img[class="profilephoto"]{
   display:block;
   }
 }
+
+
+.nav-links-login {
+  list-style: none;
+}
+
+.nav-links-login li {
+  display: inline-block;
+  padding: 0 1.25rem;
+}
+
+.nav-links-login li a {
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  transition: all 0.5s ease 0s;
+}
+
+.nav-links-login li a:hover {
+  color: rgba(0, 173, 181, 0.8);
+}
+
 </style>>
 

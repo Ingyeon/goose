@@ -10,6 +10,7 @@ export default {
         loginUser: {},
         targetUser: {},
         profileDetail: {},
+        findId: {},
         
     },
     getters: {
@@ -19,7 +20,8 @@ export default {
         loginUser: state => state.loginUser,  // 현재 로그인한 유저
         targetUser: state => state.targetUser, // 다른 유저 정보
         profileDetail: state => state.profileDetail, 
-        token: state => state.token
+        token: state => state.token,
+        findId: state => state.findId
     },
     mutations: {
         SET_TOKEN: (state, token) => state.token = token,
@@ -31,6 +33,7 @@ export default {
             location.reload();
         },
         SET_PROFILE_DETAIL : (state, data) => state.profileDetail = data,
+        SET_FIND_ID : (state,data) => state.findId = data
     },
     actions: {
         login({commit, dispatch},credential){
@@ -207,6 +210,25 @@ export default {
             })
             .catch(err=>{
                 alert('기존의 비밀번호와 다른 비밀번호입니다.')
+                console.log(err)
+            })
+        },
+        findId({dispatch, commit}, data) {
+            console.log('액시오스 전')
+            console.log(data)
+            axios({
+                url: rest.user.user_findid(data.email, data.name),
+                method: 'get',
+                data: data,
+                // headers: getters.authHeader,
+            })
+            .then(res=>{
+                console.log(res)
+                commit('SET_FIND_ID', res.data)
+            })
+            .catch(err=>{
+                alert('이름과 이메일을 확인해주세요')
+                console.log('에러')
                 console.log(err)
             })
         }

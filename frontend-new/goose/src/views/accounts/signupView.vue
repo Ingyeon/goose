@@ -27,6 +27,8 @@
                 <label for="inputEmail" class="form-label">Email</label>
                 <input type="email" class="form-control" id="inputEmail" v-model="state.form.email" @blur="emailValid">
                 <div v-if="!state.emailValidFlag" class="form-text">이메일을 제대로 입력해주세요.</div>
+                <div v-if="state.emailCommonFlag == true" class="form-text">이미 사용되고 있는 이메일입니다.</div>
+                <div v-if="state.emailCommonFlag == false" class="form-text">사용 가능한 이메일입니다.</div>
             </div>
             <div class="input-Box">
                 <label for="selectcategory" class="custom-label">관심 언어</label>
@@ -73,6 +75,7 @@ export default {
             passwordCheckFlag: true,
             emailValidFlag : true,
             idCommonFlag : null,
+            emailCommonFlag :null,
 
      })
         const signupForm = function(){
@@ -148,14 +151,26 @@ export default {
             }
         }
 
-        const emailValid = function() {
+        const emailValid = async function() {
             if (/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/.test(state.form.email)) {
                 state.emailValidFlag = true
+                try{
+                    let email_data = await axios.get(`http://localhost:8080/api/v1/users/email?email=${state.form.email}`)
+                    if (email_data.data==="OK") {
+                        state.emailCommonFlag = false
+                    } else {
+                        console.log(email_data)
+                        state.emailCommonFlag = true
+                    }
+                    } catch(err) {
+                    console.log(err.status)
+                }
             } else {
                 state.emailValidFlag = false
+                state.emailCommonFlag = null
             }
         }
-
+        
         return {
             state,
             store,

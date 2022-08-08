@@ -1,4 +1,4 @@
-const HOST = "http://localhost:8083/api/v1/";
+const HOST = "http://localhost:8080/api/v1/";
 const COMP = "https://api.jdoodle.com/v1/";
 
 const Article = "articles/";
@@ -50,7 +50,10 @@ export default {
     user: () => HOST + User,
     user_check: (userId) => HOST + User + `/{userId}?id=${userId}`, // pk값이 아닌 로그인 할 때 그 id
     user_myprofile: () => HOST + User + "/me",
-    user_passwordupdate: () => HOST + User + '/pw'
+    user_passwordupdate: () => HOST + User + '/pw',
+    user_findid: (useremail, name) => HOST + User + `/findID?email=${useremail}&name=${name}`,
+    user_findpw: () => HOST + User + '/findpw',
+    user_email: (userEmail)=> HOST + User + `/email?email=${userEmail}`,
   },
 
   calendar: {

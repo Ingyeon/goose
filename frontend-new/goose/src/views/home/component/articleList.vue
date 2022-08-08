@@ -1,5 +1,5 @@
 <template>
-  <div class="container overflow-hidden">
+  <div class="container">
     <b-card-group class="d-flex row">
     <!-- <div class="row"> -->
         <ArticleItem v-for="article in openstudyList" :key="article.id" :item="article"/>  

@@ -25,6 +25,7 @@
       </div>
       </div>
           <div class="input-Box">
+      <button type="submit" @click.prevent="clickidpwSelect" data-bs-dismiss="modal" class="id-password">ID/PW찾기</button>
       <button type="submit" @click.prevent="clickLogin" data-bs-dismiss="modal" class="btn btn-primary">로그인</button>
       <button type="submit" @click.prevent="clickSignup" data-bs-dismiss="modal" class="btn btn-secondary">회원가입</button>
       </div>
@@ -85,14 +86,17 @@ export default {
     const clickSignup = async function(){
       await router.push({name:'Signup'})
     }
-
+    const clickidpwSelect = async function() {
+      await router.push({name:'IdPasswordSelect'})
+    }
     return {
       state,
       idValid,
       clickLogin,
       store,
       token,
-      clickSignup}
+      clickSignup,
+      clickidpwSelect}
   }
 }
 </script>
@@ -110,7 +114,18 @@ export default {
     input[type=password]{
       font-family:"굴림";
     }
-    
+    .input-Box button[class="id-password"]{
+      background: #ffd700;
+      color: #000000;
+      cursor: pointer;
+      width: 120px;
+      margin-bottom: 20px;
+      font-weight: 600;
+      text-align: center;
+      border-radius: 80px 40px;
+      margin-right: 30px;
+      border:none;
+    }
     .input-Box button{
     background: #ffd700;
     color: #000000;
@@ -121,6 +136,7 @@ export default {
     text-align: center;
     border-radius: 80px 40px;
     margin-right: 30px;
+    border: none;
   }
   /* button[class="login"]{
   background: #ffd700;
@@ -144,6 +160,6 @@ export default {
   font-size: 1rem;
   transition: all 0.5s ease 0s;
   margin-left: 20px;
-  
 }
+
 </style>

@@ -28,5 +28,8 @@ export default {
 </script>
 
 <style scoped>
-
+  .row {
+    margin: 10px;
+    height:100%;
+  }
 </style>
