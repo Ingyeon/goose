@@ -296,6 +296,7 @@ export default {
     this.roomUrl = this.selectedStudy.url_conf;
     this.roomStudyNo = this.selectedStudy.id;
     this.power = this.participant = this.loginUser.userId;
+    this.isLeader = this.isManager;
 
     // 초기 장치 셋팅
     (this.audioEnabled = this.isaudio), (this.videoEnabled = this.isvideo);

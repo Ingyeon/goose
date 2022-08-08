@@ -5,8 +5,8 @@
 		<div v-if="this.streamManager.stream.connection.role!='PUBLISHER'" class="ban_block">
 			<td class="ban_tablecell">
 				<div class="ban_ex text-center">
-					<span class="ban_img m-1"><img src="https://i.ibb.co/X20qhKK/forbidden.png" alt=""></span>
-					<span class="ban_text m-1">강퇴</span>
+					<!-- <span class="ban_img m-1"><img src="https://i.ibb.co/X20qhKK/forbidden.png" alt=""></span> -->
+					<span class="ban_text m-1" style="color:red;">강퇴</span>
 				</div>
 			</td>
 		</div>
