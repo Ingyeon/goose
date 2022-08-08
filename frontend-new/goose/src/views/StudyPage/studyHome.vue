@@ -39,14 +39,6 @@
                     ></button>
                   </div>
                   <div class="modal-body">
-                    컴파일러 선택
-                    <select v-model="compiler" @change="selectLanguage">
-                      <option value="C">C</option>
-                      <option value="C++">C++</option>
-                      <option value="JAVA">JAVA</option>
-                      <option value="Python">Python</option>
-                    </select>
-                    {{ compiler }} {{ selectedStudy.category }}
                   </div>
                   <div class="modal-footer">
                     <button
