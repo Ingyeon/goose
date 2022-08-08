@@ -1,5 +1,7 @@
 @import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
-
+input[type="password"]{
+  font-family: "Gulim"
+}
 .input-Box {
   width: 100%;
   margin-top: 20px;

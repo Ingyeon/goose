@@ -184,6 +184,9 @@ export default {
 </script>
 
 <style scoped>
+input[type="password"]{
+    font-family: "Gulim"
+}
 .form-select {
     width: 100%;
     height: 50px;
