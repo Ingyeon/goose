@@ -24,7 +24,7 @@
     </div>
     <div>
       <ul class="button-links">
-        <li><button id="open-study" class="btn btn-3 hover-border-3 active" @click.prevent="hire_study">공개 스터디</button></li>
+        <li><button id="open-study" class="btn btn-3 hover-border-3" @click.prevent="hire_study">공개 스터디</button></li>
         <li><button id="me-study" class="btn btn-3 hover-border-3" @click.prevent="me_study">참여중인 스터디</button></li>
       </ul>
     </div>
@@ -53,7 +53,7 @@ export default {
   setup(){
     const store = useStore()
     const state = reactive({
-      toggle: 1
+      toggle: 0
     })
 
     const hire_study = function(){

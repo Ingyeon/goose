@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <b-card-group class="d-flex">
-    <div class="row">
+    <b-card-group class="d-flex row">
+    <!-- <div class="row"> -->
         <ArticleItem v-for="article in openstudyList" :key="article.id" :item="article"/>  
-    </div>
+    <!-- </div> -->
     </b-card-group>
   </div>
 </template>

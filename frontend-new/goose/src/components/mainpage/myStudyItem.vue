@@ -4,7 +4,7 @@
       <img :src="state.photo" class="card-img-top" alt="alt">
       <div class="card-body">
         <h5 class="card-title fw-bold">{{item.title}}</h5>
-        <p class="card-text">사용 언어:{{item.category}}</p>
+        <p class="card-text">사용 언어:{{}}</p>
         <div class="d-flex justify-content-end">
       <button @click.prevent="selectStudy" class="button">스터디 홈</button>
     </div> 
