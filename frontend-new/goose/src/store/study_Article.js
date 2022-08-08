@@ -78,8 +78,8 @@ export default {
             // })
         },
 
-       createStudyArticle({getters,dispatch},credential){
-        axios({
+       async createStudyArticle({getters,dispatch},credential){
+        await axios({
             url: rest.studyArticle.studyArticles(),
             method: 'post',
             headers: getters.authHeader,

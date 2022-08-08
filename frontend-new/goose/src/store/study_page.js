@@ -85,9 +85,9 @@ export default {
       commit("SET_JOIN_LIST", joinArray);
     },
 
-    saveOpenList({commit, getters}){
+    async saveOpenList({commit, getters}){
       console.log('액시오스전')
-      axios({
+      await axios({
         url: rest.study.open_study(),
         method:"get",
         headers: getters.authHeader,
@@ -205,8 +205,8 @@ export default {
         commit("SET_MY_STUDY_LIST", res.data);
       });
     },
-    authStudyList({ getters, commit }) {
-      axios({
+    async authStudyList({ getters, commit }) {
+      await axios({
         url: rest.study.auth_study_list(),
         method: "get",
         headers: getters.authHeader,

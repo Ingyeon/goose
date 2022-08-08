@@ -5,5 +5,6 @@ public interface StudyMyList {
 	String getTitle();
 	String getImage();
 	String getCategory();
+	String getUrl_conf();
 
 }
