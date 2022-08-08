@@ -34,8 +34,11 @@ export default {
         }
 
         const checkDefault = ()=>{
-          const defaultInput = document.querySelector(`#${store.getters.selectedStudy.image}`)
-          defaultInput.setAttribute("checked","checked")
+          if(store.getters.isLoggedIn){
+            const defaultInput = document.querySelector(`#${store.getters.selectedStudy.image}`)
+            defaultInput.setAttribute("checked","checked")
+
+          }
         }
 
         const selectedStudy = computed(() => store.getters.selectedStudy);

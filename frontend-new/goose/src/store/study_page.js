@@ -304,10 +304,11 @@ export default {
           study_pk: getters.selectedStudy.id,
           user_pk: user_pk,
         },
-      }).then((res) => {
-        router.push({ name: "Home" });
       })
-      .catch((err)=>console.log("에러내용:",err))
+      // .then((res) => {
+      //   router.push({ name: "Home" });
+      // })
+      // .catch((err)=>console.log("에러내용:",err))
     },
     async compile({ dispatch }, code) {
       console.log(code.script);

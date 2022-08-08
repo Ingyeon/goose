@@ -127,6 +127,7 @@ export default {
             commit('SET_MY_STUDY_LIST',{})
             commit('SET_SELECTED_STUDY',{})
             router.push({name:'Home'})
+            // router.push({ name: "Home" })
         },
         
         user_delete({getters, dispatch}, password) {

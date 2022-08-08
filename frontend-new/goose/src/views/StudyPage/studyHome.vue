@@ -341,6 +341,8 @@ export default {
       );
       if (check){
         store.dispatch("dropOutStudy", user_pk);
+        alert(`${store.getters.selectedStudy.title}을(를) 탈퇴하였습니다`)
+        router.push({name:"Home"})
       }
     };
     const manager = computed(() => store.getters.studyManager);
