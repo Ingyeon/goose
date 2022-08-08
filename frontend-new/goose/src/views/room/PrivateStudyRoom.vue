@@ -378,7 +378,7 @@
       <button
         id="MonacoScroll"
         class="btn btn-large footerBtn"
-        style="background-color: #2e9afe; color: white"
+        style="background-color: #E6E6E6; color: #424242"
         type="button"
         @click="scrollToDown()"
         v-if="this.scrollPosition < 500"
@@ -388,7 +388,7 @@
       <button
         id="MonacoScroll"
         class="btn btn-large footerBtn"
-        style="background-color: #2e9afe; color: white"
+        style="background-color: #E6E6E6; color: #424242"
         type="button"
         @click="scrollToUp()"
         v-if="this.scrollPosition > 500"

@@ -8,17 +8,33 @@
       <div id="monaco-editor" @input="titleUpdate" ref="monaco"></div>
       <div id="session-compile">
         <p>입력 값</p>
-        <textarea id="stdin" rows="5" style="width:98%;" v-model="code.stdin"></textarea>
+        <textarea
+          id="stdin"
+          rows="5"
+          style="width: 98%"
+          v-model="code.stdin"
+        ></textarea>
 
         <!-- <p>실행 결과 집합 : {{ result }}</p> -->
         <p>실행 결과</p>
-        <textarea v-model="output" rows="5" style="width:98%;" readonly></textarea>
+        <textarea
+          v-model="output"
+          rows="5"
+          style="width: 98%"
+          readonly
+        ></textarea>
         <p>사용 메모리 : {{ memory }}</p>
         <p>실행 시간 : {{ cpuTime }}</p>
         <p id="link" style="opacity: 0">{{ link }}</p>
-        <div class="center" style="text-align: center;margin-top:45%;">
-                  <p id="language" style="text-align:left">설정언어 : {{ compiler }}</p>
-          <b-button variant="white" @click="ride" style="width:98%;  background-color:#2E9AFE; color:white;  "
+        <div style="height:37%"></div>
+        <div class="center" style="text-align: center;">
+          <p id="language" style="text-align: left">
+            설정언어 : {{ compiler }}
+          </p>
+          <b-button
+            variant="white"
+            @click="ride"
+            style="width: 98%; background-color: #E6E6E6; color: #424242  "
             >컴파일 실행</b-button
           >
         </div>
@@ -120,7 +136,7 @@ export default {
   padding: 5px;
   border-radius: 5px;
   width: 23%;
-  height: 93%;
+  height: 96.5%;
   margin-left: 20px;
   background-color: #fafafa;
   color: #000;
@@ -129,7 +145,7 @@ export default {
 #monaco-editor {
   margin-left: 20px;
   width: 100%;
-  height: 93%;
+  height: 96.5%;
   border: 1px solid #ccc;
   overflow: visible;
 }
