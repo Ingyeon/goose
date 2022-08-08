@@ -31,17 +31,23 @@ export default {
             // "user_pk": 0
         },
         studyArticleCommentList:[],
+        refresh : false
     },
     getters: {
         studyArticleList: state => state.studyArticleList,
         selectedArticle: state => state.selectedArticle,
         studyArticleCommentList: state => state.studyArticleCommentList,
-        isArticleWriter: (state,getters) => state.selectedArticle.user_pk == getters.loginUser.id
+        isArticleWriter: (state,getters) => state.selectedArticle.user_pk == getters.loginUser.id,
+        refresh : (state) => state.refresh
     },
     mutations: {
        SET_STUDY_ARTICLES: (state,articleList) => state.studyArticleList = articleList,
        SET_SELECTED_ARTICLE: (state,article) => state.selectedArticle = article,
-       SET_STUDY_ARTICLE_COMMENT_LIST: (state,commentList) => state.studyArticleCommentList = commentList
+       SET_STUDY_ARTICLE_COMMENT_LIST: (state,commentList) => state.studyArticleCommentList = commentList,
+       SET_REFRESH:(state) => {
+        if(state.refresh == false){state.refresh = true}
+        else{state.refresh = false}
+       }
     },
     actions: {
         getStudyArticleList({getters,commit},credential){
@@ -106,7 +112,7 @@ export default {
         // })
        },
 
-       deleteStudyArticle({getters}){
+       deleteStudyArticle({getters,dispatch}){
             const check = confirm("글을 삭제하시겠습니까?")
             if(check){
                 axios({
@@ -114,7 +120,13 @@ export default {
                     method: 'delete',
                     headers: ({ Authorization: getters.token, id:getters.selectedArticle.id}),
                 })
+                .then(()=>{
+                    dispatch('getStudyArticleList',{ "category":null, "page":1, "studyPk":getters.selectedStudy.id, "title":null})
+                })
             }
+       },
+       refresh({commit}){
+        commit('SET_REFRESH')
        },
 
     //    댓글

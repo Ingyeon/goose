@@ -17,14 +17,9 @@
     </div>
 </div>
 
-<div>
-    <studyArticleDetail />
-</div>
-
 </template>
 
 <script>
-import studyArticleDetail from '@/components/StudyArticle/studyArticleDetail.vue'
 import { useStore } from "vuex"
 import { reactive, watch,computed } from "vue"
 import { useRouter } from "vue-router"
@@ -34,7 +29,6 @@ export default {
     props: {
     },
     components:{
-        studyArticleDetail
     },
     setup(props){
         const store = useStore()
@@ -69,17 +63,22 @@ export default {
         }
         
         const selectedStudy = computed(()=> store.getters.selectedStudy)
+        const refresh = computed(() => store.getters.refresh)
 
-        return {state,moveArticles,selectArticle,selectedStudy,fetchRecentlyArticleList}
+        return {state,moveArticles,selectArticle,selectedStudy,fetchRecentlyArticleList,refresh}
     },
 
     watch:{
         selectedStudy:{
             handler(){
-                console.log("최신 게시글 변경")
                 this.fetchRecentlyArticleList();
             }
         },
+        refresh:{
+            handler(){
+                this.fetchRecentlyArticleList()
+            }
+        }
     }
 }
 </script>

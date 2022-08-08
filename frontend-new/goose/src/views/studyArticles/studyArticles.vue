@@ -4,7 +4,8 @@
   <router-link :to="{ name:'StudyHome', params: {studyPk:selectedStudy.id}}"><button id="title" class="btn btn-3 hover-border-3">{{selectedStudy.title}}로 이동</button></router-link>
   <div class="d-flex justify-content-between">
     <div>
-      <button id="notice" class="btn btn-3 hover-border-3 active" @click="noticeClick">공지</button>
+      <button id="all" class="btn btn-3 hover-border-3 active" @click="allClick">전체보기</button>
+      <button id="notice" class="btn btn-3 hover-border-3 " @click="noticeClick">공지</button>
       <button id="free" class="btn btn-3 hover-border-3" @click="freeClick">자유</button>
     </div>
     <createStudyArticle @createArticle="btnActive" />
@@ -42,7 +43,7 @@
     </nav>
   </div>
   <div>
-    <studyArticleDetail />
+    <studyArticleDetail @refresh="refresh" />
   </div>
 </div>
 </template>
@@ -68,7 +69,7 @@ export default {
     const data = reactive({
       page:1,
       isArticleList: !_.isEmpty(store.getters.studyArticleList),
-      category:"notice"
+      category: null
     })
 
     const pageUp = ()=>{
@@ -90,6 +91,17 @@ export default {
       store.dispatch('getStudyArticleList',{category:data.category,page:data.page,title:null})
     }
     
+    const allClick = ()=>{
+      if (data.category != "all"){
+        data.category = null
+        data.page = 1
+        fetchStudyArticleList()
+        document.getElementById('all').classList.add('active')
+        document.getElementById('notice').classList.remove('active')
+        document.getElementById('free').classList.remove('active')
+      }
+    }
+
     const noticeClick = ()=>{
       if (data.category != "notice"){
         data.category = "notice"
@@ -97,6 +109,7 @@ export default {
         fetchStudyArticleList()
         document.getElementById('notice').classList.add('active')
         document.getElementById('free').classList.remove('active')
+        document.getElementById('all').classList.remove('active')
       }
     }
 
@@ -107,6 +120,7 @@ export default {
         fetchStudyArticleList()
         document.getElementById('notice').classList.remove('active')
         document.getElementById('free').classList.add('active')
+        document.getElementById('all').classList.add('active')
       }
     }
 
@@ -114,15 +128,32 @@ export default {
 
     const btnActive = (category)=>{
       if( category =='free'){
+        document.getElementById('all').classList.remove('active')
         document.getElementById('notice').classList.remove('active')
         document.getElementById('free').classList.add('active')
       }
-      else{
+      else if( category == 'notice'){
         document.getElementById('notice').classList.add('active')
         document.getElementById('free').classList.remove('active')
+        document.getElementById('all').classList.remove('active')
+      }
+      else {
+        document.getElementById('all').classList.add('active')
+        document.getElementById('free').classList.remove('active')
+        document.getElementById('notice').classList.remove('active')
       }
     }
-    return {studyArticleList,selectedArticle,pageUp,pageDown,data,selectedStudy,noticeClick,freeClick,btnActive}
+
+    const refresh = ()=>{
+      // all 클릭과 동일
+      data.category = null
+      data.page = 1
+      fetchStudyArticleList()
+      document.getElementById('all').classList.add('active')
+      document.getElementById('notice').classList.remove('active')
+      document.getElementById('free').classList.remove('active')
+    }
+    return {studyArticleList,selectedArticle,pageUp,pageDown,data,selectedStudy,allClick,noticeClick,freeClick,btnActive,refresh}
   }
 }
 </script>

@@ -21,7 +21,7 @@
       </div>
       <div class="modal-footer">
         <button @click="typeReset" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button v-if="isWriter && state.type==0" @click="deleteArticle" class="btn btn-warning">삭제하기</button>
+        <button v-if="isWriter && state.type==0" @click.prevent="[deleteArticle(),$emit('refresh')]" class="btn btn-warning" data-bs-dismiss="modal">삭제하기</button>
         <button v-if="state.type==0 && isWriter" @click.prevent="typeChange" type="button" class="btn btn-primary">수정하기</button>
         <button v-if="state.type!=0" @click.prevent="typeChange" type="button" class="btn btn-primary">돌아가기</button>
       </div>
@@ -52,6 +52,7 @@ export default {
         }
         const deleteArticle = ()=>{
           store.dispatch("deleteStudyArticle")
+          store.dispatch('refresh')
         }
         const typeReset = ()=>{
           setTimeout(()=>{

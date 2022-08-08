@@ -128,6 +128,8 @@
   </div>
   <br>
   <br> 
+<!-- 공지사항과 게시판용 디테일 -->
+<studyArticleDetail />
   <div class="box">
   <!-- 게시판 -->
     <miniArticles />
@@ -282,6 +284,7 @@ img {
 </style>
 
 <script>
+import studyArticleDetail from '@/components/StudyArticle/studyArticleDetail.vue'
 import callender from "@/components/StudyPage/callender";
 import studyUpdate from "@/components/StudyPage/studyUpdate.vue";
 import studyJoinList from "@/components/StudyPage/studyJoinList.vue";
@@ -304,6 +307,7 @@ export default {
     studyJoinList,
     miniArticles,
     notice,
+    studyArticleDetail,
   },
   data(){
     return{
@@ -348,6 +352,7 @@ export default {
 
     const state = reactive({
       photo: store.getters.selectedStudy.image,
+      refresh : false
     });
 
     const changePhoto = () => {
@@ -361,7 +366,6 @@ export default {
     };
     changePhoto();
     const isJoinList = computed(()=>store.getters.isJoinList)
-    const test = computed(()=>store.getters.selectedArticle)
     return {
       selectedStudy,
       deleteStudy,
@@ -376,7 +380,6 @@ export default {
       changePhoto,
       state,
       isJoinList,
-      test
     };
   },
   methods: {

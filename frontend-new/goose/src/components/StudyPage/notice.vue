@@ -34,7 +34,9 @@ export default {
         const selectArticle = (article_pk)=>{
             store.dispatch('getStudyArticle',article_pk)
         }
-        return {state,selectedStudy,fetchNoticeList,selectArticle}
+        const refresh = computed(() => store.getters.refresh)
+
+        return {state,selectedStudy,fetchNoticeList,selectArticle,refresh}
     },
 
     watch:{
@@ -43,6 +45,11 @@ export default {
                 this.fetchNoticeList();
             }
         },
+        refresh:{
+            handler(){
+                this.fetchNoticeList()
+            }
+        }
     }
 }
 </script>
