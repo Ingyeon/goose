@@ -7,7 +7,7 @@
           <td>{{item.name}}</td>
           <td>{{item.user_id}}</td>
           <td>{{item.study_time}}</td>
-          <td><button class="button-danger" @click.prevent="kickOutmember(item.user_pk)" >강퇴</button></td>
+          <td><button v-if="item.user_id !=loginUser.userId" class="button-danger" @click.prevent="kickOutmember(item.user_pk)" >강퇴</button></td>
         </tr>
       </tbody>
     <!-- </table> -->
@@ -23,17 +23,26 @@
 </template>
 
 <script>
+import { computed } from 'vue';
 import { useStore } from "vuex";
 export default {
   props: {
     item : Object,
   },
 
-  setup(){
+  setup(props){
     const store = useStore();
 
-    const kickOutmember = (user_pk)=> store.dispatch("dropOutStudy",user_pk)
-    return {kickOutmember}
+    const kickOutmember = (user_pk)=> {
+      const check = confirm(
+        `${props.item.name}을(를) 추방 하시겠습니까?`
+      );
+      if(check){
+        store.dispatch("dropOutStudy",user_pk)}
+      }
+
+    const loginUser = computed(()=>store.getters.loginUser)
+    return {kickOutmember,loginUser}
   }
 }
 </script>

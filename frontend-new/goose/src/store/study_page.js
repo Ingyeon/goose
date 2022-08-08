@@ -1,6 +1,7 @@
 import axios from "axios";
 import rest from "@/api/rest";
 import router from "@/router";
+import { _ } from "core-js";
 
 export default {
   state: {
@@ -41,7 +42,7 @@ export default {
     authStudyList: (state) => state.authStudyList, // 권한 가지는 스터디들의 목록
     studyBoard: (state) => state.studyBoard,
     studyJoinList: (state) => state.studyJoinList,
-    isJoinList: (state) => !!state.saveJoinList,
+    isJoinList: (state) => !_.isEmpty(state.studyJoinList),
     studyMemberList: (state) => state.studyMemberList,
     choiceImg: (state) => state.choiceImg,
     reloadCheck: (state) => state.reloadCheck,
@@ -114,8 +115,8 @@ export default {
           console.log(getters.selectedStudy)
     },
 
-    async selectStudy({ commit, getters, dispatch }, id) {
-      await axios({
+    selectStudy({ commit, getters, dispatch }, id) {
+      axios({
         url: rest.study.study_search(id),
         method: "get",
         headers: getters.authHeader,
@@ -269,6 +270,7 @@ export default {
         })
           .then((res) => {
             dispatch("joinList");
+            dispatch("saveStudyMemberList",credential.study_pk)
           })
           .catch((err) => {
             console.log(err);
@@ -292,22 +294,20 @@ export default {
     },
 
     dropOutStudy({ getters }, user_pk) {
-      const check = confirm(
-        `${getters.selectedStudy.title}을(를) 탈퇴 하시겠습니까?`
-      );
-      if (check) {
-        axios({
-          url: rest.study.study_member_out(),
-          method: "delete",
-          headers: {
-            Authorization: getters.token,
-            study_pk: getters.selectedStudy.id,
-            user_pk: user_pk,
-          },
-        }).then((res) => {
-          router.push({ name: "Home" });
-        });
-      }
+      console.log(user_pk)
+      console.log(getters.selectedStudy.id)
+      axios({
+        url: rest.study.study_member_out(),
+        method: "delete",
+        headers: {
+          Authorization: getters.token,
+          study_pk: getters.selectedStudy.id,
+          user_pk: user_pk,
+        },
+      }).then((res) => {
+        router.push({ name: "Home" });
+      })
+      .catch((err)=>console.log("에러내용:",err))
     },
     async compile({ dispatch }, code) {
       console.log(code.script);

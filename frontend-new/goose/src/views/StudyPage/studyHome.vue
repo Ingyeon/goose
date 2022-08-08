@@ -113,7 +113,7 @@
                 data-bs-toggle="modal"
                 data-bs-target="#updateStudyModal"
               >
-                스터디 수정
+                스터디 관리
               </button>
               <studyUpdate />
             </span>
@@ -141,7 +141,7 @@
     <miniArticles />
   </div>
 
-  <!-- <div class="callender-box">
+  <div class="callender-box">
     <callender />
   </div>
   <div class="button-box d-flex justify-content-evenly">
@@ -149,7 +149,7 @@
       스터디 터트리기
     </button>
     <button class="button-danger" @click.prevent="dropOutStudy(loginUser.id)">스터디 탈퇴하기</button>
-  </div> -->
+  </div>
 
   <!-- Button trigger modal -->
 
@@ -336,7 +336,12 @@ export default {
 
     const loginUser = computed(() => store.getters.loginUser);
     const dropOutStudy = (user_pk) => {
-      store.dispatch("dropOutStudy", user_pk);
+      const check = confirm(
+        `${store.getters.selectedStudy.title}을(를) 탈퇴 하시겠습니까?`
+      );
+      if (check){
+        store.dispatch("dropOutStudy", user_pk);
+      }
     };
     const manager = computed(() => store.getters.studyManager);
     const isManager = computed(() => store.getters.isStudyManager);
