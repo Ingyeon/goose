@@ -248,9 +248,10 @@ export default {
         method: "post",
         headers: getters.authHeader,
       })
-        // .then((res) => {
-        // })
+        .then((res) => {
+        console.log(res)})
         .catch((err) => {
+          alert('이미 가입신청한 스터디입니다.')
           console.log(err);
         });
     },

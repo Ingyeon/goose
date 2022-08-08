@@ -28,6 +28,12 @@ const routes = [
     name: "Home",
     component: Home,
   },
+
+  {
+    path: "/",
+    name: "direct",
+    component: Home,
+  },
   // {
   //   path: '/login',
   //   name: 'Login',

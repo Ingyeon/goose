@@ -64,7 +64,7 @@ export default {
             localStorage.setItem('token','')
         },
 
-        signup({ commit}, credentials){
+        signup({ commit,dispatch}, credentials){
             console.log("엑시오스 하기 전")
             console.log(credentials)
             axios({
@@ -73,11 +73,9 @@ export default {
                 data: credentials
             })
             .then(res => {
-                console.log("then")
-                console.log('signup')
-                // const token = res.data.accessToken
-                // dispatch('saveToken', token)
-                // router.push({ name: 'Home '})
+                console.log(res.data)
+                const token = res.data.accessToken
+                dispatch('saveToken', token)
             })
             .catch(err => {
                 // console.log(url)

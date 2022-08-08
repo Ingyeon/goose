@@ -95,8 +95,8 @@ export default {
           store.dispatch('filterArticles',state.search)
         }
 
-        const articles_set = function(){
-          store.dispatch('fetchArticles',1) 
+        const articles_set = async function(){
+          await store.dispatch('fetchArticles',1) 
           state.articles = store.getters.articles
         }
         articles_set()

@@ -39,8 +39,8 @@ export default {
     actions: {
         // 전체 페이지 조회
         // 백엔드 -> 페이지 별이 아닌 전체 리스트 뽑는 api 요청하기
-        fetchArticles({commit,getters},page){
-            axios({
+        async fetchArticles({commit,getters},page){
+            await axios({
                 url: rest.article.article_list(page),
                 method: 'get',
                 headers: getters.authHeader,
@@ -181,7 +181,7 @@ export default {
                 }
             },
         
-        createReply({commit, getters}, reply_data){
+        createReply({getters}, reply_data){
 
             axios({
                 url: rest.articles_reply.reply_crud(),
@@ -190,10 +190,10 @@ export default {
                 headers: getters.authHeader,
             })
             .then(res => {
-                console.log(res.data)
-                router.go()
             })
-            .catch(err => console.error(err.response))
+            .catch(err => 
+                console.log('실패'))
+            
         },
 
         deleteReply({dispatch, getters},id){
@@ -205,7 +205,6 @@ export default {
                 })
                 .then(res => {
                     dispatch('fetchReplies',{article_pk:getters.article.id,reply_page:1})
-                    router.go()
                 })
                 .catch(err => console.error(err.response))
             }
@@ -226,11 +225,11 @@ export default {
             .catch(err => console.error(err.response))
         },
 
-        fetchReplies({  commit }, {article_pk,reply_page}){
+        fetchReplies({  commit }, reply_data){
             axios.get(rest.articles_reply.reply_crud(),{
                 params:{
-                    articlePk:article_pk,
-                    page: reply_page}})
+                    articlePk:reply_data.article_pk,
+                    page: 1}})
             .then(res => {
                 commit('SET_REPLIES',res.data.content)
             })

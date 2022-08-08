@@ -27,10 +27,11 @@ export default {
             article: store.getters.article
         })
 
-        const onSubmit = function(){
+        const onSubmit = async function(){
             if (state.form.re_content !== ''){
-            store.dispatch('createReply',{article_pk: state.article.id, re_content: state.form.re_content})
-            state.form.re_content = ''
+            await store.dispatch('createReply',{article_pk: state.article.id, re_content: state.form.re_content})
+            await store.dispatch('fetchReplies',{article_pk:state.article.id,page:1})
+            router.go()
             }
             else if (state.form.re_content == ''){
                 alert('내용을 입력하세요.')

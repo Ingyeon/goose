@@ -13,7 +13,7 @@ export default {
     const state = reactive({
         title: props.article.title
     })
-    
+
 
     return {state };
   },

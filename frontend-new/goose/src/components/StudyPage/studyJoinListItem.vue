@@ -1,6 +1,6 @@
 <template>
   <h3>
-    <li>이름: {{ item.name }}, 혹시 몰라 넣어둔 id : {{ item.user_id}}</li>
+    <li>이름: {{ item.name }},  id : {{ item.user_id}}</li>
     <button @click="joinAccept" type="button" class="btn btn-primary">승인</button>
     <button @click="joinRefuse" type="button" class="btn btn-primary">거절</button>
   </h3>

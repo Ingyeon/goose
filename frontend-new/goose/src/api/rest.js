@@ -13,7 +13,6 @@ const StudyArticles = "studyArticles/";
 export default {
   accounts: {
     login: () => HOST + Auth,
-    // logout: () =>
   },
   article: {
     article_cud: () => HOST + Article,
