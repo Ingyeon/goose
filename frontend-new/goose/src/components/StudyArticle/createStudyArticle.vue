@@ -43,7 +43,7 @@
 
         <!-- 제출 -->
           <div class="input-Box">
-            <input @click.prevent="[createArticle(),$emit('createArticle',credential.category)]" type="submit" value="Submit" data-bs-dismiss="modal">  
+            <input @click.prevent="[createArticle(),$emit('createArticle',credential.category)]" type="submit" value="작성" data-bs-dismiss="modal">  
           </div>
         </form>
 

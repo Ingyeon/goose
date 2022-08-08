@@ -56,14 +56,6 @@ export default {
     };
     events_set();
   },
-  // mounted() {
-  //   let recaptchaScript = document.createElement("script");
-  //   recaptchaScript.setAttribute(
-  //     "src",
-  //     "https://www.jdoodle.com/assets/jdoodle-pym.min.js"
-  //   );
-  //   document.head.appendChild(recaptchaScript);
-  // },
   components: {
     FullCalendar, // make the <FullCalendar> tag available
   },

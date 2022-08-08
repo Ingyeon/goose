@@ -32,6 +32,7 @@
             설정언어 : {{ compiler }}
           </p>
           <b-button
+          id="getcode"
             variant="white"
             @click="ride"
             style="width: 98%; background-color: #E6E6E6; color: #424242  "
@@ -46,6 +47,7 @@
 <script>
 import { useStore } from "vuex";
 import monaco from "@/util/monaco.js";
+import save from "@/util/monaco.js";
 
 export default {
   props: ["propcompile", "propstdin"],
@@ -87,19 +89,20 @@ export default {
     },
     async ride() {
       this.code.language = await this.compiler.toLowerCase();
+      let temp = save();
+      console.log("123 : ",temp);
 
-      let temp = document.getElementById("monaco-editor").innerText;
-      let cnt = 1;
-      while (true) {
-        if (
-          (temp.charAt(cnt) >= 0 && temp.charAt(cnt) <= 9) ||
-          temp.charAt(cnt) == "\n"
-        ) {
-          cnt++;
-        } else break;
-      }
+      // let cnt = 1;
+      // while (true) {
+      //   if (
+      //     (temp.charAt(cnt) >= 0 && temp.charAt(cnt) <= 9) ||
+      //     temp.charAt(cnt) == "\n"
+      //   ) {
+      //     cnt++;
+      //   } else break;
+      // }
 
-      this.code.script = temp.substring(cnt).replaceAll(" ", " ");
+      this.code.script = temp.replaceAll(" ", " ");
 
       if (this.code.language == "python") this.code.language = "python3";
       else if (this.code.language == "c++") this.code.language = "cpp";

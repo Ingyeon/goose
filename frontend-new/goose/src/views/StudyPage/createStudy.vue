@@ -62,7 +62,7 @@
 
 <!-- 제출 -->
   <div class="input-Box d-flex justify-content-end">
-    <input @click.prevent="createStudy()" type="submit" value="Submit">  
+    <input @click.prevent="createStudy()" type="submit" value="완료">  
   </div>
 </form>
 </div>

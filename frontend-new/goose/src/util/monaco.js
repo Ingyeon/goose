@@ -31,15 +31,7 @@ window.addEventListener("load", () => {
     ydoc
   );
   const ytext = ydoc.getText("monaco");
-  // console
-  //   .log(
-  //     "monaco.js : ",
-  //     document.getElementById("language").innerHTML.toLowerCase()
-  //   )
-  //   .toLowerCase();
   const compiler = document.getElementById("language").innerHTML.toLowerCase();
-
-
 
   monaco.editor.defineTheme('my-dark', {
     base: 'vs',
@@ -50,7 +42,7 @@ window.addEventListener("load", () => {
     }
   });
 
-  const editor = monaco.editor.create(
+  editor = monaco.editor.create(
     /** @type {HTMLElement} */ (document.getElementById("monaco-editor")),
     {
       value: "",
@@ -66,19 +58,17 @@ window.addEventListener("load", () => {
     provider.awareness
   );
 
-  const connectBtn = /** @type {HTMLElement} */ (
-    document.getElementById("y-connect-btn")
-  );
-  connectBtn.addEventListener("click", () => {
-    if (provider.shouldConnect) {
-      provider.disconnect();
-      connectBtn.textContent = "Connect";
-    } else {
-      provider.connect();
-      connectBtn.textContent = "Disconnect";
-    }
-  });
-
   // @ts-ignore
   window.example = { provider, ydoc, ytext, monacoBinding };
 });
+
+var editor;
+
+function save() {
+  // get the value of the data
+  console.log("save")
+  var value = editor.getValue();
+  return value;  
+}
+
+export default save

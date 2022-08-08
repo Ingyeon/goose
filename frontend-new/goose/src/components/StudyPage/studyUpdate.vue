@@ -73,7 +73,7 @@
 
             <!-- 제출 -->
               <div class="input-Box d-flex justify-content-end">
-                <input @click.prevent="updateStudy()" type="submit" value="Submit" data-bs-dismiss="modal">  
+                <input @click.prevent="updateStudy()" type="submit" value="수정" data-bs-dismiss="modal">  
               </div>
             </form>
           </div>

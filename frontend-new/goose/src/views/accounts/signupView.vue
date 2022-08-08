@@ -41,7 +41,7 @@
                     </select>
             </div>
             <div class="input-Box">
-              <input type="submit" value="Submit">  
+              <input type="submit" value="회원가입">  
               <!-- <router-link to="/login" class="btn input-box-btn">Back</router-link> -->
             </div>
         </form>  
