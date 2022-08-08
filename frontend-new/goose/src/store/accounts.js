@@ -151,15 +151,19 @@ export default {
                         headers: {'Authorization' : getters.authHeader.Authorization, 'password': password},
                         // data: userId
                     })
-                    .then(dispatch('removeToken'))
-                        console.log('then2')
-                        Swal.fire(
-                            '그동안 Goose를 이용해주셔서 감사합니다'
-                        )
+                    .then((res) => {
+                        dispatch('removeToken'),
+                    Swal.fire(
+                        '그동안 Goose를 이용해주셔서 감사합니다'
+                    
+                    )
+                    router.push({name:'Home'})}
+                    )
+
                     .catch((err) =>{
                         alert('비밀번호를 확인해주세요')
                     })
-                    router.push({name:'Home'})
+                    
                 }
             })
         },

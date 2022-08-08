@@ -210,20 +210,20 @@ export default {
             }
         },
         
-        updateReply({  dispatch, getters  }, data){
-            axios({
-                url: rest.articles_reply.reply_crud(), 
-                method: 'patch',
-                data: data.re_content,
-                params: {id:data.id},
-                headers: getters.authHeader,
+        // updateReply({  dispatch, getters  }, data){
+        //     axios({
+        //         url: rest.articles_reply.reply_crud(), 
+        //         method: 'patch',
+        //         data: data.re_content,
+        //         params: {id:data.id},
+        //         headers: getters.authHeader,
                 // "Content-Type": "application/json"
-            })
-            .then(res => {
-                dispatch('fetchReplies',{article_pk:getters.article.id,reply_page:1})
-            })
-            .catch(err => console.error(err.response))
-        },
+            // })
+            // .then(res => {
+            //     dispatch('fetchReplies',{article_pk:getters.article.id,reply_page:1})
+            // })
+            // .catch(err => console.error(err.response))
+        // },
 
         fetchReplies({  commit }, reply_data){
             axios.get(rest.articles_reply.reply_crud(),{

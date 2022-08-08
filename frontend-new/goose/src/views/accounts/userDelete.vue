@@ -35,8 +35,14 @@ export default {
             passwordCheckFlag: true
         })
         const DeleteForm = () => {
-            if (status.password1 !== '' && status.passwordCheckFlag == true)(
-            store.dispatch("user_delete", status.password1))
+            if (status.password1 == '') {
+                alert('비밀번호를 입력하세요.')
+            }
+                
+            else if (status.passwordCheckFlag == true){
+            store.dispatch("user_delete", status.password1)}
+            status.password1 = '',
+            status.password2 = ''
         }
 
         const passwordValid = function() {

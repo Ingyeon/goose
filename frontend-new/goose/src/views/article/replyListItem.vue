@@ -6,13 +6,13 @@
       <div class="bg-warning">{{reply.name}}</div>
     <ul class="list-group-item d-flex justify-content-between">
     {{reply.re_content}}
-        <div v-if="state.isEditing">
+        <!-- <div v-if="state.isEditing">
     <input type="text" v-model="state.form.re_content">
     <button @click.prevent="update_reply(reply.id)" class="mx-2 check-button"></button>
     <button @click.prevent="switchEditing()" class="mx-2 btn-close p-0"></button>
-    </div>
+    </div> -->
         <div v-if="loginUser.id === reply.user_pk && state.isEditing == false" class="px-1">
-    <button @click.prevent="switchEditing()" class="img-button"></button>
+    <!-- <button @click.prevent="switchEditing()" class="img-button"></button> -->
     <button @click.prevent="deleteReply(reply.id)" class="mx-2 p-0 btn-close size"></button>
     </div></ul></ol>
     </li>
@@ -21,23 +21,21 @@
 
 <script>
 
-import { useRouter } from 'vue-router'
 import { computed, reactive } from 'vue'
 import {useStore} from 'vuex'
 export default {
     
     setup(){
         const store = useStore()
-        const router =useRouter()
         const state = reactive({
           isEditing: false,
           form: {re_content:''}
         })
 
-        const update_reply = function(reply_id){
-        console.log(reply_id)
-        store.dispatch('updateReply',{id: reply_id,re_content: state.form.re_content})
-        }
+        // const update_reply = function(reply_id){
+        // console.log(reply_id)
+        // store.dispatch('updateReply',{id: reply_id,re_content: state.form.re_content})
+        // }
 
         const deleteReply = function(reply_id){
           store.dispatch('deleteReply', reply_id)
@@ -57,7 +55,7 @@ export default {
 
         const replies = computed(() => store.getters.replies)
 
-    return {store,reply_list,replies,update_reply,state,deleteReply,loginUser,switchEditing}}}
+    return {store,reply_list,replies,state,deleteReply,loginUser,switchEditing}}}
 
 </script>
 
