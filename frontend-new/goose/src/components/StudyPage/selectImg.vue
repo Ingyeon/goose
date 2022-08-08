@@ -13,7 +13,7 @@
             </li>
             <li>
                 <input name="study-img" type="radio" value="study3" id="study3">
-                <label for="study3"><img @click="selectImg('study3')" src="../../assets/study3.jpg"></label>
+                <label for="study3"><img @click="selectImg('study3')" src="../../assets/study3.png"></label>
             </li>
             
         </ul>

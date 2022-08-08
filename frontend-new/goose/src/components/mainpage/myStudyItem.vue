@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 col-md-4 col-lg-3">
+  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
     <div class="card">
       <img :src="state.photo" class="card-img-top" alt="alt">
       <div class="card-body">
@@ -18,7 +18,7 @@
 <script>
 import study1 from "@/assets/study1.png"
 import study2 from "@/assets/study2.png"
-import study3 from "@/assets/study3.jpg"
+import study3 from "@/assets/study3.png"
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { reactive } from '@vue/reactivity';

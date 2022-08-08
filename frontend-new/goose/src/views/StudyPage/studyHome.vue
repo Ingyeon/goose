@@ -296,9 +296,9 @@ import studyJoinList from "@/components/StudyPage/studyJoinList.vue";
 import miniArticles from "@/components/StudyPage/miniArticles.vue";
 import notice from "@/components/StudyPage/notice.vue";
 // 사진
-import study1 from "@/assets/study1.png";
-import study2 from "@/assets/study2.png";
-import study3 from "@/assets/study3.jpg";
+import study1 from "@/assets/study1.png"
+import study2 from "@/assets/study2.png"
+import study3 from "@/assets/study3.png"
 import { useStore } from "vuex";
 import { useRoute, useRouter } from "vue-router";
 import { computed, watch, onMounted, reactive } from "vue";

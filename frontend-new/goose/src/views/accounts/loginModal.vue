@@ -122,17 +122,28 @@ export default {
     border-radius: 80px 40px;
     margin-right: 30px;
   }
+  /* button[class="login"]{
+  background: #ffd700;
+  color: #000000;
+  cursor: pointer;
+  width: 100px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 80px 40px;
+  } */
   button[class="login"]{
-    background: #ffd700;
-    cursor: pointer;
-    padding: 9px 20px;
-    border: none;
-    /* border-radius: 50px; */
-    font-family: "NanumSquare", sans-serif;
-    font-weight: bold;
-    font-size: 1rem;
-    transition: all 0.5s ease 0s;
-    margin-left: 20px;
-    border-radius: 80px 40px;
-  }
+  background: #ffd700;
+  border-radius: 80px 40px;
+  cursor: pointer;
+  padding: 9px 20px;
+  border: none;
+  /* border-radius: 50px; */
+  font-family: "NanumSquare", sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: all 0.5s ease 0s;
+  margin-left: 20px;
+  
+}
 </style>

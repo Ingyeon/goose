@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container overflow-hidden">
     <b-card-group class="d-flex row">
     <!-- <div class="row"> -->
         <ArticleItem v-for="article in openstudyList" :key="article.id" :item="article"/>  
@@ -14,7 +14,7 @@ import { computed } from "vue"
 import { useRouter } from "vue-router";
 import study1 from "@/assets/study1.png"
 import study2 from "@/assets/study2.png"
-import study3 from "@/assets/study3.jpg"
+import study3 from "@/assets/study3.png"
 import { reactive } from '@vue/reactivity';
 import ArticleItem from './articleItem.vue'
 export default {
@@ -69,7 +69,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
   .row {
     margin: 10px;
     height:100%;

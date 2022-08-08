@@ -16,7 +16,7 @@
       <nav class="navbar">
         <ul v-if="!isLoggedIn" class="nav-links">
           <!-- <li><router-link to="#"><button>로그인</button></router-link></li> -->
-          <li><login-modal class="button"></login-modal></li>
+          <li><login-modal></login-modal></li>
           <!-- <li><a to="#"><button></button></a></li>
           <li><a to="#"><button>게시판</button></a></li> -->
         </ul>

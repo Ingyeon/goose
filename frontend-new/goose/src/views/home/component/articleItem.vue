@@ -1,11 +1,11 @@
 <template>
     <!-- <li class="active">오픈 스터디</li> -->     
-      <div class="col-12 col-md-4 col-lg-3">
+      <div class="col-12 col-md-6 col-lg-4 col-xl-3">
         <div class="card">
           <img :src="state.photo" class="card-img-top" alt="alt">
           <div class="card-body">
             <h5 class="card-title fw-bold">{{item.title}}</h5>
-            <p class="card-text">사용 언어: {{item.category}}</p>
+            <p class="card-text">사용 언어: {{}}</p>
             <div class="d-flex justify-content-end">
               <button @click="clickbtn(item.id)" class="button" >스터디 입장하기</button>
             </div>
@@ -23,7 +23,7 @@ import { computed } from "vue"
 import { useRouter } from "vue-router";
 import study1 from "@/assets/study1.png"
 import study2 from "@/assets/study2.png"
-import study3 from "@/assets/study3.jpg"
+import study3 from "@/assets/study3.png"
 import { reactive } from '@vue/reactivity';
 // import ArticleItem from './articleItem.vue'
 export default {
@@ -33,7 +33,7 @@ export default {
 
   setup(props){
     const store = useStore()
-    // const myStudyList = computed(()=> store.getters.myStudyList)
+    const myStudyList = computed(()=> store.getters.myStudyList)
     const router = useRouter();
     // const openstudyList = computed(()=> store.getters.openstudyList)
     const openstudyList = store.getters.openstudyList
@@ -42,9 +42,9 @@ export default {
       photo : ""
     })
     
-    // const fetchMyStudyList = function(studyId){
-    //   store.dispatch('myStudyList',studyId)
-    // }
+    const fetchMyStudyList = function(studyId){
+      store.dispatch('myStudyList',studyId)
+    }
     
     const changePhoto = ()=>{
       if (props.item.image==='study1'){state.photo = study1}
@@ -53,10 +53,9 @@ export default {
     }
     changePhoto()
     const open_set = function(){
-      // console.log('시작')
-      // console.log(openstudyList)
+      console.log('시작')
+      console.log(openstudyList)
       store.dispatch('saveOpenList')
-      // console.log(openstudyList)
     }
     
     const fetchStudyHome = async function (studyId) {
@@ -72,14 +71,14 @@ export default {
     // open_set()
 
     // const joinStudy = (studyId) => store.dispatch('joinStudy',studyId)
-    return { router, store,openstudyList,open_set, changePhoto,state,clickbtn}
+    return {myStudyList, router, store, fetchMyStudyList,openstudyList,open_set, changePhoto,state,clickbtn}
   },
 
   watch: {
     $route: {
       handler() {
         // this.open_set()
-        // this.fetchMyStudyList()
+        this.fetchMyStudyList()
         this.open_set()
       },
       immediate: true
