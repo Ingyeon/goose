@@ -1,6 +1,7 @@
 import axios from "axios"
 import rest from '@/api/rest'
 import router from "@/router"
+import { _ } from "core-js"
 
 
 export default {
@@ -10,16 +11,16 @@ export default {
         replies: [], // 해당 게시물의 전체 댓글 조회 시 사용
         reply: {}, //개별 댓글의 CRUD
         total: [],
-        test: [],
-        myReplyList: [
-            // id : 댓글단 글의 id가 들어감
-            // title: 댓글단 글의 제목이 들어감
-        ],
-        pageIndex: 1,
-        articleCheck: {test:true},
-        tempList : [
-            // myReplyList가 n명 이상이라 못들어간 목록 임시 저장소 
-        ]
+        // test: [],
+        // myReplyList: [
+        //     // id : 댓글단 글의 id가 들어감
+        //     // title: 댓글단 글의 제목이 들어감
+        // ],
+        // pageIndex: 1,
+        // articleCheck: {test:true},
+        // tempList : [
+        //     // myReplyList가 n명 이상이라 못들어간 목록 임시 저장소 
+        // ]
     },
     getters: {
         articles: state => state.articles,
@@ -28,11 +29,11 @@ export default {
         replies: state => state.replies,
         reply: state => state.reply,
         total: state => state.total,
-        test: state => state.test,
-        myReplyList: state => state.myReplyList,
-        pageIndex: state => state.pageIndex,
-        articleCheck: state => state.articleCheck,
-        tempList: state => state.tempList
+        // test: state => state.test,
+        // myReplyList: state => state.myReplyList,
+        // pageIndex: state => state.pageIndex,
+        // articleCheck: state => state.articleCheck,
+        // tempList: state => state.tempList
     },
     mutations: {
         SET_ARTICLES: (state, articles) => state.articles = articles,
@@ -40,14 +41,14 @@ export default {
         SET_REPLIES: (state, replies) => state.replies = replies,
         SET_REPLY: (state, reply) => state.reply = reply,
         SET_TOTALPAGE: (state, total) => state.total = total,
-        SET_TEST: (state, test) => state.test = test,
-        RESET_MY_REPLY_LIST: (state) => state.myReplyList = [],
-        ADD_MY_REPLY_LIST: (state,replyList) => state.myReplyList.push(replyList),
-        SET_PAGE_INDEX: (state,pageIndex) => state.pageIndex = pageIndex,
-        ADD_ARTICLE_CHECK: (state,value) => Object.defineProperty(state.articleCheck,value,{value:true}),
-        CLEAR_ARTICLE_CHECK:(state) => state.articleCheck = {},
-        ADD_TEMP_LIST: (state,item) => state.tempList.push(item),
-        CLEAR_TEMP_LIST:(state) => state.tempList = []
+        // SET_TEST: (state, test) => state.test = test,
+        // RESET_MY_REPLY_LIST: (state) => state.myReplyList = [],
+        // ADD_MY_REPLY_LIST: (state,replyList) => state.myReplyList.push(replyList),
+        // SET_PAGE_INDEX: (state,pageIndex) => state.pageIndex = pageIndex,
+        // ADD_ARTICLE_CHECK: (state,value) => Object.defineProperty(state.articleCheck,value,{value:true}),
+        // CLEAR_ARTICLE_CHECK:(state) => state.articleCheck = {},
+        // ADD_TEMP_LIST: (state,item) => state.tempList.push(item),
+        // CLEAR_TEMP_LIST:(state) => state.tempList = []
     },
     actions: {
         // 전체 페이지 조회
@@ -256,47 +257,46 @@ export default {
         clearArticleCheck({commit}){
             commit('CLEAR_ARTICLE_CHECK')
         },
-        findMyReplyArticles({  state,commit,getters }){
-            commit('RESET_MY_REPLY_LIST')
-            // while (getters.myReplyList.length != 5){
-                axios.get(rest.articles_reply.reply_crud(),{params:{page: 
-                    // getters.pageIndex}})
-                    1}})
-                .then(res => {
-                    for (let reply of res.data.content){
-                        if(reply.user_pk == getters.loginUser.id){
-                            // 해당 아티클 조회하여 title 가져오기 위해
-                            console.log("한번에 실행되는거 확인용")
-                            axios({
-                                url: rest.article.article_read(reply.article_pk),
-                                method: 'get',
-                                headers: getters.authHeader,
-                            })
-                            .then((res)=>{
-                                console.log("여긴 도착?",res.data.id)
-                                if(!Object.keys(getters.articleCheck).includes(res.data.id)){
-                                    if (getters.myReplyList.length <5){
-                                        commit('ADD_MY_REPLY_LIST',{id:res.data.id, title:res.data.title})
-                                        commit('ADD_ARTICLE_CHECK',res.data.id)
-                                        console.log("체크용",getters.articleCheck)
-                                        const t = getters.articleCheck
-                                        console.log("t:",t)
-                                        // console.log(Object.keys(getters.articleCheck).includes("12"))
-                                        console.log("왜없냐",Object.keys(getters.articleCheck))
-                                        // console.log("???",getters.articleCheck.includes(12))
-                                    } else {
-                                        console.log("가득찼어")
-                                        commit('ADD_TEMP_LIST',{id:res.data.id, title:res.data.title})
-                                    }
-                                }
+        
+        // 포기
+        // findMyReplyArticles({  state,commit,getters }){
+        //     commit('RESET_MY_REPLY_LIST')
+        //     if (getters.tempList){
+        //         while(!_.isEmpty(getters.tempList && getters.myReplyList.length <5)){
+        //             commit('ADD_MY_REPLY_LIST',state.tempList.pop())
+        //         }
+        //     }
+            
+        //     // while (getters.myReplyList.length != 5){
+        //         axios.get(rest.articles_reply.reply_crud(),{params:{page: 
+        //             // getters.pageIndex}})
+        //             1}})
+        //         .then(res => {
+        //             for (let reply of res.data.content){
+        //                 if(reply.user_pk == getters.loginUser.id){
+        //                     // 해당 아티클 조회하여 title 가져오기 위해
+        //                     axios({
+        //                         url: rest.article.article_read(reply.article_pk),
+        //                         method: 'get',
+        //                         headers: getters.authHeader,
+        //                     })
+        //                     .then((res)=>{
+        //                         if(!getters.articleCheck[res.data.id]){
+        //                             if (getters.myReplyList.length <5){
+        //                                 commit('ADD_MY_REPLY_LIST',{id:res.data.id, title:res.data.title})
+        //                                 commit('ADD_ARTICLE_CHECK',res.data.id)
+        //                             } else {
+        //                                 commit('ADD_TEMP_LIST',{id:res.data.id, title:res.data.title})
+        //                             }
+        //                         }
                                 
-                            })
-                        }
-                    }
-                })
-                // 페이지 업~
-                .catch(err => console.error(err.response))
+        //                     })
+        //                 }
+        //             }
+        //             commit('SET_PAGE_INDEX',getters.pageIndex+1)
+        //         })
+        //         .catch(err => console.error(err.response))
                 
-            // }
-        },
+        //     // }
+        // },
     }}

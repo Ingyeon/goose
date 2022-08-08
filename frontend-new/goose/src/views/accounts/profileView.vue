@@ -33,12 +33,12 @@
                             <h4>작성한 글</h4>
                             <MyArticles/>
                         </div>
-                        <div class="data">
+                        <!-- <div class="data">
                         <h4>댓글 단 글</h4>
                         <tr v-for="row in replyArticle" :key="row">
                           <td>{{row}}</td>
                         </tr>
-                    </div>
+                    </div> -->
                     </div>
                 </div>
             
@@ -89,7 +89,7 @@ export default {
         // 4. 같을 경우 저장한다. 
         // 디버깅해야 하는 버그
         // 1. id 값은 제대로 전달되는데 commit 되는 값이 전부 동일하게 들어감 => 원인 파악도 못함
-        const myReplies = async function () {
+        // const myReplies = async function () {
             // await store.dispatch("fetchArticles", 1); // 임의값으로 1 줌
             // await store.dispatch("fetchReplies", { article_pk: null, reply_page: 1 });
             // var item = null;
@@ -99,15 +99,15 @@ export default {
             //         store.dispatch("fetchArticle2", item.article_pk);
             //     }
             // }      
-          }
-          store.dispatch('clearArticleCheck')
-          store.dispatch('findMyReplyArticles')
+          // }
+          // store.dispatch('clearArticleCheck')
+          // store.dispatch('findMyReplyArticles')
 
           const set = new Set(state.form)
           store.commit('SET_TEST',set)
 
-        const replyArticle = computed(() => store.getters.myReplyList)
-        myReplies()
+        // const replyArticle = computed(() => store.getters.myReplyList)
+        // myReplies()
 
         console.log(state.photo)
         const changeProfile = function() {
@@ -135,7 +135,7 @@ export default {
             state,
             changeProfile,
             savePhoto,
-            replyArticle,
+            // replyArticle,
             // getImgUrl
             // savePath,
             photo,
