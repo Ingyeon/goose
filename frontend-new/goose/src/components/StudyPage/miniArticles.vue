@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-    <div class="d-flex justify-content-between">
+    <div class="container d-flex justify-content-between">
         <h4>최신 게시글</h4>
         <button @click.prevent="moveArticles" class="btn btn-3 hover-border-3">
             전체보기
@@ -52,7 +52,7 @@ export default {
                 params: { "category":null, "page":1, "studyPk":store.getters.selectedStudy.id, "title":null}
             })
             .then((res)=>{
-                const articleList = res.data.content.slice(0,6)
+                const articleList = res.data.content.slice(0,5)
                 state.recentlyArticleList = articleList
             })
         }

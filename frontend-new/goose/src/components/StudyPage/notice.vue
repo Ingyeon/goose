@@ -1,12 +1,10 @@
 <template>
-    <div class="container box">
-        <ul v-for="article in state.noticeList" :key="article.id">
-            <ul class="d-flex justify-content-between" data-bs-toggle="modal" data-bs-target="#studyArticleDetail" @click="selectArticle" :key="article.id">
-                <li class="article" >{{article.title}}</li>
-                <li class="article-author">{{article.name}}</li>
-            </ul>
-        </ul>
-    </div>
+    <ul v-for="article in state.noticeList" :key="article.id">
+        <div class="d-flex justify-content-between" data-bs-toggle="modal" data-bs-target="#studyArticleDetail" @click="selectArticle" :key="article.id">
+            <li class="article" >{{article.title}}</li>
+            <li class="article-author">{{article.name}}</li>
+        </div>
+    </ul>
 </template>
 
 <script>
@@ -28,7 +26,7 @@ export default {
                 params: { "category":"notice", "page":1, "studyPk":store.getters.selectedStudy.id, "title":null}
             })
             .then((res)=>{
-                const articleList = res.data.content.slice(0,3)
+                const articleList = res.data.content.slice(0,5)
                 state.noticeList = articleList
             })
         }
