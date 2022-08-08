@@ -131,8 +131,15 @@ export default {
         
         user_delete({getters, dispatch}, password) {
             const Swal = require('sweetalert2')
-            Swal.fire(
-                '정말 탈퇴하실건가요??'
+            Swal.fire({
+                title:'정말 탈퇴하실건가요??',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: '확인',
+                cancelButtonText: '취소',
+                showCloseButton: true,
+                showLoaderOnConfirm: true,
+            }
             )
             .then((result) => {
                 console.log(password)
@@ -148,9 +155,9 @@ export default {
                         Swal.fire(
                             '그동안 Goose를 이용해주셔서 감사합니다'
                         )
-                    // .catch((err) =>{
-                    //     alert('비밀번호를 확인해주세요')
-                    // })
+                    .catch((err) =>{
+                        alert('비밀번호를 확인해주세요')
+                    })
                     router.push({name:'Home'})
                 }
             })

@@ -35,7 +35,8 @@ export default {
             passwordCheckFlag: true
         })
         const DeleteForm = () => {
-            store.dispatch("user_delete", status.password1)
+            if (status.password1 !== '' && status.passwordCheckFlag == true)(
+            store.dispatch("user_delete", status.password1))
         }
 
         const passwordValid = function() {
@@ -49,7 +50,7 @@ export default {
         }
 
         const passwordCheckValid = function() {
-            if (status.password1 === status.password2) {
+            if ( status.password1 === status.password2) {
                 status.passwordCheckFlag = true
             } else {
                 status.passwordCheckFlag = false

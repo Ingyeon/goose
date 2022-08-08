@@ -249,6 +249,7 @@ export default {
         headers: getters.authHeader,
       })
         .then((res) => {
+          alert('가입신청 완료')
         console.log(res)})
         .catch((err) => {
           alert('이미 가입신청한 스터디입니다.')

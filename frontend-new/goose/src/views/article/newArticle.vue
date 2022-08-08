@@ -1,7 +1,7 @@
 <template>
 <div class="container">
   <div class="d-flex justify-content-center m-5">
-    <h3>스터디 참여하기</h3>
+    <h3>스터디 모집글 작성</h3>
   </div>
   <form>
     <div class="input-Box">
