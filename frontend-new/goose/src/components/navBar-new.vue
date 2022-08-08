@@ -10,7 +10,7 @@
     <header>
       <span class="image-clickable">
         <router-link to="/home">
-          <img src="../assets/Goose-1.png" alt="main-logo" class="logo" />
+          <img src="../assets/Goose-1-2.png" alt="main-logo" class="logo" />
         </router-link>
       </span>
       <nav class="navbar">
@@ -124,8 +124,8 @@ export default {
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
 img[class="logo"]{
-    width: 7rem;
-    height: 7rem;
+    /* width: 7rem; */
+    height: 5rem;
  /* max-width: 100%;
  max-height: 100%; */
 }
@@ -153,6 +153,7 @@ button {
 }
 
 .logo {
+  margin-top:15px;
   /* height: 4.2rem; */
   margin-right: auto;
 }

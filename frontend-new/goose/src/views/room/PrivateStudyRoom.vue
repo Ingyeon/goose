@@ -292,7 +292,7 @@
       </transition-group>
       <!-- session-right -->
     </div>
-    <MonacoYjs :language="language" @sendResult="setResult" v-bind:propcompile="propcompile" v-bind:propstdin="propstdin" @sendCodestdin="setCodestdin"/>
+    <MonacoYjs :language="language" @sendResult="setResult" v-bind:propcompile="propcompile" v-bind:propstdin="propstdin" @sendCodestdin="setCodestdin" />
     <div v-if="this.scrollPosition > 900" id="monaco-timer" class="d-flex">
       <div>
         <h3 id="session-time">{{ hours }} : {{ minutes }} : {{ seconds }}</h3>
@@ -378,7 +378,7 @@
         @click="scrollToDown()"
         v-if="this.scrollPosition < 500"
       >
-        공유판서로 이동
+        다 같이<br>코딩하기
       </button>
       <button
         id="MonacoScroll"

@@ -381,7 +381,7 @@ left: 15%; */
 }
 
 .MonacoScroll{
-  width: 100px;
+  width: 120px;
   z-index: 2;
   display: scroll; 
   position: fixed; 
@@ -399,6 +399,7 @@ left: 15%; */
 
 #MonacoScroll{
   margin-top: 5px;
+  height: 60px;
 }
 
 .fade-enter-active, .fade-leave-active {
