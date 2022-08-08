@@ -113,7 +113,7 @@ public class UserController {
 	public ResponseEntity<String> findID(@RequestParam(value = "name")String name,@RequestParam(value = "email")String email) {
 		String result = userService.getUserByNameAndEmail(name, email);
 		if( result !=null) return ResponseEntity.status(200).body(result);
-		 else return ResponseEntity.status(200).body("Wrong Info");
+		 else return ResponseEntity.status(404).body("Wrong Info");
 	}
 	
 	@GetMapping("/findpw")
@@ -125,7 +125,7 @@ public class UserController {
 	public ResponseEntity<String> findPW(@RequestParam(value = "userId")String userId,@RequestParam(value = "email")String email) {
 			
 		if( userService.getUserByUserIdAndEmail(userId, email)) return ResponseEntity.status(200).body("OK");
-		else return ResponseEntity.status(200).body("Wrong Info");
+		else return ResponseEntity.status(404).body("Wrong Info");
 	}
 	
 	@PatchMapping("/findpw")

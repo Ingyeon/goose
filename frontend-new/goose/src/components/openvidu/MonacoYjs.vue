@@ -90,11 +90,6 @@ export default {
     },
   },
   methods: {
-    updateScroll() {
-      this.scrollPosition =
-        window.scrollY || document.documentElement.scrollTop;
-      // console.log(this.scrollPosition);
-    },
     titleUpdate(e) {
       this.code.script = e.target.value;
       console.log(this.code.script);
