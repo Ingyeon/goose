@@ -1,6 +1,12 @@
 <template>
     <!-- <h3 class="d-flex">스터디 리스트</h3> -->
-    <MyStudyItem v-for="item in myStudyList" :key="item.id" :item="item"/>
+    <div class="container">
+        <b-card-group class="d-flex">
+            <div class="row">
+                <MyStudyItem v-for="item in myStudyList" :key="item.id" :item="item"/>
+            </div>
+        </b-card-group>
+    </div>
 </template>
 
 <script>
