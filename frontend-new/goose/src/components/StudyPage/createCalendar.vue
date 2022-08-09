@@ -69,8 +69,9 @@ export default {
 
     const createCalendar = () => {
       calendar.start = document.getElementById("start-time").value;
-      calendar.start += "+09:00";
-      if (calendar.end != "") calendar.end += "+09:00";
+      // calendar.start += "+09:00";
+      // if (calendar.end != "") calendar.end += "+09:00";
+      console.log(calendar.start);
       store.dispatch("createCalendar", calendar);
       calendar.title = "";
       calendar.content = "";

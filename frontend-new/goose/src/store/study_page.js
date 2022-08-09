@@ -340,6 +340,7 @@ export default {
     },
 
     async createCalendar({ commit, getters }, calendar) {
+      console.log("axios:", calendar.start);
       await axios({
         url: rest.calendar.create_calendar(),
         method: "post",
@@ -353,6 +354,34 @@ export default {
             headers: getters.authHeader,
           })
             .then((res) => {
+              commit("SET_EVENTS", res.data);
+            })
+
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    updateCalendar({ commit, getters }, event) {
+      axios({
+        url: rest.calendar.update_calendar(),
+        method: "PATCH",
+        headers: getters.authHeader,
+        data: event,
+        params: { id: event.id },
+      })
+        .then((res) => {
+          axios({
+            url: rest.calendar.calendar_list(event.study_pk),
+            method: "get",
+            headers: getters.authHeader,
+          })
+            .then((res) => {
+              console.log(2, res.data);
               commit("SET_EVENTS", res.data);
             })
 
