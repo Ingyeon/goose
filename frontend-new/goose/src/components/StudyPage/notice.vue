@@ -30,6 +30,7 @@ export default {
                 state.noticeList = articleList
             })
         }
+        fetchNoticeList()
         const selectedStudy = computed(()=> store.getters.selectedStudy)
         const selectArticle = (article_pk)=>{
             store.dispatch('getStudyArticle',article_pk)

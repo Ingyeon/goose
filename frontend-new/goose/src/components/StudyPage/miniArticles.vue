@@ -49,7 +49,7 @@ export default {
                 state.recentlyArticleList = articleList
             })
         }
-        // fetchRecentlyArticleList()
+        fetchRecentlyArticleList()
 
         const moveArticles = () => {
             router.push({
