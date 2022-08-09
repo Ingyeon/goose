@@ -50,8 +50,8 @@
                     </select>
             </div>
             <div class="input-Box">
-              <input type="submit" value="Submit">  
-              <button @click="BackProfile">Back</button>
+              <input type="submit" value="변경하기">  
+              <button @click="BackProfile">뒤로가기</button>
             </div>
         </form>  
     </div>

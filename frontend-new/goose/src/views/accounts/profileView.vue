@@ -5,8 +5,8 @@
             <div   class="left">
                 <img :src="state.profilephoto" alt="user" width="200">
                 <!-- <img :src="state.photo" alt=""> -->
-                <h4>{{state.name}}</h4>
-                <p>관심언어: {{state.interest}}</p>
+                <h4>{{loginUser.name}}</h4>
+                <p>관심언어: {{loginUser.interest}}</p>
                 <div class="change-btn">
                   <input type="button" value="프로필 변경" @click="changeProfile">
                 </div>
@@ -17,11 +17,11 @@
                     <div class="info_data">
                         <div class="data">
                             <h4>Email</h4>
-                            <p>{{state.email}}</p>
+                            <p>{{loginUser.email}}</p>
                         </div>
                         <div class="data">
                         <h4>자기소개</h4>
-                            <p>{{state.info}}</p>
+                            <p>{{loginUser.info}}</p>
                     </div>
                     </div>
                 </div>
@@ -72,13 +72,8 @@ export default {
     setup() {
         const store = useStore();
         const router = useRouter();
+        const loginUser = computed(()=>store.getters.loginUser)
         const state = reactive({
-            id: store.getters.loginUser.userId,
-            name: store.getters.loginUser.name,
-            info: store.getters.loginUser.info,
-            email: store.getters.loginUser.email,
-            photo: store.getters.loginUser.photo,
-            interest: store.getters.loginUser.interest,
             profilephoto: "",
             form: [] // 그냥 replyArticle을 고쳤습니다
         });
@@ -138,6 +133,7 @@ export default {
             // replyArticle,
             // getImgUrl
             // savePath,
+            loginUser,
             photo,
         }
     },
