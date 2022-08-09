@@ -1,5 +1,18 @@
 <template>
-  <div>
+{{}}
+<!-- 비공개 스터디에서 확인 절차 -->
+<div v-if="selectedStudy.open == 1 && !state.passwordCheck">
+<!-- <div v-if="selectedStudy.open == 1 && !state.passwordCheck && !isStudyMember"> -->
+  <div class="container">
+    <div class="input-Box">
+        <label for="inputcurrentPassword" class="form-label">비공개 스터디입니다 비밀번호를 입력해주세요</label>
+          <input type="password" id="studyPassword" class="form-control" placeholder="비밀번호를 입력해주세요" v-model="state.inputPassword">
+          <button @click.prevent="pwcheck" class="button">입장</button>
+    </div>
+</div>
+</div>
+<!-- 본문 -->
+  <div v-if="selectedStudy.open==0 || state.passwordCheck || isStudyMember">
     <div class="container d-flex mt-3">
       <div class="row">
         <div class="col-lg-4 col-md-6 col-12">
@@ -158,7 +171,7 @@
       >
         스터디 터트리기
       </button>
-      <button class="button-danger" @click.prevent="dropOutStudy(loginUser.id)">
+      <button v-if="!isManager" class="button-danger" @click.prevent="dropOutStudy(loginUser.id)">
         스터디 탈퇴하기
       </button>
     </div>
@@ -322,8 +335,6 @@ export default {
     const selectedStudy = computed(() => store.getters.selectedStudy);
     const deleteStudy = () =>
       store.dispatch("deleteStudy", store.getters.studyId);
-    // const pageUpdate = () =>
-    //   store.dispatch("selectStudy", store.getters.selectedStudy.id);
 
     const fetchStudyHome = async() => {
       await store.dispatch("selectStudy", route.params.studyPk);
@@ -352,7 +363,9 @@ export default {
 
     const state = reactive({
       photo: store.getters.selectedStudy.image,
-      refresh : false
+      refresh : false,
+      inputPassword : "",
+      passwordCheck: false
     });
 
     const changePhoto = () => {
@@ -366,11 +379,18 @@ export default {
     };
     changePhoto();
     const isJoinList = computed(()=>store.getters.isJoinList)
+    const studyMemberList = computed(()=>store.getters.studyMemberList)
+    const isStudyMember = computed(()=>store.getters.isStudyMember)
+    const pwcheck = ()=>{
+      if(state.inputPassword == store.getters.selectedStudy.password){
+        alert(`${store.getters.selectedStudy.title}에 오신걸 환영합니다`)
+        state.passwordCheck = true
+        }
+      else{alert("비밀번호가 틀렸습니다")}
+    }
     return {
       selectedStudy,
       deleteStudy,
-      // pageUpdate,
-      // fetchStudyHome,
       dropOutStudy,
       loginUser,
       manager,
@@ -380,6 +400,9 @@ export default {
       changePhoto,
       state,
       isJoinList,
+      studyMemberList,
+      pwcheck,
+      isStudyMember,
     };
   },
   methods: {

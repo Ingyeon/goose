@@ -23,6 +23,7 @@ export default {
     },
     studyBoard: [],
     studyMemberList: [],
+    isStudyMember:false,  // 매니저 찾을때 같이 확인
     choiceImg: "",
     events: [], // 전체 캘린더
     event: [], // 개별 캘린더
@@ -39,6 +40,7 @@ export default {
   getters: {
     selectedStudy: (state) => state.selectedStudy,
     myStudyList: (state) => state.myStudyList,
+    isStudyMember: (state)=> state.isStudyMember,
     authStudyList: (state) => state.authStudyList, // 권한 가지는 스터디들의 목록
     studyBoard: (state) => state.studyBoard,
     studyJoinList: (state) => state.studyJoinList,
@@ -73,7 +75,8 @@ export default {
     SET_RESULT: (state, result) => (state.result = result),
     SET_STUDY_MANAGER: (state, manager) => (state.studyManager = manager),
     SET_RELOADCHECK: (state, reloadCheck) => (state.reloadCheck = reloadCheck),
-    SET_OPENSTUDY_LIST: (state, openstudyList) => (state.openstudyList = openstudyList)
+    SET_OPENSTUDY_LIST: (state, openstudyList) => (state.openstudyList = openstudyList),
+    SET_IS_STUDY_MEMBER: (state,value) => (state.isStudyMember = value),
   },
 
   actions: {
@@ -150,6 +153,7 @@ export default {
     },
 
     createStudy({ getters, dispatch }, credential) {
+      console.log("스터디 생성 요청",credential)
       axios({
         url: rest.study.study_create(),
         method: "post",
@@ -197,13 +201,15 @@ export default {
       }
     },
     myStudyList({ getters, commit }) {
-      axios({
-        url: rest.study.my_study_list(),
-        method: "get",
-        headers: getters.authHeader,
-      }).then((res) => {
-        commit("SET_MY_STUDY_LIST", res.data);
-      });
+      if(getters.isLoggedIn){
+        axios({
+          url: rest.study.my_study_list(),
+          method: "get",
+          headers: getters.authHeader,
+        }).then((res) => {
+          commit("SET_MY_STUDY_LIST", res.data);
+        });
+      }
     },
     async authStudyList({ getters, commit }) {
       await axios({
@@ -348,6 +354,7 @@ export default {
     },
 
     findStudyManager({ getters, commit }) {
+      let memberCheck = false
       getters.studyMemberList.forEach((member) => {
         if (member.authority == 5) {
           commit("SET_STUDY_MANAGER", {
@@ -355,7 +362,12 @@ export default {
             name: member.user_id,
           });
         }
-      });
+        if (member.user_pk == getters.loginUser.id){
+          memberCheck = true
+        }
+      })
+      if (memberCheck){commit("SET_IS_STUDY_MEMBER",true)}
+      else{commit("SET_IS_STUDY_MEMBER",false)}
     },
   },
 };

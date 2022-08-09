@@ -21,7 +21,7 @@ export default {
     const store = useStore()
     const myStudyList = computed(()=> store.getters.myStudyList)
     const patchMyStudyList = ()=>{store.dispatch('myStudyList')}
-    patchMyStudyList
+    patchMyStudyList()
     return {myStudyList}
   }
 }
