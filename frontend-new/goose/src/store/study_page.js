@@ -120,13 +120,15 @@ export default {
     },
 
     async selectStudy({ commit, getters, dispatch }, id) {
-      commit("SET_PASSWORD_CHECK",false)
       await axios({
         url: rest.study.study_search(id),
         method: "get",
         headers: getters.authHeader,
       })
         .then((res) => {
+          if (res.data.id != getters.selectedStudy.id){
+            commit("SET_PASSWORD_CHECK",false)
+          }
           commit("SET_SELECTED_STUDY", res.data);
           dispatch("saveStudyMemberList", res.data.id);
         })
@@ -453,6 +455,10 @@ export default {
         commit("SET_PASSWORD_CHECK",true)
       }
       else{alert("비밀번호가 틀렸습니다.")}
+    },
+
+    resetPasswordCheck({commit}){
+      commit("SET_PASSWORD_CHECK",false)
     }
   },
 };

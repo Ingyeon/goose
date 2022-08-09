@@ -175,8 +175,8 @@ export default {
     const pwcheck = ()=>{store.dispatch('passwordCheck',data.inputPassword)}
     const isStudyMember = computed(()=>store.getters.isStudyMember)
     return {studyArticleList,selectedArticle,pageUp,pageDown,data,selectedStudy,
-    allClick,noticeClick,freeClick,btnActive,refresh,pwcheck,passwordCheck,isStudyMember}
-  }
+    allClick,noticeClick,freeClick,btnActive,refresh,pwcheck,passwordCheck,isStudyMember,}
+  },
 }
 </script>
 

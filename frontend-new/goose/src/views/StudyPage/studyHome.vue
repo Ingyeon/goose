@@ -398,7 +398,7 @@ export default {
       studyMemberList,
       pwcheck,
       isStudyMember,
-      passwordCheck
+      passwordCheck,
     };
   },
   methods: {
