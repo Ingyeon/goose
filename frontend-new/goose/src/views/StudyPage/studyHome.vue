@@ -1,18 +1,18 @@
 <template>
 {{}}
 <!-- 비공개 스터디에서 확인 절차 -->
-<div v-if="selectedStudy.open == 1 && !state.passwordCheck">
-<!-- <div v-if="selectedStudy.open == 1 && !state.passwordCheck && !isStudyMember"> -->
+<!-- <div v-if="selectedStudy.open == 1 && !state.passwordCheck"> -->
+<div v-if="selectedStudy.open == 1 && !passwordCheck && !isStudyMember">
   <div class="container">
     <div class="input-Box">
         <label for="inputcurrentPassword" class="form-label">비공개 스터디입니다 비밀번호를 입력해주세요</label>
           <input type="password" id="studyPassword" class="form-control" placeholder="비밀번호를 입력해주세요" v-model="state.inputPassword">
           <button @click.prevent="pwcheck" class="button">입장</button>
     </div>
-</div>
+  </div>
 </div>
 <!-- 본문 -->
-  <div v-if="selectedStudy.open==0 || state.passwordCheck || isStudyMember">
+  <div v-if="selectedStudy.open==0 || passwordCheck || isStudyMember">
     <div class="container d-flex mt-3">
       <div class="row">
         <div class="col-lg-4 col-md-6 col-12">
@@ -365,8 +365,8 @@ export default {
       photo: store.getters.selectedStudy.image,
       refresh : false,
       inputPassword : "",
-      passwordCheck: false
     });
+    const passwordCheck = computed(()=>store.getters.passwordCheck)
 
     const changePhoto = () => {
       if (store.getters.selectedStudy.image === "study1") {
@@ -382,12 +382,7 @@ export default {
     const studyMemberList = computed(()=>store.getters.studyMemberList)
     const isStudyMember = computed(()=>store.getters.isStudyMember)
     const pwcheck = ()=>{
-      if(state.inputPassword == store.getters.selectedStudy.password){
-        alert(`${store.getters.selectedStudy.title}에 오신걸 환영합니다`)
-        state.passwordCheck = true
-        }
-      else{alert("비밀번호가 틀렸습니다")}
-    }
+      store.dispatch('passwordCheck',state.inputPassword)}
     return {
       selectedStudy,
       deleteStudy,
@@ -403,6 +398,7 @@ export default {
       studyMemberList,
       pwcheck,
       isStudyMember,
+      passwordCheck
     };
   },
   methods: {

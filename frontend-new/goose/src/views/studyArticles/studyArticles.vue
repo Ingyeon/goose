@@ -1,4 +1,15 @@
 <template>
+<div v-if="selectedStudy.open == 1 && !passwordCheck && !isStudyMember">
+  <div class="container">
+    <div class="input-Box">
+        <label for="inputcurrentPassword" class="form-label">비공개 스터디입니다 비밀번호를 입력해주세요</label>
+        <input type="password" id="studyPassword" class="form-control" placeholder="비밀번호를 입력해주세요" v-model="data.inputPassword">
+        <button @click.prevent="pwcheck" class="button">입장</button>
+    </div>
+  </div>
+</div>
+<!-- 본문 -->
+<div v-if="selectedStudy.open==0 || passwordCheck || isStudyMember">
 <div class="container">
     <h1 class="text-center fw-bold my-3">게시판</h1>
   <router-link :to="{ name:'StudyHome', params: {studyPk:selectedStudy.id}}"><button id="title" class="btn btn-3 hover-border-3">{{selectedStudy.title}}로 이동</button></router-link>
@@ -46,6 +57,7 @@
     <studyArticleDetail @refresh="refresh" />
   </div>
 </div>
+</div>
 </template>
 
 <script>
@@ -54,12 +66,15 @@ import studyArticleItem from '@/components/StudyArticle/studyArticleItem.vue'
 import studyArticleDetail from '@/components/StudyArticle/studyArticleDetail.vue'
 import { computed, reactive } from "vue"
 import { useStore } from "vuex"
+import { useRoute, useRouter } from "vue-router";
 import _ from 'lodash'
 export default {
   components:{createStudyArticle,studyArticleItem,studyArticleDetail
   },
 
   setup(){
+    
+    
     const store = useStore()
     // const studyArticles = computed(() => store.getters.studyArticles )
     const studyArticleList = computed(() => store.getters.studyArticleList)
@@ -69,13 +84,14 @@ export default {
     const data = reactive({
       page:1,
       isArticleList: !_.isEmpty(store.getters.studyArticleList),
-      category: null
+      category: null,
+      inputPassword : "",
     })
 
     const pageUp = ()=>{
       // if (!_.isEmpty(store.getters.studyArticleList)){
-      if (store.getters.studyArticleList.length ==10){
-        data.page++;
+        if (store.getters.studyArticleList.length ==10){
+          data.page++;
         fetchStudyArticleList();
       }
     }
@@ -90,6 +106,10 @@ export default {
     const fetchStudyArticleList = () => {
       store.dispatch('getStudyArticleList',{category:data.category,page:data.page,title:null})
     }
+    // 스터디 아트클 주소를 url창으로 입력해서 들어올 경우를 위한 코드
+    const route = useRoute();
+    store.dispatch('selectStudy',route.params.studyPk)
+
     
     const allClick = ()=>{
       if (data.category != "all"){
@@ -124,8 +144,6 @@ export default {
       }
     }
 
-    fetchStudyArticleList()
-
     const btnActive = (category)=>{
       if( category =='free'){
         document.getElementById('all').classList.remove('active')
@@ -153,7 +171,11 @@ export default {
       document.getElementById('notice').classList.remove('active')
       document.getElementById('free').classList.remove('active')
     }
-    return {studyArticleList,selectedArticle,pageUp,pageDown,data,selectedStudy,allClick,noticeClick,freeClick,btnActive,refresh}
+    const passwordCheck = computed(()=>store.getters.passwordCheck)
+    const pwcheck = ()=>{store.dispatch('passwordCheck',data.inputPassword)}
+
+    return {studyArticleList,selectedArticle,pageUp,pageDown,data,selectedStudy,
+    allClick,noticeClick,freeClick,btnActive,refresh,pwcheck,passwordCheck}
   }
 }
 </script>

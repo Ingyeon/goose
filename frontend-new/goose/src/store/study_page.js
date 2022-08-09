@@ -35,6 +35,7 @@ export default {
     },
     reloadCheck: false,
     openstudyList: [],
+    passwordCheck: false,
   },
 
   getters: {
@@ -55,7 +56,8 @@ export default {
     studyManager: (state) => state.studyManager,
     isStudyManager: (state, getters) =>
       state.studyManager.id == getters.loginUser.id,
-    openstudyList: (state) => state.openstudyList,
+    openstudyList: (state) => state.openstudyList ,
+    passwordCheck: (state) => state.passwordCheck,
   },
 
   mutations: {
@@ -75,10 +77,9 @@ export default {
     SET_RESULT: (state, result) => (state.result = result),
     SET_STUDY_MANAGER: (state, manager) => (state.studyManager = manager),
     SET_RELOADCHECK: (state, reloadCheck) => (state.reloadCheck = reloadCheck),
-
-    SET_OPENSTUDY_LIST: (state, openstudyList) =>
-      (state.openstudyList = openstudyList),
-    SET_IS_STUDY_MEMBER: (state, value) => (state.isStudyMember = value),
+    SET_OPENSTUDY_LIST: (state, openstudyList) => (state.openstudyList = openstudyList),
+    SET_IS_STUDY_MEMBER: (state,value) => (state.isStudyMember = value),
+    SET_PASSWORD_CHECK : (state,value) => (state.passwordCheck = value), // selectStudy에서 사용됨
   },
 
   actions: {
@@ -119,6 +120,7 @@ export default {
     },
 
     async selectStudy({ commit, getters, dispatch }, id) {
+      commit("SET_PASSWORD_CHECK",false)
       await axios({
         url: rest.study.study_search(id),
         method: "get",
@@ -130,6 +132,7 @@ export default {
         })
         .then(() => {
           dispatch("joinList");
+          dispatch("getStudyArticleList",{category:null,page:1,title:null})
         })
         .catch((err) => {
           console.log(err);
@@ -443,5 +446,13 @@ export default {
         commit("SET_IS_STUDY_MEMBER", false);
       }
     },
+
+    passwordCheck({getters,commit},password){
+      if(password == getters.selectedStudy.password){
+        alert(`${getters.selectedStudy.title}에 오신걸 환영합니다`)
+        commit("SET_PASSWORD_CHECK",true)
+      }
+      else{alert("비밀번호가 틀렸습니다.")}
+    }
   },
 };
