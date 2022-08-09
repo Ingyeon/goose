@@ -86,8 +86,8 @@
 
         <!-- 제출 -->
         <div class="input-Box d-flex justify-content-end">
-          <input @click.prevent="createStudy()" type="submit" value="완료" v-if="state.credential.open == 1"/>
-          <input @click.prevent="createStudy2()" type="submit" value="완료" v-if="state.credential.open == 0"/>
+          <input @click.prevent="createStudy()" type="submit" value="만들기" v-if="state.credential.open == 1"/>
+          <input @click.prevent="createStudy2()" type="submit" value="만들기" v-if="state.credential.open == 0"/>
         </div>
       </form>
     </div>

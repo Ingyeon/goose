@@ -86,38 +86,16 @@
           </div>
           <div class="d-flex justify-content-end">
             <span class="accept-list">
-              <button
-                id="listbutton"
-                v-if="isManager && !isJoinList"
-                type="button"
-                class="button"
-                data-bs-toggle="modal"
-                data-bs-target="#studyJoinListModal"
-              >
+              <button id="listbutton" v-if="isManager && !isJoinList" type="button" class="button" data-bs-toggle="modal" data-bs-target="#studyJoinListModal">
                 참가 신청 리스트
               </button>
-              <button
-                id="listbutton"
-                v-if="isManager && isJoinList"
-                type="button"
-                class="button"
-                data-bs-toggle="modal"
-                data-bs-target="#studyJoinListModal"
-                style="color:red"
-              >
+              <button id="listbutton" v-if="isManager && isJoinList" type="button" class="button" data-bs-toggle="modal" data-bs-target="#studyJoinListModal" style="color:red">
                 참가 신청 리스트
               </button>
               <studyJoinList />
             </span>
             <span class="editbutton">
-              <button
-                id="editbutton"
-                v-if="isManager"
-                type="button"
-                class="button"
-                data-bs-toggle="modal"
-                data-bs-target="#updateStudyModal"
-              >
+              <button id="editbutton" v-if="isManager" type="button" class="button" data-bs-toggle="modal" data-bs-target="#updateStudyModal">
                 스터디 관리
               </button>
               <studyUpdate />

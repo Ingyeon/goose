@@ -1,10 +1,12 @@
 <template>
-  <h3>
     <!-- id 대신 선호 언어? -->
-    <li>이름: {{ item.name }},  id : {{ item.user_id }}</li>
-    <button @click="joinAccept" type="button" class="btn btn-primary">승인</button>
-    <button @click="joinRefuse" type="button" class="btn btn-primary">거절</button>
-  </h3>
+    <div class="d-flex justify-content-between">
+    <li class="fw-bold">이름: {{ item.name }},  id : {{ item.user_id }}</li>
+    <div> 
+      <button class="accept" @click="joinAccept" type="button" >승인</button>
+      <button class="reject" @click="joinRefuse" type="button" >거절</button>
+    </div>  
+    </div>
 </template>
 
 <script>
@@ -39,6 +41,35 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+* {
+  font-family: 'Josefin Sans', sans-serif;
+}
+li {
+  list-style: none;
+}
+button[class="accept"] {
+  background: #ffd700;
+  color: #000000;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  height:30px;
+  width :50px;
+  border-radius: 80px 40px;
+  font-size: 13px;
+  border: none;
+}
+button[class="reject"] {
+  background: #ee5c26;
+  color: #000000;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  height:30px;
+  width :50px;
+  border-radius: 80px 40px;
+  font-size: 13px;
+  border: none;
+}
 </style>

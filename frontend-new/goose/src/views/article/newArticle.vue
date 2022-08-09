@@ -101,7 +101,7 @@ export default {
     font-family: 'NanumSquare', sans-serif;
     font-weight: bold;
   }
-  .input-Box:nth-child(6) {
+  .input-Box:nth-child(5) {
     display: flex;
     /* justify-content: space-evenly; */
     justify-content: end;

@@ -45,8 +45,10 @@
     <label for="textarea" class="form-label">내용</label>
     <textarea type="textarea" class="form-control" id="textarea" v-model="state.form.content"></textarea>
   </div>
-  <button type="submit" @click.prevent="clickSet" class="btn btn-primary">작성</button>
-    
+  <div class="input-Box">
+    <button @click.prevent="BackDetail">뒤로 가기</button>
+    <button type="submit" @click.prevent="clickSet" class="btn btn-primary">작성</button>
+  </div>
 </form>
 </div>
 </div>
@@ -56,14 +58,16 @@
 <script>
 import { reactive } from 'vue'
 import {useStore} from 'vuex'
+import { useRouter } from 'vue-router'
 
 export default {
     name: 'newArticle',
     
     setup(){
     const store = useStore()
-
+    const router = useRouter()
     const state = reactive({
+        id: store.getters.article.id,
         form:{
             recruitment: store.getters.article.recruitment,
             category: store.getters.article.category,
@@ -82,7 +86,9 @@ export default {
     for (let study of store.getters.authStudyList)
       state.my_study.push({id: study.id,title:study.title})
     }
-
+    const BackDetail = function(){
+      router.push({name: 'ArticleDetail' ,params: {id:state.id}})
+    }
     const clickSet = function(){   // 게시글 수정
       store.dispatch('updateArticle',{
         category:state.form.category, 
@@ -95,7 +101,7 @@ export default {
     }
     study_info()
 
-    return {state,clickSet,store,study_info}
+    return {state,BackDetail,clickSet,store,study_info}
     }
 }
 </script>
@@ -105,7 +111,7 @@ export default {
     font-family: 'NanumSquare', sans-serif;
     font-weight: bold;
   }
-  .input-Box:nth-child(6) {
+  .input-Box{
     display: flex;
     /* justify-content: space-evenly; */
     justify-content: end;
@@ -121,6 +127,7 @@ export default {
     text-align: center;
     border-radius: 80px 40px;
     margin-right: 30px;
+    border:none;
   }
   label[class="form-label"] {
     font-family: 'NanumSquare', sans-serif;

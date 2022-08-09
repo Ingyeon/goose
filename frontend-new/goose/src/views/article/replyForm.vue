@@ -10,6 +10,12 @@
 </div>
 </template>
 
+<style scoped>
+    #textarea{
+        resize: none;
+    }
+</style>
+
 <script>
 import {reactive} from 'vue'
 import {useStore} from 'vuex'

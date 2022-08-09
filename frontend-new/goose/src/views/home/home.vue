@@ -10,12 +10,12 @@
         <div class="carousel-item active notice-item">
           <Notice />
         </div>
-        <div class="carousel-item notice-item">
+        <!-- <div class="carousel-item notice-item">
           <Notice />
         </div>
         <div class="carousel-item notice-item">
           <Notice />
-        </div>
+        </div> -->
       </div>
       <button
         class="carousel-control-prev"
