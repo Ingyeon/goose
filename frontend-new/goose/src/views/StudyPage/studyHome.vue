@@ -141,7 +141,7 @@
       <callender />
     </div>
     <br>
-    <div class="container d-flex justify-content-evenly m-5">
+    <div class="container d-flex justify-content-end m-5">
       <button
         class="button-danger"
         v-if="isManager"
@@ -149,9 +149,10 @@
       >
         스터디 터트리기
       </button>
-      <button v-if="!isManager" class="button-danger" @click.prevent="dropOutStudy(loginUser.id)">
+      <button v-if="!isManager && isStudyMember" class="button-danger" @click.prevent="dropOutStudy(loginUser.id)">
         스터디 탈퇴하기
       </button>
+      <button v-if="!isStudyMember && isLoggedIn" @click="joinStudy" class="button">스터디 가입신청</button>
     </div>
     <div style="height: 50px"></div>
   </div>
@@ -361,6 +362,11 @@ export default {
     const isStudyMember = computed(()=>store.getters.isStudyMember)
     const pwcheck = ()=>{
       store.dispatch('passwordCheck',state.inputPassword)}
+
+    const isLoggedIn = computed(()=>store.getters.isLoggedIn)
+    const joinStudy = ()=>{
+      store.dispatch("joinStudy",store.getters.selectedStudy.id)
+    }
     return {
       selectedStudy,
       deleteStudy,
@@ -377,6 +383,8 @@ export default {
       pwcheck,
       isStudyMember,
       passwordCheck,
+      isLoggedIn,
+      joinStudy,
     };
   },
   methods: {

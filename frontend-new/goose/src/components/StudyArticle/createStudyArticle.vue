@@ -1,6 +1,7 @@
 <template>
   <!-- Button trigger modal -->
   <button
+    v-if="isStudyMember"
     type="button"
     class="cus-btn-yellow"
     data-bs-toggle="modal"
@@ -128,8 +129,9 @@ export default {
       credential.content = "";
     };
 
-    const isManager = store.getters.isStudyManager;
-    return { createArticle, credential, isManager };
+    const isManager = computed(()=> store.getters.isStudyManager);
+    const isStudyMember = computed(()=>store.getters.isStudyMember);
+    return { createArticle, credential, isManager,isStudyMember };
   },
 };
 </script>
