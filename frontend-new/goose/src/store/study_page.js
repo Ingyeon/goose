@@ -23,7 +23,7 @@ export default {
     },
     studyBoard: [],
     studyMemberList: [],
-    isStudyMember:false,  // 매니저 찾을때 같이 확인
+    isStudyMember: false, // 매니저 찾을때 같이 확인
     choiceImg: "",
     events: [], // 전체 캘린더
     event: [], // 개별 캘린더
@@ -34,13 +34,13 @@ export default {
       // name:""
     },
     reloadCheck: false,
-    openstudyList: []
+    openstudyList: [],
   },
 
   getters: {
     selectedStudy: (state) => state.selectedStudy,
     myStudyList: (state) => state.myStudyList,
-    isStudyMember: (state)=> state.isStudyMember,
+    isStudyMember: (state) => state.isStudyMember,
     authStudyList: (state) => state.authStudyList, // 권한 가지는 스터디들의 목록
     studyBoard: (state) => state.studyBoard,
     studyJoinList: (state) => state.studyJoinList,
@@ -55,7 +55,7 @@ export default {
     studyManager: (state) => state.studyManager,
     isStudyManager: (state, getters) =>
       state.studyManager.id == getters.loginUser.id,
-    openstudyList: (state) => state.openstudyList ,
+    openstudyList: (state) => state.openstudyList,
   },
 
   mutations: {
@@ -75,8 +75,10 @@ export default {
     SET_RESULT: (state, result) => (state.result = result),
     SET_STUDY_MANAGER: (state, manager) => (state.studyManager = manager),
     SET_RELOADCHECK: (state, reloadCheck) => (state.reloadCheck = reloadCheck),
-    SET_OPENSTUDY_LIST: (state, openstudyList) => (state.openstudyList = openstudyList),
-    SET_IS_STUDY_MEMBER: (state,value) => (state.isStudyMember = value),
+
+    SET_OPENSTUDY_LIST: (state, openstudyList) =>
+      (state.openstudyList = openstudyList),
+    SET_IS_STUDY_MEMBER: (state, value) => (state.isStudyMember = value),
   },
 
   actions: {
@@ -88,34 +90,32 @@ export default {
       commit("SET_JOIN_LIST", joinArray);
     },
 
-    async saveOpenList({commit, getters}){
-      console.log('액시오스전')
+    async saveOpenList({ commit, getters }) {
+      console.log("액시오스전");
       await axios({
         url: rest.study.open_study(),
-        method:"get",
-        headers: getters.authHeader,
-      })
-      .then((res) => {
-        console.log(res)
-        commit("SET_OPENSTUDY_LIST", res.data)
-      })
-      .catch((err)=>{
-        console.log(err)
-      })
-    },
-
-
-
-    select_one({commit,getters},id){
-      console.log('진입 ')
-      axios({
-        url: rest.study.study_search(id),
         method: "get",
         headers: getters.authHeader,
       })
         .then((res) => {
-          commit("SET_SELECTED_STUDY", res.data)});
-          console.log(getters.selectedStudy)
+          console.log(res);
+          commit("SET_OPENSTUDY_LIST", res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    select_one({ commit, getters }, id) {
+      console.log("진입 ");
+      axios({
+        url: rest.study.study_search(id),
+        method: "get",
+        headers: getters.authHeader,
+      }).then((res) => {
+        commit("SET_SELECTED_STUDY", res.data);
+      });
+      console.log(getters.selectedStudy);
     },
 
     async selectStudy({ commit, getters, dispatch }, id) {
@@ -153,7 +153,7 @@ export default {
     },
 
     createStudy({ getters, dispatch }, credential) {
-      console.log("스터디 생성 요청",credential)
+      console.log("스터디 생성 요청", credential);
       axios({
         url: rest.study.study_create(),
         method: "post",
@@ -201,7 +201,7 @@ export default {
       }
     },
     myStudyList({ getters, commit }) {
-      if(getters.isLoggedIn){
+      if (getters.isLoggedIn) {
         axios({
           url: rest.study.my_study_list(),
           method: "get",
@@ -256,10 +256,11 @@ export default {
         headers: getters.authHeader,
       })
         .then((res) => {
-          alert('가입신청 완료')
-        console.log(res)})
+          alert("가입신청 완료");
+          console.log(res);
+        })
         .catch((err) => {
-          alert('이미 가입되거나 가입신청한 스터디입니다.')
+          alert("이미 가입되거나 가입신청한 스터디입니다.");
           console.log(err);
         });
     },
@@ -276,7 +277,7 @@ export default {
         })
           .then((res) => {
             dispatch("joinList");
-            dispatch("saveStudyMemberList",credential.study_pk)
+            dispatch("saveStudyMemberList", credential.study_pk);
           })
           .catch((err) => {
             console.log(err);
@@ -300,8 +301,8 @@ export default {
     },
 
     dropOutStudy({ getters }, user_pk) {
-      console.log(user_pk)
-      console.log(getters.selectedStudy.id)
+      console.log(user_pk);
+      console.log(getters.selectedStudy.id);
       axios({
         url: rest.study.study_member_out(),
         method: "delete",
@@ -310,12 +311,82 @@ export default {
           study_pk: getters.selectedStudy.id,
           user_pk: user_pk,
         },
-      })
+      });
       // .then((res) => {
       //   router.push({ name: "Home" });
       // })
       // .catch((err)=>console.log("에러내용:",err))
     },
+
+    // 캘린더
+    async selectEvent({ commit, getters }, id) {
+      await axios({
+        url: rest.calendar.select_calendar(id),
+        method: "get",
+        headers: getters.authHeader,
+      })
+        .then((res) => {
+          console.log(res.data);
+          commit("SET_EVENT", res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    async createCalendar({ commit, getters }, calendar) {
+      await axios({
+        url: rest.calendar.create_calendar(),
+        method: "post",
+        headers: getters.authHeader,
+        data: calendar,
+      })
+        .then((res) => {
+          axios({
+            url: rest.calendar.calendar_list(calendar.study_pk),
+            method: "get",
+            headers: getters.authHeader,
+          })
+            .then((res) => {
+              commit("SET_EVENTS", res.data);
+            })
+
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    async deleteCalendar({ commit, getters }, event) {
+      await axios({
+        url: rest.calendar.delete_calendar(),
+        method: "delete",
+        headers: { Authorization: getters.token, id: event.id },
+      })
+        .then((res) => {
+          axios({
+            url: rest.calendar.calendar_list(event.study_pk),
+            method: "get",
+            headers: getters.authHeader,
+          })
+            .then((res) => {
+              console.log(2, res.data);
+              commit("SET_EVENTS", res.data);
+            })
+
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    // 컴파일러
     async compile({ dispatch }, code) {
       console.log(code.script);
       // const temp = code.language.toLowerCase();
@@ -354,7 +425,7 @@ export default {
     },
 
     findStudyManager({ getters, commit }) {
-      let memberCheck = false
+      let memberCheck = false;
       getters.studyMemberList.forEach((member) => {
         if (member.authority == 5) {
           commit("SET_STUDY_MANAGER", {
@@ -362,12 +433,15 @@ export default {
             name: member.user_id,
           });
         }
-        if (member.user_pk == getters.loginUser.id){
-          memberCheck = true
+        if (member.user_pk == getters.loginUser.id) {
+          memberCheck = true;
         }
-      })
-      if (memberCheck){commit("SET_IS_STUDY_MEMBER",true)}
-      else{commit("SET_IS_STUDY_MEMBER",false)}
+      });
+      if (memberCheck) {
+        commit("SET_IS_STUDY_MEMBER", true);
+      } else {
+        commit("SET_IS_STUDY_MEMBER", false);
+      }
     },
   },
 };

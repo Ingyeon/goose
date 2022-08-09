@@ -39,7 +39,7 @@ export default {
       HOST + Study + Member + "studymemberlsit/" + `${study_pk}`, // 오타 불편
     study_member_out: () => HOST + Study + Member + "studymemberout",
     compile: () => COMP + "/execute",
-    open_study: () =>HOST + Study + Member + "publicstudylist"
+    open_study: () => HOST + Study + Member + "publicstudylist",
   },
   studyArticle: {
     studyArticles: () => HOST + "studyArticles",
@@ -50,14 +50,20 @@ export default {
     user: () => HOST + User,
     user_check: (userId) => HOST + User + `/{userId}?id=${userId}`, // pk값이 아닌 로그인 할 때 그 id
     user_myprofile: () => HOST + User + "/me",
-    user_passwordupdate: () => HOST + User + '/pw',
-    user_findid: (useremail, name) => HOST + User + `/findID?email=${useremail}&name=${name}`,
-    user_findpw: () => HOST + User + '/findpw',
-    user_email: (userEmail)=> HOST + User + `/email?email=${userEmail}`,
+    user_passwordupdate: () => HOST + User + "/pw",
+    user_findid: (useremail, name) =>
+      HOST + User + `/findID?email=${useremail}&name=${name}`,
+    user_findpw: () => HOST + User + "/findpw",
+    user_email: (userEmail) => HOST + User + `/email?email=${userEmail}`,
   },
 
   calendar: {
     calendar_list: (studyPk) =>
       HOST + Calendar + "list" + `?studyPk=${studyPk}`,
+
+    create_calendar: () => HOST + Calendar,
+    select_calendar: (id) => HOST + Calendar + `?id=${id}`,
+    update_calendar: () => HOST + Calendar,
+    delete_calendar: () => HOST + Calendar,
   },
 };
