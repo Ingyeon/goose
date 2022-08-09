@@ -20,13 +20,13 @@
           <div class="input-Box">
             <label class="form-label">내용 : {{ event.content }}</label>
           </div>
-          <div class="input-Box">
+          <div v-if="isEvent" class="input-Box">
             <label class="form-label"
               >시작 시간 :
               {{ event.start.substring(0, 16).replace("T", "-") }}</label
             >
           </div>
-          <div class="input-Box">
+          <div v-if="isEvent" class="input-Box">
             <label class="form-label" v-if="event.end"
               >종료 시간 :
               {{ event.end.substring(0, 16).replace("T", "-") }}</label
@@ -54,9 +54,9 @@
 </template>
 
 <script>
-import { reactive } from "@vue/reactivity";
+import { reactive,computed } from "@vue/reactivity";
 import { useStore } from "vuex";
-
+import _ from 'lodash'
 export default {
   setup() {
     const store = useStore();
@@ -65,8 +65,8 @@ export default {
     //   // store.dispatch("deleteCalendar", event.id);
     // };
     // return { deleteCalendar };
-
-    return { upk };
+    const isEvent = computed(()=>!_.isEmpty(store.getters.event))
+    return { upk,isEvent };
   },
   computed: {
     event: function () {
