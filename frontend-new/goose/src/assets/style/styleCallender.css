@@ -1,7 +1,13 @@
-.fc-day-number .fc-sun .fc-past {
+.fc-day-sun > div > div > a {
   color: #ff0000 !important;
 }
-.fc-day-number .fc-sat .fc-past {
+.fc-day-sun > div > a {
+  color: #ff0000 !important;
+}
+.fc-day-sat > div > div> a {
+  color: #0000ff !important;
+}
+.fc-day-sat > div> a {
   color: #0000ff !important;
 }
 a {
