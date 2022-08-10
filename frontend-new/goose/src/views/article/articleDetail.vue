@@ -47,10 +47,10 @@
         </div>
         </div>
 
-        <!-- css 적용하기 -->
-        <reply-list/>
+        <reply-list class='py-6'/>
     </div>
     </div>
+    <div class="py-5"></div>
 
 
 

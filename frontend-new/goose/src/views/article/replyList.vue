@@ -1,7 +1,6 @@
 <template>
  <h4>댓글 목록</h4>
  <replyListItem/>
- <reply-nation></reply-nation>
  <reply-form/> 
 </template>
 

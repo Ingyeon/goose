@@ -2,6 +2,7 @@ import axios from "axios"
 import rest from '@/api/rest'
 import router from "@/router"
 import { _ } from "core-js"
+import store from "."
 
 
 export default {
@@ -169,7 +170,7 @@ export default {
                 alert('값을 모두 입력하세요!')
             })
         },
-            updateArticle({  getters  },form_data ){
+            updateArticle({  getters,dispatch  },form_data ){
                 axios({
                     url: rest.article.article_read(getters.article.id),
                     method: 'patch',
@@ -177,6 +178,7 @@ export default {
                     headers: getters.authHeader,
                 })
                 .then(res => {
+                    dispatch('fetchArticle',getters.article.id)
                     router.push({
                         name: 'ArticleDetail',
                         params: {  id: getters.article.id  }
