@@ -1,38 +1,49 @@
 <template>
     <div class="container">
         <div class="mx-5">
-        <h3 class="d-flex justify-content-center my-3 display-4">{{ article_log.title}}</h3>
-        <div class="d-flex  justify-content-between bg-warning">
-            <p class="mx-2 my-1">스터디명: {{  study_log.title  }}</p>
-            <p class="mx-2 my-1">분류: {{ article_log.category  }}</p>
-            <p class="mx-2 my-1">모집 여부: {{ article_log.state  }}</p>
-            <p class="mx-2 my-1">작성일자: {{  article_log.date  }}</p>
+        <div class="d-flex justify-content-center my-2 header">
+            <h2 class="fw-bold">{{ article_log.title}}</h2>
+            <div class="state">
+                <h5 class="button-on" v-if="article_log.state=='모집중'">{{ article_log.state  }}</h5>
+                <h5 class="button-off" v-if="article_log.state=='모집완료'">{{ article_log.state  }}</h5>
+            </div>
         </div>
-        <div class="content-detail my-0">{{  article_log.content  }}</div>
+        <div v-if="state.check == true && state.toggle==false" class="d-flex justify-content-end">
+            <button class="btn" @click="article_edit" v-if="state.check == true" style="cursor: pointer">수정</button>
+            <button class="btn" @click="article_delete" v-if="state.check == true" style="cursor: pointer">삭제</button>
+        </div>
+        <!-- <h5 class="article-param mx-2 my-1">모집여부: {{ article_log.state  }}</h5> -->
+        <!-- {{article_log}} -->
+        <hr>
+        <div class="d-flex justify-content-evenly mx-5">
+            <div class="container">
+                <h5 class="fw-bold article-param mx-5 my-3">스터디명: {{  study_log.title  }}</h5>
+                <h5 class="fw-bold article-param mx-5 my-3">사용언어: {{ article_log.category  }}</h5>
+            </div>
+            <div class="container">
+                <h5 class="fw-bold article-param mx-5 my-3">작성자: {{article_log.name}}</h5>
+                <h5 class="fw-bold article-param mx-5 my-3">모집인원: {{  article_log.recruitment  }}명</h5>
+            </div>
+        </div>
+            
+        <div class="content-detail">
+            <div class="container">
+                <div class="detail">
+                    {{  article_log.content  }}
+                </div>
+            </div>
+        </div>
         <div>
             <!--스터디 페이지와 연결 // 스터디 페이지 완성 되었을 때 연결 -->
 
         <!-- 가입 신청 했을 경우 if문으로 신청 취소 구현 (api 미구현)-->
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-center">
             <router-link to="/articles">   <button class="btn btn-secondary my-2">게시글 목록</button>  </router-link>
-
-
-<p>
-  <a class="btn btn-secondary" data-bs-toggle="collapse" v-if="state.check == true && state.toggle==false" href="#collapse" role="button" aria-expanded="false" aria-controls="collapse" @click.prevent="switching()">
-    ...
-  </a>
-</p>
-<div class="collapse" id="collapse">
-  <div class="card card-body">
-        <p @click="article_edit" v-if="state.check == true" style="cursor: pointer">수정</p>
-        <p @click="article_delete" v-if="state.check == true" style="cursor: pointer">삭제</p> 
-  </div>
-</div>
 
         </div>
         <div class="d-flex justify-content-center">
             <!-- 스터디 이미 참여중인 인원은 참여 신청 안보이게 설정 -->
-        <button @click.prevent="joinStudy(article_log.study_pk)" v-if="article_log.state == '모집중'" class="w-btn w-btn-yellow">참여 신청</button>
+        <button @click.prevent="joinStudy(article_log.study_pk)" v-if="article_log.state == '모집중' & state.check == false" class="w-btn w-btn-yellow">참여 신청</button>
         </div>
         </div>
 
@@ -121,8 +132,42 @@ export default{
 </script>
 
 <style>
+.header{
+    position:relative;
+    left:2%
+}
+.state{
+    position: relative;
+    top:11px;
+    left:2%
+}
+
+.button-on{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #fff;
+    width:80px;
+    height:30px;
+    border-radius: 40px;
+    background-color: #13df24;
+
+}
+.button-off{
+     display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #fff;
+    width:100px;
+    height:30px;
+    border-radius: 40px;
+    background-color: #6e6e6e;
+}
 .content-detail {
-  border: 1px solid wheat;
+  border: 5px solid wheat;
+  border-radius: 30px;
   margin-top: 1rem;
   padding-top: 1rem;
   min-height: 360px;
@@ -153,4 +198,8 @@ export default{
     cursor: pointer;
 }
 
+.detail {
+    font-weight: 600;
+    font-size: 1.25rem
+}
 </style>
