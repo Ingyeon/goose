@@ -55,6 +55,7 @@ export default {
       HOST + User + `/findID?email=${useremail}&name=${name}`,
     user_findpw: () => HOST + User + "/findpw",
     user_email: (userEmail) => HOST + User + `/email?email=${userEmail}`,
+    get_user:(user_id)=> HOST + User + `/${user_id}`,
   },
 
   calendar: {

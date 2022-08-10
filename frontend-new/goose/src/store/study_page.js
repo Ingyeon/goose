@@ -232,12 +232,27 @@ export default {
         method: "get",
         headers: getters.authHeader,
       })
-        .then((res) => {
-          commit("SET_STUDY_MEMBER_LIST", res.data);
-        })
-        .then(() => {
-          dispatch("findStudyManager");
-        });
+      .then((res) => {
+        const studyMemberList = []
+        commit("SET_STUDY_MEMBER_LIST",res.data)
+        for (let member of res.data){
+          // console.log(member)
+          axios({
+            url: rest.user.get_user(member.user_id),
+            method: "get",
+            params:{userId:member.user_id}
+          })
+          .then((res)=>{
+            member["info"]=res.data.info
+            studyMemberList.push(member)
+          })
+        }
+        console.log("스터디 멤버 리스트",studyMemberList)
+        commit("SET_STUDY_MEMBER_LIST", studyMemberList);
+        dispatch("findStudyManager");
+      })
+      // .then(() => {
+      // });
     },
 
     joinList({ getters, dispatch }) {
@@ -460,7 +475,10 @@ export default {
 
     findStudyManager({ getters, commit }) {
       let memberCheck = false;
+      console.log("여긴옴?")
+      console.log(getters.studyMemberList)
       getters.studyMemberList.forEach((member) => {
+        console.log("멤버",member)
         if (member.authority == 5) {
           commit("SET_STUDY_MANAGER", {
             id: member.user_pk,

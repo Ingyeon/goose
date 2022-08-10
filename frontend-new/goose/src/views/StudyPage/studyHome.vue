@@ -97,6 +97,12 @@
               </button>
               <studyUpdate />
             </span>
+            <span>
+              <button id="memberbutton" v-if="isStudyMember" type="button" class="button" data-bs-toggle="modal" data-bs-target="#miniMemberList">
+                스터디 구성원
+              </button>
+              <miniMemberList />
+            </span>
             <!-- <div class="m-3">
             인원 : {{ selectedStudy.member }}/ {{ selectedStudy.maxmember }}
           </div> -->
@@ -279,6 +285,7 @@ import studyUpdate from "@/components/StudyPage/studyUpdate.vue";
 import studyJoinList from "@/components/StudyPage/studyJoinList.vue";
 import miniArticles from "@/components/StudyPage/miniArticles.vue";
 import notice from "@/components/StudyPage/notice.vue";
+import miniMemberList from "@/components/StudyPage/miniMemberList.vue"
 // 사진
 import study1 from "@/assets/study1.png"
 import study2 from "@/assets/study2.png"
@@ -297,6 +304,7 @@ export default {
     miniArticles,
     notice,
     studyArticleDetail,
+    miniMemberList,
   },
   data(){
     return{
