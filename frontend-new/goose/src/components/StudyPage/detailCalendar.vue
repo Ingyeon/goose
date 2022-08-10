@@ -3,10 +3,7 @@
     <div class="modal-backdrop">
       <div class="modal" v-if="!modify">
         <header class="modal-header">
-          <slot name="header">
-            캘린더 확인{{ event.id }}
-            <button type="button" class="btn-close" @click="close()">x</button>
-          </slot>
+          <slot name="header"> <h4>캘린더 확인</h4> </slot>
         </header>
         <div class="modal-body">
           <div class="input-Box">
@@ -37,7 +34,6 @@
           <slot name="footer">
             <button
               type="button"
-              class="btn-green"
               @click="deleteCalendar(), close()"
               v-if="upk == event.user_pk"
             >
@@ -45,24 +41,18 @@
             </button>
             <button
               type="button"
-              class="btn-green"
               @click="changeView()"
               v-if="upk == event.user_pk"
             >
               수정
             </button>
-            <button type="button" class="btn-green" @click="close()">
-              닫기
-            </button>
+            <button type="button" @click="close()">닫기</button>
           </slot>
         </footer>
       </div>
       <div class="modal" v-if="modify">
         <header class="modal-header">
-          <slot name="header">
-            캘린더 수정{{ event.id }}
-            <button type="button" class="btn-close" @click="close()">x</button>
-          </slot>
+          <slot name="header"> <h4>캘린더 수정</h4> </slot>
         </header>
         <div class="modal-body">
           <div class="input-Box">
@@ -90,19 +80,12 @@
           <slot name="footer">
             <button
               type="button"
-              class="btn-green"
               @click="updateCalendar(), close()"
               v-if="upk == event.user_pk"
             >
               수정
             </button>
-            <button
-              type="button"
-              class="btn-green"
-              @click="changeView(), close()"
-            >
-              취소
-            </button>
+            <button type="button" @click="changeView(), close()">취소</button>
           </slot>
         </footer>
       </div>
@@ -111,9 +94,9 @@
 </template>
 
 <script>
-import { reactive,computed } from "@vue/reactivity";
+import { reactive, computed } from "@vue/reactivity";
 import { useStore } from "vuex";
-import _ from 'lodash'
+import _ from "lodash";
 export default {
   setup() {
     const store = useStore();
@@ -122,8 +105,8 @@ export default {
     //   // store.dispatch("deleteCalendar", event.id);
     // };
     // return { deleteCalendar };
-    const isEvent = computed(()=>!_.isEmpty(store.getters.event))
-    return { upk,isEvent };
+    const isEvent = computed(() => !_.isEmpty(store.getters.event));
+    return { upk, isEvent };
   },
   data() {
     return {
@@ -200,7 +183,7 @@ export default {
 
 .modal-header {
   border-bottom: 1px solid #eeeeee;
-  color: #4aae9b;
+  color: #000000;
   justify-content: space-between;
 }
 
@@ -229,5 +212,34 @@ export default {
   background: #4aae9b;
   border: 1px solid #4aae9b;
   border-radius: 2px;
+}
+textarea {
+  width: 100%;
+  height: 200px;
+  padding: 10px;
+  box-sizing: border-box;
+  border: solid 1px #000;
+  border-radius: 5px;
+  font-size: 16px;
+  resize: none;
+}
+input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: solid 1px #000;
+  border-radius: 5px;
+  font-size: 16px;
+}
+button {
+  background: #ffd700;
+  color: #000000;
+  cursor: pointer;
+  width: 100px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 80px 40px;
+  margin-right: 10px;
 }
 </style>

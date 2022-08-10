@@ -5,18 +5,18 @@
     <!-- <button type="button" id="y-connect-btn">Disconnect</button> -->
     <div id="monoco-top" style="height: 7%"></div>
     <div class="d-flex" style="height: 93%">
-      <div id="monaco-editor" @input="titleUpdate" ref="monaco"></div>
+      <div id="monaco-editor"></div>
       <div id="session-compile">
-        <p style="margin-top:10px; margin-bottom:5px;">입력 값</p>
+        <p style="margin-top: 10px; margin-bottom: 5px">입력 값</p>
         <textarea
           id="stdin"
           rows="5"
           style="width: 98%"
           v-model="code.stdin"
         ></textarea>
-
+        <input id="username" type="text" />
         <!-- <p>실행 결과 집합 : {{ result }}</p> -->
-        <p style="margin-top:20px; margin-bottom:5px;">실행 결과</p>
+        <p style="margin-top: 20px; margin-bottom: 5px">실행 결과</p>
         <textarea
           v-model="output"
           rows="5"
@@ -27,16 +27,11 @@
         <p>실행 시간 : {{ cpuTime }}</p>
         <p id="link" style="opacity: 0">{{ link }}</p>
         <!-- <div style="height:37%"></div> -->
-        <div
-          class="center"
-          style="
-            width: 100%;
-            margin-top:98%;
-          "
-        >
+        <div class="center" style="width: 100%; margin-top: 98%">
           <p id="language" style="text-align: left">
             설정언어 : {{ compiler }}
           </p>
+
           <b-button
             id="getcode"
             variant="white"
@@ -84,42 +79,18 @@ export default {
       this.output = this.result.output;
       this.memory = this.result.memory + "KB";
       this.cpuTime = this.result.cpuTime + "s";
-      console.log("<dfjdkfjdkfjdkjfkdjkdjkf");
-      console.log(this.propstdin);
       this.code.stdin = this.propstdin;
     },
   },
   methods: {
-    titleUpdate(e) {
-      this.code.script = e.target.value;
-      console.log(this.code.script);
-    },
     async ride() {
       this.code.language = await this.compiler.toLowerCase();
       let temp = save();
-      console.log("123 : ", temp);
-
-      // let cnt = 1;
-      // while (true) {
-      //   if (
-      //     (temp.charAt(cnt) >= 0 && temp.charAt(cnt) <= 9) ||
-      //     temp.charAt(cnt) == "\n"
-      //   ) {
-      //     cnt++;
-      //   } else break;
-      // }
 
       this.code.script = temp.replaceAll(" ", " ");
 
       if (this.code.language == "python") this.code.language = "python3";
       else if (this.code.language == "c++") this.code.language = "cpp";
-
-      console.log(
-        "ride : ",
-        this.code.script,
-        this.code.language,
-        this.code.stdin
-      );
 
       await this.$store.dispatch("compile", this.code);
 

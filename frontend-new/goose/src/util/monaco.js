@@ -33,13 +33,13 @@ window.addEventListener("load", () => {
   const ytext = ydoc.getText("monaco");
   const compiler = document.getElementById("language").innerHTML.toLowerCase();
 
-  monaco.editor.defineTheme('my-dark', {
-    base: 'vs',
+  monaco.editor.defineTheme("my-dark", {
+    base: "vs",
     inherit: true,
-    rules: [{ background: 'EDF9FA' }],
+    rules: [{ background: "EDF9FA" }],
     colors: {
-      "editor.background": '#FAFAFA'
-    }
+      "editor.background": "#FAFAFA",
+    },
   });
 
   editor = monaco.editor.create(
@@ -66,9 +66,9 @@ var editor;
 
 function save() {
   // get the value of the data
-  console.log("save")
+  console.log("save");
   var value = editor.getValue();
-  return value;  
+  return value;
 }
 
-export default save
+export default save;

@@ -76,14 +76,10 @@ export default {
   },
   methods: {
     handleDateClick: function (arg) {
-      alert("date click! " + arg.dateStr);
       this.time = arg.dateStr + "T00:00";
-      console.log(this.time);
       this.isCModalVisible = true;
     },
     handleEventClick: function (arg) {
-      console.log(arg.event);
-      alert("event click! " + arg.event.startStr + arg.event.id);
       this.$store.dispatch("selectEvent", arg.event.id);
       this.isDModalVisible = true;
     },
@@ -122,7 +118,6 @@ export default {
 
 <style scoped>
 @import "@/assets/style/styleCallender.css";
-
 
 h4 {
   font-weight: bold;

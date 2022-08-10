@@ -5,9 +5,6 @@
         <header class="modal-header">
           <slot name="header">
             <h4>캘린더 작성</h4>
-            <button type="button" class="btn btn-close" @click="close()">
-              x
-            </button>
           </slot>
         </header>
         <div class="modal-body">
@@ -30,16 +27,10 @@
         </div>
         <footer class="modal-footer">
           <slot name="footer">
-            <button
-              type="button"
-              class="btn btn-green"
-              @click="createCalendar(), close()"
-            >
+            <button type="button" @click="createCalendar(), close()">
               작성
             </button>
-            <button type="button" class="btn btn-green" @click="close()">
-              취소
-            </button>
+            <button type="button" @click="close()">취소</button>
           </slot>
         </footer>
       </div>
@@ -95,14 +86,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-#textea {
-  width: 14.3rem;
-}
-.form-label {
-  width: 5rem;
-  margin-left: 1rem;
-  margin-right: 2rem;
-}
 .modal-fade-enter,
 .modal-fade-leave-active {
   opacity: 0;
@@ -143,7 +126,7 @@ export default {
 
 .modal-header {
   border-bottom: 1px solid #eeeeee;
-  color: #4aae9b;
+  color: #000000;
   justify-content: space-between;
 }
 
@@ -159,7 +142,8 @@ export default {
 
 .btn-close {
   border: none;
-  font-size: 2rem;
+  font-size: 20px;
+  padding: 20px;
   cursor: pointer;
   font-weight: bold;
   color: #4aae9b;
@@ -172,7 +156,33 @@ export default {
   border: 1px solid #4aae9b;
   border-radius: 2px;
 }
-.btn {
+textarea {
+  width: 100%;
+  height: 200px;
+  padding: 10px;
+  box-sizing: border-box;
+  border: solid 1px #000;
   border-radius: 5px;
+  font-size: 16px;
+  resize: none;
+}
+input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: solid 1px #000;
+  border-radius: 5px;
+  font-size: 16px;
+}
+button {
+  background: #ffd700;
+  color: #000000;
+  cursor: pointer;
+  width: 100px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 80px 40px;
+  margin-right: 10px;
 }
 </style>
