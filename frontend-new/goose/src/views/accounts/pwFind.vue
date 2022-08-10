@@ -32,7 +32,7 @@
         </div>
         
         <div class="input-Box">
-            <button @click="changeForm">비밀번호 재발급받기</button>
+            <button class="btn-refresh" @click="changeForm">비밀번호 재발급받기</button>
         <router-link to="/idpasswordselect" class="button-link"> <button>이전 페이지</button> </router-link>
         </div>
     </div>
@@ -81,15 +81,25 @@ export default {
         }
         
         const passwordValid = function() {
-            if (/^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/.test(status.password1)) {
-                if (status.password1.includes(' ')){
-                    status.passwordValidFlag = false
+            if (/^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/.test(state.form.password1)) {
+                if (state.form.password1.includes(' ')){
+                    state.passwordValidFlag = false
                 }
                 else {
-                    status.passwordValidFlag = true
+                    state.passwordValidFlag = true
+                    if (state.form.password1 === state.form.password2) {
+                        state.passwordCheckFlag = true
+                    } else {
+                        state.passwordCheckFlag = false
+                    }
                 }
             } else {
-                status.passwordValidFlag = false
+                state.passwordValidFlag = false
+                if (state.form.password1 === state.form.password2) {
+                        state.passwordCheckFlag = true
+                    } else {
+                        state.passwordCheckFlag = false
+                    }
             }
         }
         const passwordCheckValid = function() {
@@ -136,11 +146,24 @@ export default {
         border-radius: 80px 40px;
         border: none;
     }
-    button:not(.btn-close) {
+    button:not(.btn-refresh) {
         background: #ffd700;
         color: #000000;
         cursor: pointer;
-        /* width: 100px; */
+        width: 110px;
+        height: 40px;
+        margin-bottom: 20px;
+        font-size: 1.25rem;
+        font-weight: bold;
+        text-align: center;
+        border-radius: 80px 40px;
+        border: none;
+    }
+    .btn-refresh {
+        background: #ffd700;
+        color: #000000;
+        cursor: pointer;
+        width: 200px;
         height: 40px;
         margin-bottom: 20px;
         font-size: 1.25rem;

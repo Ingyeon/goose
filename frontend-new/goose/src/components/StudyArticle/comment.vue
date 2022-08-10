@@ -1,7 +1,7 @@
 <template>
-<hr>
 <commentItem v-for="item in commentList" :key="item.id" :item="item"/>
 <!-- 댓글 작성 -->
+<hr>
 <createComment />
 <!-- pagination -->
 <hr>
@@ -56,6 +56,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

@@ -61,15 +61,25 @@ export default {
             // }
         // }
         const passwordValid = function() {
-            if (/^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/.test(status.new_password1)) {
-                if (status.new_password1.includes(' ')){
-                    status.passwordValidFlag = false
+            if (/^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/.test(state.form.password1)) {
+                if (state.form.password1.includes(' ')){
+                    state.passwordValidFlag = false
                 }
                 else {
-                    status.passwordValidFlag = true
+                    state.passwordValidFlag = true
+                    if (state.form.password1 === state.form.password2) {
+                        state.passwordCheckFlag = true
+                    } else {
+                        state.passwordCheckFlag = false
+                    }
                 }
             } else {
-                status.passwordValidFlag = false
+                state.passwordValidFlag = false
+                if (state.form.password1 === state.form.password2) {
+                        state.passwordCheckFlag = true
+                    } else {
+                        state.passwordCheckFlag = false
+                    }
             }
         }
         const passwordCheckValid = function() {

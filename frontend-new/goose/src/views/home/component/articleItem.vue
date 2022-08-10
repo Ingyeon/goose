@@ -1,6 +1,6 @@
 <template>
     <!-- <li class="active">오픈 스터디</li> -->     
-      <div class="col-12 col-md-6 col-lg-4 col-xl-2">
+      <div class="mt-3 col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2">
         <div class="card">
           <img :src="state.photo" class="card-img-top" alt="alt">
           <div class="card-body">
@@ -89,7 +89,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .row {
     margin: 10px;
   }
@@ -97,9 +97,6 @@ export default {
   font-family: 'NanumSquare', sans-serif;
 }
 
-  /* img {
-    height:100%
-  } */
   .card {
     width: 18rem;
     height: 100%;

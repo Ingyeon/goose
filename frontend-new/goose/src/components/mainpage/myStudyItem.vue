@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+  <div class="mt-3 col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2">
     <div class="card">
       <img :src="state.photo" class="card-img-top" alt="alt" />
       <div class="card-body">
@@ -65,6 +65,7 @@ export default {
 </script>
 
 <style scoped>
+
 .row{
    margin: 10px;
 }
@@ -72,10 +73,6 @@ export default {
   font-family: "NanumSquare", sans-serif;
 }
 
-/* #study-category {
-  background-color: #f0f0f1;
-  border-radius: 20px
-} */
 .card {
   width: 18rem;
   height: 100%;
