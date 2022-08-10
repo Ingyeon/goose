@@ -43,8 +43,10 @@
                     </select>
             </div>
             <div class="input-Box">
+
+              <router-link to="/home"><button> 뒤로가기</button></router-link>
               <input type="submit" value="회원가입">  
-              <!-- <router-link to="/login" class="btn input-box-btn">Back</router-link> -->
+
             </div>
         </form>  
     </div>
@@ -137,9 +139,19 @@ export default {
                 }
                 else {
                     state.passwordValidFlag = true
+                    if (state.form.password1 === state.form.password2) {
+                        state.passwordCheckFlag = true
+                    } else {
+                        state.passwordCheckFlag = false
+                    }
                 }
             } else {
                 state.passwordValidFlag = false
+                if (state.form.password1 === state.form.password2) {
+                        state.passwordCheckFlag = true
+                    } else {
+                        state.passwordCheckFlag = false
+                    }
             }
         }
 
@@ -197,5 +209,15 @@ input[type="password"]{
 display: flex;
 /* justify-content: space-evenly; */
 justify-content: end;
+}
+button {
+  background: #ffd700;
+  color: #000000;
+  cursor: pointer;
+  width: 100px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 40px 80px;
 }
 </style>

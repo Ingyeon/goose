@@ -1,12 +1,12 @@
 <template>
     <!-- <li class="active">오픈 스터디</li> -->     
-      <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+      <div class="col-12 col-md-6 col-lg-4 col-xl-2">
         <div class="card">
           <img :src="state.photo" class="card-img-top" alt="alt">
           <div class="card-body">
             <h5 class="card-title fw-bold">{{item.title}}</h5>
             <p class="card-text">사용 언어: {{item.category}}</p>
-            <div class="d-flex justify-content-end">
+            <div v-if="isLoggedIn" class="d-flex justify-content-end">
               <button @click="clickbtn(item.id)" class="button" >스터디 입장하기</button>
             </div>
           </div>
@@ -35,6 +35,8 @@ export default {
     const store = useStore()
     const myStudyList = computed(()=> store.getters.myStudyList)
     const router = useRouter();
+    const isLoggedIn = computed(()=> store.getters.isLoggedIn)
+      
     // const openstudyList = computed(()=> store.getters.openstudyList)
     const openstudyList = store.getters.openstudyList
     
@@ -71,7 +73,7 @@ export default {
     // open_set()
 
     // const joinStudy = (studyId) => store.dispatch('joinStudy',studyId)
-    return {myStudyList, router, store, fetchMyStudyList,openstudyList,open_set, changePhoto,state,clickbtn}
+    return {isLoggedIn,myStudyList, router, store, fetchMyStudyList,openstudyList,open_set, changePhoto,state,clickbtn}
   },
 
   watch: {

@@ -65,9 +65,8 @@ export default {
 </script>
 
 <style scoped>
-.row {
-  width: 100%;
-  height: 100%;
+.row{
+   margin: 10px;
 }
 * {
   font-family: "NanumSquare", sans-serif;

@@ -1,12 +1,12 @@
 <template>
     <!-- <h3 class="d-flex">스터디 리스트</h3> -->
-    <div class="container">
-        <b-card-group class="d-flex row">
-            <!-- <div class="row"> -->
-                <MyStudyItem v-for="item in myStudyList" :key="item.id" :item="item"/>
-            <!-- </div> -->
-        </b-card-group>
-    </div>
+    <!-- <div class="container"> -->
+    <b-card-group class="d-flex row mt-3">
+        <!-- <div class="row"> -->
+          <MyStudyItem v-for="item in myStudyList" :key="item.id" :item="item"/>
+        <!-- </div> -->
+    </b-card-group>
+    <!-- </div> -->
 </template>
 
 <script>

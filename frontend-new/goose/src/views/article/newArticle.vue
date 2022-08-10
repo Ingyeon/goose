@@ -31,10 +31,10 @@
       <textarea type="textarea" class="form-control" id="textarea" v-model="state.form.content" required></textarea>
     </div>
     <div class="input-Box">
+    <router-link to="/articles/"><button type="submit" class="btn btn-primary">뒤로가기</button></router-link>
     <button type="submit" @click.prevent="clickSet" class="btn btn-primary">작성</button>
       </div>
   </form>
-  {{state.form}}
 </div>
 </template>
 

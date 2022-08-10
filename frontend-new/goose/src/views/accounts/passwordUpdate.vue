@@ -19,7 +19,7 @@
         <div class="input-Box">
             <input type="submit" value="변경하기">
             <!-- <input type="button" value="Back" @click="moveToHome"> -->
-            <router-link to="/home" class="button-link"> <button>Back</button> </router-link>
+            <router-link to="/home" class="button-link"> <button>뒤로 가기</button> </router-link>
         </div>
     </form>
 </div>

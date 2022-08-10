@@ -1,5 +1,5 @@
 <template>
-{{}}
+<div>
 <!-- 비공개 스터디에서 확인 절차 -->
 <!-- <div v-if="selectedStudy.open == 1 && !state.passwordCheck"> -->
 <div v-if="selectedStudy.open == 1 && !passwordCheck && !isStudyMember">
@@ -17,15 +17,16 @@
       <div class="row">
         <div class="col-lg-4 col-md-6 col-12">
           <img class="container-fluid" :src="state.photo" alt="기본사진" />
-          <div class="d-flex align-items-center">
-            <div id="study-url" class="fw-bold">
+          <div class="d-flex justify-content-center">
+            <!-- <div id="study-url" class="fw-bold">
               스터디 주소 : <span>{{ selectedStudy.url_conf }}</span>
-            </div>
+            </div> -->
             <button
               type="modal-button"
               class="modal-button"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
+              style="z-index:2"
             >
               스터디 입장하기
             </button>
@@ -54,13 +55,7 @@
                   <div class="modal-body">
                   </div>
                   <div class="modal-footer">
-                    <button
-                      type="button"
-                      class="btn btn-warning"
-                      data-bs-dismiss="modal"
-                      @click.prevent="clickbtn"
-                      @click="selectLanguage"
-                    >
+                    <button type="button" class="btn btn-warning" data-bs-dismiss="modal" @click.prevent="clickbtn" @click="selectLanguage">
                       입장하기
                     </button>
                     <button
@@ -80,16 +75,18 @@
             <!-- 입장용 모달 끝 -->
           </div>
         </div>
+
         <div class="col-lg-8 col-md-6 col-12">
-          <div class="container d-flex justify-content-center">
+          <div id="title" class="container d-flex justify-content-center">
             <h3 class="m-3 fw-bold">{{ selectedStudy.title }}</h3>
           </div>
+          <div class="d-flex justify-content-end mb-3">스터디 관리자 : {{ manager.name }}</div>
           <div class="d-flex justify-content-end">
             <span class="accept-list">
-              <button id="listbutton" v-if="isManager && !isJoinList" type="button" class="button" data-bs-toggle="modal" data-bs-target="#studyJoinListModal">
+              <button id="listbutton" v-if="isManager && !isJoinList" type="button" class="button mx-2" data-bs-toggle="modal" data-bs-target="#studyJoinListModal">
                 참가 신청 리스트
               </button>
-              <button id="listbutton" v-if="isManager && isJoinList" type="button" class="button" data-bs-toggle="modal" data-bs-target="#studyJoinListModal" style="color:red">
+              <button id="listbutton" v-if="isManager && isJoinList" type="button" class="button mx-2" data-bs-toggle="modal" data-bs-target="#studyJoinListModal" style="color:red">
                 참가 신청 리스트
               </button>
               <studyJoinList />
@@ -105,8 +102,7 @@
           </div> -->
         </div>
         
-        
-        <div class="d-flex justify-content-end">스터디 관리자 : {{ manager.name }}</div>
+
           <!-- <h3>공지사항</h3> -->
         <div class="study-content">
           <div class="container">
@@ -141,12 +137,8 @@
       <callender />
     </div>
     <br>
-    <div class="container d-flex justify-content-end m-5">
-      <button
-        class="button-danger"
-        v-if="isManager"
-        @click.prevent="deleteStudy"
-      >
+    <div class=" d-flex justify-content-center m-5">
+      <button class="button-danger" v-if="isManager" @click.prevent="deleteStudy">
         스터디 터트리기
       </button>
       <button v-if="!isManager && isStudyMember" class="button-danger" @click.prevent="dropOutStudy(loginUser.id)">
@@ -156,6 +148,7 @@
     </div>
     <div style="height: 50px"></div>
   </div>
+</div>
 </template>
 
 <style scoped>
@@ -249,8 +242,12 @@ img {
     position:relative;
     top:50px;
   } */
+/*   
   #study-url {
     display: none;
+  } */
+  #title {
+    margin-top:50px;
   }
   .callender-box{
   position:relative;

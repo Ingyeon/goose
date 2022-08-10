@@ -37,7 +37,7 @@
 
         <!-- 카테고리 -->
         <div class="input-Box">
-          <label for="selectcategory" class="form-label">카테고리</label>
+          <label for="selectcategory" class="form-label">사용언어</label>
           <select
             v-model="state.credential.category"
             id="selectcategory"

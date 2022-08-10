@@ -449,7 +449,7 @@ export default {
             // console.log('너너너>');
             this.messages +=
               '<div align="left">' +
-              '<div style="width: 60%; background-color: #fff; color: #000; border-radius: 10px; word-wrap: break-word;">' +
+              '<div style="width: 60%; background-color: #f2f2f2; color: #000; border-radius: 10px; word-wrap: break-word;">' +
               '<div style="font-weight: 900; margin-left:10px;">' +
               message[0] +
               " 님의 메시지: </div>" +
