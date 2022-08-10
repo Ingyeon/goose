@@ -42,6 +42,7 @@
 
 <script>
 import { reactive, computed } from 'vue'
+import http from "@/util/http-common.js";
 import {useStore} from 'vuex'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
@@ -68,12 +69,15 @@ export default {
         }
         const FindForm = async function(){
             try {
-                let data = await axios.get(`http://localhost:8080/api/v1/users/findpw?email=${status.email}&userId=${status.id}`)
+                let data = await http({
+                    method: 'get',
+                    url:`/users/findpw?email=${status.email}&userId=${status.id}`,
+                })
                 console.log(data)
                 alert('인증되었습니다.')
                 status.validcheck = 1
             }
-            catch(err){
+            catch(err){ 
                 console.log(err)
                 alert('ID와 이메일을 확인해주세요')
                 status.validcheck = 0

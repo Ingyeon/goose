@@ -53,9 +53,9 @@
 </template>
 
 <script>
-import { reactive,computed } from 'vue'
+import { reactive } from 'vue'
+import http from "@/util/http-common.js";
 import { useStore } from 'vuex'
-import router from '@/router'
 import axios from 'axios'
 
 export default {
@@ -117,7 +117,10 @@ export default {
                     state.idValidFlag = true
                     state.checkValidFlag = false
                     try{
-                        let data = await axios.get(`http://localhost:8080/api/v1/users/{userId}?userId=${state.form.id}`);
+                        let data = await http({
+                            method: 'get',
+                            url: `/users/{userId}?userId=${state.form.id}`
+                        })
                         console.log(data.status)
                         state.idCommonFlag = true
                     } catch(err) {
@@ -167,7 +170,10 @@ export default {
             if (/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/.test(state.form.email)) {
                 state.emailValidFlag = true
                 try{
-                    let email_data = await axios.get(`http://localhost:8080/api/v1/users/email?email=${state.form.email}`)
+                    let email_data = await http({
+                        method: 'get',
+                        url: `/users/email?email=${state.form.email}`
+                    })
                     if (email_data.data==="OK") {
                         state.emailCommonFlag = false
                     } else {

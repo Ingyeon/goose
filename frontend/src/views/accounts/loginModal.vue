@@ -44,6 +44,7 @@
 <script>
 
 import {reactive,computed} from 'vue'
+import http from "@/util/http-common.js";
 import {useStore} from 'vuex'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
@@ -63,7 +64,10 @@ export default {
     })
     const idValid = async function() {
       try{
-        let data = await axios.get(`http://localhost:8080/api/v1/users/{userId}?userId=${state.form.id}`)
+        let data = await http({
+          method: 'get',
+          url:`/users/{userId}?userId=${state.form.id}`
+        })
         state.idValidFlag=true
       } catch(err) {
         state.idValidFlag=false

@@ -40,15 +40,14 @@
 
 <script>
 import {computed, onMounted, reactive} from 'vue'
+import http from "@/util/http-common.js";
 import {useStore} from 'vuex'
-import {  useRouter  } from 'vue-router'
 import axios from 'axios'
 
 export default {
     name: 'newArticle',
     
     setup(){
-    const Router = useRouter()
     const store = useStore()
     const state = reactive({
         form:{
@@ -75,9 +74,12 @@ export default {
     }
 
     const clickSet = async function(){   // 게시글 생성
-      await axios.get('http://localhost:8080/api/v1/study/search/'+Number(state.form.study_pk))
+      await http({
+        method: 'get',
+        url: `/study/search/${Number(state.form.study_pk)}`,
+        headers: store.getters.authHeader
+      })
     .then((res) => {
-      console.log(res.data)
       store.dispatch('createArticle',{
         category:res.data.category, 
         recruitment: Number(state.form.recruitment),
