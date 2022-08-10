@@ -103,8 +103,9 @@ export default {
 
         const isList = computed(() => !_.isEmpty(state.articles))
 
-        const onclick = function(item){
-        store.dispatch('fetchArticle', item)
+        const onclick = async function(item){
+        await store.dispatch('fetchArticle', item)
+        await store.dispatch('selectStudy',store.getters.article.study_pk )
         window.scrollTo(0,0)
         Router.push({name: 'ArticleDetail', params: {id:item}})
         }

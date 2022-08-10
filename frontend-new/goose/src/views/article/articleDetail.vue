@@ -64,6 +64,7 @@ import { useRouter } from 'vue-router';
 import replyList from "./replyList.vue";
 import { useRoute } from "vue-router";
 
+// 참여신청 이상하게 뜨는 버그
 export default{
     components: {replyList},
     setup(){
@@ -93,7 +94,9 @@ export default{
             else {state.toggle=false}
         }
 
-        const joinStudy = (studyId) => store.dispatch('joinStudy',studyId)
+        const joinStudy = function(studyId) { 
+        if (state.check == false){
+        store.dispatch('joinStudy',studyId)}}
       
         const article_info = function(){
             state.form.id = store.getters.article.id,
@@ -117,12 +120,15 @@ export default{
             router.push({name: 'article_edit'})
         }
         study_name()
+
         const owner_check = function(){
             if (store.getters.article.user_pk == store.getters.loginUser.id){
                 state.check = true
             }
         }
         owner_check()
+
+
         const study_log = computed(() => store.getters.selectedStudy)
         const article_log = computed(() => store.getters.article)
 
