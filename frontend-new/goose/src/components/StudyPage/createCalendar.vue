@@ -114,8 +114,8 @@ export default {
   overflow-x: auto;
   display: flex;
   flex-direction: column;
-  width: 50%;
-  height: 50%;
+  width: 25%;
+  height: 80%;
 }
 
 .modal-header,

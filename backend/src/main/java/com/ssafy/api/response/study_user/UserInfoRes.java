@@ -27,6 +27,8 @@ public class UserInfoRes {
 	String email;
 	@ApiModelProperty(name="관심분야")
 	String interest;
+	@ApiModelProperty(name="자기소개")
+	String info;
 	
 	public static UserInfoRes of(User user) {
 		UserInfoRes res = new UserInfoRes();
@@ -36,6 +38,7 @@ public class UserInfoRes {
 		res.setJoinDate(user.getJoinDate());
 		res.setName(user.getName());
 		res.setPhoto(user.getPhoto());
+		res.setInfo(user.getInfo());
 		return res;
 	}
 }
