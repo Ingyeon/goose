@@ -1,0 +1,11 @@
+.fc-day-number .fc-sun .fc-past {
+  color: #ff0000 !important;
+}
+.fc-day-number .fc-sat .fc-past {
+  color: #0000ff !important;
+}
+a {
+    color: black !important;
+    text-decoration: none !important;
+  }
+  

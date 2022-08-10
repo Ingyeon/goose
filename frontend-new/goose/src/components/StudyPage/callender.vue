@@ -121,6 +121,9 @@ export default {
 </script>
 
 <style scoped>
+@import "@/assets/style/styleCallender.css";
+
+
 h4 {
   font-weight: bold;
 }
@@ -192,11 +195,12 @@ h4 {
 .container.box {
   background-color: #f0f0f1;
   margin-top: 1rem;
-  padding-top: 1rem;
+  padding: 1rem;
   height: 85%;
   border-radius: 10px;
 }
 #calendar {
   background-color: white;
+  padding: 1rem;
 }
 </style>
