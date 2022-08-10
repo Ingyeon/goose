@@ -1,11 +1,11 @@
 <template>
-  <div class="container">
+  <!-- <div class="container"> -->
     <b-card-group class="d-flex row">
     <!-- <div class="row"> -->
         <ArticleItem v-for="article in openstudyList" :key="article.id" :item="article"/>  
     <!-- </div> -->
     </b-card-group>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -75,4 +75,7 @@ export default {
     height:100%;
   }
 
+/* b-card-group{
+  width: 100%
+} */
 </style>

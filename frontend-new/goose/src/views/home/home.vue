@@ -8,7 +8,9 @@
     >
       <div class="carousel-inner">
         <div class="carousel-item active notice-item">
-          <Notice />
+          <div class="d-flex justify-content-center">
+            <Notice />
+          </div>
         </div>
         <!-- <div class="carousel-item notice-item">
           <Notice />
@@ -58,10 +60,10 @@
         </li>
       </ul>
     </div>
-    <div class="container">
+    <!-- <div class="container"> -->
       <articleList v-if="state.toggle == 1" />
       <myStudyList v-if="state.toggle == 2" />
-    </div>
+    <!-- </div> -->
   </div>
 </template>
 
@@ -119,7 +121,7 @@ export default {
   .container-sm,
   .container {
     max-width: 1320px;
-    margin-left:0px
+    margin-left:0px;
   }
 }
 .notice-item {
