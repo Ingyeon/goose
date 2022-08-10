@@ -9,6 +9,9 @@
   .buttomMenuIcon {
     margin-right: 0 !important;
   }
+  #buttonLeaveSession{
+    width:40px !important;
+  }
 }
 
 #main {
@@ -260,7 +263,7 @@
 
 #session-footer {
   /* width: 40%; */
-  width: 620px;
+  width: 800px;
   height: 50px;
   line-height: 50px;
   /* position: absolute;
@@ -270,6 +273,9 @@ left: 15%; */
   background-color: rgb(255, 255, 255);
   margin-bottom: 15px;
   /* transform: translate(-50%,0%); */
+}
+#buttonLeaveSession{
+  width:135px;
 }
 
 .buttomMenuIcon {
