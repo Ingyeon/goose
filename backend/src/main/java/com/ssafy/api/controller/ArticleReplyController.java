@@ -81,7 +81,7 @@ public class ArticleReplyController {
             @RequestParam(required = false) Long id) {
 		
 		Sort sort = Sort.by("date").descending().and(Sort.by("id").descending());
-		PageRequest pageRequest = PageRequest.of(page-1, 5, sort);
+		PageRequest pageRequest = PageRequest.of(page-1, Integer.MAX_VALUE, sort);
 		
 		Specification<ArticleReply> spec = (root, query, criteriaBuilder) -> null;
 		

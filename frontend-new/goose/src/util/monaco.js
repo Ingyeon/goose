@@ -1,6 +1,7 @@
 import * as Y from "yjs";
 import { WebsocketProvider } from "y-websocket";
-import { MonacoBinding } from "y-monaco";
+import * as awarenessProtocol from "y-protocols/awareness.js";
+import { MonacoBinding, yCursorPlugin } from "y-monaco";
 import * as monaco from "monaco-editor";
 
 // @ts-ignore
@@ -25,14 +26,14 @@ window.MonacoEnvironment = {
 window.addEventListener("load", () => {
   const ydoc = new Y.Doc();
   const link = document.getElementById("link").innerText;
-  const provider = new WebsocketProvider(
+  let provider = new WebsocketProvider(
     "wss://demos.yjs.dev",
     "goose-session" + link,
     ydoc
   );
   const ytext = ydoc.getText("monaco");
   const compiler = document.getElementById("language").innerHTML.toLowerCase();
-
+  let awareness = provider.awareness;
   monaco.editor.defineTheme("my-dark", {
     base: "vs",
     inherit: true,
@@ -42,20 +43,27 @@ window.addEventListener("load", () => {
     },
   });
 
+  awareness.setLocalStateField("user", {
+    name: "123",
+    color: "#0033ff",
+  });
+
+  console.log(awareness);
   editor = monaco.editor.create(
     /** @type {HTMLElement} */ (document.getElementById("monaco-editor")),
     {
       value: "",
       language: compiler,
       theme: "my-dark",
+      // plugins: [yCursorPlugin(awareness)],
     }
   );
-
+  console.log(awareness);
   const monacoBinding = new MonacoBinding(
     ytext,
     /** @type {monaco.editor.ITextModel} */ (editor.getModel()),
     new Set([editor]),
-    provider.awareness
+    awareness
   );
 
   // @ts-ignore
@@ -66,7 +74,6 @@ var editor;
 
 function save() {
   // get the value of the data
-  console.log("save");
   var value = editor.getValue();
   return value;
 }

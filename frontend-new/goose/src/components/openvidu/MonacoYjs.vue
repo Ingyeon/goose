@@ -14,7 +14,6 @@
           style="width: 98%"
           v-model="code.stdin"
         ></textarea>
-        <input id="username" type="text" />
         <!-- <p>실행 결과 집합 : {{ result }}</p> -->
         <p style="margin-top: 20px; margin-bottom: 5px">실행 결과</p>
         <textarea
