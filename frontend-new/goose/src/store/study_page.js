@@ -233,7 +233,7 @@ export default {
         headers: getters.authHeader,
       })
       .then((res) => {
-        const studyMemberList = []
+        let studyMemberList = []
         commit("SET_STUDY_MEMBER_LIST",res.data)
         for (let member of res.data){
           // console.log(member)
@@ -243,16 +243,17 @@ export default {
             params:{userId:member.user_id}
           })
           .then((res)=>{
-            member["info"]=res.data.info
+            if(res.data.info){member["info"]=res.data.info}
+            else{member["info"]=""}
             studyMemberList.push(member)
+            commit("SET_STUDY_MEMBER_LIST", studyMemberList);
           })
         }
-        console.log("스터디 멤버 리스트",studyMemberList)
-        commit("SET_STUDY_MEMBER_LIST", studyMemberList);
-        dispatch("findStudyManager");
       })
-      // .then(() => {
-      // });
+      .then(() => {
+        console.log("왜 이게 먼저 되냐고")
+        dispatch("findStudyManager");
+      });
     },
 
     joinList({ getters, dispatch }) {
@@ -475,10 +476,7 @@ export default {
 
     findStudyManager({ getters, commit }) {
       let memberCheck = false;
-      console.log("여긴옴?")
-      console.log(getters.studyMemberList)
       getters.studyMemberList.forEach((member) => {
-        console.log("멤버",member)
         if (member.authority == 5) {
           commit("SET_STUDY_MANAGER", {
             id: member.user_pk,
