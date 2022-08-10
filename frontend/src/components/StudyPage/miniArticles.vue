@@ -6,14 +6,18 @@
             전체보기
         </button>
     </div>
-    <div class="container box">
-        <ul v-for="article in state.recentlyArticleList" :key="article.id">
-            <ul class="d-flex justify-content-between" data-bs-toggle="modal" data-bs-target="#studyArticleDetail" @click="selectArticle(article.id)">
-                <li class="article" >{{article.title}}</li>
-                <li class="article-author">{{article.name}}</li>
+    <div class="container box m-0">
+        <div>
+            <ul v-for="article in state.recentlyArticleList" :key="article.id">
+                <ul class="d-flex justify-content-between" data-bs-toggle="modal" data-bs-target="#studyArticleDetail" @click="selectArticle(article.id)">
+                    <li class="article" >{{article.title}}</li>
+                    <li class="article-author">{{article.name}}</li>
+                </ul>
+                <hr>
             </ul>
-            <hr>
-        </ul>
+            <li v-if="!isList" class="article">아직 작성된 글이 없습니다</li>
+        <br>
+        </div>
     </div>
 </div>
 
@@ -25,6 +29,7 @@ import { reactive, watch,computed } from "vue"
 import { useRouter } from "vue-router"
 import axios from 'axios'
 import rest from '@/api/rest'
+import _ from 'lodash'
 export default {
     props: {
     },
@@ -64,8 +69,8 @@ export default {
         
         const selectedStudy = computed(()=> store.getters.selectedStudy)
         const refresh = computed(() => store.getters.refresh)
-
-        return {state,moveArticles,selectArticle,selectedStudy,fetchRecentlyArticleList,refresh}
+        const isList = computed(()=> !_.isEmpty(state.recentlyArticleList))
+        return {state,moveArticles,selectArticle,selectedStudy,fetchRecentlyArticleList,refresh,isList}
     },
 
     watch:{

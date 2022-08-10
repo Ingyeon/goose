@@ -5,6 +5,7 @@
             <li class="article-author">{{article.name}}</li>
         </div>
     </ul>
+    <li v-if="!isList">아직 작성된 공지가 없습니다.</li>
 </template>
 
 <script>
@@ -12,6 +13,7 @@ import axios from 'axios'
 import rest from '@/api/rest'
 import { useStore } from "vuex"
 import { reactive, computed } from "vue"
+import _ from "lodash"
 export default {
     setup(){
         const store = useStore();
@@ -36,8 +38,8 @@ export default {
             store.dispatch('getStudyArticle',article_pk)
         }
         const refresh = computed(() => store.getters.refresh)
-
-        return {state,selectedStudy,fetchNoticeList,selectArticle,refresh}
+        const isList = computed(()=> !_.isEmpty(state.noticeList))
+        return {state,selectedStudy,fetchNoticeList,selectArticle,refresh,isList}
     },
 
     watch:{
