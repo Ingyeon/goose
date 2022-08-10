@@ -4,8 +4,8 @@
 <hr>
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
-        <li v-if="data.page != 1" @click="pageDown" class="page-item mx-2"><b-icon-arrow-left></b-icon-arrow-left></li>
-        <li v-if="commentList.length == 5" @click="pageUp" class="page-item mx-2"><b-icon-arrow-right></b-icon-arrow-right></li>
+        <li v-if="data.page != 1" @click="pageDown" class="page-item mx-2" style="cursor:pointer"><b-icon-arrow-left></b-icon-arrow-left></li>
+        <li v-if="commentList.length == 5" @click="pageUp" class="page-item mx-2" style="cursor:pointer"><b-icon-arrow-right></b-icon-arrow-right></li>
     </ul>
 </nav>
 <createComment />
