@@ -509,7 +509,6 @@ export default {
     },
 
     async getPublicStudyAuth() {
-      console.log("mmmmmmmmmmmget");
       await http({
         method: "get",
         url: `/study/member/publicstudyAuth/${this.roomStudyNo}`,
@@ -524,23 +523,21 @@ export default {
     },
 
     async removePublicRoom() {
-      console.log("mmmmmmmmmmmremoce");
       if (this.power >= 3) {
         await http({
           method: "delete",
           url: `/study/remove/${this.roomStudyNo}`,
         })
           .then((res) => {
-            console.log(">>>>>7>>", res);
+            console.log(res);
           })
           .catch((err) => {
-            console.log(">>>>>>>>>>>err>>>", err);
+            console.log(err);
           });
       }
     },
 
     async leaveSession() {
-      console.log("mmmmmmmmmmmleve");
       await this.getPublicStudyAuth();
       await this.removePublicRoom();
       // --- Leave the session by calling 'disconnect' method over the Session object ---

@@ -446,7 +446,6 @@ export default {
         router.go();
       }
     };
-    console.log(">>>>0");
     flip();
     return { selectedStudy, loginUser };
   },
@@ -558,7 +557,6 @@ export default {
 
     // 텍스트 채팅에서 사용하기위한 유저 아이디(임시)
     this.userId = jwt_decode(localStorage.getItem("token")).sub;
-    console.log(">>>>>>>>>>>>>>>>>>>> userId : ", this.userId);
   },
   mounted() {
     window.addEventListener("beforeunload", this.unLoadEvent);
