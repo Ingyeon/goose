@@ -27,10 +27,9 @@
                 </div>
             
             <div class="projects">
-                    <h3>Article</h3>
-                    <div class="projects_data">
+                    <h3>작성한 글</h3>
+                    <div>
                         <div class="data">
-                            <h4>작성한 글</h4>
                             <MyArticles/>
                         </div>
                         <!-- <div class="data">

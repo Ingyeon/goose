@@ -1,5 +1,7 @@
 <template>
-    <p @click="articleMove()" class="articlepush bg-warning p-1">{{state.title}}</p>
+<div class="d-block justify-content-between">
+  <p @click="articleMove()" class="articlepush bg-warning p-1">{{state.title}}</p>
+    </div>
 </template>
 
 <script>
@@ -15,7 +17,8 @@ export default {
     const store = useStore()
     const state = reactive({
         title: props.article.title,
-        article_pk: props.article.id
+        article_pk: props.article.id,
+        date: props.article.date
     })
     const articleMove = async function(){
         await store.dispatch('fetchArticle',state.article_pk)

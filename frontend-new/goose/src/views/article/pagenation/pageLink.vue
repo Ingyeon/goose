@@ -2,7 +2,7 @@
   <ul class="pagination justify-content-center">
 
     <li v-for="index in state.endPageIndex-state.startPageIndex + 1 " :key="index" class="page-item" :class="{active:( (state.startPageIndex + index - 1) == state.currentPageIndex)}">
-      <button class="page-link"  @click.native="movePage(state.startPageIndex + index - 1)">{{ state.startPageIndex + index - 1 }}</button>
+      <button class=" pagenation"  @click.native="movePage(state.startPageIndex + index - 1)">{{ state.startPageIndex + index - 1 }}</button>
       <!-- <a class="page-link" href="javascript:movePage(' + i + ')">' + i + '</a> -->
     </li>
   </ul>
@@ -61,3 +61,25 @@ export default{
 
 return {state,movePage,initUi}}}
 </script>
+
+<style scoped>
+.pagenation{
+  color: black;
+  background-color: #ffd700;
+  font-family: "NanumSquare", sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: all 0.5s ease 0s;
+  font-family: "NanumSquare", sans-serif;
+  font-weight: bold;
+  padding: 9px 20px;
+  border-radius: 80px 40px;
+}
+
+.pagenation:hover{
+  background-color: white;
+}
+.pagenation:focus{
+  background-color: wheat;
+}
+</style>
