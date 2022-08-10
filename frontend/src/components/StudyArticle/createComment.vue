@@ -1,5 +1,5 @@
 <template>
-<div class="cus-blur">
+<div v-if="isStudyMember" class="cus-blur">
     <form @submit.prevent="createComment">
     
     <div class="m-3">
@@ -16,6 +16,7 @@
 <script>
 import { reactive } from '@vue/reactivity'
 import { useStore } from "vuex"
+import { computed } from "vue";
 export default {
     setup(){
         const store = useStore()
@@ -26,7 +27,8 @@ export default {
             store.dispatch('createComment',state.re_content)
             state.re_content = ""
         }
-        return {createComment,state}
+        const isStudyMember = computed(()=> store.getters.isStudyMember)
+        return {createComment,state,isStudyMember}
     }
 }
 </script>

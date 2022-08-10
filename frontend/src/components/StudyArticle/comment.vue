@@ -2,6 +2,7 @@
 <commentItem v-for="item in commentList" :key="item.id" :item="item"/>
 <!-- 댓글 작성 -->
 <hr>
+{{data.page}}
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
         <li v-if="data.page != 1" @click="pageDown" class="page-item mx-2" style="cursor:pointer"><b-icon-arrow-left></b-icon-arrow-left></li>
@@ -10,8 +11,6 @@
 </nav>
 <createComment />
 <!-- pagination -->
-<hr>
-
 </template>
 
 <script>
@@ -30,7 +29,8 @@ export default {
         const data = reactive({
             page:store.getters.commentPage
         })
-
+        const commentPage = computed(()=>store.getters.commentPage)
+        const changePage = ()=>{data.page=store.getters.commentPage}
         const pageUp = ()=>{
             if (store.getters.studyArticleCommentList.length == 5){
                 data.page++;
@@ -52,7 +52,7 @@ export default {
 
         const commentList = computed(()=>store.getters.studyArticleCommentList)
         const selectedArticle = computed(()=>store.getters.selectedArticle)
-        return { data,commentList,pageDown,pageUp,selectedArticle }
+        return { data,commentList,pageDown,pageUp,selectedArticle,commentPage,changePage }
     },
 
      watch: {
@@ -61,6 +61,11 @@ export default {
                 this.data.page = 1;
             },
         },
+        commentPage: {
+            handler(){
+                this.changePage()
+            }
+        }
   },
 }
 </script>
