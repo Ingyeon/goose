@@ -2,15 +2,15 @@
 <commentItem v-for="item in commentList" :key="item.id" :item="item"/>
 <!-- 댓글 작성 -->
 <hr>
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li v-if="data.page != 1" @click="pageDown" class="page-item mx-2"><b-icon-arrow-left></b-icon-arrow-left></li>
+        <li v-if="commentList.length == 5" @click="pageUp" class="page-item mx-2"><b-icon-arrow-right></b-icon-arrow-right></li>
+    </ul>
+</nav>
 <createComment />
 <!-- pagination -->
 <hr>
-  <nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li @click="pageDown" class="page-item"><a class="page-link" href="#">Previous</a></li>
-    <li @click="pageUp" class="page-item"><a class="page-link" href="#">Next</a></li>
-  </ul>
-</nav>
 
 </template>
 
@@ -28,11 +28,11 @@ export default {
     setup(){
         const store = useStore()
         const data = reactive({
-            page:1,
+            page:store.getters.commentPage
         })
 
         const pageUp = ()=>{
-            if (!_.isEmpty(store.getters.studyArticleCommentList)){
+            if (store.getters.studyArticleCommentList.length == 5){
                 data.page++;
                 fetchCommentList();  
                 }
@@ -51,8 +51,17 @@ export default {
         fetchCommentList()
 
         const commentList = computed(()=>store.getters.studyArticleCommentList)
-        return { commentList,pageDown,pageUp }
-    }
+        const selectedArticle = computed(()=>store.getters.selectedArticle)
+        return { data,commentList,pageDown,pageUp,selectedArticle }
+    },
+
+     watch: {
+        selectedArticle: {
+            handler() {
+                this.data.page = 1;
+            },
+        },
+  },
 }
 </script>
 

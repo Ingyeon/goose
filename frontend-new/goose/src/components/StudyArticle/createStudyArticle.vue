@@ -7,7 +7,7 @@
     data-bs-toggle="modal"
     data-bs-target="#createStudyArticle"
   >
-    new
+    새 글
   </button>
 
   <!-- Modal -->
@@ -91,7 +91,7 @@
 
           <!-- form 끝 -->
         </div>
-        <div class="modal-footer">
+        <!-- <div class="modal-footer">
           <button
             type="button"
             class="btn btn-secondary"
@@ -99,7 +99,7 @@
           >
             Close
           </button>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

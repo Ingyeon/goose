@@ -31,14 +31,16 @@ export default {
             // "user_pk": 0
         },
         studyArticleCommentList:[],
-        refresh : false
+        refresh : false,
+        commentPage : 1
     },
     getters: {
         studyArticleList: state => state.studyArticleList,
         selectedArticle: state => state.selectedArticle,
         studyArticleCommentList: state => state.studyArticleCommentList,
         isArticleWriter: (state,getters) => state.selectedArticle.user_pk == getters.loginUser.id,
-        refresh : (state) => state.refresh
+        refresh : (state) => state.refresh,
+        commentPage : state => state.commentPage
     },
     mutations: {
        SET_STUDY_ARTICLES: (state,articleList) => state.studyArticleList = articleList,
@@ -47,7 +49,8 @@ export default {
        SET_REFRESH:(state) => {
         if(state.refresh == false){state.refresh = true}
         else{state.refresh = false}
-       }
+       },
+       SET_COMMENT_PAGE:(state,page) => state.commentPage = page
     },
     actions: {
         getStudyArticleList({getters,commit},credential){
@@ -71,6 +74,7 @@ export default {
             })
             .then((res)=>{
                 commit("SET_SELECTED_ARTICLE",res.data)
+                commit("SET_COMMENT_PAGE",1)
                 dispatch("getComment",{articlePk:getters.selectedArticle.id ,id:null, page:1})
             })
             // .catch((err)=>{
@@ -86,7 +90,6 @@ export default {
             data: credential
         })
         .then((res)=>{
-            console.log(credential)
             dispatch('getStudyArticleList',{category:credential.category, page:1,  studyPk:getters.selectedStudy.id, title:null})
         })
         // .catch((err)=>{
@@ -146,6 +149,7 @@ export default {
        },
 
        getComment({getters,commit},credential){
+        commit('SET_COMMENT_PAGE',credential.page)
         axios({
             url: rest.studyArticle.studyArticleReply(),
             method: 'get',
@@ -154,6 +158,7 @@ export default {
         })
         .then((res)=>{
             commit('SET_STUDY_ARTICLE_COMMENT_LIST',res.data.content)
+
         })
         .catch((err)=>{
             console.log(err)

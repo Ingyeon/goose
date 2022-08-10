@@ -7,7 +7,6 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        {{studyMemberList}}
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -18,9 +17,9 @@
             </thead>
             <tbody v-for="member in studyMemberList" :key="member.id">
                 <tr>
-                    <td>{{member.name}}</td>
-                    <td>{{member.user_id}}</td>
-                    <td>추가중</td>
+                    <td>{{ member.name }}</td>
+                    <td>{{ member.user_id }}</td>
+                    <td>{{ member.info }}</td>
                 </tr>
             </tbody>
         </table>

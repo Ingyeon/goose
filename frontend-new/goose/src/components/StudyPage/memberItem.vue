@@ -6,6 +6,7 @@
           <td>{{item.id}}</td>
           <td>{{item.name}}</td>
           <td>{{item.user_id}}</td>
+          <td>{{item.info}}</td>
           <td>{{item.study_time}}</td>
           <td><button v-if="item.user_id !=loginUser.userId" class="button-danger" @click.prevent="kickOutmember(item.user_pk)" >강퇴</button></td>
         </tr>

@@ -9,6 +9,7 @@
                 <th>No</th>
                 <th>이름</th>
                 <th>아이디</th>
+                <th>자기소개</th>
                 <th>스터디 가입 날짜</th>
             </tr>
         </thead>

@@ -158,7 +158,6 @@ export default {
     },
 
     createStudy({ getters, dispatch }, credential) {
-      console.log("스터디 생성 요청", credential);
       axios({
         url: rest.study.study_create(),
         method: "post",
@@ -236,7 +235,6 @@ export default {
         let studyMemberList = []
         commit("SET_STUDY_MEMBER_LIST",res.data)
         for (let member of res.data){
-          // console.log(member)
           axios({
             url: rest.user.get_user(member.user_id),
             method: "get",
@@ -251,7 +249,6 @@ export default {
         }
       })
       .then(() => {
-        console.log("왜 이게 먼저 되냐고")
         dispatch("findStudyManager");
       });
     },
@@ -278,7 +275,6 @@ export default {
       })
         .then((res) => {
           alert("가입신청 완료");
-          console.log(res);
         })
         .catch((err) => {
           alert("이미 가입되거나 가입신청한 스터디입니다.");
@@ -322,8 +318,6 @@ export default {
     },
 
     dropOutStudy({ getters }, user_pk) {
-      console.log(user_pk);
-      console.log(getters.selectedStudy.id);
       axios({
         url: rest.study.study_member_out(),
         method: "delete",
