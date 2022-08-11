@@ -147,8 +147,6 @@ export default {
         headers: getters.authHeader,
       })
         .then((res) => {
-          console.log(1, id);
-          console.log(2, res.data);
           commit("SET_EVENTS", res.data);
         })
 
@@ -341,7 +339,6 @@ export default {
         headers: getters.authHeader,
       })
         .then((res) => {
-          console.log(res.data);
           commit("SET_EVENT", res.data);
         })
         .catch((err) => {
@@ -350,7 +347,6 @@ export default {
     },
 
     async createCalendar({ commit, getters }, calendar) {
-      console.log("axios:", calendar.start);
       await axios({
         url: rest.calendar.create_calendar(),
         method: "post",
@@ -391,7 +387,6 @@ export default {
             headers: getters.authHeader,
           })
             .then((res) => {
-              console.log(2, res.data);
               commit("SET_EVENTS", res.data);
             })
 
@@ -417,7 +412,6 @@ export default {
             headers: getters.authHeader,
           })
             .then((res) => {
-              console.log(2, res.data);
               commit("SET_EVENTS", res.data);
             })
 
@@ -432,9 +426,7 @@ export default {
 
     // 컴파일러
     async compile({ dispatch }, code) {
-      console.log(code.script);
-      // const temp = code.language.toLowerCase();
-      // if (temp == "python") temp = "python3";
+
       await axios({
         url: "/v1/execute",
         // url: "https://cors-anywhere.herokuapp.com/https://api.jdoodle.com/v1/execute",
@@ -451,12 +443,9 @@ export default {
         },
       })
         .then((res) => {
-          console.log("컴파일 성공");
-          console.log(res.data);
           dispatch("saveResult", res.data);
         })
         .catch((res) => {
-          console.log("컴파일 실패");
           console.log(res);
         });
     },
@@ -464,7 +453,6 @@ export default {
       commit("SET_RESULT", result);
     },
     saveLanguage({ commit }, language) {
-      console.log("action : ", language);
       commit("SET_LANGUAGE", language);
     },
 

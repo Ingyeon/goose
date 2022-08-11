@@ -454,7 +454,6 @@ export default {
   },
   methods: {
     selectLanguage() {
-      console.log("select : ", this.compiler);
       this.$store.dispatch("saveLanguage", this.compiler);
     },
   },

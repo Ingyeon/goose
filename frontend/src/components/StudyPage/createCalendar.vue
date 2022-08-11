@@ -48,7 +48,6 @@ export default {
   },
   components: {},
   setup() {
-    console.log(123);
     const store = useStore();
 
     // const selectedStudy = computed(() => store.getters.selectedStudy);
@@ -64,7 +63,6 @@ export default {
       calendar.start = document.getElementById("start-time").value;
       // calendar.start += "+09:00";
       // if (calendar.end != "") calendar.end += "+09:00";
-      console.log(calendar.start);
       store.dispatch("createCalendar", calendar);
       calendar.title = "";
       calendar.content = "";
@@ -77,7 +75,6 @@ export default {
 
   methods: {
     close: function () {
-      console.log(this.time);
       this.$emit("close");
     },
   },

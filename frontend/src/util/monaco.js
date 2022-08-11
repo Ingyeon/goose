@@ -48,7 +48,6 @@ window.addEventListener("load", () => {
     color: "#0033ff",
   });
 
-  console.log(awareness);
   editor = monaco.editor.create(
     /** @type {HTMLElement} */ (document.getElementById("monaco-editor")),
     {
@@ -58,7 +57,6 @@ window.addEventListener("load", () => {
       // plugins: [yCursorPlugin(awareness)],
     }
   );
-  console.log(awareness);
   const monacoBinding = new MonacoBinding(
     ytext,
     /** @type {monaco.editor.ITextModel} */ (editor.getModel()),
