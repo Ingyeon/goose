@@ -7,9 +7,9 @@
       <div>
       <div class="container d-flex justify-content-center">
       </div>
-      <div class="mt-5 fix">
-        <h1 class="fw-bold">단칼에 배우는 구스</h1>
-        <h3 class="mt-4 text-center">구스를 더욱 알차게 이용하고 싶다면 클릭!</h3>
+      <div class="fix">
+        <h1 class="fw-bold text-center">단칼에 배우는 GOOSE</h1>
+        <h3 class="mt-4 text-center">GOOSE를 더욱 알차게 이용하고 싶다면 클릭!</h3>
       </div>
       </div>
     </div>
@@ -29,13 +29,9 @@ export default {
 * {
   font-family: "NanumSquare", sans-serif;
   }
-  img:not(.FAQ) {
-    width: 300px;
-    height: 300px
-    /* height: 7rem; */
-  }
   .fix{
-    margin-right: 200px;
+    margin-right: 180px;
+    margin-top: 80px;
   }
   #FAQ {
     font-weight: bold;

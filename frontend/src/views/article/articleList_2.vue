@@ -10,7 +10,7 @@
 </select>
 
   <input type="text" class="form-control" v-model="state.search.title" @keyup.enter="filterArticles()">
-    <button class="btn btn-outline-secondary search btn-warning" type="button" @click="filterArticles()"><i class="fa fa-search"></i></button>
+  <button class="btn btn-outline-secondary search btn-warning" type="button" @click="filterArticles()"><i class="fa fa-search"></i></button>
 </div>
 
 <div class="d-flex justify-content-between">
@@ -20,7 +20,6 @@
   <button @click="category_sort('C++')" class="cc">C++</button>
   <button @click="category_sort('JAVA')" class="java">JAVA</button>
   <button @click="category_sort('Python')" class="python">Python</button>
-  <button @click="category_sort('JavaScripts')" class='javascript'>JavaScripts</button>
   </div>
   <router-link to="/newarticle" class="btn cssbutton">작성</router-link>
 
