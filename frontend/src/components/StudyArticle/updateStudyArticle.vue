@@ -15,10 +15,10 @@
           <!-- 스터디 이름 -->
           <div>
             <label for="studyArticleName"  class="custom-label">글 제목</label>
-            <div class="form-floating input-Box">
+            <div class="form input-Box">
               <input type="text" id="studyArticleName" class="form-control" placeholder="글 제목" v-model="credential.title" maxlength="30">
               <!-- <input type="text" id="studyArticleName" class="form-control" placeholder="글 제목" > -->
-              <label for="studyArticleName"  class="form-label">글 제목</label>
+              <!-- <label for="studyArticleName"  class="form-label">글 제목</label> -->
             </div>
           </div>
           <!-- 글 내용 -->
@@ -29,8 +29,9 @@
           </div>
 
         <!-- 제출 -->
-          <div class="input-Box">
-            <input @click.prevent="updateArticle" type="submit" value="Submit">  
+          <div class="input-Box d-flex justify-content-between">
+            <button type="button" class="cus-btn-close" @click.prevent="$emit('typeChange')">돌아가기</button>
+            <input @click.prevent="updateArticle" type="submit" value="수정완료">
           </div>
         </form>
 </template>
@@ -69,6 +70,17 @@ margin-bottom: 20px;
 font-weight: 600;
 text-align: center;
 border-radius: 80px 40px;
+}
+
+.cus-btn-close {
+  background: gray;
+  color: whitesmoke;
+  cursor: pointer;
+  width: 100px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 80px 40px;
 }
 
 .form-select {
