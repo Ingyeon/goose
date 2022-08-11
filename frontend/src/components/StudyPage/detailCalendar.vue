@@ -80,7 +80,7 @@
           <slot name="footer">
             <button
               type="button"
-              @click="updateCalendar(), close()"
+              @click="updateCalendar()"
               v-if="upk == event.user_pk"
             >
               수정
@@ -133,9 +133,38 @@ export default {
     },
 
     updateCalendar: function () {
-      this.modify = false;
-      console.log(this.event.start);
+        let check = 0;
+      if(this.event.title==""){
+          alert('제목을 입력해주세요');
+      }else if(this.event.start==""){
+          alert('시작 시간을 입력해주세요');
+      }else{
+        if(this.event.end!=""){
+          if(this.event.start.toString(1,4)>this.event.end.toString(1,4)){
+            check =1;
+          }else if (this.event.start.toString(6,7)>this.event.end.toString(6,7)){
+            check =1;
+          }else if (this.event.start.toString(9,10)>this.event.end.toString(9,10)){
+            check =1;
+          }else if (this.event.start.toString(12,13)>this.event.end.toString(12,13)){
+            check =1;
+          }else if (this.event.start.toString(15,16)>this.event.end.toString(15,16)){
+            check =1;
+          }
+          }
+        if(check==1){
+              alert('종료 시간을 수정해주세요');
+        }else{
       this.$store.dispatch("updateCalendar", this.event);
+            this.modify = false;
+      this.$emit("close");
+          alert('작성 성공');
+
+
+
+        }
+      }
+
     },
   },
 };

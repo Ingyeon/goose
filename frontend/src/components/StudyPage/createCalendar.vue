@@ -27,7 +27,7 @@
         </div>
         <footer class="modal-footer">
           <slot name="footer">
-            <button type="button" @click="createCalendar(), close()">
+            <button type="button" @click="createCalendar()">
               작성
             </button>
             <button type="button" @click="close()">취소</button>
@@ -47,7 +47,8 @@ export default {
     time: String,
   },
   components: {},
-  setup() {
+   emits: ["close"],
+  setup(props, {emit}) {
     const store = useStore();
 
     // const selectedStudy = computed(() => store.getters.selectedStudy);
@@ -61,17 +62,42 @@ export default {
 
     const createCalendar = () => {
       calendar.start = document.getElementById("start-time").value;
-      // calendar.start += "+09:00";
-      // if (calendar.end != "") calendar.end += "+09:00";
+      let check = 0;
+      if(calendar.title==""){
+          alert('제목을 입력해주세요');
+      }else if(calendar.start==""){
+          alert('시작 시간을 입력해주세요');
+      }else{
+        if(calendar.end!=""){
+          if(calendar.start.toString(1,4)>calendar.end.toString(1,4)){
+            check =1;
+          }else if (calendar.start.toString(6,7)>calendar.end.toString(6,7)){
+            check =1;
+          }else if (calendar.start.toString(9,10)>calendar.end.toString(9,10)){
+            check =1;
+          }else if (calendar.start.toString(12,13)>calendar.end.toString(12,13)){
+            check =1;
+          }else if (calendar.start.toString(15,16)>calendar.end.toString(15,16)){
+            check =1;
+          }
+          }
+        if(check==1){
+              alert('종료 시간을 수정해주세요');
+        }else{
       store.dispatch("createCalendar", calendar);
+          alert('작성 성공');
       calendar.title = "";
       calendar.content = "";
       calendar.start = "";
       calendar.end = "";
+       emit("close");
+        }
+      }
     };
 
     return { createCalendar, calendar };
   },
+
 
   methods: {
     close: function () {
