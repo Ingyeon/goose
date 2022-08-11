@@ -26,7 +26,7 @@ public interface Study_MemberRepository extends JpaRepository<Study_Member, Long
 
 //	@Query(value="select * from study_member where study_pk = :study_pk",nativeQuery = true)
 //	List<String> findAllMember(@Param("study_pk") long study_pk);	
-	@Query(value="select sm.id, sm.user_pk, sm.authority, su.name, su.user_id, sm.study_time from study_member sm, study_user su \r\n" +
+	@Query(value="select sm.id, sm.user_pk, sm.authority, su.name, su.user_id, su.info,sm.study_time from study_member sm, study_user su \r\n" +
 			"where sm.study_pk = :study_pk and sm.user_pk = su.id" ,nativeQuery = true)
 	List<StudyMemberList> findAllMember(@Param("study_pk") long study_pk);
 

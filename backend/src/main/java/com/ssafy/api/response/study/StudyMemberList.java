@@ -30,5 +30,6 @@ public interface StudyMemberList {
 	String getName();
 	String getUser_id();
 	String getStudy_time();
+	String getInfo();
 	
 }
