@@ -43,7 +43,7 @@
                 <img :src="state.photo" alt="profilephoto" class="profilephoto">
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <router-link to="/createStudy"><button class="dropdown-tag">스터디<br>생성하기</button></router-link>
+              <router-link to="/createStudy"><button class="dropdown-tag">스터디 생성</button></router-link>
               <hr>
               <router-link to="/articles"><button class="dropdown-tag">스터디 모집 게시판</button></router-link>
               <router-link to="/:id/profile"><button class="dropdown-tag">프로필</button></router-link>
