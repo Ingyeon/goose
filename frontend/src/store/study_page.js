@@ -299,7 +299,7 @@ export default {
       commit("SET_CHOICE_IMG", imgurl);
     },
 
-    dropOutStudy({ getters }, user_pk) {
+    dropOutStudy({ getters,dispatch }, user_pk) {
       axios({
         url: rest.study.study_member_out(),
         method: "delete",
@@ -308,10 +308,10 @@ export default {
           study_pk: getters.selectedStudy.id,
           user_pk: user_pk,
         },
-      });
-      // .then((res) => {
-      //   router.push({ name: "Home" });
-      // })
+      })
+      .then((res) => {
+        dispatch('saveStudyMemberList',getters.selectedStudy.id)
+      })
       // .catch((err)=>console.log("에러내용:",err))
     },
 

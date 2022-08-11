@@ -21,7 +21,7 @@
           <li><a to="#"><button>게시판</button></a></li> -->
         </ul>
         <ul v-if="isLoggedIn" class="nav-links">
-          <li class="nav-id"><router-link to="/articles"><button>스터디 모집</button></router-link></li>
+          <li class="nav-id"><router-link to="/articles"><button>스터디 모집 게시판</button></router-link></li>
           <li class="nav-id"><router-link to="/createStudy"><button>스터디생성하기</button></router-link></li>
           <li class="dropdown">
             <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -45,7 +45,7 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <router-link to="/createStudy"><button class="dropdown-tag">스터디<br>생성하기</button></router-link>
               <hr>
-              <router-link to="/articles"><button class="dropdown-tag">스터디 모집</button></router-link>
+              <router-link to="/articles"><button class="dropdown-tag">스터디 모집 게시판</button></router-link>
               <router-link to="/:id/profile"><button class="dropdown-tag">프로필</button></router-link>
               <button class="dropdown-tag" @click="clickLogout">로그아웃</button>
               <hr>

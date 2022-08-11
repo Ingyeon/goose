@@ -5,7 +5,7 @@
     <h6 v-if="state.toggle==0">{{ item.re_content }}</h6> 
     <div class="d-flex">
         <h6 v-if="state.toggle==0">글쓴이: {{ item.name}}</h6>    
-        <button v-if="state.toggle==0" @click.prevent="updateToggle" class="btn btn-edit"><img src="@/assets/수정버튼.png" alt=""></button>
+        <button v-if="isCommentWriter & state.toggle==0" @click.prevent="updateToggle" class="btn btn-edit"><img src="@/assets/수정버튼.png" alt=""></button>
         <button v-if="isCommentWriter & state.toggle==0" @click.prevent="deleteComment" class="btn-close"></button>
     </div>
 </ul>

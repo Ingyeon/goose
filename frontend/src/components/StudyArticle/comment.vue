@@ -2,7 +2,6 @@
 <commentItem v-for="item in commentList" :key="item.id" :item="item"/>
 <!-- 댓글 작성 -->
 <hr>
-{{data.page}}
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
         <li v-if="data.page != 1" @click="pageDown" class="page-item mx-2" style="cursor:pointer"><b-icon-arrow-left></b-icon-arrow-left></li>
