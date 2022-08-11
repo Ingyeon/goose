@@ -8,8 +8,8 @@
 		<div><p class="video_clientName">{{ clientData }}</p></div>
 		<div class="video_stopwatch d-flex">
 				<div class="timer_icon" v-if="this.streamManager.stream.connection.role=='PUBLISHER'" >
-					<i class="fa-solid fa-play" v-if="!play" @click="startTimer()"></i>
-					<i class="fa-solid fa-pause" v-else @click="stopTimer()"></i>
+					<!-- <i class="fa-solid fa-play" v-if="!play" @click="startTimer()"></i> -->
+					<!-- <i class="fa-solid fa-pause" v-else @click="stopTimer()"></i> -->
 				</div>
 				<p class="mb-1 ml-1">{{ hours }} : {{ minutes }} : {{ seconds }}</p>
 		</div>
@@ -77,6 +77,7 @@ export default {
 				this.time = Number(receiveTime[1]); // 받은 signal 시간으로 설정
 			}
 		})
+		this.startTimer();
 		
 	},
 	methods: {
@@ -94,39 +95,15 @@ export default {
 
 		startTimer() {
 			this.start_time = this.hours+":" +this.minutes +":"+this.seconds;
-			// 방에 들어온 시간 측정을 위해 rest 요청. // params로 보내주면됨
-			// http({
-			// 	method: 'POST',
-			// 	url: `/history/register/public/starttime`,
-			// 	headers: this.getUserToken(),
-			// 	params:{start_time:this.start_time},
-			// })
-			// .then( res => {
-			// 	this.userhistory_no = res.data.userhistoryNo;
-			// })
-			// .catch(err => {
-			// 	console.log(err)
-			// 	this.userhistory_no
-			// });		
 
-			//1000ms = 1 second
+
+			// 1000ms = 1 second
 			this.timer = setInterval(() => this.countup(), 1000)
 			this.play = true;
 		},
 		stopTimer: function() {
 			this.finish_time = this.hours+":" +this.minutes +":"+this.seconds;
-			// 방에 들어온 시간 측정을 위해 rest 요청. // params로 보내주면됨
-			// http({
-			// 	method: 'POST',
-			// 	url: `/history/register/public/finishtime`,
-			// 	headers: this.getUserToken(),
-			// 	params:{finish_time:this.finish_time, userhistory_no: this.userhistory_no},
-			// })
-			// .then(() => {
-			// })
-			// .catch(err => {
-			// 	console.log(err)
-			// });		
+
 			clearInterval(this.timer)
 			this.timer = null
 			this.play = false;
