@@ -15,7 +15,7 @@
 
 <div class="d-flex justify-content-between">
   <div>
-  <button @click="category_sort()">전체</button>
+  <button @click="category_sort(null)">전체</button>
   <button @click="category_sort('C')" class="c">C</button>
   <button @click="category_sort('C++')" class="cc">C++</button>
   <button @click="category_sort('JAVA')" class="java">JAVA</button>
@@ -58,7 +58,8 @@
 </div>
 </div>
 
-<pageLink :search = 'state.search'/>
+<pageLink v-if='state.toggle=false'   :search = 'state.search'/>
+<filterLink v-if='state.toggle=true'  :search = 'state.search'/>
 </div>
 </template>
 
@@ -69,10 +70,11 @@ import {useStore} from 'vuex'
 import _ from 'lodash'
 import { useRouter } from 'vue-router'
 import pageLink from './pagenation/pageLink.vue'
+import filterLink from './pagenation/filterLink.vue'
 
 export default {
 
-  components: {pageLink},
+  components: {pageLink, filterLink},
     setup(){
         // 추후 게시판 연결 후 ref값 변경 - 페이지네이션 관련 코드
         const Router = useRouter()
@@ -87,13 +89,15 @@ export default {
               state: null,
               category: null,
               title: null,
-            },
-        })
+              page: 1,},
+            toggle: false
+    })
         
-        const filterArticles = function(){
-          store.dispatch('fetchArticles',1)
-          store.dispatch('filterArticles',state.search)
-        }
+        const filterArticles = async function(){
+          await store.dispatch('fetchArticles',1)
+          await store.dispatch('filterArticles',state.search)
+          state.toggle = true}
+          
 
         const articles_set = async function(){
           await store.dispatch('fetchArticles',1) 
@@ -114,6 +118,8 @@ export default {
 
         const category_sort = function(item){
           state.search.category = item
+          if (item != null){state.toggle = true}
+          else{state.toggle = false}
           store.dispatch('sortedArticles',item)
         }
 

@@ -96,22 +96,18 @@ export default {
                 {console.log(err)})},
 
         filterArticles({commit,getters}, form){
-            console.log(form)
             axios({
                 // 필터 된 상황에서의 페이지 네이션 생각해보기
-                url: rest.article.article_list(1),
+                url: rest.article.article_list(form.page),
                 method: 'get',
                 headers: getters.authHeader,
                 params: {
                     category:form.category,
                     state: form.state,
                     title: form.title,
-                    user_pk: form.id
-                    
                 }
             })
             .then(res => {
-                console.log(res.data)
                 commit('SET_TOTALPAGE',res.data.totalPages)
                 commit('SET_ARTICLES',res.data.content
                 )
