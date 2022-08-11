@@ -49,7 +49,7 @@
             <option value="C">C</option>
             <option value="C++">C++</option>
             <option value="JAVA">JAVA</option>
-            <option value="JavaScript">JavaScript</option>
+            <!-- <option value="JavaScript">JavaScript</option> -->
             <option value="Python">Python</option>
           </select>
           <!-- <label for="selectcategory" class="form-label">카테고리</label> -->
@@ -64,6 +64,7 @@
             class="form-control"
             placeholder="스터디 이름"
             v-model="state.credential.title"
+            maxlength="30"
           />
           <!-- <label for="studyname"  class="form-label">스터디 이름</label> -->
           <!-- </div> -->
@@ -71,7 +72,7 @@
 
         <!-- 비공개방일시 비밀번호 -->
         <div v-if="state.credential.open == 1" class="input-Box">
-          <label for="floatingPassword" class="form-label">비밀번호</label>
+          <label for="floatingPassword" class="form-label">스터디 비밀번호</label>
           <input
             v-model="state.credential.password"
             type="password"

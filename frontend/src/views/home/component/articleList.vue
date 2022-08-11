@@ -1,5 +1,4 @@
 <template>
-{{openstudyList }}
   <!-- <div class="container"> -->
     <b-card-group class="d-flex row">
     <!-- <div class="row"> -->

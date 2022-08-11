@@ -60,6 +60,7 @@
                 class="form-control"
                 placeholder="글 제목"
                 v-model="credential.title"
+                maxlength="30"
               />
               <!-- <label for="studyArticleName"  class="form-label">글 제목</label> -->
             </div>

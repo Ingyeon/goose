@@ -8,7 +8,7 @@
   </div>
   <div id="app">
     <CreateCalendar
-      v-show="isCModalVisible"
+      v-show="isCModalVisible && isStudyMember"
       :time="time"
       @close="closeCModal"
     />
@@ -33,7 +33,11 @@ export default {
     CreateCalendar,
     DetailCalendar,
   },
-
+  setup(){
+    const store = useStore()
+    const isStudyMember = store.getters.isStudyMember
+    return {isStudyMember}
+  },
   data() {
     const store = useStore();
 
