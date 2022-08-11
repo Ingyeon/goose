@@ -12,9 +12,10 @@
             <Notice />
           </div>
         </div>
-        <div class="carousel-item FAQ">
-         <a href="https://www.naver.com/"><FAQ /></a> 
-        </div>
+        <a href="https://troubled-juice-9fa.notion.site/Goose-22-08-11-32c64d6ced8a489db627972de5f5bac5">
+          <div class="carousel-item FAQ">
+         <FAQ />
+        </div></a> 
       </div>
       <button
         class="carousel-control-prev"
