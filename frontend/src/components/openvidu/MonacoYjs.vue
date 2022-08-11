@@ -6,27 +6,35 @@
     <div id="monoco-top" style="height: 7%"></div>
     <div class="d-flex" style="height: 93%">
       <div id="monaco-editor"></div>
-      <div id="session-compile">
-        <p style="margin-top: 10px; margin-bottom: 5px">입력 값</p>
-        <textarea
-          id="stdin"
-          rows="5"
-          style="width: 98%"
-          v-model="code.stdin"
-        ></textarea>
+      <div id="session-compile" class="d-flex flex-wrap align-content-between">
+        <div class="test" style="margin-bottom:0px;">
+          <p style="margin-top: 10px; margin-bottom: 5px">입력 값</p>
+          <div class="test">
+            <textarea
+              id="stdin"
+              rows="5"
+              v-model="code.stdin"
+            ></textarea>
+          </div>
         <!-- <p>실행 결과 집합 : {{ result }}</p> -->
-        <p style="margin-top: 20px; margin-bottom: 5px">실행 결과</p>
-        <textarea
-          v-model="output"
-          rows="5"
-          style="width: 98%"
-          readonly
-        ></textarea>
-        <p>사용 메모리 : {{ memory }}</p>
-        <p>실행 시간 : {{ cpuTime }}</p>
+        </div>
+        <div class="test">
+          <p style="margin-top: 20px; margin-bottom: 5px">실행 결과</p>
+          <div class="test">
+            <textarea
+              v-model="output"
+              rows="5"
+              readonly
+            ></textarea>
+          </div>
+        </div>
+        <div>
+          <p>사용 메모리 : {{ memory }}</p>
+          <p>실행 시간 : {{ cpuTime }}</p>
+        </div>
         <p id="link" style="opacity: 0">{{ link }}</p>
         <!-- <div style="height:37%"></div> -->
-        <div class="center" style="width: 100%; margin-top: 98%">
+        <div class="center" style="width: 100%;">
           <p id="language" style="text-align: left">
             설정언어 : {{ compiler }}
           </p>
@@ -151,4 +159,20 @@ export default {
   left: -4px;
   top: -5px;
 }
+/* .session-compile {
+  width:100%
+} */
+.test{
+  width:100%
+}
+textarea {
+  width: 100%;
+  /* height: 200px; */
+  padding: 20px;
+  box-sizing: border-box;
+  border: solid 1px #000;
+  border-radius: 5px;
+  font-size: 16px;
+  resize: none;
+  }
 </style>
