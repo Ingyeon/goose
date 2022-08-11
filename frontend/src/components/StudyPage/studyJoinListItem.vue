@@ -3,8 +3,8 @@
     <div class="d-flex justify-content-between">
     <li class="fw-bold">이름: {{ item.name }},  id : {{ item.user_id }}</li>
     <div> 
-      <button class="accept" @click="joinAccept" type="button" >승인</button>
-      <button class="reject" @click="joinRefuse" type="button" >거절</button>
+      <button class="accept" @click.prevent="joinAccept" type="button" >승인</button>
+      <button class="reject" @click.prevent="joinRefuse" type="button" >거절</button>
     </div>  
     </div>
 </template>
@@ -30,11 +30,11 @@ export default {
     const joinAccept = ()=>{
       store.dispatch('joinAgree',credential)
       // 신청 확인 후 화면 그대로 유지되는걸해결 위해 임시로 새로고침 넣음
-      router.go()
+      // router.go()
     }
     const joinRefuse = ()=>{
       store.dispatch('joinRefuse',credential.id)
-      router.go()
+      // router.go()
     }
     return {joinAccept,joinRefuse}
   }
