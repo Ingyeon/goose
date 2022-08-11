@@ -43,7 +43,7 @@
         <li>
           <button
             id="open-study"
-            class="btn btn-3 hover-border-3"
+            class="btn btn-3 hover-border-3 active"
             @click.prevent="hire_study"
           >
             공개 스터디
@@ -84,7 +84,7 @@ export default {
   setup() {
     const store = useStore();
     const state = reactive({
-      toggle: 0,
+      toggle: 1,
     });
 
     const hire_study = function () {
@@ -94,6 +94,7 @@ export default {
         document.getElementById("me-study").classList.remove("active");
       } else {
         state.toggle = 0;
+          document.getElementById("open-study").classList.remove("active");
       }
     };
 
@@ -102,7 +103,10 @@ export default {
         state.toggle = 2;
         document.getElementById("open-study").classList.remove("active");
         document.getElementById("me-study").classList.add("active");
-      } else state.toggle = 0;
+      } else {
+        document.getElementById("me-study").classList.remove("active");
+        state.toggle = 0;
+      }
     };
     if (store.getters.isLoggedIn) {
       store.dispatch("myStudyList");
