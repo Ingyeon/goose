@@ -11,7 +11,7 @@
 <!-- 본문 -->
 <div v-if="selectedStudy.open==0 || passwordCheck || isStudyMember">
 <div class="container">
-    <h1 class="text-center fw-bold my-3">게시판</h1>
+    <h1 class="text-center fw-bold my-3">스터디 게시판</h1>
   <router-link :to="{ name:'StudyHome', params: {studyPk:selectedStudy.id}}"><button id="title" class="btn btn-3 hover-border-3">{{selectedStudy.title}}로 이동</button></router-link>
   <div class="d-flex justify-content-between">
     <div>
@@ -26,7 +26,7 @@
   <div>
       <table class="table table-hover">
         <thead>
-        <tr>
+        <tr class="bg-warning">
           <th>No</th>
           <th>제목</th>
           <th>작성자</th>
@@ -44,12 +44,11 @@
 
   <!-- 테이블 끝 -->
   <!-- pagination -->
-  <hr>
   <div class="d-flex justify-content-center">
     <nav aria-label="Page navigation example">
       <ul class="pagination">
-        <li @click="pageDown" class="page-item"><a class="page-link" href="#">Previous</a></li>
-        <li @click="pageUp" class="page-item"><a class="page-link" href="#">Next</a></li>
+        <li @click="pageDown" class="page-item"><a class="page-link" href="#">이전</a></li>
+        <li @click="pageUp" class="page-item"><a class="page-link" href="#">다음</a></li>
       </ul>
     </nav>
   </div>

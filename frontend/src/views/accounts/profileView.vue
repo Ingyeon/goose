@@ -2,8 +2,8 @@
 <div>
     <div class="container mt-5">
         <div class="wrapper">
-            <div   class="left">
-                <img :src="state.profilephoto" alt="user" width="200">
+            <div   class="left mt-5" style="border-radius: 15px;">
+                <img :src="state.profilephoto" alt="user" width="200" style="border-radius: 30px;">
                 <!-- <img :src="state.photo" alt=""> -->
                 <h4>{{loginUser.name}}</h4>
                 <p>관심언어: {{loginUser.interest}}</p>
@@ -13,15 +13,15 @@
             </div>
             <div class="right">
                 <div class="info">
-                    <h3>Information</h3>
+                    <h3>내 정보</h3>
                     <div class="info_data">
                         <div class="data">
-                            <h4>Email</h4>
+                            <h4>메일</h4>
                             <p style="font-size: 24px">{{loginUser.email}}</p>
                         </div>
                         <div class="data">
                         <h4>자기소개</h4>
-                            <p style="font-size: 16px">{{loginUser.info}}</p>
+                            <p style="font-size: 20px">{{loginUser.info}}</p>
                     </div>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
             <div class="projects">
                     <h3>작성한 글</h3>
                     <div>
-                        <div class="data">
+                        <div class="data container">
                             <MyArticles/>
                         </div>
                         <!-- <div class="data">
@@ -170,6 +170,7 @@ export default {
   padding: 0;
   box-sizing: border-box;
   list-style: none;
+  font-family: "NanumSquare", sans-serif;
   font-family: 'Josefin Sans', sans-serif;
 }
 
@@ -286,12 +287,17 @@ body{
   left:100%;
 }
 .change-btn input[type="button"] {
+/* display:flex;
+align-content:center; */
 background: #ffd700;
 cursor: pointer;
+border: none;
 width: 100px;
 margin-bottom: 20px;
-font-weight: 600;
+font-weight: 550;
 text-align: center;
 border-radius: 80px 40px;
 }
+
+
 </style>

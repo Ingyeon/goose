@@ -2,7 +2,7 @@
 <div class="container">
     <div class="container d-flex justify-content-between">
         <h4>최신 게시글</h4>
-        <button @click.prevent="moveArticles" class="btn btn-3 hover-border-3">
+        <button @click.prevent="moveArticles" class="btn btn-3 hover-border-3 me-0 my-0">
             전체보기
         </button>
     </div>

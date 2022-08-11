@@ -1,7 +1,8 @@
 <template>
-<div class="d-block justify-content-between">
-  <p @click="articleMove()" class="articlepush bg-warning p-1">{{state.title}}</p>
-    </div>
+<div class="d-block">
+  <p @click="articleMove()" class="articlepush p-1">{{state.title}}</p>
+  <hr>
+</div>
 </template>
 
 <script>
@@ -36,6 +37,9 @@ export default {
 
 .articlepush {
   cursor: pointer;
+  display: flex;
+  /* align-content: center; */
+
 }
 
 </style>

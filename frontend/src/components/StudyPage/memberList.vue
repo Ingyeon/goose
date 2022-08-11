@@ -1,11 +1,10 @@
 <template>
 <div class="container">
     <div class="input-Box">
-        <label class="form-label">멤버리스트</label>
-            <label class="form-label">구성원</label>
+        <label class="form-label">멤버 리스트</label>
         <table class="table table-hover">
         <thead>
-            <tr>
+            <tr class="bg-warning">
                 <th>No</th>
                 <th>이름</th>
                 <th>아이디</th>

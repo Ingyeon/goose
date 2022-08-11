@@ -116,7 +116,7 @@
                   id="listbutton"
                   v-if="isManager && isJoinList"
                   type="button"
-                  class="button mx-2"
+                  class="button"
                   data-bs-toggle="modal"
                   data-bs-target="#studyJoinListModal"
                   style="color: red"
@@ -130,7 +130,7 @@
                   id="editbutton"
                   v-if="isManager"
                   type="button"
-                  class="button"
+                  class="button mx-1"
                   data-bs-toggle="modal"
                   data-bs-target="#updateStudyModal"
                 >
@@ -151,6 +151,7 @@
                 </button>
                 <miniMemberList />
               </span>
+              
               <!-- <div class="m-3">
             인원 : {{ selectedStudy.member }}/ {{ selectedStudy.maxmember }}
           </div> -->

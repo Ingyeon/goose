@@ -1,5 +1,10 @@
 <template>
-  <myArticle v-for = 'article in myinfo' :key='article.id' :article='article'/>
+    <div class="frame">
+        <div class="container mt-3">
+          <myArticle v-for = 'article in myinfo' :key='article.id' :article='article'/>
+        </div>
+    </div>
+
 </template>
 
 <script>
@@ -26,6 +31,39 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+.frame {
+    overflow-y: auto;
+    /* border: 1px solid black; */
+    height: 210px;
+    width: 100%;
+    line-height: 1em;
+    border-radius: 10px;
+    background-color: #f0f0f1;
+}
+
+.frame::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.frame::-webkit-scrollbar:vertical {
+    width: 11px;
+}
+
+.frame::-webkit-scrollbar:horizontal {
+    height: 11px;
+}
+
+.frame::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    border: 2px solid white; /* should match background, can't be transparent */
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.container {
+    width:95%;
+    height:95%
+}
 
 </style>

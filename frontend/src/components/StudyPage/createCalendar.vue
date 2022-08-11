@@ -185,4 +185,12 @@ button {
   border-radius: 80px 40px;
   margin-right: 10px;
 }
+
+
+.modal{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 </style>

@@ -1,8 +1,8 @@
 <template>
-  <div class="mt-3 col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2">
+  <div class="mt-3 col-12 col-md-6 col-lg-4 col-xl-3">
     <div class="card">
       <img :src="state.photo" class="card-img-top" alt="alt" />
-      <div class="card-body">
+      <div class="card-body ">
         <h5 class="card-title fw-bold">{{item.title}}</h5>
         <p class="card-text">사용 언어:{{item.category}}</p>
         <div class="d-flex justify-content-end">
@@ -73,6 +73,10 @@ export default {
   font-family: "NanumSquare", sans-serif;
 }
 
+.card-body{
+  /* border-top: 0.7px solid black; */
+  background-color: #f6f6f7;
+}
 .card {
   width: 18rem;
   height: 100%;

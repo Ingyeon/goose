@@ -1,10 +1,7 @@
 <template>
   <div class="container">
-    <div class="d-flex justify-content-between">
-      <h4>스터디 일정관리</h4>
-    </div>
     <br />
-
+      <h4>스터디 일정관리</h4>
     <div class="container box">
       <FullCalendar id="calendar" :options="calendarOptionsM2" />
     </div>

@@ -132,6 +132,7 @@ img[class="logo"]{
   margin: 0;
   padding: 0;
   background-color: #fff;
+  font-family: "NanumSquare", sans-serif;
 }
 
 header {

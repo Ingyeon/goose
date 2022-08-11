@@ -1,5 +1,5 @@
 <template>
-<h1 class="d-flex justify-content-center my-4">스터디 모집 게시판</h1>
+<h1 class="d-flex justify-content-center my-4 fw-bold">스터디원 모집 게시판</h1>
 <div class="container">
 <!-- 검색창 -->
 <div class="input-group mb-3">
