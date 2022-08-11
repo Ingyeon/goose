@@ -12,12 +12,9 @@
             <Notice />
           </div>
         </div>
-        <!-- <div class="carousel-item notice-item">
-          <Notice />
+        <div class="carousel-item FAQ">
+          <FAQ />
         </div>
-        <div class="carousel-item notice-item">
-          <Notice />
-        </div> -->
       </div>
       <button
         class="carousel-control-prev"
@@ -71,7 +68,7 @@
 import Notice from "@/components/mainpage/notice";
 import myStudyList from "@/components/mainpage/myStudyList.vue";
 import articleList from "./component/articleList.vue";
-
+import FAQ from '@/components/mainpage/FAQ.vue'
 import { useStore } from "vuex";
 import { reactive } from "vue";
 
@@ -80,6 +77,7 @@ export default {
     Notice,
     myStudyList,
     articleList,
+    FAQ,
   },
   setup() {
     const store = useStore();
@@ -135,6 +133,16 @@ export default {
   border: 1px solid #ffd700;
   display: flex;
   justify-content: center;
+}
+
+.FAQ {
+  width: 1600px;
+  height: 300px;
+  background-image: url('@/assets/케러셀2.png');
+  border: 1px solid #ffd700;
+  display: flex;
+  justify-content: center;
+  background-repeat: no-repeat;
 }
 ul[class="button-links"] {
   display: flex;

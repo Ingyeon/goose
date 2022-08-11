@@ -126,7 +126,9 @@ export default {
             })
             .then(res => {
                 console.log(res.data.title)
-                commit('SET_ARTICLE', res.data)})
+                commit('SET_ARTICLE', res.data)
+                dispatch('selectStudy',res.data.study_pk)}
+                )
                 
 
             .then(()=>{
