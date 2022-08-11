@@ -152,7 +152,13 @@
                 </button>
                 <miniMemberList :studyMemberList="studyMemberList"/>
               </span>
-              
+              <span><button
+          v-if="!isStudyMember && isLoggedIn"
+          @click="joinStudy"
+          class="button"
+        >
+          스터디 가입신청
+        </button></span>
               <!-- <div class="m-3">
             인원 : {{ selectedStudy.member }}/ {{ selectedStudy.maxmember }}
           </div> -->
@@ -207,13 +213,13 @@
         >
           스터디 탈퇴하기
         </button>
-        <button
+        <!-- <button
           v-if="!isStudyMember && isLoggedIn"
           @click="joinStudy"
           class="button"
         >
           스터디 가입신청
-        </button>
+        </button> -->
       </div>
       <div style="height: 50px"></div>
     </div>

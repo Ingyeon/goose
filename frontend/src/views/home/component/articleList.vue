@@ -1,4 +1,5 @@
 <template>
+{{openstudyList }}
   <!-- <div class="container"> -->
     <b-card-group class="d-flex row">
     <!-- <div class="row"> -->
@@ -27,7 +28,7 @@ export default {
      const router = useRouter();
     const myStudyList = computed(()=> store.getters.myStudyList)
     // const openstudyList = computed(()=> store.getters.openstudyList)
-    const openstudyList = store.getters.openstudyList;
+    const openstudyList = computed(()=>store.getters.openstudyList);
     const fetchMyStudyList = function (studyId) {
       store.dispatch("myStudyList", studyId);
     };
@@ -50,7 +51,7 @@ export default {
       router.push({ name: "PublicStudyRoom" });
     };
 
-    // open_set()
+    open_set()
 
     // const joinStudy = (studyId) => store.dispatch('joinStudy',studyId)
     return { myStudyList, fetchMyStudyList, openstudyList, open_set, clickbtn, selectedStudy  };
