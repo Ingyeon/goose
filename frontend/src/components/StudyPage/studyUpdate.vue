@@ -126,7 +126,7 @@ export default {
                 member: store.getters.selectedStudy.member,
                 maxmember:store.getters.selectedStudy.maxmember,
                 open: store.getters.selectedStudy.open,
-                password: "",
+                password: store.getters.selectedStudy.password,
                 title : store.getters.selectedStudy.title,
                 url_conf:store.getters.selectedStudy.url_conf,
                 url_page:store.getters.selectedStudy.url_page,

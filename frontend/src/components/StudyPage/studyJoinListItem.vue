@@ -18,7 +18,7 @@ export default {
     item : Object
   },
   setup(props){
-    const router = useRouter()
+    // const router = useRouter()
     const store = useStore()
     const credential = reactive({
       id: props.item.id,

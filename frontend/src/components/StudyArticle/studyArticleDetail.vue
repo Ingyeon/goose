@@ -1,6 +1,6 @@
 <template>
 <div class="modal fade" id="studyArticleDetail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h3 v-if="state.type==0" class="modal-title fw-bold" id="staticBackdropLabel">{{ article.title }}</h3>
