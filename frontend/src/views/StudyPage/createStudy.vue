@@ -71,13 +71,13 @@
 
         <!-- 비공개방일시 비밀번호 -->
         <div v-if="state.credential.open == 1" class="input-Box">
-          <label for="floatingPassword" class="form-label">Password</label>
+          <label for="floatingPassword" class="form-label">비밀번호</label>
           <input
             v-model="state.credential.password"
             type="password"
             class="form-control"
             id="floatingPassword"
-            placeholder="Password"
+            placeholder="비밀번호"
           />
           <!-- <label for="floatingPassword" class="form-label">Password</label> -->
         </div>

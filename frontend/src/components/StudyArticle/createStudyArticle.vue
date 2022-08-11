@@ -7,7 +7,7 @@
     data-bs-toggle="modal"
     data-bs-target="#createStudyArticle"
   >
-    새 글
+    글 작성
   </button>
 
   <!-- Modal -->

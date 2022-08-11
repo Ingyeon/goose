@@ -13,7 +13,7 @@
                 <th>스터디 가입 날짜</th>
             </tr>
         </thead>
-        <memberItemVue v-for="item in memberList" :key="item.id" :item="item"/>
+        <memberItemVue v-for="item in data.studyMemberList" :key="item.id" :item="item"/>
         </table>
     </div>
 </div>
@@ -21,7 +21,7 @@
 
 <script>
 import { useStore } from "vuex"
-import { computed } from "vue"
+import { computed,reactive } from "vue"
 import memberItemVue from './memberItem.vue'
 export default {
     components:{
@@ -30,8 +30,11 @@ export default {
     setup(){
         const store = useStore()
         const memberList = computed(()=> store.getters.studyMemberList)
+        const data = reactive({
+          studyMemberList: store.getters.studyMemberList
+        })
 
-        return {memberList}
+        return {data}
     }
 }
 </script>

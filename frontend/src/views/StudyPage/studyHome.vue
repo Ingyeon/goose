@@ -1,4 +1,5 @@
 <template>
+{{studyMemberList}}
   <div>
     <!-- 비공개 스터디에서 확인 절차 -->
     <!-- <div v-if="selectedStudy.open == 1 && !state.passwordCheck"> -->
@@ -30,6 +31,7 @@
               스터디 주소 : <span>{{ selectedStudy.url_conf }}</span>
             </div> -->
               <button
+                v-if="isStudyMember"
                 type="modal-button"
                 class="modal-button"
                 style="z-index: 2"
@@ -149,7 +151,7 @@
                 >
                   스터디 구성원
                 </button>
-                <miniMemberList />
+                <miniMemberList :studyMemberList="studyMemberList"/>
               </span>
               <!-- <div class="m-3">
             인원 : {{ selectedStudy.member }}/ {{ selectedStudy.maxmember }}

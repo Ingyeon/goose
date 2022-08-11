@@ -38,7 +38,7 @@
 
               <!-- 카테고리 -->
                 <div class="input-Box">
-                  <label for="selectcategory" class="form-label">카테고리</label>
+                  <label for="selectcategory" class="form-label">사용언어</label>
                   <select v-model="state.credential.category" id="selectcategory" class="form-select" aria-label="Default select example">
                     <!-- <option selected>분류</option> -->
                     <option value="" selected>선택해주세요</option>
@@ -62,8 +62,8 @@
 
             <!-- 비공개방일시 비밀번호 -->
             <div v-if="state.credential.open==1" class="input-Box">
-              <label for="floatingPassword" class="form-label">Password</label>
-              <input v-model="state.credential.password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+              <label for="floatingPassword" class="form-label">비밀번호</label>
+              <input v-model="state.credential.password" type="password" class="form-control" id="floatingPassword" placeholder="비밀번호">
             <!-- <label for="floatingPassword" class="form-label">Password</label> -->
             </div>
 
@@ -89,7 +89,7 @@
           <!-- 모달 바디 끝 -->
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
       </div>
     </div>
   </div>
