@@ -7,8 +7,6 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        {{studyMemberList}}
-        <button @click="patch">ㅇㅇ</button>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -35,19 +33,15 @@
 </template>
 
 <script>
-import { computed, onMounted, reactive } from '@vue/runtime-core'
+import { computed } from '@vue/runtime-core'
 import { useStore } from 'vuex'
 export default {
     setup(){
         const store = useStore()
-        const data = reactive({
-          studyMemberList: store.getters.studyMemberList
-        })
+        
         const studyMemberList = computed(()=>store.getters.studyMemberList)
-        const patch = ()=>{
-          data.studyMemberList = store.getters.studyMemberList
-        }
-        return {data,studyMemberList,patch}
+        
+        return {studyMemberList}
     },
 
 }

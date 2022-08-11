@@ -1,5 +1,4 @@
 <template>
-{{studyMemberList}}
   <div>
     <!-- 비공개 스터디에서 확인 절차 -->
     <!-- <div v-if="selectedStudy.open == 1 && !state.passwordCheck"> -->

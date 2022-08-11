@@ -230,26 +230,9 @@ export default {
         headers: getters.authHeader,
       })
       .then((res) => {
-        let studyMemberList = []
-        for (let member of res.data){
-          axios({
-            url: rest.user.get_user(member.user_id),
-            method: "get",
-            params:{userId:member.user_id}
-          })
-          .then((res)=>{
-            if(res.data.info){member["info"]=res.data.info}
-            else{member["info"]=""}
-            studyMemberList.push(member)
-            console.log(studyMemberList)
-            commit("SET_STUDY_MEMBER_LIST", studyMemberList);
-            console.log("?????",getters.studyMemberList)
-            dispatch("findStudyManager");
-          })
-        }
+        commit("SET_STUDY_MEMBER_LIST", res.data);
+        dispatch("findStudyManager");
       })
-      .then(() => {
-      });
     },
 
     joinList({ getters, dispatch }) {
