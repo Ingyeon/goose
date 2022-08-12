@@ -10,7 +10,10 @@
       <div class="modal-body">
         <!-- 디테일 -->
         <div class="box" v-if="state.type==0">
-          <h4 class="fw-bold">내용</h4>
+          <div class="d-flex justify-content-between">
+            <h4 class="fw-bold">내용</h4>
+            <p>{{ article.name }}</p>
+          </div>
           <hr>
           <div class="container">
             <div class="content">

@@ -10,6 +10,7 @@
                 <th>아이디</th>
                 <th>자기소개</th>
                 <th>스터디 가입 날짜</th>
+                <th>강퇴</th>
             </tr>
         </thead>
         <memberItemVue v-for="item in memberList" :key="item.id" :item="item"/>

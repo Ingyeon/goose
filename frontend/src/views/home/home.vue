@@ -49,6 +49,7 @@
         </li>
         <li>
           <button
+            v-if="isLoggedIn"
             id="me-study"
             class="btn btn-3 hover-border-3"
             @click.prevent="me_study"
@@ -71,7 +72,7 @@ import myStudyList from "@/components/mainpage/myStudyList.vue";
 import articleList from "./component/articleList.vue";
 import FAQ from '@/components/mainpage/FAQ.vue'
 import { useStore } from "vuex";
-import { reactive } from "vue";
+import { computed, reactive } from "vue";
 
 export default {
   components: {
@@ -110,7 +111,9 @@ export default {
     if (store.getters.isLoggedIn) {
       store.dispatch("myStudyList");
     }
-    return { store, state, hire_study, me_study };
+
+    const isLoggedIn = computed(()=> store.getters.isLoggedIn)
+    return { store, state, hire_study, me_study,isLoggedIn };
   },
 };
 </script>

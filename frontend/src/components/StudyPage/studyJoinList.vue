@@ -7,7 +7,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <studyJoinListItem v-for="item in studyJoinList" :key="item.id" :item="item"/>
+        <studyJoinListItem v-for="item in studyJoinList" :key="item.id" :item="item" class="my-1"/>
         <div v-if="!studyJoinList">참가 신청이 없습니다</div>
       </div>
       <div class="modal-footer">

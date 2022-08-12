@@ -14,14 +14,6 @@
           </div>
           <div class="container">
             <form>
-              <!-- 공개스터디, 비공개 스터디 -->
-              <div class="input-Box">
-                <label class="form-label">공개 여부</label>
-                <select v-model="state.credential.open" class="form-select" aria-label="Default select example">
-                  <option value="0">공개</option>
-                  <option value="1">비공개</option>
-                </select>
-                </div>
             <!-- 최대인원 -->
               <div class="input-Box">
                 <label class="form-label">총원</label>
