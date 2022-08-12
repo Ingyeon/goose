@@ -20,7 +20,7 @@
           </div>
           <div class="d-flex justify-content-end">
             <button v-if="state.type==0 && isWriter" @click.prevent="typeChange" type="button" class="cus-btn-yellow mx-2">수정하기</button>
-            <button v-if="isWriter && state.type==0" @click.prevent="[deleteArticle(),$emit('refresh')]" class="cus-btn-delete mx-2" data-bs-dismiss="modal">삭제하기</button>
+            <button v-if="(isWriter || isStudyManager) && state.type==0" @click.prevent="[deleteArticle(),$emit('refresh')]" class="cus-btn-delete mx-2" data-bs-dismiss="modal">삭제하기</button>
             
           </div>
 
@@ -70,9 +70,9 @@ export default {
           },1000)
         }
         
-        
+        const isStudyManager = computed(()=>store.getters.isStudyManager)
         const isWriter = computed(()=> store.getters.isArticleWriter)
-        return {article,state,typeChange,deleteArticle,isWriter,typeReset}
+        return {article,state,typeChange,deleteArticle,isWriter,typeReset,isStudyManager}
     }
 
 }
