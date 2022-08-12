@@ -141,14 +141,14 @@ export default {
 }
 
 .FAQ {
-  width: 380vh;
+  width: 100%;
   height: 300px;
   background: center no-repeat;
   background-image: url('@/assets/케러셀2.png');
-    background-color: #ffd700;
+  background-color: #ffd700;
   border: 1px solid #ffd700;
   display: flex;
-   background-size: cover;
+  background-size: cover;
 }
 ul[class="button-links"] {
   display: flex;
