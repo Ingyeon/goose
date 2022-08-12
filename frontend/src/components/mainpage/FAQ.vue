@@ -1,21 +1,13 @@
 <template>
-<div class="d-flex justify-content-center">
+<!-- <div class="d-flex justify-content-center"> -->
   <div class="container">
-    <div>
-    </div>
-    <div>
-      <div>
-      <div class="container d-flex justify-content-center">
-      </div>
-      <div class="fix">
-        <h1 class="fw-bold text-center">단칼에 배우는 GOOSE</h1>
-        <h4 class="mt-4 text-center fw-bold">GOOSE를 더욱 알차게 이용하고 싶다면</h4>
-        <h2 class="text-center red fw-bold">클릭!</h2>
-      </div>
+    <div class="container justify-content-center">
+      <h1 class="fw-bold text-center">단칼에 배우는 GOOSE</h1>
+      <h4 class="mt-4 text-center fw-bold">GOOSE를 더욱 알차게 이용하고 싶다면</h4>
+      <h2 class="text-center red fw-bold">클릭!</h2>
       </div>
     </div>
-  </div>
-</div>
+<!-- </div> -->
 </template>
 
 <script>
