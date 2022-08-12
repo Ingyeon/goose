@@ -130,6 +130,7 @@ export default {
     margin-left:0px;
   }
 }
+
 .notice-item {
   width: 100%;
   height: 300px;
@@ -140,13 +141,14 @@ export default {
 }
 
 .FAQ {
-  width: 1600px;
+  width: 380vh;
   height: 300px;
+  background: center no-repeat;
   background-image: url('@/assets/케러셀2.png');
+    background-color: #ffd700;
   border: 1px solid #ffd700;
   display: flex;
-  justify-content: center;
-  background-repeat: no-repeat;
+   background-size: cover;
 }
 ul[class="button-links"] {
   display: flex;
