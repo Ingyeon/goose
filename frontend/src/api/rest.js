@@ -1,4 +1,4 @@
-const HOST = "http://localhost:8080/api/v1/";
+const HOST = "https://i7c209.p.ssafy.io:8080/api/v1/";
 const COMP = "https://api.jdoodle.com/v1/";
 
 const Article = "articles/";

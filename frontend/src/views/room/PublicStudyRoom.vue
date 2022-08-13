@@ -216,7 +216,7 @@ import { useRouter } from "vue-router";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
-const OPENVIDU_SERVER_URL = "https://localhost:4443";
+const OPENVIDU_SERVER_URL = "https://i7c209.p.ssafy.io:4443";
 const OPENVIDU_SERVER_SECRET = "MY_GOOSEGOOSE";
 
 export default {

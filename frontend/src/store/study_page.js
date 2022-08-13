@@ -412,8 +412,8 @@ export default {
     async compile({ dispatch }, code) {
 
       await axios({
-        url: "/v1/execute",
-        // url: "https://cors-anywhere.herokuapp.com/https://api.jdoodle.com/v1/execute",
+        // url: "/v1/execute",
+        url: "https://cors-anywhere.herokuapp.com/https://api.jdoodle.com/v1/execute",
         // url: "https://api.jdoodle.com/v1/execute",
         method: "post",
         data: {

@@ -6,16 +6,12 @@ import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 import com.querydsl.core.types.Path;
 
 
 /**
  * QUser is a Querydsl query type for User
  */
-
 @Generated("com.querydsl.codegen.EntitySerializer")
 public class QUser extends EntityPathBase<User> {
 
@@ -25,19 +21,26 @@ public class QUser extends EntityPathBase<User> {
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
-    public final StringPath department = createString("department");
+    public final NumberPath<Integer> authority = createNumber("authority", Integer.class);
+
+    public final StringPath email = createString("email");
 
     //inherited
     public final NumberPath<Long> id = _super.id;
+
+    public final StringPath info = createString("info");
+
+    public final StringPath interest = createString("interest");
+
+    public final StringPath joinDate = createString("joinDate");
 
     public final StringPath name = createString("name");
 
     public final StringPath password = createString("password");
 
-    public final StringPath position = createString("position");
+    public final StringPath photo = createString("photo");
 
     public final StringPath userId = createString("userId");
-    public final StringPath email = createString("email");
 
     public QUser(String variable) {
         super(User.class, forVariable(variable));
@@ -52,3 +55,4 @@ public class QUser extends EntityPathBase<User> {
     }
 
 }
+
