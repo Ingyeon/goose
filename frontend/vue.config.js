@@ -13,7 +13,6 @@ module.exports = {
 
   devServer: {
     https: true,
-    port: 8083,
     open: true,
     proxy: {
       "/api/v1": {
@@ -21,8 +20,6 @@ module.exports = {
       },
       "/v1/execute": {
         target: "https://api.jdoodle.com/",
-        changeOrigin: true,
-        secure: false,
       },
     },
 
@@ -35,5 +32,4 @@ module.exports = {
   lintOnSave: false,
   // outputDir: "../backend/src/main/resources/dist",
   // outputDir: "/app/dist",
-
 };

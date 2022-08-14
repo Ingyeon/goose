@@ -56,7 +56,7 @@ export default {
     studyManager: (state) => state.studyManager,
     isStudyManager: (state, getters) =>
       state.studyManager.id == getters.loginUser.id,
-    openstudyList: (state) => state.openstudyList ,
+    openstudyList: (state) => state.openstudyList,
     passwordCheck: (state) => state.passwordCheck,
   },
 
@@ -77,9 +77,10 @@ export default {
     SET_RESULT: (state, result) => (state.result = result),
     SET_STUDY_MANAGER: (state, manager) => (state.studyManager = manager),
     SET_RELOADCHECK: (state, reloadCheck) => (state.reloadCheck = reloadCheck),
-    SET_OPENSTUDY_LIST: (state, openstudyList) => (state.openstudyList = openstudyList),
-    SET_IS_STUDY_MEMBER: (state,value) => (state.isStudyMember = value),
-    SET_PASSWORD_CHECK : (state,value) => (state.passwordCheck = value), // selectStudy에서 사용됨
+    SET_OPENSTUDY_LIST: (state, openstudyList) =>
+      (state.openstudyList = openstudyList),
+    SET_IS_STUDY_MEMBER: (state, value) => (state.isStudyMember = value),
+    SET_PASSWORD_CHECK: (state, value) => (state.passwordCheck = value), // selectStudy에서 사용됨
   },
 
   actions: {
@@ -126,15 +127,19 @@ export default {
         headers: getters.authHeader,
       })
         .then((res) => {
-          if (res.data.id != getters.selectedStudy.id){
-            commit("SET_PASSWORD_CHECK",false)
+          if (res.data.id != getters.selectedStudy.id) {
+            commit("SET_PASSWORD_CHECK", false);
           }
           commit("SET_SELECTED_STUDY", res.data);
           dispatch("saveStudyMemberList", res.data.id);
         })
         .then(() => {
           dispatch("joinList");
-          dispatch("getStudyArticleList",{category:null,page:1,title:null})
+          dispatch("getStudyArticleList", {
+            category: null,
+            page: 1,
+            title: null,
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -228,11 +233,10 @@ export default {
         url: rest.study.study_member_list(id),
         method: "get",
         headers: getters.authHeader,
-      })
-      .then((res) => {
+      }).then((res) => {
         commit("SET_STUDY_MEMBER_LIST", res.data);
         dispatch("findStudyManager");
-      })
+      });
     },
 
     joinList({ getters, dispatch }) {
@@ -274,13 +278,13 @@ export default {
           headers: getters.authHeader,
           data: credential,
         })
-        .then((res) => {
-          dispatch("joinList");
-          dispatch("saveStudyMemberList", credential.study_pk);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+          .then((res) => {
+            dispatch("joinList");
+            dispatch("saveStudyMemberList", credential.study_pk);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
     },
 
@@ -299,7 +303,7 @@ export default {
       commit("SET_CHOICE_IMG", imgurl);
     },
 
-    dropOutStudy({ getters,dispatch }, user_pk) {
+    dropOutStudy({ getters, dispatch }, user_pk) {
       axios({
         url: rest.study.study_member_out(),
         method: "delete",
@@ -308,10 +312,9 @@ export default {
           study_pk: getters.selectedStudy.id,
           user_pk: user_pk,
         },
-      })
-      .then((res) => {
-        dispatch('saveStudyMemberList',getters.selectedStudy.id)
-      })
+      }).then((res) => {
+        dispatch("saveStudyMemberList", getters.selectedStudy.id);
+      });
       // .catch((err)=>console.log("에러내용:",err))
     },
 
@@ -410,10 +413,9 @@ export default {
 
     // 컴파일러
     async compile({ dispatch }, code) {
-
       await axios({
         // url: "/v1/execute",
-        url: "https://cors-anywhere.herokuapp.com/https://api.jdoodle.com/v1/execute",
+        url: "https://goose-anywhere.herokuapp.com/https://api.jdoodle.com/v1/execute",
         // url: "https://api.jdoodle.com/v1/execute",
         method: "post",
         // headers: {
@@ -423,7 +425,7 @@ export default {
         data: {
           clientId: "683c1c7ad02b383e183ce75fb4258278",
           clientSecret:
-            "48d14c2f3257a101345589019219ae6a4b94a59502add15eb4bef43c0544ed83",
+            "6a7053a6c5350658a29b8b5228c9de7b84b32d4b764c514fe0e47cc8b1e098ef",
           script: code.script,
           versionIndex: "0",
           language: code.language,
@@ -464,16 +466,17 @@ export default {
       }
     },
 
-    passwordCheck({getters,commit},password){
-      if(password == getters.selectedStudy.password){
-        alert(`${getters.selectedStudy.title}에 오신걸 환영합니다`)
-        commit("SET_PASSWORD_CHECK",true)
+    passwordCheck({ getters, commit }, password) {
+      if (password == getters.selectedStudy.password) {
+        alert(`${getters.selectedStudy.title}에 오신걸 환영합니다`);
+        commit("SET_PASSWORD_CHECK", true);
+      } else {
+        alert("비밀번호가 틀렸습니다.");
       }
-      else{alert("비밀번호가 틀렸습니다.")}
     },
 
-    resetPasswordCheck({commit}){
-      commit("SET_PASSWORD_CHECK",false)
-    }
+    resetPasswordCheck({ commit }) {
+      commit("SET_PASSWORD_CHECK", false);
+    },
   },
 };
