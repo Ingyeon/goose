@@ -77,9 +77,9 @@ export default {
                 commit("SET_COMMENT_PAGE",1)
                 dispatch("getComment",{articlePk:getters.selectedArticle.id ,id:null, page:1})
             })
-            // .catch((err)=>{
-            //     console.log(err)
-            // })
+            .catch((err)=>{
+                console.log(err)
+            })
         },
 
        async createStudyArticle({getters,dispatch},credential){
@@ -92,9 +92,9 @@ export default {
         .then((res)=>{
             dispatch('getStudyArticleList',{category:credential.category, page:1,  studyPk:getters.selectedStudy.id, title:null})
         })
-        // .catch((err)=>{
-        //     console.log(err)
-        // })
+        .catch((err)=>{
+            console.log(err)
+        })
 
        },
 
@@ -107,12 +107,11 @@ export default {
             params: {id:getters.selectedArticle.id}
         })
         .then((res)=>{
-            // console.log(res)
             dispatch('getStudyArticleList',{category:null,page:1,title:null})
         })
-        // .catch((err)=>{
-        //     console.log(err)
-        // })
+        .catch((err)=>{
+            console.log(err)
+        })
        },
 
        deleteStudyArticle({getters,dispatch}){
@@ -176,9 +175,9 @@ export default {
                 .then((res)=>{
                     dispatch('getComment',{articlePk:getters.selectedArticle.id,page:1})
                 })
-                // .catch((err)=>{
-                //     console.log(err)
-                // })
+                .catch((err)=>{
+                    console.log(err)
+                })
             }
         },
 
@@ -191,11 +190,9 @@ export default {
             params: {id:credential.id}
         })
         .then((res)=>{
-            console.log("댓글 수정 완료")
             dispatch('getComment',{articlePk:getters.selectedArticle.id ,id:null, page:1})
         })
         .catch((err)=>{
-            console.log("댓글 수정 실패")
             console.log(err)
         })
        }

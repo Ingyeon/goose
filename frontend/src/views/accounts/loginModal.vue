@@ -75,13 +75,11 @@ export default {
     }
     const clickLogin = async function(){
       // dispatch 함수명 바뀔 경우 아래줄 수정
-      console.log(state.form.id, state.form.password)
       await store.dispatch('login',{id: state.form.id, password: state.form.password})
         
       router.push()
       .then(function (result){
         
-        console.log(result)
       })
       .catch(function(err){
           alert(err)

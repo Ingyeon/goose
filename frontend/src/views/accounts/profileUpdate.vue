@@ -93,16 +93,12 @@ export default {
                 // console.log('then')
                 updateprofile()
                 alert('프로필이 변경되었습니다.')})
-            console.log(store.getters.loginUser.photo)
-            
-            console.log(store.getters.loginUser.info)
             // updateprofile()
 
             // console.log(store.getters.loginUser.info)
         }
         
         const BackProfile = function() {
-            console.log(store.getters.loginUser)
             router.push({name:"UserProfile"})
         }
         // const checkOnlyOne = function(element) {

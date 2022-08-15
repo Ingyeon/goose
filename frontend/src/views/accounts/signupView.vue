@@ -88,7 +88,6 @@ export default {
                 alert('중복되거나 올바르지 않은 양식이 있습니다.')
                 return
             }
-            console.log(state.form.id, state.form.password1, state.form.name, state.form.interest, state.form.email  )
             store.dispatch('signup',{
                 "email":state.form.email,
                 "id":state.form.id,
@@ -120,11 +119,9 @@ export default {
                             method: 'get',
                             url: `/users/{userId}?userId=${state.form.id}`
                         })
-                        console.log(data.status)
                         state.idCommonFlag = true
                     } catch(err) {
                         state.idCommonFlag = false
-                        console.log(err.status)
                     }
                 }
                 
@@ -176,7 +173,6 @@ export default {
                     if (email_data.data==="OK") {
                         state.emailCommonFlag = false
                     } else {
-                        console.log(email_data)
                         state.emailCommonFlag = true
                     }
                     } catch(err) {

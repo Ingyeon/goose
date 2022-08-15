@@ -93,14 +93,12 @@ export default {
     },
 
     async saveOpenList({ commit, getters }) {
-      console.log("액시오스전");
       await axios({
         url: rest.study.open_study(),
         method: "get",
         headers: getters.authHeader,
       })
         .then((res) => {
-          console.log(res);
           commit("SET_OPENSTUDY_LIST", res.data);
         })
         .catch((err) => {
@@ -109,7 +107,6 @@ export default {
     },
 
     select_one({ commit, getters }, id) {
-      console.log("진입 ");
       axios({
         url: rest.study.study_search(id),
         method: "get",
@@ -117,7 +114,6 @@ export default {
       }).then((res) => {
         commit("SET_SELECTED_STUDY", res.data);
       });
-      console.log(getters.selectedStudy);
     },
 
     async selectStudy({ commit, getters, dispatch }, id) {

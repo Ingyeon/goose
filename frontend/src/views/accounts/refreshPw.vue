@@ -45,7 +45,6 @@ export default {
                     method: 'get',
                     url: `/users/findpw?email=${status.email}&userId=${status.id}`
                 })
-                console.log(data)
                 router.push({name:{}})
             }
             catch(err){

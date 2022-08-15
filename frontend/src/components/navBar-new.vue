@@ -84,7 +84,6 @@ export default {
         photo: ''
       })
       const clickLogout = function(){
-        console.log(store.getters.loginUser)
         store.dispatch("logout")
         alert('로그아웃 되었습니다.')
       }

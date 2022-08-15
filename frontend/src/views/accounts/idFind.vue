@@ -57,7 +57,6 @@ export default {
         const FindForm = () => {
             store.dispatch("findId", {"email": status.email, "name": status.name})
             .then(() =>{
-                console.log(status)
                 status.validcheck = 1
         })
         }

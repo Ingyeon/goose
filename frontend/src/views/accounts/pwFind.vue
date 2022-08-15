@@ -73,7 +73,6 @@ export default {
                     method: 'get',
                     url:`/users/findpw?email=${status.email}&userId=${status.id}`,
                 })
-                console.log(data)
                 alert('인증되었습니다.')
                 status.validcheck = 1
             }

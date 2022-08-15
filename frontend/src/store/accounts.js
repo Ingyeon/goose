@@ -68,23 +68,16 @@ export default {
         },
 
         signup({ commit,dispatch}, credentials){
-            console.log("엑시오스 하기 전")
-            console.log(credentials)
             axios({
                 url: rest.user.user(),
                 method: 'post',
                 data: credentials
             })
             .then(res => {
-                console.log(res.data)
                 const token = res.data.accessToken
                 dispatch('saveToken', token)
             })
             .catch(err => {
-                // console.log(url)
-                console.log('catch')
-                console.log(err)
-                // console.error(err.response.data)
                 commit('SET_AUTH_ERROR', err.response.data)
             })
         },
@@ -96,9 +89,7 @@ export default {
                 method: 'get',
                 headers: getters.authHeader,
               })
-                .then(res =>{
-                    commit('SET_LOGIN_USER', res.data)
-                    console.log("로긴 유저 업뎃 완료")}
+                .then(res =>{commit('SET_LOGIN_USER', res.data)}
                 )
                 .catch(err => {
                   if (err.response.status === 401) {
@@ -119,9 +110,8 @@ export default {
             .then(res => {
                 commit('SET_TARGET_USER', res.data)
             })
-            .catch(err => {
-                console.log( err,'오류')
-            })
+            // .catch(err => {
+            // })
         },
 
         logout({commit, dispatch}) {
@@ -146,7 +136,6 @@ export default {
             }
             )
             .then((result) => {
-                console.log(password)
                 if (result.isConfirmed) {
                     axios({
                         url : rest.user.user(),
@@ -171,8 +160,6 @@ export default {
             })
         },
         profileUpdate({getters,dispatch, commit},userform_data) {
-            console.log('액시오스 전')
-            console.log(userform_data)
             axios({
                 url: rest.user.user(),
                 method: 'patch',
@@ -180,20 +167,16 @@ export default {
                 headers: getters.authHeader
             })
             .then(res=>{
-                // console.log(res.config.data)
                 dispatch('fetchLoginUser')
                 commit('SET_PROFILE_DETAIL', res.config.data)
                 router.push({
                     name: "UserProfile"
                 })
             })
-            .catch(err=> {
-                console.log(err)
-            })
+            // .catch(err=> {
+            // })
         },
         passwordUpdate({getters, dispatch, commit},passwordform_data) {
-            console.log('액시오스 전')
-            console.log(passwordform_data)
             axios({
                 url: rest.user.user_passwordupdate(),
                 method: 'patch',
@@ -210,12 +193,9 @@ export default {
             })
             .catch(err=>{
                 alert('기존의 비밀번호와 다른 비밀번호입니다.')
-                console.log(err)
             })
         },
         findId({dispatch, commit}, data) {
-            console.log('액시오스 전')
-            console.log(data)
             axios({
                 url: rest.user.user_findid(data.email, data.name),
                 method: 'get',
@@ -224,19 +204,14 @@ export default {
             })
             .then(res=>{
                 alert(`찾으시는 아이디는 ${res.data}입니다.`)
-                console.log(res)
                 commit('SET_FIND_ID', res.data)
                 
             })
             .catch(err=>{
                 alert('이름과 이메일을 확인해주세요')
-                console.log('에러')
-                console.log(err)
             })
         },
         refreshPassword({getters}, data) {
-            console.log('액시오스 전')
-            console.log(data)
             axios({
                 url: rest.user.user_findpw(),
                 method: 'patch',
@@ -244,34 +219,11 @@ export default {
                 headers: getters.authHeader,
             })
             .then(res=>{
-                console.log(res)
                 alert('비밀번호가 재발급되었습니다.')
                 router.push({name:'Home'})
             })
             .catch(err=>{
-                // alert('이름과 이메일을 확인해주세요')
-                console.log('에러')
                 console.log(err)
             })
         }
-    // profileUpdate({ getters, dispatch, commit }, userform_data) {
-    //   console.log("액시오스 전");
-    //   axios({
-    //     url: rest.user.user(),
-    //     method: "patch",
-    //     data: userform_data,
-    //     headers: getters.authHeader,
-    //   })
-    //     .then((res) => {
-    //       // console.log(res.config.data)
-    //       dispatch("fetchLoginUser");
-    //       commit("SET_PROFILE_DETAIL", res.config.data);
-    //       router.push({
-    //         name: "UserProfile",
-    //       });
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // }
 }}

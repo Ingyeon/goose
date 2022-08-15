@@ -103,21 +103,16 @@ export default {
         // const replyArticle = computed(() => store.getters.myReplyList)
         // myReplies()
 
-        console.log(state.photo)
         const changeProfile = function() {
             router.push({name:'ProfileUpdate'})
-            console.log(state.photo)
         }
         const savePhoto = function() {
             if (store.getters.loginUser.photo === '../../assets/profile1.png') {
-              console.log("야구")
               state.profilephoto = profile1
             } 
             else if (store.getters.loginUser.photo === '../../assets/profile2.jpg') {
-              console.log("커피")
               state.profilephoto = profile2
             } else {
-              console.log("노말")
               state.profilephoto = profile4
             }
          }

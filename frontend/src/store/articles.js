@@ -86,7 +86,6 @@ export default {
                 }
             })
             .then(res => {
-                console.log(res.data)
                 commit('SET_TOTALPAGE',res.data.totalPages)
                 commit('SET_ARTICLES',res.data.content
                 )
@@ -125,7 +124,6 @@ export default {
                 headers: getters.authHeader,
             })
             .then(res => {
-                console.log(res.data.title)
                 commit('SET_ARTICLE', res.data)
                 dispatch('selectStudy',res.data.study_pk)}
                 )
@@ -184,7 +182,6 @@ export default {
                 headers: getters.authHeader,
             })
             .then(res => {
-                console.log(res)
                 // 생성 후 바로 상세 페이지 가려면 res 데이터에 article_pk 값 받아올 수 있어야 함 / 백앤드?
                 router.push({path:`/articles/`})
             })
@@ -215,7 +212,6 @@ export default {
                         headers: {'Authorization' : getters.authHeader.Authorization, 'id':id},
                     })
                     .then(() => {
-                        console.log('성공')
                         commit('SET_ARTICLE', {})
                         router.push({
                             name: 'Articles'})                    
@@ -232,11 +228,10 @@ export default {
                 data: reply_data,
                 headers: getters.authHeader,
             })
-            .then(res => {
-            })
+            // .then(res => {
+            // })
             .catch(err => 
-                console.log('실패'))
-            
+                console.log(err))
         },
 
         deleteReply({dispatch, getters},id){
@@ -281,14 +276,11 @@ export default {
         },
 
         Repliesnation({  commit }, reply_data){
-            console.log(reply_data)
-            console.log('위')
             axios.get(rest.articles_reply.reply_crud(),{
                 params:{
                     articlePk:reply_data.articlePk,
                     page: reply_data.page}})
             .then(res => {
-                console.log(res.data.content)
                 commit('SET_TOTALREPLIES',res.data.totalPages)
                 commit('SET_REPLIES',res.data.content)
             })

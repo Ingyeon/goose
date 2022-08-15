@@ -55,8 +55,6 @@ export default {
     }
     changePhoto()
     const open_set = function(){
-      console.log('시작')
-      console.log(openstudyList)
       store.dispatch('saveOpenList')
     }
     
@@ -65,7 +63,6 @@ export default {
     };
 
      const clickbtn = async function (studyId) {
-      // console.log(">mmm>>>>>>>>>", studyId)
       await fetchStudyHome(studyId);
       router.push({ name: "PublicStudyRoom" });
     };
