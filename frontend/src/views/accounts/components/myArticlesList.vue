@@ -20,7 +20,7 @@ export default {
         form: store.getters.loginUser
     })
     const myArticles = function(){
-        store.dispatch('filterArticles',state.form)
+        store.dispatch('myArticles',state.form)
     }
     myArticles()
 

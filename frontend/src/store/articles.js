@@ -138,6 +138,7 @@ export default {
                 console.error(err.response)
                 router.push({name:'ArticleList'})})
             },
+
         // 프로필에서 댓글 단 글 조회시 사용할 용도
         // fetchArticle2({ commit, getters }, id){
         //     axios({
@@ -149,6 +150,29 @@ export default {
         //         commit('ADD_MY_REPLY_LIST',{id:res.data.id ,title:res.data.title})
         //     })
         // },
+
+
+        myArticles({commit,getters}, form){
+            axios({
+                // 필터 된 상황에서의 페이지 네이션 생각해보기
+                url: rest.article.article_list(1),
+                method: 'get',
+                headers: getters.authHeader,
+                params: {
+                    title: form.title,
+                    userPk: form.id
+                }
+            })
+            .then(res => {
+                commit('SET_TOTALPAGE',res.data.totalPages)
+                commit('SET_ARTICLES',res.data.content
+                )
+            
+            })
+            .catch(err => 
+                {console.log(err)})
+
+        },
         
         
         
