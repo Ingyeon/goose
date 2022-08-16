@@ -97,10 +97,21 @@ sudo letsencrypt certonly --standalone -d 제외한 도메인 이름
 openssl pkcs12 -export -in fullchain.pem -inkey privkey.pem -out keystore.p12 -name airpageserver -CAfile chain.pem -caname root
 ```
 
-##### (docker compose)
+##### docker compose
 
 ```sh
-###### 미작성
+# openvidu 설치
+sudo curl https://s3-eu-west-1.amazonaws.com/aws.openvidu.io/install_openvidu_latest.sh | bash
+
+# .env 파일 수정
+vi .env
+
+# openvidu 서버 시작
+sudo ./openvidu start
+# openvidu 서버 종료
+sudo ./openvidu stop
+# openvidu 서버 재시작
+sudo ./openvidu restart
 ```
 
 
